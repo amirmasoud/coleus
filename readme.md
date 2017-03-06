@@ -46,6 +46,6 @@ Coming soon...
 | id      | primary key |  |
 | name      | string |   |
 | url      | string |   |
-| extra      | text | store extra serialized information of author |
+| extra      | text | store extra serialized information of publisher |
 | created_at | timestamps | |
 | updated_at | timestamps | |
