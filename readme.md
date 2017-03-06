@@ -40,3 +40,12 @@ Coming soon...
 | approved      | boolean | publishers can add authors, before their author appear, he/she shall be approved |
 | created_at | timestamps | |
 | updated_at | timestamps | |
+
+| publishers | | |
+| ------------- |:-------------:| -----:|
+| id      | primary key |  |
+| name      | string |   |
+| url      | string |   |
+| extra      | text | store extra serialized information of author |
+| created_at | timestamps | |
+| updated_at | timestamps | |
