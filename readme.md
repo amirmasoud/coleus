@@ -9,7 +9,7 @@ Coming soon...
 `password` string
 `role` enum admin, author, publisher and subscriber default to subscriber
 
-| users |
+| users | | |
 | ------------- |:-------------:| -----:|
 | id      | primary key |  |
 | email      | string, unique      |   |
