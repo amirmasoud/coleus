@@ -9,3 +9,4 @@ Homestead.yaml
 .env
 .php_cs.cache
 .DS_Store
+*.sublime-*
