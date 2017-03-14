@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\Movement;
+use App\Models\Occupation;
 use Illuminate\Database\Eloquent\Model;
 
 class Author extends Model
@@ -20,7 +23,7 @@ class Author extends Model
      */
     public function occupations()
     {
-        return $this->hasMany('App\Occupation');
+        return $this->belongsToMany(Occupation::class);
     }
 
     /**
@@ -28,6 +31,15 @@ class Author extends Model
      */
     public function movements()
     {
-        return $this->hasMany('App\Movement');
+        return $this->belongsToMany(Movement::class);
+    }
+
+    /**
+     * Get the user for the author.
+     * @return Illuminate\Database\Eloquent\Concerns\belongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
