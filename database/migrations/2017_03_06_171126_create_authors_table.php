@@ -21,14 +21,6 @@ class CreateAuthorsTable extends Migration
             $table->foreign('user_id')
                   ->references('id')->on('users')
                   ->onDelete('cascade');
-            $table->integer('occupation_id')->unsigned();
-            $table->foreign('occupation_id')
-                  ->references('id')->on('occupations')
-                  ->onDelete('cascade');
-            $table->integer('movement_id')->unsigned()->nullable();
-            $table->foreign('movement_id')
-                  ->references('id')->on('movements')
-                  ->onDelete('cascade');
             $table->text('extra')->nullable();
             $table->boolean('approved')->default(false);
             $table->timestamps();
