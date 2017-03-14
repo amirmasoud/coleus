@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Author;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -26,4 +27,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get the author for the user.
+     * @return Illuminate\Database\Eloquent\Concerns\hasOne
+     */
+    public function author()
+    {
+        return $this->hasOne(Author::class);
+    }
 }
