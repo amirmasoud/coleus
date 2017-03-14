@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Movement;
 use Illuminate\Database\Eloquent\Model;
 
 class Movement extends Model
@@ -14,4 +15,12 @@ class Movement extends Model
     protected $fillable = [
         'name',
     ];
+
+    /**
+     * The movements that belong to the author.
+     */
+    public function movements()
+    {
+        return $this->belongsToMany(Movement::class);
+    }
 }
