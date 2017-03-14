@@ -14,7 +14,6 @@ class CreateBookCategoryTable extends Migration
     public function up()
     {
         Schema::create('book_category', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('book_id')->unsigned();
             $table->foreign('book_id')
                   ->references('id')->on('books')
@@ -23,7 +22,6 @@ class CreateBookCategoryTable extends Migration
             $table->foreign('category_id')
                   ->references('id')->on('categories')
                   ->onDelete('cascade');
-            $table->timestamps();
         });
     }
 
