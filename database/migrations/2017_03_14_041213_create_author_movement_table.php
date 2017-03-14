@@ -14,7 +14,6 @@ class CreateAuthorMovementTable extends Migration
     public function up()
     {
         Schema::create('author_movement', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('author_id')->unsigned();
             $table->foreign('author_id')
                   ->references('id')->on('authors')
@@ -23,7 +22,6 @@ class CreateAuthorMovementTable extends Migration
             $table->foreign('movement_id')
                   ->references('id')->on('movements')
                   ->onDelete('cascade');
-            $table->timestamps();
         });
     }
 
