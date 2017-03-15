@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Author;
+use App\Models\Comment;
 use App\Models\Publisher;
 use App\Models\Subscriber;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,5 +56,14 @@ class User extends Authenticatable
     public function subscriber()
     {
         return $this->hasOne(Subscriber::class);
+    }
+
+    /**
+     * Get the comments for the user.
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

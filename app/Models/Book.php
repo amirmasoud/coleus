@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Author;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Publisher;
 use Illuminate\Database\Eloquent\Model;
 
@@ -43,5 +44,14 @@ class Book extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    /**
+     * The comments for the book.
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
