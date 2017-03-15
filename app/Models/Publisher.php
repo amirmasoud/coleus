@@ -24,4 +24,13 @@ class Publisher extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the books for the author.
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
+     */
+    public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
 }
