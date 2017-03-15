@@ -18,6 +18,7 @@ class Occupation extends Model
 
     /**
      * The occupations that belong to the author.
+     * @return Illuminate\Database\Eloquent\Concerns\belongsToMany
      */
     public function occupations()
     {

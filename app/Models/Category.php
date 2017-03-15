@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Book;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
@@ -28,5 +29,14 @@ class Category extends Model
     public function parent()
     {
         return $this->hasOne(Category::class);
+    }
+
+    /**
+     * The books that belong to the category.
+     * @return Illuminate\Database\Eloquent\Concerns\belongsToMany
+     */
+    public function books()
+    {
+        return $this->belongsToMany(Book::class);
     }
 }

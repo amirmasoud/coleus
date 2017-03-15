@@ -18,6 +18,7 @@ class Movement extends Model
 
     /**
      * The movements that belong to the authors.
+     * @return Illuminate\Database\Eloquent\Concerns\belongsToMany
      */
     public function authors()
     {
