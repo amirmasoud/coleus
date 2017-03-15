@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Movement;
+use App\Models\Author;
 use Illuminate\Database\Eloquent\Model;
 
 class Movement extends Model
@@ -17,10 +17,10 @@ class Movement extends Model
     ];
 
     /**
-     * The movements that belong to the author.
+     * The movements that belong to the authors.
      */
-    public function movements()
+    public function authors()
     {
-        return $this->belongsToMany(Movement::class);
+        return $this->belongsToMany(Author::class);
     }
 }

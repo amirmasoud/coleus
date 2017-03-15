@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Models\Author;
-use Illuminate\Notifications\Notifiable;
+use App\Models\Publisher;
+use App\Models\Subscriber;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -35,5 +37,23 @@ class User extends Authenticatable
     public function author()
     {
         return $this->hasOne(Author::class);
+    }
+
+    /**
+     * Get the publisher for the user.
+     * @return Illuminate\Database\Eloquent\Concerns\hasOne
+     */
+    public function publisher()
+    {
+        return $this->hasOne(Publisher::class);
+    }
+
+    /**
+     * Get the subscriber for the user.
+     * @return Illuminate\Database\Eloquent\Concerns\hasOne
+     */
+    public function subscriber()
+    {
+        return $this->hasOne(Subscriber::class);
     }
 }
