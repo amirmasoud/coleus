@@ -21,6 +21,7 @@ class Author extends Model
 
     /**
      * Get the occupations for the author.
+     * @return Illuminate\Database\Eloquent\Concerns\belongsToMany
      */
     public function occupations()
     {
@@ -29,6 +30,7 @@ class Author extends Model
 
     /**
      * Get the movements for the author.
+     * @return Illuminate\Database\Eloquent\Concerns\belongsToMany
      */
     public function movements()
     {
