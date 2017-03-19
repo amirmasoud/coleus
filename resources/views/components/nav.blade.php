@@ -11,7 +11,11 @@
 </div>
 <div id="navbar" class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
+        @if(Auth::check())
+        <li>@include('components.logout')</li>
+        @else
         <li class="#"><a href="{{ route('login') }}">Login</a></li>
         <li class="#"><a href="{{ route('register') }}">Register</a></li>
+        @endif
     </ul>
 </div>
