@@ -13,7 +13,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="#"><a href="#">Link</a></li>
+                <li class="#"><a href="{{ route('login') }}">Login</a></li>
+                <li class="#"><a href="{{ route('register') }}">Register</a></li>
             </ul>
         </div>
     </div>

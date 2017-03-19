@@ -18,14 +18,6 @@
         </div>
     </div>
     <div class="panel panel-default">
-        <div class="panel-heading">تعرفه ها</div>
-        <div class="panel-body">
-            @foreach($products as $product)
-            <p>{{ $product->month }} (۲ کاربره): <b>{{ $product->price }}</b> ریال</p>
-            @endforeach
-        </div>
-    </div>
-    <div class="panel panel-default">
         <div class="panel-heading">آدرس و اخبار جدید</div>
         <div class="panel-body">
             <a class="btn btn-link social-links" href="#" role="button"><i class="fa fa-telegram telegram-color" aria-hidden="true"></i> تلگرام</a>
