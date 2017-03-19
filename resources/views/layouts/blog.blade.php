@@ -24,9 +24,17 @@
     <div class="navbar-wrapper">
         <div class="container">
             @include('components.nav')
+            <div class="row">
+                <div class="col-md-9">
+                @yield('content')
+                </div>
+                @include('components.sidebar')
+            </div>
         </div>
+        <hr>
+        @include('components.footer')
     </div>
-    @yield('content')
+    </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
