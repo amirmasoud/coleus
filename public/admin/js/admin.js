@@ -40849,9 +40849,9 @@ __webpack_require__(37);
 
 // Vue.component('example', require('./components/Example.vue'));
 
-// const app = new Vue({
-//     el: '#app'
-// });
+var app = new Vue({
+  el: '#admin'
+});
 
 /***/ }),
 /* 34 */,
