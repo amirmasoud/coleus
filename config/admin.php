@@ -4,4 +4,5 @@
  */
 return [
     'perPage' => 15,
+    'sliders' => 3,
 ];
