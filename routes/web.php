@@ -15,8 +15,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-});
+// Admin routes
+require base_path('routes/admin/web.php');
 
 Auth::routes();
