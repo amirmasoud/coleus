@@ -16,7 +16,8 @@
 
     <!-- Main content -->
     <section class="content">
-      {{-- @include('components.bootstrap.flash') --}}
+      @include('flash::message')
+      @include('admin.includes.validation')
       @yield('content')
     </section>
   </div>

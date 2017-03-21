@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Slider;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\SliderRequest;
 
 class SliderController extends Controller
 {
@@ -26,18 +26,20 @@ class SliderController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.sliders.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\Admin\SliderRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SliderRequest $request)
     {
-        //
+        Slider::create($request->all());
+        flash('New slider added');
+        return redirect()->route('sliders.index');
     }
 
     /**
@@ -48,7 +50,7 @@ class SliderController extends Controller
      */
     public function show(Slider $slider)
     {
-        //
+        return view('admin.sliders.show', compact('slider'));
     }
 
     /**
@@ -59,19 +61,21 @@ class SliderController extends Controller
      */
     public function edit(Slider $slider)
     {
-        //
+        return view('admin.sliders.edit', compact('slider'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\Admin\SliderRequest  $request
      * @param  \App\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Slider $slider)
+    public function update(SliderRequest $request, Slider $slider)
     {
-        //
+        $slider->fill($request->all())->save();
+        flash('Slider updated.');
+        return redirect()->route('sliders.index');
     }
 
     /**
@@ -82,6 +86,7 @@ class SliderController extends Controller
      */
     public function destroy(Slider $slider)
     {
-        //
+        $slider->delete();
+        return redirect()->route('sliders.index');
     }
 }

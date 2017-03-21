@@ -16,6 +16,7 @@
     "vue": "^2.1.10"
   },
   "dependencies": {
-    "admin-lte": "^2.3.11"
+    "admin-lte": "^2.3.11",
+    "owl.carousel": "^2.2.0"
   }
 }

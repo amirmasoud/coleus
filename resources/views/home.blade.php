@@ -1,7 +1,4 @@
-@extends('layouts.app')
-
+@extends('layouts.blog')
 @section('content')
 @include('components.carousel')
-<hr class="featurette-divider">
-@include('components.footer')
 @endsection

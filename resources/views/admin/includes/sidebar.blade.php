@@ -16,7 +16,7 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="#"><i class="fa fa-dashboard"></i><span> Dashboard</span></a></li>
+            <li class="{{ activeRoute([route('dashboard')]) }}"><a href=""><i class="fa fa-dashboard"></i><span> Dashboard</span></a></li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-book"></i> <span>Book</span>
@@ -42,7 +42,7 @@
             <li><a href="#"><i class="fa fa-puzzle-piece"></i><span> Occupation</span></a></li>
             <li><a href="#"><i class="fa fa-commenting-o"></i><span> Movement</span></a></li>
             <li><a href="#"><i class="fa fa-comment-o"></i><span> Comment</span></a></li>
-            <li><a href="#"><i class="fa fa-clone"></i><span> Slider</span></a></li>
+            <li class="{{ activeRoute([route('sliders.index')]) }}"><a href="{{ route('sliders.index') }}"><i class="fa fa-clone"></i><span> Slider</span></a></li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-cog"></i> <span>Setting</span>
