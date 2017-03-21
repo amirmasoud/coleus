@@ -1,9 +1,9 @@
 @extends('admin.includes.layout')
 @section('title')
-dashboard
+Dashboard
 @endsection
 @section('header')
-Dashboard
+<i class="fa fa-dashboard"></i> Dashboard
 @endsection
 
 @section('breadcrumb')
