@@ -17,23 +17,20 @@
         </script>
     </head>
     <body>
-        <div class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                @include('components.nav')
+        <div id="app">
+            <div class="navbar navbar-default navbar-static-top">
+                <div class="container">
+                    @include('components.nav')
+                </div>
             </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-9">
+            <div class="container">
+                <div class="row">
                     @yield('content')
                 </div>
-                <div class="col-md-3">
-                    @include('components.sidebar')
-                </div>
             </div>
+            <hr>
+            @include('components.footer')
         </div>
-        <hr>
-        @include('components.footer')
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
