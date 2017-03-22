@@ -6,6 +6,7 @@
 Route::group(['namespace' => 'Admin',
               'prefix' => 'admin',
               'middleware' => 'auth'], function () {
-                  require 'sliders.php';
+                  Route::resource('sliders', 'SliderController');
+                  Route::resource('occupations', 'OccupationController');
                   Route::get('dashboard', 'DashboardController@index')->name('dashboard');
               });

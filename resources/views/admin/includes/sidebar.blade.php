@@ -32,23 +32,27 @@
                     <i class="fa fa-user-o"></i> <span>User</span>
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
-                <ul class="treeview-menu">                    
+                <ul class="treeview-menu">
                     <li><a href="#"><i class="fa fa-user"></i><span> Admin</span></a></li>
                     <li><a href="#"><i class="fa fa-pencil"></i><span> Author</span></a></li>
                     <li><a href="#"><i class="fa fa-rocket"></i><span> Publisher</span></a></li>
                     <li><a href="#"><i class="fa fa-bell-o"></i><span> Subscriber</span></a></li>
                 </ul>
             </li>
-            <li><a href="#"><i class="fa fa-puzzle-piece"></i><span> Occupation</span></a></li>
+            <li class="{{ activeRoute([route('occupations.index')]) }}">
+                <a href="{{ route('occupations.index') }}"><i class="fa fa-puzzle-piece"></i><span> Occupation</span></a>
+            </li>
             <li><a href="#"><i class="fa fa-commenting-o"></i><span> Movement</span></a></li>
             <li><a href="#"><i class="fa fa-comment-o"></i><span> Comment</span></a></li>
-            <li class="{{ activeRoute([route('sliders.index')]) }}"><a href="{{ route('sliders.index') }}"><i class="fa fa-clone"></i><span> Slider</span></a></li>
+            <li class="{{ activeRoute([route('sliders.index')]) }}">
+                <a href="{{ route('sliders.index') }}"><i class="fa fa-clone"></i><span> Slider</span></a>
+            </li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-cog"></i> <span>Setting</span>
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
-                <ul class="treeview-menu">                    
+                <ul class="treeview-menu">
                     <li><a href="#"><i class="fa fa-circle-thin"></i><span> General</span></a></li>
                 </ul>
             </li>
