@@ -40857,7 +40857,9 @@ var app = new Vue({
         $('.owl-carousel').owlCarousel({
             center: true,
             items: 1,
-            loop: true
+            loop: true,
+            nav: true,
+            margin: 5
         });
     }
 });

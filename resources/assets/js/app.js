@@ -23,6 +23,8 @@ const app = new Vue({
             center: true,
             items: 1,
             loop: true,
+            nav: true,
+            margin:5
         });
     }
 });

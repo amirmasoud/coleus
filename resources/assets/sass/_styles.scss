@@ -228,3 +228,46 @@ nav.navbar {
 .telegram-color {
   color: #0088cc !important;
 }
+
+/**
+ * Carousel
+ */
+.owl-next, .owl-prev {
+  display: inline;
+  background: $body-bg;
+  border: 1px solid $btn-light-blue-color;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin: 0 5px;
+  &:hover, &:focus {
+    box-shadow: 0px 0px 0px 2px $btn-light-blue-color;
+  }
+}
+
+.owl-nav {
+  text-align: center;
+}
+
+.owl-dot {
+  width: 10px;
+  height: 10px;
+  background: $body-bg;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 15px 5px -10px 5px;
+  &.active {
+    background: $btn-light-blue-color;
+  }
+}
+
+.owl-dots {
+  text-align: center;
+}
+
+.zero-padding-panel {
+  padding: 0px 0px 15px 0px;
+}
+
+.owl-stage-outer {
+  border-radius: 4px;
+}
