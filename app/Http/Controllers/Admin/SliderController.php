@@ -15,7 +15,7 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $sliders = Slider::orderBy('id', 'desc')->paginate(config('admin.perPage'));
+        $sliders = Slider::orderBy('updated_at', 'desc')->paginate(config('admin.perPage'));
         return view('admin.sliders.index', compact('sliders'));
     }
 
