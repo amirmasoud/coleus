@@ -42,7 +42,9 @@
             <li class="{{ activeRoute([route('occupations.index')]) }}">
                 <a href="{{ route('occupations.index') }}"><i class="fa fa-puzzle-piece"></i><span> Occupation</span></a>
             </li>
-            <li><a href="#"><i class="fa fa-commenting-o"></i><span> Movement</span></a></li>
+            <li class="{{ activeRoute([route('movements.index')]) }}">
+                <a href="{{ route('movements.index') }}"><i class="fa fa-commenting-o"></i><span> Movement</span></a>
+            </li>
             <li><a href="#"><i class="fa fa-comment-o"></i><span> Comment</span></a></li>
             <li class="{{ activeRoute([route('sliders.index')]) }}">
                 <a href="{{ route('sliders.index') }}"><i class="fa fa-clone"></i><span> Slider</span></a>
