@@ -17,14 +17,14 @@
         <ul class="sidebar-menu">
             <!-- Optionally, you can add icons to the links -->
             <li class="{{ activeRoute([route('dashboard')]) }}"><a href=""><i class="fa fa-dashboard"></i><span> Dashboard</span></a></li>
-            <li class="treeview">
+            <li class="treeview {{ activeRoute([route('dashboard'), route('categories.index')]) }}">
                 <a href="#">
                     <i class="fa fa-book"></i> <span>Book</span>
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="#"><i class="fa fa-circle-thin"></i> All</a></li>
-                    <li><a href="#"><i class="fa fa-folder-o"></i> Category</a></li>
+                    <li class="{{ activeRoute([route('categories.index')]) }}"><a href="{{ route('categories.index') }}"><i class="fa fa-folder-o"></i> Category</a></li>
                 </ul>
             </li>
             <li class="treeview">
