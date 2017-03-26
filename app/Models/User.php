@@ -66,4 +66,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    /**
+     * Determine given user has the given role.
+     * @param  string  $role
+     * @return boolean
+     */
+    public function hasRole($role)
+    {
+        return $this->role == $role;
+    }
 }

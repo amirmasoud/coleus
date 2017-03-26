@@ -5,7 +5,7 @@
 
 Route::group(['namespace' => 'Admin',
               'prefix' => 'admin',
-              'middleware' => 'auth'], function () {
+              'middleware' => ['auth', 'role:admin']], function () {
                   Route::resource('categories', 'CategoryController');
                   Route::resource('occupations', 'OccupationController');
                   Route::resource('movements', 'MovementController');
