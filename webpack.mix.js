@@ -15,6 +15,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');
 
 mix.js('resources/assets/js/admin.js', 'public/admin/js')
+    .js('resources/assets/js/admin/author.js', 'public/admin/js')
     .sass('resources/assets/sass/admin.scss', 'public/admin/css');
 
 if (mix.config.inProduction) {

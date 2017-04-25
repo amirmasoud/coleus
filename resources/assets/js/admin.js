@@ -14,8 +14,4 @@ require('admin-lte');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// Vue.component('example', require('./components/Example.vue'));
-
-const app = new Vue({
-    el: '#admin'
-});
+// Vue.component('author-extra', require('./components/authors/extra.vue'));

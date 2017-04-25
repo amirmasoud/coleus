@@ -27,14 +27,14 @@
                     <li class="{{ activeRoute([route('categories.index')]) }}"><a href="{{ route('categories.index') }}"><i class="fa fa-folder-o"></i> Category</a></li>
                 </ul>
             </li>
-            <li class="treeview">
+            <li class="treeview {{ activeRoute([route('authors.index')]) }}">
                 <a href="#">
                     <i class="fa fa-user-o"></i> <span>User</span>
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="#"><i class="fa fa-user"></i><span> Admin</span></a></li>
-                    <li><a href="#"><i class="fa fa-pencil"></i><span> Author</span></a></li>
+                    <li class="{{ activeRoute([route('authors.index')]) }}"><a href="{{ route('authors.index') }}"><i class="fa fa-pencil"></i><span> Author</span></a></li>
                     <li><a href="#"><i class="fa fa-rocket"></i><span> Publisher</span></a></li>
                     <li><a href="#"><i class="fa fa-bell-o"></i><span> Subscriber</span></a></li>
                 </ul>
