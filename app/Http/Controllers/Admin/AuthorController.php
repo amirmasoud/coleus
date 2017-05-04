@@ -41,7 +41,7 @@ class AuthorController extends Controller
      */
     public function store(AuthorRequest $request)
     {
-        return $this->bornAnAuthor($request);
+        $this->bornAnAuthor($request);
         flash('New author added');
         return redirect()->route('authors.index');
     }

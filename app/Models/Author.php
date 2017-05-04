@@ -79,7 +79,7 @@ class Author extends Model
     public function age()
     {
         return Carbon::now()->year - 
-        Carbon::createFromFormat('Y-m-d', $this->born)->year;
+            Carbon::createFromFormat('Y-m-d', $this->born)->year;
     }
 
     /**
@@ -92,7 +92,8 @@ class Author extends Model
     {
         $newValue = [];
         for ($i = 0; $i < count($value); $i += 2) {
-            $newValue[$value[$i]] = $value[$i + 1];
+            if ($value[$i] != '' && !is_null($value[$i]))
+                $newValue[$value[$i]] = $value[$i + 1];
         }
         $this->attributes['extra'] = serialize($newValue);
     }

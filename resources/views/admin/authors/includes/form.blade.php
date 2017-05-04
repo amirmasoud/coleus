@@ -23,7 +23,7 @@
         {!! Form::date('born', null, ['class' => 'form-control', 'dir' => 'auto']) !!}
     </div>
 </div>
-<author-extra range="{{ count($author->extra) }}" data="{{ json_encode($author->extra) }}"></author-extra>
+<author-extra range="{{ count(@$author->extra) }}" data="{{ json_encode(@$author->extra) }}"></author-extra>
 <div class="form-group">
     {!! Form::label('approved', 'Approve: ', ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">

@@ -12,8 +12,8 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Ketab',
-    'domain' => 'at',
+    'name' => 'Negar',
+    'domain' => 'in',
 
     /*
     |--------------------------------------------------------------------------
