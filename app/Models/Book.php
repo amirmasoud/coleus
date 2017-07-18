@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cache;
 use App\Models\Author;
 use App\Models\Category;
 use App\Models\Comment;
@@ -16,7 +17,7 @@ class Book extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'pages', 'ISBN', 'price', 'year', 'extra'
+        'title', 'description', 'pages', 'ISBN', 'price', 'year', 'extra', 'author_id', 'publisher_id'
     ];
 
     /**
@@ -53,5 +54,72 @@ class Book extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Set the extra value.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setExtraAttribute($value)
+    {
+        $newValue = [];
+        for ($i = 0; $i < count($value); $i += 2) {
+            if ($value[$i] != '' && !is_null($value[$i])) {
+                if ($value[$i] == 'content') {
+                    $this->attributes['content'] = $value[$i + 1];
+                } else {
+                    $newValue[$value[$i]] = $value[$i + 1];
+                }
+            }
+        }
+        $this->attributes['extra'] = serialize($newValue);
+    }
+
+    /**
+     * Get the extra value.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getExtraAttribute($value)
+    {
+        $extra = unserialize($value);
+        if (!is_null($this->content)) {
+            $extra['content'] = $this->content;
+        }
+        return $extra;
+    }
+
+    public static function cached($book_id, $callback = '')
+    {
+        $cache_key = config('app.name') . '_book_' . $book_id;
+        if ($callback != '') {
+            $cache_key .= '_' . $callback;
+        }
+
+        if (Cache::has($cache_key)) {
+            return Cache::get($cache_key);
+        } else {
+            $value = Book::find($book_id);
+            if ($callback != '') {
+                $content = json_decode($value->content);
+                $value = call_user_func($callback, $content);
+            }
+            Cache::forever($cache_key, $value);
+            return $value;
+        }
+    }
+
+    public static function next($index, $count)
+    {
+        return ($index < $count) ? $index+1 : '#';
+    }
+
+
+    public static function prev($index, $count)
+    {
+        return ($index > 1) ? $index-1 : '#';
     }
 }
