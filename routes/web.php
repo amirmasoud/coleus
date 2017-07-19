@@ -13,7 +13,7 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('authors/{author}/books/', 'AuthorBooksController@index')->name('author.books');
-Route::get('authors/{author}/books/{book}', 'AuthorBooksController@book')->name('author.books.index');
+Route::get('authors/{author}/books/{book}/{section?}', 'AuthorBooksController@book')->name('author.books.index');
 Route::get('authors/{author}/books/{book}/show/{index}', 'AuthorBooksController@show')->name('author.books.show');
 Route::get('hafez/{id}', function($id) {
     $id = $id - 1;

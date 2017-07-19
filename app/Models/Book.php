@@ -64,11 +64,12 @@ class Book extends Model
      */
     public function setExtraAttribute($value)
     {
+        set_time_limit(0);
         $newValue = [];
         for ($i = 0; $i < count($value); $i += 2) {
             if ($value[$i] != '' && !is_null($value[$i])) {
                 if ($value[$i] == 'content') {
-                    $this->attributes['content'] = $value[$i + 1];
+                    Content::batchInsert($value[$i + 1], $this->id);
                 } else {
                     $newValue[$value[$i]] = $value[$i + 1];
                 }
