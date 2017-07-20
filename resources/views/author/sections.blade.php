@@ -6,7 +6,7 @@
         <div class="panel-body">
             @foreach($list as $section)
             <p>
-                <a href="{{ route('author.books.index', ['author'=>$author, 'book'=>$book, 'section'=>$section->id]) }}">{{ $section->value }}</a>
+                <a href="{{ route('author.books.index', ['author'=>$author->id, 'book'=>$book->id, 'section'=>$section->id]) }}">{{ $section->value }}</a>
             </p>
             @endforeach
         </div>

@@ -5,9 +5,9 @@
         <div class="panel-heading"><b>{{ $author->name }}</b> - {{ $book->title }}</div>
         <div class="panel-body">
             @foreach($book_content as $b)
-                <p>
-                    <a href="{{ route('author.books.show', ['author' => $author->id, 'book' => $book->id, 'index'=>$b->key]) }}">غزل شماره {{ $b->key }}</a>
-                </p>
+            <p>
+                <a href="{{ route('reads.show', ['author' => $author->id, 'book' => $book->id, 'index'=>$b->key, 'section'=>@$b->content_id ?? '']) }}">غزل شماره {{ $b->key }}</a>
+            </p>
             @endforeach
         </div>
     </div>

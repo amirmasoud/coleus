@@ -14,7 +14,7 @@
 Route::get('/', 'HomeController@index');
 Route::get('authors/{author}/books/', 'AuthorBooksController@index')->name('author.books');
 Route::get('authors/{author}/books/{book}/{section?}', 'AuthorBooksController@book')->name('author.books.index');
-Route::get('authors/{author}/books/{book}/show/{index}', 'AuthorBooksController@show')->name('author.books.show');
+Route::get('author/{author}/{book}/{index}/{section?}', 'ReadController@show')->name('reads.show');
 Route::get('hafez/{id}', function($id) {
     $id = $id - 1;
     // return (json_decode(\App\Models\Book::first()->content));

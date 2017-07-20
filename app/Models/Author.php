@@ -144,6 +144,11 @@ class Author extends Model
         return (bool) $value;
     }
 
+    /**
+     * Get the author by cache server.
+     * @param  integer $id Author ID
+     * @return \App\Models\Author
+     */
     public static function cached($id)
     {
         $cache_key = config('app.name') . '_author_' . $id;
