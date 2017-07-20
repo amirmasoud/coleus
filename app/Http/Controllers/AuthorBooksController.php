@@ -11,18 +11,6 @@ use Illuminate\Http\Request;
 
 class AuthorBooksController extends Controller
 {
-    /**
-     * Get all books of an author.
-     *
-     * @param  integer $id author ID
-     * @return Illuminate\Http\Response
-     */
-    public function index(Author $author)
-    {        
-        $books = $author->books;
-        return view('author.books', compact('books'));
-    }
-
     public function book($author_id, $book_id, $section = null)
     {
         $author = Author::cached($author_id);

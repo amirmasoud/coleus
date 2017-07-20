@@ -93,23 +93,45 @@ class Book extends Model
         return $extra;
     }
 
-    public static function cached($book_id, $callback = '')
-    {
-        $cache_key = config('app.name') . '_book_' . $book_id;
-        if ($callback != '') {
-            $cache_key .= '_' . $callback;
-        }
+    // public static function cached($book_id, $callback = '')
+    // {
+    //     $cache_key = config('app.name') . '_book_' . $book_id;
+    //     if ($callback != '') {
+    //         $cache_key .= '_' . $callback;
+    //     }
 
+    //     if (Cache::has($cache_key)) {
+    //         return Cache::get($cache_key);
+    //     } else {
+    //         $value = Book::find($book_id);
+    //         if ($callback != '') {
+    //             $content = json_decode($value->content);
+    //             $value = call_user_func($callback, $content);
+    //         }
+    //         Cache::forever($cache_key, $value);
+    //         return $value;
+    //     }
+    // }
+
+    /**
+     * Get the book(s) by cache server.
+     * 
+     * @param  integer $ucid Unique Cache ID
+     * @return \App\Models\Book
+     */
+    public static function cache($ucid)
+    {
+        $cache_key = config('app.name') . '_book_' . $ucid;
         if (Cache::has($cache_key)) {
             return Cache::get($cache_key);
         } else {
-            $value = Book::find($book_id);
-            if ($callback != '') {
-                $content = json_decode($value->content);
-                $value = call_user_func($callback, $content);
+            if ($ucid == '*') {
+                $author = Book::get();
+            } else {
+                $author = Book::find($ucid);
             }
-            Cache::forever($cache_key, $value);
-            return $value;
+            Cache::forever($cache_key, $author);
+            return $author;
         }
     }
 

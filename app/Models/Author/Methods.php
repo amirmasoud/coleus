@@ -32,12 +32,14 @@ trait Methods
             return Cache::get($cache_key);
         } else {
             if ($ucid == '*') {
-                $author = Author::get();
+                $cache_value = Author::get();
+            } else if (strpos($ucid, 'books')) {
+                $cache_value = Author::find(explode('_', $ucid)[0])->books;
             } else {
-                $author = Author::find($ucid);
+                $cache_value = Author::find($ucid);
             }
-            Cache::forever($cache_key, $author);
-            return $author;
+            Cache::forever($cache_key, $cache_value);
+            return $cache_value;
         }
     }
 }

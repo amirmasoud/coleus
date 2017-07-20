@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Book;
-use App\Models\Author;
+use App\Models\Author\Model;
 use App\Models\Publisher;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BookRequest as Request;

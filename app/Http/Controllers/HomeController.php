@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Author;
 use Illuminate\Http\Request;
+use App\Models\Author;
 
 class HomeController extends Controller
 {
@@ -13,9 +13,9 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
-        // TODO: add featured flag to show on home page
-        $authors = Author::get();
+    {
+        Cache::forever()
+        $authors = Author::cache('*');
         return view('home', compact('authors'));
     }
 }
