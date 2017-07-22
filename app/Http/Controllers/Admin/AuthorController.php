@@ -43,7 +43,7 @@ class AuthorController extends Controller
     public function store(AuthorRequest $request)
     {
         $this->bornAnAuthor($request);
-        Cache::forget(config('app.name') . '_author_*')
+        Cache::forget(config('app.name') . '_author_*');
         flash('New author added');
         return redirect()->route('authors.index');
     }
@@ -104,7 +104,8 @@ class AuthorController extends Controller
     public function update(AuthorRequest $request, Author $author)
     {
         $author->fill($request->all())->save();
-        Cache::forget(config('app.name') . '_author_*')
+        Cache::forget(config('app.name') . '_author_*');
+        Cache::forget(config('app.name') . '_author_' . $author->id);
         flash('Author updated.');
         return redirect()->route('authors.index');
     }
