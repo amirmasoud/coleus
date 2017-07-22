@@ -34,6 +34,7 @@ trait Methods
             if ($ucid == '*') {
                 $cache_value = Author::get();
             } else if (strpos($ucid, 'books')) {
+                // {author_id}_books
                 $cache_value = Author::find(explode('_', $ucid)[0])->books;
             } else {
                 $cache_value = Author::find($ucid);

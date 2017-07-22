@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Author\Model as Author;
 use App\Models\Book;
+use App\Models\Author;
 use App\Models\Content;
 use Illuminate\Http\Request;
 
@@ -18,14 +18,17 @@ class ReadController extends Controller
      */
     public function show($author_id, $book_id, $key, $section = null)
     {
-        $author = Author::cached($author_id);
-        $book = Book::cached($book_id);
-        $poem = Content::cachedPoem($key, $book_id, $section);
-        $count = Content::cachedCount($poem->content_id);
-        $next = ($key < $count) ? $key+1 : '#';
-        $prev = ($key > 1) ? $key-1 : '#';
+        $author = Author::cache($author_id);
+        $book = Book::cache($book_id);
+        $poem = Content::cache("{$key}_poem_{$book_id}_book_{$section}_section");
+        //////////
+        $next = Content::cache("{$poem->id}_poem_{$poem->book_id}_book_{$section}_section_next");
+        $prev = Content::cache("{$poem->id}_poem_{$poem->book_id}_book_{$section}_section_prev");
+        // $next = ($key < $count) ? $key+1 : '#';
+        // $prev = ($key > 1) ? $key-1 : '#';
         $poem = json_decode($poem->value);
-        $title = '';
+        $title = (isset($poem->tite)) ? $poem->title : '';
+        unset($poem->title);
         return view('reads.show', compact('poem', 'author', 'book', 'key', 'next', 'prev', 'title', 'section'));
     }
 }

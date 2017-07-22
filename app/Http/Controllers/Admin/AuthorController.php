@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Cache;
 use App\Models\User;
-use App\Models\Author\Model;
+use App\Models\Author;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Admin\AuthorRequest;

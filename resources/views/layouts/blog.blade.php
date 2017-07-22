@@ -25,6 +25,20 @@
             </div>
             <div class="container">
                 <div class="row">
+                    @if (!empty($links = breadcrumb()))
+                    <div class="custom-breadcrumb">
+                        @foreach ($links as $link)
+                        @if ($link['href'] == '#')
+                        <strong><span>{{ $link['name'] }}</span></strong>
+                        @else
+                        <a href="{{ $link['href'] }}"><span>{{ $link['name'] }}</span></a>
+                        @endif
+                        @unless ($link === end($links))
+                        <i class="fa fa-angle-left separator"></i>
+                        @endunless
+                        @endforeach
+                    </div>
+                    @endif
                     @yield('content')
                 </div>
             </div>

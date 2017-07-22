@@ -2,7 +2,7 @@
 @section('content')
 @foreach ($authors as $author)
 <div class="col-xs-6 col-sm-4 col-md-2">
-    <a href="{{ route('author.books', ['id'=>$author->id]) }}">
+    <a href="{{ route('authors.books', ['id'=>$author->id]) }}">
         <div class="thumbnail">
             <img src="{{ asset('covers/' . $author->extra['cover']) }}" class="img-responsive" alt="hafez">
             <div class="caption">

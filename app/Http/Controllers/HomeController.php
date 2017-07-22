@@ -14,7 +14,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        Cache::forever()
         $authors = Author::cache('*');
         return view('home', compact('authors'));
     }
