@@ -5,7 +5,7 @@
 if (! function_exists('convert')) {
     /**
      * Convert string numbers to Persian format.
-     * 
+     *
      * @param  string $string
      * @return string
      */
@@ -111,23 +111,34 @@ if (! function_exists('breadcrumb')) {
                     ]];
                 } else {
                     $section = \App\Models\Content::cache("{$index}_poem_{$book->id}_book_{$section}_section");
-                    return [[
-                        'name' => '<i class="fa fa-home"></i> خانه',
-                        'href' => route('home')
-                    ], [
-                        'name' => $author->name,
-                        'href' => route('authors.books', ['author' => $author->id])
-                    ], [
-                        'name' => $book->title,
-                        'href' => ($book->pages > 1) 
-                                    ? route('books.list', [
-                                        'author' => $author->id, 
-                                        'book' => $book->id])
-                                    : '#'
-                    ], [
-                        'name' => $book->unit . ' شماره ' . convert($section->key) . $section->title,
-                        'href' => '#'
-                    ]];
+                    if ($book->pages == 1) {
+                        return [[
+                            'name' => '<i class="fa fa-home"></i> خانه',
+                            'href' => route('home')
+                        ], [
+                            'name' => $author->name,
+                            'href' => route('authors.books', ['author' => $author->id])
+                        ], [
+                            'name' => $book->title,
+                            'href' => '#'
+                        ]];
+                    } else {
+                        return [[
+                            'name' => '<i class="fa fa-home"></i> خانه',
+                            'href' => route('home')
+                        ], [
+                            'name' => $author->name,
+                            'href' => route('authors.books', ['author' => $author->id])
+                        ], [
+                            'name' => $book->title,
+                            'href' => route('books.list', [
+                                            'author' => $author->id,
+                                            'book' => $book->id])
+                        ], [
+                            'name' => $book->unit . ' شماره ' . convert($section->key) . $section->title,
+                            'href' => '#'
+                        ]];
+                    }
                 }
                 break;
             default:
