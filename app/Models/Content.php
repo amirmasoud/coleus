@@ -144,4 +144,30 @@ class Content extends Model
             }
         }
     }
+
+    /**
+     * Get the title value.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getTitleAttribute($value)
+    {
+        return property_exists($value = json_decode($this->value), 'title')
+            ? ' - ' . $value->title
+            : '';
+    }
+
+    /**
+     * Get the unit value.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getUnitAttribute($value)
+    {
+        return property_exists($value = json_decode($this->value), 'unit')
+            ? $value->unit
+            : 'شعر';
+    }
 }

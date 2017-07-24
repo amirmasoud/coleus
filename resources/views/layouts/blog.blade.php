@@ -31,7 +31,7 @@
                         @if ($link['href'] == '#')
                         <strong><span>{{ $link['name'] }}</span></strong>
                         @else
-                        <a href="{{ $link['href'] }}"><span>{{ $link['name'] }}</span></a>
+                        <a href="{{ $link['href'] }}"><span>{!! $link['name'] !!}</span></a>
                         @endif
                         @unless ($link === end($links))
                         <i class="fa fa-angle-left separator"></i>

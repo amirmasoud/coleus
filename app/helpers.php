@@ -48,6 +48,9 @@ if (! function_exists('breadcrumb')) {
             case 'authors.books':
                 $author = \App\Models\Author::cache(Route::input('author'));
                 return [[
+                    'name' => '<i class="fa fa-home"></i> خانه',
+                    'href' => route('home')
+                ], [
                     'name' => $author->name,
                     'href' => '#'
                 ]];
@@ -58,6 +61,9 @@ if (! function_exists('breadcrumb')) {
                 if (Route::input('section', '') != '') {
                     $section = \App\Models\Content::cache(ROute::input('section'));
                     return [[
+                        'name' => '<i class="fa fa-home"></i> خانه',
+                        'href' => route('home')
+                    ], [
                         'name' => $author->name,
                         'href' => route('authors.books', ['author' => $author->id])
                     ], [
@@ -69,6 +75,9 @@ if (! function_exists('breadcrumb')) {
                     ]];
                 } else {
                     return [[
+                        'name' => '<i class="fa fa-home"></i> خانه',
+                        'href' => route('home')
+                    ], [
                         'name' => $author->name,
                         'href' => route('authors.books', ['author' => $author->id])
                     ], [
@@ -80,9 +89,14 @@ if (! function_exists('breadcrumb')) {
             case 'reads.show':
                 $author = \App\Models\Author::cache(Route::input('author'));
                 $book = \App\Models\Book::cache(Route::input('book'));
-                if (Route::input('section', '') != '') {
-                    $section = \App\Models\Content::cache(ROute::input('section'));
+                $section = Route::input('section', '');
+                $index = Route::input('index', '');
+                if ($section != '') {
+                    $section = \App\Models\Content::cache("{$index}_poem_{$book->id}_book_{$section}_section");
                     return [[
+                        'name' => '<i class="fa fa-home"></i> خانه',
+                        'href' => route('home')
+                    ], [
                         'name' => $author->name,
                         'href' => route('authors.books', ['author' => $author->id])
                     ], [
@@ -92,18 +106,26 @@ if (! function_exists('breadcrumb')) {
                         'name' => $section->value,
                         'href' => route('books.list', ['author' => $author->id, 'book' => $book->id, 'section' => $section->id])
                     ], [
-                        'name' => 'غزل شماره ' . convert(Route::input('index')),
+                        'name' => $section->unit . ' شماره ' . convert($section) . $section->title,
                         'href' => '#'
                     ]];
                 } else {
+                    $section = \App\Models\Content::cache("{$index}_poem_{$book->id}_book_{$section}_section");
                     return [[
+                        'name' => '<i class="fa fa-home"></i> خانه',
+                        'href' => route('home')
+                    ], [
                         'name' => $author->name,
                         'href' => route('authors.books', ['author' => $author->id])
                     ], [
                         'name' => $book->title,
-                        'href' => route('books.list', ['author' => $author->id, 'book' => $book->id])
+                        'href' => ($book->pages > 1) 
+                                    ? route('books.list', [
+                                        'author' => $author->id, 
+                                        'book' => $book->id])
+                                    : '#'
                     ], [
-                        'name' => 'غزل شماره ' . convert(Route::input('index')),
+                        'name' => $book->unit . ' شماره ' . convert($section->key) . $section->title,
                         'href' => '#'
                     ]];
                 }

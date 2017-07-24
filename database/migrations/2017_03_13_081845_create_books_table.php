@@ -29,6 +29,7 @@ class CreateBooksTable extends Migration
             $table->string('ISBN');
             $table->string('price');
             $table->string('year');
+            $table->string('unit');
             $table->text('extra')->nullable();
             $table->timestamps();
         });

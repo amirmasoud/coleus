@@ -2,7 +2,6 @@
 @section('content')
 <div class="col-xs-12">
     <div class="panel panel-default">
-        <div class="panel-heading"><b>{{ $author->name }}</b> - {{ $book->title }} - غزل شماره {{ $key }} - {{ $title }}</div>
         <div class="panel-body">
             @foreach($poem as $p)
                 <div class="b">
@@ -14,10 +13,10 @@
         @unless ($next == '#' && $prev == '#')
         <div class="panel-footer">
             @if ($next != '#')
-            <p class="pull-left"><a href="{{ route('reads.show', ['author' => $author->id, 'book' => $book->id, 'index' => $next, 'section'=>$section]) }}">غزل شماره {{ $key + 1 }} &larr;</a></p>
+            <p class="pull-left"><a href="{{ route('reads.show', ['author' => $author->id, 'book' => $book->id, 'index' => $next, 'section'=>$section]) }}">{{ $book->unit }} شماره {{ convert($key + 1) }} <i class='fa fa-angle-double-left'></i></a></p>
             @endif
             @if ($prev != '#')
-            <p class="pull-right"><a href="{{ route('reads.show', ['author' => $author->id, 'book' => $book->id, 'index' => $prev, 'section'=>$section]) }}">&rarr; غزل شماره {{ $key - 1 }} </a></p>
+            <p class="pull-right"><a href="{{ route('reads.show', ['author' => $author->id, 'book' => $book->id, 'index' => $prev, 'section'=>$section]) }}"><i class='fa fa-angle-double-right'></i> {{ $book->unit }} شماره {{ convert($key - 1) }} </a></p>
             @endif
             <br>
         </div>
