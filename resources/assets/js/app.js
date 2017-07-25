@@ -26,5 +26,10 @@ const app = new Vue({
             nav: true,
             margin:5
         });
+    },
+    methods: {
+      go(url) {
+        window.location = url;
+      }
     }
 });
