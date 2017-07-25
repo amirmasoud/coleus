@@ -92,7 +92,8 @@ if (! function_exists('breadcrumb')) {
                 $section = Route::input('section', '');
                 $index = Route::input('index', '');
                 if ($section != '') {
-                    $section = \App\Models\Content::cache("{$index}_poem_{$book->id}_book_{$section}_section");
+                    $poem = \App\Models\Content::cache("{$index}_poem_{$book->id}_book_{$section}_section");
+                    $section = \App\Models\Content::cache($section);
                     return [[
                         'name' => '<i class="fa fa-home"></i> خانه',
                         'href' => route('home')
@@ -106,7 +107,7 @@ if (! function_exists('breadcrumb')) {
                         'name' => $section->value,
                         'href' => route('books.list', ['author' => $author->id, 'book' => $book->id, 'section' => $section->id])
                     ], [
-                        'name' => $section->unit . ' شماره ' . convert($section) . $section->title,
+                        'name' => $poem->unit . ' شماره ' . convert($poem->key) . $poem->title,
                         'href' => '#'
                     ]];
                 } else {

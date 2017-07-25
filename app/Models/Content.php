@@ -84,6 +84,7 @@ class Content extends Model
                                       ->orderBy('key')
                                       ->get();
             } elseif (strpos($ucid, 'section')) {
+                // _content_{$book->id}_book_{$content->value}_section
                 $cache_value = Content::where('type', 'poem')
                                       ->where('book_id', explode('_', $ucid)[0])
                                       ->where('content_id', explode('_', $ucid)[2])
