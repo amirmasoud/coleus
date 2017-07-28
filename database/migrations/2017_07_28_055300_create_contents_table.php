@@ -15,16 +15,11 @@ class CreateContentsTable extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('key');
-            $table->longText('value');
-            $table->string('type');
-            $table->unsignedInteger('book_id');
-            $table->foreign('book_id')
-                  ->references('id')->on('books')
-                  ->onDelete('cascade');
-            $table->unsignedInteger('content_id')->nullable();
-            $table->foreign('content_id')
-                  ->references('id')->on('contents')
+            $table->longText('text');
+            $table->unsignedBigInteger('order')->nullable();
+            $table->unsignedInteger('table_id');
+            $table->foreign('table_id')
+                  ->references('id')->on('tables')
                   ->onDelete('cascade');
             $table->timestamps();
         });
