@@ -11,9 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'HomeController@index');
+Route::get('authors/{author}/books/', 'AuthorBooksController@index')->name('author.books');
+Route::get('authors/{author}/books/{book}', 'AuthorBooksController@book')->name('author.books.index');
+Route::get('authors/{author}/books/{book}/show/{index}', 'AuthorBooksController@show')->name('author.books.show');
+Route::get('hafez/{id}', function($id) {
+    $id = $id - 1;
+    // return (json_decode(\App\Models\Book::first()->content));
+    foreach(json_decode(\App\Models\Book::first()->content)[$id] as $b) {
+        echo '<p>' . $b->m1 . '</p>';
+        echo '<p>' . $b->m2 . '</p>';
+    }
+})->name('hafez');
 
 // Admin routes
 require base_path('routes/admin/web.php');

@@ -28,7 +28,6 @@
                     @yield('content')
                 </div>
             </div>
-            <hr>
             @include('components.footer')
         </div>
     </div>

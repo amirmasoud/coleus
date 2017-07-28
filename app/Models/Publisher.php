@@ -33,4 +33,32 @@ class Publisher extends Model
     {
         return $this->hasMany(Book::class);
     }
+
+    /**
+     * Set the extra value.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setExtraAttribute($value)
+    {
+        $newValue = [];
+        for ($i = 0; $i < count($value); $i += 2) {
+            if ($value[$i] != '' && !is_null($value[$i])) {
+                $newValue[$value[$i]] = $value[$i + 1];
+            }
+        }
+        $this->attributes['extra'] = serialize($newValue);
+    }
+
+    /**
+     * Get the extra value.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getExtraAttribute($value)
+    {
+        return unserialize($value);
+    }
 }

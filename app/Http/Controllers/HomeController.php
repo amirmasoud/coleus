@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,6 +14,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // TODO: add featured flag to show on home page
+        $authors = Author::get();
+        return view('home', compact('authors'));
     }
 }

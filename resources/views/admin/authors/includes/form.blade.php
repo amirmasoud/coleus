@@ -31,13 +31,13 @@
         <div class="form-group">
             <div class="radio">
                 <label>
-                    {!! Form::radio('approved', '1', 'true') !!}
+                    {!! Form::radio('approved', '1', $author->approved) !!}
                     Yes
                 </label>
             </div>
             <div class="radio">
                 <label>
-                    {!! Form::radio('approved', '0', 'false') !!}
+                    {!! Form::radio('approved', '0', !$author->approved) !!}
                     No
                 </label>
             </div>

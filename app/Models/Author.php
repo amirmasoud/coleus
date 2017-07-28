@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cache;
 use App\Models\Book;
 use App\Models\Movement;
 use App\Models\Occupation;
@@ -19,7 +20,8 @@ class Author extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-        'born'
+        'born',
+        'approved'
     ];
 
     /**
@@ -118,5 +120,39 @@ class Author extends Model
     public function getBornAttribute($value)
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $value)->toDateString();
+    }
+
+    /**
+     * Set the approved value.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setApprovedAttribute($value)
+    {
+        $this->attributes['approved'] = (bool) $value;
+    }
+
+    /**
+     * Get the approved value.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getApprovedAttribute($value)
+    {
+        return (bool) $value;
+    }
+
+    public static function cached($id)
+    {
+        $cache_key = config('app.name') . '_author_' . $id;
+        if (Cache::has($cache_key)) {
+            return Cache::get($cache_key);
+        } else {
+            $author = Author::find($id);
+            Cache::forever($cache_key, $author);
+            return $author;
+        }
     }
 }
