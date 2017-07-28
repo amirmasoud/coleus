@@ -18,7 +18,8 @@ Authors
             <div class="box-body" id="book">
                 {!! Form::open(['method' => 'POST', 
                                 'action' => ['Admin\BookController@store'], 
-                                'class' => 'form-horizontal']) !!}
+                                'class' => 'form-horizontal',
+                                'files' => true]) !!}
                 @include('admin.books.includes.form')
                 {!!  Form::close() !!}
             </div>

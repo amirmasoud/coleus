@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Cache;
 use App\Models\Book;
 use App\Models\Author;
 use App\Models\Publisher;
@@ -81,6 +82,8 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $book->fill($request->all())->save();
+        Cache::forget(config('app.name') . '_book_*');
+        Cache::forget(config('app.name') . "_author_{$book->author->id}_books");
         flash('Book updated.');
         return redirect()->route('books.index');
     }

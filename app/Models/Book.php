@@ -17,7 +17,8 @@ class Book extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'pages', 'ISBN', 'price', 'year', 'extra', 'author_id', 'publisher_id'
+        'title', 'description', 'pages', 'ISBN', 'price', 'year', 'extra', 
+        'author_id', 'publisher_id', 'unit'
     ];
 
     /**
@@ -64,11 +65,12 @@ class Book extends Model
      */
     public function setExtraAttribute($value)
     {
+        set_time_limit(0);
         $newValue = [];
         for ($i = 0; $i < count($value); $i += 2) {
             if ($value[$i] != '' && !is_null($value[$i])) {
                 if ($value[$i] == 'content') {
-                    $this->attributes['content'] = $value[$i + 1];
+                    Content::batchInsert($value[$i + 1], $this->id);
                 } else {
                     $newValue[$value[$i]] = $value[$i + 1];
                 }
@@ -92,23 +94,25 @@ class Book extends Model
         return $extra;
     }
 
-    public static function cached($book_id, $callback = '')
+    /**
+     * Get the book(s) by cache server.
+     * 
+     * @param  integer $ucid Unique Cache ID
+     * @return \App\Models\Book
+     */
+    public static function cache($ucid)
     {
-        $cache_key = config('app.name') . '_book_' . $book_id;
-        if ($callback != '') {
-            $cache_key .= '_' . $callback;
-        }
-
+        $cache_key = config('app.name') . '_book_' . $ucid;
         if (Cache::has($cache_key)) {
             return Cache::get($cache_key);
         } else {
-            $value = Book::find($book_id);
-            if ($callback != '') {
-                $content = json_decode($value->content);
-                $value = call_user_func($callback, $content);
+            if ($ucid == '*') {
+                $author = Book::get();
+            } else {
+                $author = Book::find($ucid);
             }
-            Cache::forever($cache_key, $value);
-            return $value;
+            Cache::forever($cache_key, $author);
+            return $author;
         }
     }
 

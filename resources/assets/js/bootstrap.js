@@ -44,3 +44,7 @@ window.axios.defaults.headers.common = {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+
+// Other libraries
+Vue.use(require('vue-shortkey'))

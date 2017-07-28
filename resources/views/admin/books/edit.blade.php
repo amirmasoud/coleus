@@ -20,7 +20,8 @@ book
             <div class="box-body" id="book">
                 {!! Form::model($book, ['method' => 'PATCH',
                                 'action' => ['Admin\BookController@update', $book],
-                                'class' => 'form-horizontal']) !!}
+                                'class' => 'form-horizontal',
+                                'files' => true]) !!}
                 @include('admin.books.includes.form')
                 {!!  Form::close() !!}
             </div>
