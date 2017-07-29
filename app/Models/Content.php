@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Cache;
+use App\Models\Table;
 use App\Models\Content;
 use Illuminate\Database\Eloquent\Model;
 
 class Content extends Model
 {
+
+    protected $fillable = ['text', 'order', 'table_id'];
 
     /**
      *
@@ -111,38 +114,83 @@ class Content extends Model
      */
     public static function batchInsert($content, $book_id)
     {
+        ini_set('max_execution_time', 5*60);
         $content = json_decode($content);
-        if (isset($content->type) && $content->type == 'collection') {
-            $content = $content->collection;
-            $i = 1;
-            foreach ($content as $name => $c) {
-                $content_id = Content::insertGetId([
-                                'key' => $i++,
-                                'value' => $name,
-                                'type' => 'section',
-                                'book_id' => $book_id
-                            ]);
-                $j = 1;
-                foreach ($c as $sh) {
-                    Content::insertGetId([
-                        'key' => $j++,
-                        'value' => json_encode($sh),
-                        'type' => 'poem',
-                        'book_id' => $book_id,
-                        'content_id' => $content_id,
-                    ]);
-                }
-            }
+        $root = self::getRoot($book_id);
+        $parent = self::appendNodeIfNotExists($content, $root);
+        foreach($content->children as $child) {
+            // Insert New Node
+            $table = self::appendNodeIfNotExists($child, $parent);
+            // Insert New Content
+            self::insertContentIfNotExists($child, $table);
+        }
+    }
+
+    /**
+     * Get book ID table of contents. Create new one or return exist one.
+     * @param  integer $book_id
+     * @return \App\Models\Table
+     */
+    protected static function getRoot($book_id)
+    {
+        if (!Table::where('book_id', $book_id)->whereNull('parent_id')->exists()) {
+            return Table::create([
+                'title'   => '',
+                'unit'    => '',
+                'book_id' => $book_id
+            ]);
         } else {
-            $j = 1;
-            foreach ($content as $sh) {
-                Content::insert([
-                    'key' => $j++,
-                    'value' => json_encode($sh),
-                    'type' => 'poem',
-                    'book_id' => $book_id,
-                ]);
-            }
+            return Table::where('book_id', $book_id)
+                ->whereNull('parent_id')->first();
+        }
+    }
+
+    /**
+     * Append a child to the parent.
+     * @param  StdObj $content
+     * @param  \App\Models\Table $parent
+     * @return void
+     */
+    protected static function appendNodeIfNotExists($content, $parent)
+    {
+        if (! Table::where('book_id', $parent->book_id)
+                ->where('title', $content->title)
+                ->where('unit', $content->unit)
+                ->whereNotNull('parent_id')
+                ->exists()) {
+            $node = Table::create([
+                        'title'   => $content->title,
+                        'unit'    => $content->unit,
+                        'book_id' => $parent->book_id
+                    ]);
+            $node->appendToNode($parent)->save();
+            return $node;
+        } else {
+            return Table::where('book_id', $parent->book_id)
+                ->where('title', $content->title)
+                ->where('unit', $content->unit)
+                ->whereNotNull('parent_id')->first();
+        }
+    }
+
+    /**
+     * Insert new content if not exists.
+     * @param  StdObj $child
+     * @param  \App\Models\Table $table
+     * @return void
+     */
+    public static function insertContentIfNotExists($child, $table)
+    {
+        $text = json_encode($child->text);
+        if (! Content::where('order', $child->order)
+                ->where('table_id', $table->id)
+                ->where('text', $text)
+                ->exists()) {
+            Content::create([
+                'text' => $text,
+                'order' => $child->order,
+                'table_id' => $table->id
+            ]);
         }
     }
 
