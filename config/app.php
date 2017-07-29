@@ -174,6 +174,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Cviebrock\EloquentSluggable\ServiceProvider::class,
 
         /*
          * Application Service Providers...
