@@ -10,10 +10,11 @@ use App\Models\Author\Methods;
 use App\Models\Author\Mutators;
 use App\Models\Author\Accessors;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Author extends Model
 {
-    use Mutators, Accessors, Methods;
+    use Mutators, Accessors, Methods, Sluggable;
 
     /**
      * The attributes that should be mutated to dates.
@@ -28,6 +29,20 @@ class Author extends Model
      * @var array
      */
     protected $fillable = ['name', 'born', 'extra'];
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
 
     /**
      * Get the occupations for the author.

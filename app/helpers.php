@@ -65,10 +65,10 @@ if (! function_exists('breadcrumb')) {
                         'href' => route('home')
                     ], [
                         'name' => $author->name,
-                        'href' => route('authors.books', ['author' => $author->id])
+                        'href' => route('authors.books', ['author' => $author->slug])
                     ], [
                         'name' => $book->title,
-                        'href' => route('books.list', ['author' => $author->id, 'book' => $book->id])
+                        'href' => route('books.list', ['author' => $author->slug, 'book' => $book->slug])
                     ], [
                         'name' => $section->value,
                         'href' => '#'
@@ -79,7 +79,7 @@ if (! function_exists('breadcrumb')) {
                         'href' => route('home')
                     ], [
                         'name' => $author->name,
-                        'href' => route('authors.books', ['author' => $author->id])
+                        'href' => route('authors.books', ['author' => $author->slug])
                     ], [
                         'name' => $book->title,
                         'href' => '#'
@@ -92,33 +92,34 @@ if (! function_exists('breadcrumb')) {
                 $section = Route::input('section', '');
                 $index = Route::input('index', '');
                 if ($section != '') {
-                    $poem = \App\Models\Content::cache("{$index}_poem_{$book->id}_book_{$section}_section");
+                    ////////
+                    $poem = \App\Models\Content::cache("{$index}_poem_{$book->id}_book_{$section}_section", $book);
                     $section = \App\Models\Content::cache($section);
                     return [[
                         'name' => '<i class="fa fa-home"></i> خانه',
                         'href' => route('home')
                     ], [
                         'name' => $author->name,
-                        'href' => route('authors.books', ['author' => $author->id])
+                        'href' => route('authors.books', ['author' => $author->slug])
                     ], [
                         'name' => $book->title,
-                        'href' => route('books.list', ['author' => $author->id, 'book' => $book->id])
+                        'href' => route('books.list', ['author' => $author->slug, 'book' => $book->slug])
                     ], [
                         'name' => $section->value,
-                        'href' => route('books.list', ['author' => $author->id, 'book' => $book->id, 'section' => $section->id])
+                        'href' => route('books.list', ['author' => $author->slug, 'book' => $book->slug, 'section' => $section->id])
                     ], [
                         'name' => $poem->unit . ' شماره ' . convert($poem->key) . $poem->title,
                         'href' => '#'
                     ]];
                 } else {
-                    $section = \App\Models\Content::cache("{$index}_poem_{$book->id}_book_{$section}_section");
+                    $section = \App\Models\Content::cache("{$index}_poem_{$book->slug}_book_{$section}_section", $book);
                     if ($book->pages == 1) {
                         return [[
                             'name' => '<i class="fa fa-home"></i> خانه',
                             'href' => route('home')
                         ], [
                             'name' => $author->name,
-                            'href' => route('authors.books', ['author' => $author->id])
+                            'href' => route('authors.books', ['author' => $author->slug])
                         ], [
                             'name' => $book->title,
                             'href' => '#'
@@ -129,14 +130,14 @@ if (! function_exists('breadcrumb')) {
                             'href' => route('home')
                         ], [
                             'name' => $author->name,
-                            'href' => route('authors.books', ['author' => $author->id])
+                            'href' => route('authors.books', ['author' => $author->slug])
                         ], [
                             'name' => $book->title,
                             'href' => route('books.list', [
-                                            'author' => $author->id,
-                                            'book' => $book->id])
+                                            'author' => $author->slug,
+                                            'book' => $book->slug])
                         ], [
-                            'name' => $book->unit . ' شماره ' . convert($section->key) . $section->title,
+                            'name' => convert($section->title),
                             'href' => '#'
                         ]];
                     }

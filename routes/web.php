@@ -11,12 +11,13 @@
 |
 */
 // Admin routes
-require base_path('routes/admin/web.php');
 
 // Auth routes
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('authors/{author}/books/', 'AuthorController@books')->name('authors.books');
-Route::get('authors/{author}/books/{book}/{section?}', 'BookController@list')->name('books.list');
-Route::get('author/{author}/{book}/{index}/{section?}', 'ReadController@show')->name('reads.show');
+Route::get('{author}', 'AuthorController@books')->name('authors.books');
+Route::get('{author}/{book}', 'BookController@list')->name('books.list');
+Route::get('{author}/{book}/sh{index}', 'ReadController@show')->name('reads.show');
+
+require base_path('routes/admin/web.php');

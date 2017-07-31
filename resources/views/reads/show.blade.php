@@ -3,10 +3,10 @@
 <div class="col-xs-12">
     <div class="panel panel-default">
         <div class="panel-body">
-            @foreach($poem as $p)
+            @foreach($content as $c)
                 <div class="b">
-                    <span class="m1">{{ $p->m1 }}</span>
-                    <span class="m2">{{ $p->m2 }}</span>
+                    <span class="m1">{{ $c->m1 }}</span>
+                    <span class="m2">{{ $c->m2 }}</span>
                 </div>
             @endforeach
         </div>
@@ -16,16 +16,14 @@
             <p class="pull-left">
               <a v-shortkey.once="['j']"
                 @shortkey="go('{{ route('reads.show', [
-                                      'author' => $author->id,
-                                      'book' => $book->id,
-                                      'index' => $next,
-                                      'section'=>$section]) }}')"
+                                      'author' => $author->slug,
+                                      'book' => $book->slug,
+                                      'index' => $next->content->order]) }}')"
                 href="{{ route('reads.show', [
-                  'author' => $author->id,
-                  'book' => $book->id,
-                  'index' => $next,
-                  'section'=>$section]) }}">
-                {{ $book->unit }} شماره {{ convert($key + 1) }} <i class='fa fa-angle-double-left'></i>
+                  'author' => $author->slug,
+                  'book' => $book->slug,
+                  'index' => $next->content->order]) }}">
+                {{ convert($next->title) }} <i class='fa fa-angle-double-left'></i>
               </a>
             </p>
             @endif
@@ -33,16 +31,14 @@
             <p class="pull-right">
               <a v-shortkey.once="['k']"
                 @shortkey="go('{{ route('reads.show', [
-                                    'author' => $author->id,
-                                    'book' => $book->id,
-                                    'index' => $prev,
-                                    'section'=>$section]) }}')"
+                                    'author' => $author->slug,
+                                    'book' => $book->slug,
+                                    'index' => $prev->content->order]) }}')"
                 href="{{ route('reads.show', [
-                  'author' => $author->id,
-                  'book' => $book->id,
-                  'index' => $prev,
-                  'section'=>$section]) }}">
-                <i class='fa fa-angle-double-right'></i> {{ $book->unit }} شماره {{ convert($key - 1) }}
+                  'author' => $author->slug,
+                  'book' => $book->slug,
+                  'index' => $prev->content->order]) }}">
+                <i class='fa fa-angle-double-right'></i> {{ convert($prev->title) }}
               </a>
             </p>
             @endif

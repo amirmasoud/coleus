@@ -3,13 +3,12 @@
 <div class="col-xs-12">
     <div class="panel panel-default">
         <div class="panel-body">
-            @foreach($book_content as $b)
+            @foreach($book_content as $c)
             <p>
-                <a href="{{ route('reads.show', ['author' => $author->id, 
-                                                 'book' => $book->id, 
-                                                 'index'=>$b->key, 
-                                                 'section'=>@$b->content_id ?? '']) }}">
-                    {{ $b->unit }} شماره {{ convert($b->key) }}{{ $b->title }}
+                <a href="{{ route('reads.show', ['author' => $author->slug, 
+                                                 'book' => $book->slug,
+                                                 'index'=>$c->order]) }}">
+                    {{ convert($c->title) }}
                 </a>
             </p>
             @endforeach

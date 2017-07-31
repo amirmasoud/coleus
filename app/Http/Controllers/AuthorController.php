@@ -13,10 +13,10 @@ class AuthorController extends Controller
      * @param  integer $id author ID
      * @return Illuminate\Http\Response
      */
-    public function books($author_id)
+    public function books($author_slug)
     {
-        $author = Author::cache($author_id);
-        $books = Author::cache("{$author_id}_books");
+        $author = Author::cache($author_slug);
+        $books = Author::cache("{$author_slug}_books");
         return view('authors.books', compact('author', 'books'));
     }
 

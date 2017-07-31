@@ -34,10 +34,11 @@ trait Methods
             if ($ucid == '*') {
                 $cache_value = Author::get();
             } else if (strpos($ucid, 'books')) {
-                // {author_id}_books
-                $cache_value = Author::find(explode('_', $ucid)[0])->books;
+                // {author_slug}_books
+                $cache_value = Author::where('slug', explode('_', $ucid)[0])
+                                    ->first()->books;
             } else {
-                $cache_value = Author::find($ucid);
+                $cache_value = Author::where('slug', $ucid)->first();
             }
             Cache::forever($cache_key, $cache_value);
             return $cache_value;

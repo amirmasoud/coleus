@@ -3,14 +3,18 @@
 namespace App\Models;
 
 use Cache;
+use App\Models\Table;
 use App\Models\Author;
-use App\Models\Category;
 use App\Models\Comment;
+use App\Models\Category;
 use App\Models\Publisher;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Book extends Model
 {
+    use Sluggable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,12 +26,35 @@ class Book extends Model
     ];
 
     /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
+
+    /**
      * Get the author for the book.
      * @return Illuminate\Database\Eloquent\Concerns\belongsTo
      */
     public function author()
     {
         return $this->belongsTo(Author::class);
+    }
+
+    /**
+     * Get the table for the book.
+     * @return Illuminate\Database\Eloquent\Concerns\belongsTo
+     */
+    public function table()
+    {
+        return $this->belongsTo(Table::class, 'id', 'book_id');
     }
 
     /**
@@ -109,21 +136,10 @@ class Book extends Model
             if ($ucid == '*') {
                 $author = Book::get();
             } else {
-                $author = Book::find($ucid);
+                $author = Book::where('slug', $ucid)->first();
             }
             Cache::forever($cache_key, $author);
             return $author;
         }
-    }
-
-    public static function next($index, $count)
-    {
-        return ($index < $count) ? $index+1 : '#';
-    }
-
-
-    public static function prev($index, $count)
-    {
-        return ($index > 1) ? $index-1 : '#';
     }
 }
