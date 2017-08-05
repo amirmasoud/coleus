@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Cache;
 use App\Models\Author;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -14,7 +15,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $authors = Author::cache('*');
+        $authors = Cache::remember('author:*', 60*24*7, function() {
+            return Author::get();
+        });
         return view('home', compact('authors'));
     }
 }

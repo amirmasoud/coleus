@@ -46,7 +46,7 @@ if (! function_exists('breadcrumb')) {
                 return [];
                 break;
             case 'authors.books':
-                $author = \App\Models\Author::cache(Route::input('author'));
+                $author = \App\Repositories\AuthorRepo::slug(Route::input('author'));
                 return [[
                     'name' => '<i class="fa fa-home"></i> خانه',
                     'href' => route('home')
@@ -56,10 +56,10 @@ if (! function_exists('breadcrumb')) {
                 ]];
                 break;
             case 'books.list':
-                $author = \App\Models\Author::cache(Route::input('author'));
-                $book = \App\Models\Book::cache(Route::input('book'));
-                if (Route::input('section', '') != '') {
-                    $section = \App\Models\Content::cache(ROute::input('section'));
+                $author = \App\Repositories\AuthorRepo::slug(Route::input('author'));
+                $book = \App\Repositories\BookRepo::slug(Route::input('book'));
+                $parent = Route::input('parent', '');
+                if (Route::input('parent', '') != '') {
                     return [[
                         'name' => '<i class="fa fa-home"></i> خانه',
                         'href' => route('home')
@@ -70,7 +70,7 @@ if (! function_exists('breadcrumb')) {
                         'name' => $book->title,
                         'href' => route('books.list', ['author' => $author->slug, 'book' => $book->slug])
                     ], [
-                        'name' => $section->value,
+                        'name' => $parent,
                         'href' => '#'
                     ]];
                 } else {
@@ -81,20 +81,18 @@ if (! function_exists('breadcrumb')) {
                         'name' => $author->name,
                         'href' => route('authors.books', ['author' => $author->slug])
                     ], [
-                        'name' => $book->title,
+                        'name' => $parent,
                         'href' => '#'
                     ]];
                 }
                 break;
             case 'reads.show':
-                $author = \App\Models\Author::cache(Route::input('author'));
-                $book = \App\Models\Book::cache(Route::input('book'));
-                $section = Route::input('section', '');
+                $author = \App\Repositories\AuthorRepo::slug(Route::input('author'));
+                $book = \App\Repositories\BookRepo::slug(Route::input('book'));
+                $parent = Route::input('parent', '');
                 $index = Route::input('index', '');
-                if ($section != '') {
-                    ////////
-                    $poem = \App\Models\Content::cache("{$index}_poem_{$book->id}_book_{$section}_section", $book);
-                    $section = \App\Models\Content::cache($section);
+                if ($parent != '') {
+                    $content = \App\Repositories\ContentRepo::leaf($book->id, $index, $parent);
                     return [[
                         'name' => '<i class="fa fa-home"></i> خانه',
                         'href' => route('home')
@@ -105,14 +103,13 @@ if (! function_exists('breadcrumb')) {
                         'name' => $book->title,
                         'href' => route('books.list', ['author' => $author->slug, 'book' => $book->slug])
                     ], [
-                        'name' => $section->value,
-                        'href' => route('books.list', ['author' => $author->slug, 'book' => $book->slug, 'section' => $section->id])
+                        'name' => $parent,
+                        'href' => route('books.list', ['author' => $author->slug, 'book' => $book->slug, 'parent' => $parent])
                     ], [
-                        'name' => $poem->unit . ' شماره ' . convert($poem->key) . $poem->title,
+                        'name' => $content->title,
                         'href' => '#'
                     ]];
                 } else {
-                    $section = \App\Models\Content::cache("{$index}_poem_{$book->slug}_book_{$section}_section", $book);
                     if ($book->pages == 1) {
                         return [[
                             'name' => '<i class="fa fa-home"></i> خانه',
@@ -125,6 +122,7 @@ if (! function_exists('breadcrumb')) {
                             'href' => '#'
                         ]];
                     } else {
+                        $content = \App\Repositories\ContentRepo::leaf($book->id, $index, $parent);
                         return [[
                             'name' => '<i class="fa fa-home"></i> خانه',
                             'href' => route('home')
@@ -137,7 +135,7 @@ if (! function_exists('breadcrumb')) {
                                             'author' => $author->slug,
                                             'book' => $book->slug])
                         ], [
-                            'name' => convert($section->title),
+                            'name' => convert($content->title),
                             'href' => '#'
                         ]];
                     }
@@ -149,3 +147,4 @@ if (! function_exists('breadcrumb')) {
         }
     }
 }
+

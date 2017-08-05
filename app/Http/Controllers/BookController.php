@@ -2,42 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\Author;
-use App\Models\Table;
-use App\Models\Content;
-use Illuminate\Http\Request;
+use App\Repositories\BookRepo;
+use App\Repositories\TableRepo;
+use App\Repositories\AuthorRepo;
+use App\Repositories\ContentRepo;
 
 class BookController extends Controller
 {
     /**
      * List of content of the book.
-     * @param  integer $author_slug
-     * @param  integer $book_slug
-     * @param  integer|null $section
+     * @param  integer $author
+     * @param  integer $book
+     * @param  integer|null $parent
      * @return Illuminate\Http\Response
      */
-    public function list($author_slug, $book_slug, $section = null)
+    public function list($author, $book, $parent = null)
     {
-        $author = Author::cache($author_slug);
-        $book = Book::cache($book_slug);
-        if (Table::cache("{$book->id}_exists") && is_null($section)) {
-            ///////////
-            $list = Content::cache("{$book->id}_list");
-            return view('books.list', compact('list', 'author', 'book'));
+        $author = AuthorRepo::slug($author);
+        $book = BookRepo::slug($book);
+        if (TableRepo::isMultiLevel($book->id) && is_null($parent)) {
+            $children = TableRepo::routeChildren($book->id);
+            return view('books.children', compact('children', 'author', 'book'));
+        } 
+        if (TableRepo::isMultiLevel($book->id) && !is_null($parent)) {
+            $leaves = TableRepo::leavesOfParent($book->id, TableRepo::slug($parent)->id);
+            return view('books.parent', compact('leaves', 'author', 'book', 'parent'));
+        }
+        if ($book->pages == 1) {
+            return redirect()->route('reads.show', ['author'=>$author->slug, 
+                                                    'book'=>$book->slug, 
+                                                    'index'=>1]);
         } else {
-            if ($book->pages == 1) {
-                ////////////
-                return redirect()->route('reads.show', ['author'=>$author, 'book'=>$book, 'index'=>1]);
-            } else {
-                if (! is_null($section)) {
-                    /////////////
-                    $book_content = Content::cache("{$book->id}_book_{$section}_section");
-                } else {
-                    $book_content = Table::cache("{$book->id}_book");
-                }
-                return view('books.index', compact('book_content', 'author', 'book'));
-            }
+            $leaves = TableRepo::leaves($book->id);
+            return view('books.index', compact('leaves', 'author', 'book'));
         }
     }
 }

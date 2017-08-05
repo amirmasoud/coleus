@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Author;
 use Illuminate\Http\Request;
+use App\Repositories\AuthorRepo;
 
 class AuthorController extends Controller
 {
     /**
-     * Get all books of an author.
+     * Get all books of the author.
      *
-     * @param  integer $id author ID
+     * @param  integer $author
      * @return Illuminate\Http\Response
      */
-    public function books($author_slug)
+    public function books($author)
     {
-        $author = Author::cache($author_slug);
-        $books = Author::cache("{$author_slug}_books");
-        return view('authors.books', compact('author', 'books'));
+        $author = AuthorRepo::slug($author, 'books');
+        return view('authors.books', compact('author'));
     }
 
 }

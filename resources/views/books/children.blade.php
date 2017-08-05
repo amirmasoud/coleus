@@ -3,12 +3,12 @@
 <div class="col-xs-12">
     <div class="panel panel-default">
         <div class="panel-body">
-            @foreach($leaves as $leaf)
+            @foreach($children as $child)
             <p>
-                <a href="{{ route('reads.show', ['author' => $author->slug, 
+                <a href="{{ route('books.list', ['author' => $author->slug, 
                                                  'book' => $book->slug,
-                                                 'index'=>$leaf->order]) }}">
-                    {{ convert($leaf->title) }}
+                                                 'table' => $child->title]) }}">
+                    {{ convert($child->title) }}
                 </a>
             </p>
             @endforeach

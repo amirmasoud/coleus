@@ -17,7 +17,6 @@ class CreateTablesTable extends Migration
         Schema::create('tables', function (Blueprint $table) {
             $table->increments('id');
             $table->longText('title');
-            $table->string('unit');
             $table->unsignedInteger('book_id');
             $table->foreign('book_id')
                   ->references('id')->on('books')

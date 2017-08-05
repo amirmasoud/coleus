@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Content extends Model
 {
-
     protected $fillable = ['text', 'order', 'table_id'];
 
     /**
@@ -80,11 +79,6 @@ class Content extends Model
                                           ->where('content_id', $pieces[4])
                                           ->where('key', $pieces[0])->first();
                 }
-            } elseif (strpos($ucid, 'list')) {
-                $cache_value = Content::where('type', 'section')
-                                      ->where('book_id', explode('_', $ucid)[0])
-                                      ->orderBy('key')
-                                      ->get();
             } elseif (strpos($ucid, 'section')) {
                 // _content_{$book->id}_book_{$content->value}_section
                 $cache_value = Content::where('type', 'poem')
@@ -110,9 +104,9 @@ class Content extends Model
     {
         ini_set('max_execution_time', 5*60);
         $content = json_decode($content);
-        $root = self::getRoot($book_id);
+        $root = self::getRoot($book_id, $content->title);
         $parent = self::appendNodeIfNotExists($content, $root);
-        foreach($content->children as $child) {
+        foreach ($content->children as $child) {
             // Insert New Node
             $table = self::appendNodeIfNotExists($child, $parent);
             // Insert New Content
@@ -123,14 +117,15 @@ class Content extends Model
     /**
      * Get book ID table of contents. Create new one or return exist one.
      * @param  integer $book_id
+     * @param  string $title
      * @return \App\Models\Table
      */
-    protected static function getRoot($book_id)
+    protected static function getRoot($book_id, $title)
     {
-        if (!Table::where('book_id', $book_id)->whereNull('parent_id')->exists()) {
+        if (!Table::where('book_id', $book_id)
+                  ->whereNull('parent_id')->exists()) {
             return Table::create([
                 'title'   => '',
-                'unit'    => '',
                 'book_id' => $book_id
             ]);
         } else {
@@ -149,12 +144,10 @@ class Content extends Model
     {
         if (! Table::where('book_id', $parent->book_id)
                 ->where('title', $content->title)
-                ->where('unit', $content->unit)
-                ->whereNotNull('parent_id')
+                ->where('parent_id', $parent->id)
                 ->exists()) {
             $node = Table::create([
                         'title'   => $content->title,
-                        'unit'    => $content->unit,
                         'book_id' => $parent->book_id
                     ]);
             $node->appendToNode($parent)->save();
@@ -162,7 +155,6 @@ class Content extends Model
         } else {
             return Table::where('book_id', $parent->book_id)
                 ->where('title', $content->title)
-                ->where('unit', $content->unit)
                 ->whereNotNull('parent_id')->first();
         }
     }
@@ -199,18 +191,5 @@ class Content extends Model
         return property_exists($value = json_decode($this->value), 'title')
             ? ' - ' . $value->title
             : '';
-    }
-
-    /**
-     * Get the unit value.
-     *
-     * @param  string  $value
-     * @return string
-     */
-    public function getUnitAttribute($value)
-    {
-        return property_exists($value = json_decode($this->value), 'unit')
-            ? $value->unit
-            : 'شعر';
     }
 }

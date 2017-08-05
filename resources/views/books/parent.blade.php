@@ -7,7 +7,8 @@
             <p>
                 <a href="{{ route('reads.show', ['author' => $author->slug, 
                                                  'book' => $book->slug,
-                                                 'index'=>$leaf->order]) }}">
+                                                 'index'=>$leaf->order,
+                                                 'parent'=>$parent]) }}">
                     {{ convert($leaf->title) }}
                 </a>
             </p>

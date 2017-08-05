@@ -1,6 +1,6 @@
 @extends('layouts.blog')
 @section('content')
-@foreach ($books as $book)
+@foreach ($author->books as $book)
 <div class="col-xs-6 col-sm-4 col-md-2 pull-right margin-5-5">
     <a href="{{ route('books.list', ['author' => $author->slug, 
                                      'book' => $book->slug]) }}">

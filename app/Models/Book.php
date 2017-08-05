@@ -22,7 +22,7 @@ class Book extends Model
      */
     protected $fillable = [
         'title', 'description', 'pages', 'ISBN', 'price', 'year', 'extra', 
-        'author_id', 'publisher_id', 'unit'
+        'author_id', 'publisher_id'
     ];
 
     /**
@@ -129,17 +129,16 @@ class Book extends Model
      */
     public static function cache($ucid)
     {
-        $cache_key = config('app.name') . '_book_' . $ucid;
         if (Cache::has($cache_key)) {
-            return Cache::get($cache_key);
+            return getCache($cache_key);
         } else {
             if ($ucid == '*') {
-                $author = Book::get();
+                $book = Book::get();
             } else {
-                $author = Book::where('slug', $ucid)->first();
+                $book = Book::where('slug', $ucid)->first();
             }
-            Cache::forever($cache_key, $author);
-            return $author;
+            Cache::forever($cache_key, $book);
+            return $book;
         }
     }
 }

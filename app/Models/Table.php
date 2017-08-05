@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Table extends Model
 {
-    protected $fillable = ['key', 'value', 'title', 'unit', 'book_id'];
+    protected $fillable = ['key', 'value', 'title', 'book_id'];
 
     use NodeTrait;
 

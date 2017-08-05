@@ -86,6 +86,9 @@ return [
     |
     */
 
-    'prefix' => 'laravel',
+    'prefix' => 'negarin',
+    'keys' => [
+        
+    ]
 
 ];

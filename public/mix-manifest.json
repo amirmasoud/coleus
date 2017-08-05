@@ -1,8 +1,8 @@
 {
-  "/js/app.js": "/js/app.js",
-  "/css/app.css": "/css/app.css",
-  "/admin/css/admin.css": "/admin/css/admin.css",
-  "/admin/js/admin.js": "/admin/js/admin.js",
-  "/admin/js/author.js": "/admin/js/author.js",
-  "/admin/js/book.js": "/admin/js/book.js"
+  "/js/app.js": "/js/app.182076a5dee4cd5858e8.js",
+  "/css/app.css": "/css/app.ec863ba275d5d6fb6c2d.css",
+  "/admin/css/admin.css": "/admin/css/admin.ec863ba275d5d6fb6c2d.css",
+  "/admin/js/admin.js": "/admin/js/admin.0eab7c32c5c81eb72d36.js",
+  "/admin/js/author.js": "/admin/js/author.6a8e390b44d5aa44c99f.js",
+  "/admin/js/book.js": "/admin/js/book.6fe424b3104370894944.js"
 }

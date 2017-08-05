@@ -2,31 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\Author;
-use App\Models\Content;
-use Illuminate\Http\Request;
+use App\Repositories\BookRepo;
+use App\Repositories\AuthorRepo;
+use App\Repositories\ContentRepo;
 
 class ReadController extends Controller
 {
     /**
      * Show content of a book.
-     * @param  integer $author_slug
-     * @param  integer $book_slug
-     * @param  integer $index
+     * @param  integer $author
+     * @param  integer $book
+     * @param  integer $order
      * @return Illuminate\Http\Response
      */
-    public function show($author_slug, $book_slug, $index, $section = null)
+    public function show($author, $book, $order, $parent = null)
     {
-        $author = Author::cache($author_slug);
-        $book = Book::cache($book_slug);
-        $content = Content::cache("{$index}_poem_{$book_slug}_book_{$section}_section", $book);
-        $next = Content::cache("{$content->id}_content_{$content->book_slug}_book_{$section}_section_next", $book);
-        $prev = Content::cache("{$content->id}_content_{$content->book_slug}_book_{$section}_section_prev", $book);
-        $content = json_decode($content->text);
-        $title = (isset($content->tite)) ? $content->title : '';
-        $unit = (isset($content->unit)) ? $content->unit : '';
-        // unset($content->title, $content->unit);
-        return view('reads.show', compact('content', 'author', 'book', 'index', 'next', 'prev', 'title', 'unit', 'section'));
+        $author = AuthorRepo::slug($author);
+        $book = BookRepo::slug($book);
+        $content = ContentRepo::leaf($book->id, $order, $parent);
+        $next = ContentRepo::next($book->id, $order, $parent);
+        $prev = ContentRepo::prev($book->id, $order, $parent);
+        $text = json_decode($content->text);
+        return view('reads.show', compact('author', 'book', 'content', 'next', 
+                                          'prev', 'text', 'parent'));
     }
 }
