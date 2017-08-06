@@ -23,7 +23,7 @@ class ReadController extends Controller
         $next = ContentRepo::next($book->id, $order, $parent);
         $prev = ContentRepo::prev($book->id, $order, $parent);
         $text = json_decode($content->text);
-        if(in_array($content->type, ['ghazal', 'masnavi']) {
+        if(in_array($content->type, ['ghazal', 'masnavi'])) {
             return view('reads.show', compact('author', 'book', 'content', 'next', 
                                               'prev', 'text', 'parent'));
         }
