@@ -81,7 +81,7 @@ if (! function_exists('breadcrumb')) {
                         'name' => $author->name,
                         'href' => route('authors.books', ['author' => $author->slug])
                     ], [
-                        'name' => $parent,
+                        'name' => $book->title,
                         'href' => '#'
                     ]];
                 }
