@@ -144,7 +144,8 @@ class Content extends Model
             return Table::create([
                 'title'   => '',
                 'book_id' => $book_id,
-                'slug' => $book_id
+                'slug' => $book_id,
+                'type' => 'no-type'
             ]);
         } else {
             return Table::where('book_id', $book_id)
@@ -167,6 +168,7 @@ class Content extends Model
             $node = Table::create([
                         'title'   => $content->title,
                         'book_id' => $parent->book_id,
+                        'type'   => isset($content->type) ? $content->type : 'no-type'
                     ]);
             $node->appendToNode($parent)->save();
             return $node;
