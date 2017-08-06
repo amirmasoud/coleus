@@ -13,7 +13,7 @@
         @unless ($next == '#' && $prev == '#')
         <div class="panel-footer row margin-0">
             @if ($next != '#')
-            <div class="col-md-6 text-left">
+            <div class="@if($next != '#') col-sm-6 col-xs-12 @else col-xs-12 @endif text-left">
               <a v-shortkey.once="['j']"
                 @shortkey="go('{{ route('reads.show', [
                                       'author' => $author->slug,
@@ -30,7 +30,7 @@
             </div>
             @endif
             @if ($prev != '#')
-            <div class="col-md-6 text-right">
+            <div class="@if($next != '#') col-sm-6 col-xs-12 @else col-xs-12 @endif text-right">
               <a v-shortkey.once="['k']"
                 @shortkey="go('{{ route('reads.show', [
                                     'author' => $author->slug,
