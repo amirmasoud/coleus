@@ -82,8 +82,8 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $book->fill($request->all())->save();
-        Cache::forget(config('app.name') . '_book_*');
-        Cache::forget(config('app.name') . "_author_{$book->author->id}_books");
+        Cache::forget('author:*');
+        Cache::forget("author:{$book->author->slug}:books");
         flash('Book updated.');
         return redirect()->route('books.index');
     }

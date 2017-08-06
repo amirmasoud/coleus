@@ -6,12 +6,31 @@ use Cache;
 use App\Models\Content;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Table extends Model
 {
-    protected $fillable = ['key', 'value', 'title', 'book_id'];
+    use NodeTrait, Sluggable {
+        Sluggable::replicate insteadof NodeTrait;
+        NodeTrait::replicate as NodeTraitReplicate;
+    }
+    
+    protected $fillable = ['title', 'slug', 'book_id', 'type'];
 
-    use NodeTrait;
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 
     /**
      *

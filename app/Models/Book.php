@@ -22,7 +22,7 @@ class Book extends Model
      */
     protected $fillable = [
         'title', 'description', 'pages', 'ISBN', 'price', 'year', 'extra', 
-        'author_id', 'publisher_id'
+        'author_id', 'publisher_id', 'slug'
     ];
 
     /**

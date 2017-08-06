@@ -16,7 +16,9 @@ class CreateTablesTable extends Migration
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->increments('id');
-            $table->longText('title');
+            $table->text('title');
+            $table->text('slug');
+            $table->string('type');
             $table->unsignedInteger('book_id');
             $table->foreign('book_id')
                   ->references('id')->on('books')
@@ -33,6 +35,6 @@ class CreateTablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contents');
+        Schema::dropIfExists('tables');
     }
 }

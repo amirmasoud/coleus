@@ -6,10 +6,27 @@ use Cache;
 use App\Models\Table;
 use App\Models\Content;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Content extends Model
 {
-    protected $fillable = ['text', 'order', 'table_id'];
+    use Sluggable;
+
+    protected $fillable = ['text', 'hash', 'slug', 'order', 'table_id'];
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'hash'
+            ]
+        ];
+    }
 
     /**
      *
@@ -126,7 +143,8 @@ class Content extends Model
                   ->whereNull('parent_id')->exists()) {
             return Table::create([
                 'title'   => '',
-                'book_id' => $book_id
+                'book_id' => $book_id,
+                'slug' => $book_id
             ]);
         } else {
             return Table::where('book_id', $book_id)
@@ -143,12 +161,12 @@ class Content extends Model
     protected static function appendNodeIfNotExists($content, $parent)
     {
         if (! Table::where('book_id', $parent->book_id)
-                ->where('title', $content->title)
-                ->where('parent_id', $parent->id)
-                ->exists()) {
+                  ->where('title', $content->title)
+                  ->where('parent_id', $parent->id)
+                  ->exists()) {
             $node = Table::create([
                         'title'   => $content->title,
-                        'book_id' => $parent->book_id
+                        'book_id' => $parent->book_id,
                     ]);
             $node->appendToNode($parent)->save();
             return $node;
@@ -168,13 +186,13 @@ class Content extends Model
     public static function insertContentIfNotExists($child, $table)
     {
         $text = json_encode($child->text);
-        if (! Content::where('order', $child->order)
-                ->where('table_id', $table->id)
-                ->where('text', $text)
+        $hash = md5($text);
+        if (! Content::where('hash', $hash)
                 ->exists()) {
             Content::create([
                 'text' => $text,
                 'order' => $child->order,
+                'hash' => $hash,
                 'table_id' => $table->id
             ]);
         }

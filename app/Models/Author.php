@@ -28,7 +28,7 @@ class Author extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'born', 'extra'];
+    protected $fillable = ['name', 'born', 'extra', 'slug'];
 
     /**
      * Return the sluggable configuration array for this model.
