@@ -37,7 +37,7 @@ class ContentRepo extends Repo
     public static function next($book_id, $order, $parent = null)
     {
         $content = self::leaf($book_id, $order, $parent);
-        return Cache::remember("content:{$order}:book:{$book_id}:next", 
+        return Cache::remember("content:{$order}:book:{$book_id}:parent:{$parent}:next", 
             self::MONTH_IN_MINUTE, function() use ($content) {
             return self::checkLink($content->getNextSibling());
         });
@@ -52,7 +52,7 @@ class ContentRepo extends Repo
     public static function prev($book_id, $order, $parent = null)
     {
         $content = self::leaf($book_id, $order, $parent);
-        return Cache::remember("content:{$order}:book:{$book_id}:prev", 
+        return Cache::remember("content:{$order}:book:{$book_id}:parent:{$parent}:prev", 
             self::MONTH_IN_MINUTE, function() use ($content) {
             return self::checkLink($content->getPrevSibling());
         });
