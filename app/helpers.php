@@ -106,7 +106,7 @@ if (! function_exists('breadcrumb')) {
                         'name' => $parent,
                         'href' => route('books.list', ['author' => $author->slug, 'book' => $book->slug, 'parent' => $parent])
                     ], [
-                        'name' => $content->title,
+                        'name' => convert($content->title),
                         'href' => '#'
                     ]];
                 } else {
