@@ -29,6 +29,9 @@ class ReadController extends Controller
         } else if (in_array($content->type, ['tarje'])) {
             return view('reads.tarje', compact('author', 'book', 'content', 'next', 
                                               'prev', 'text', 'parent'));
+        } else if (in_array($content->type, ['text'])) {
+            return view('reads.text', compact('author', 'book', 'content', 'next', 
+                                              'prev', 'text', 'parent'));
         }
     }
 }
