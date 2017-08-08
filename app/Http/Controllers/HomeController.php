@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Cache;
-use App\Models\Author;
 use Illuminate\Http\Request;
+use App\Repositories\AuthorRepo;
 
 class HomeController extends Controller
 {
@@ -15,9 +15,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $authors = Cache::remember('author:*', 60*24*7, function() {
-            return Author::get();
-        });
+        $authors = AuthorRepo::all();
         return view('home', compact('authors'));
     }
 }

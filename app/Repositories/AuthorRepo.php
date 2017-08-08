@@ -37,4 +37,11 @@ class AuthorRepo extends Repo
                 return self::slug($slug)->books;
             });
     }
+
+    public static function all()
+    {
+        return Cache::remember('author:*', 60*24*7, function() {
+            return Author::orderBy('name', 'desc')->get();
+        });
+    }
 }
