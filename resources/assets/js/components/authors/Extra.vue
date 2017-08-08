@@ -31,10 +31,11 @@
     <div v-for="(item, index) in toAdd">
         <div class="form-group">
             <div class="col-sm-2">
-                <input type="text" name="extra[]" class="form-control" dir="auto">
+                <input type="text" name="extra[]" class="form-control" dir="auto" v-model="inputName">
             </div>
             <div class="col-sm-10">
-                <input type="text" name="extra[]" class="form-control" dir="auto">
+                <input v-if="inputName == 'cover'" type="file" name="extra[]" class="form-control">
+                <input v-else type="text" name="extra[]" class="form-control">
             </div>
         </div>
     </div>
@@ -46,7 +47,8 @@
         data: function () {
             return {
                 toAdd: [],
-                extraData: []
+                extraData: [],
+                inputName: ''
             }
         },
         props: {

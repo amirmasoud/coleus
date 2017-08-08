@@ -5,9 +5,9 @@
             <!-- Logo -->
             <a href="#" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>{{ config('app.name') }}</b>.{{ config('app.domain') }}</span>
+                <span class="logo-mini"><b>N</b></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>{{ config('app.name') }}</b>.{{ config('app.domain') }}</span>
+                <span class="logo-lg"><b>Negarin</b></span>
             </a>
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">

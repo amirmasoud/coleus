@@ -2,6 +2,8 @@
 
 namespace App\Models\Author;
 
+use Illuminate\Http\UploadedFile;
+
 trait Mutators
 {
     /**
@@ -26,7 +28,12 @@ trait Mutators
         $newValue = [];
         for ($i = 0; $i < count($value); $i += 2) {
             if ($value[$i] != '' && !is_null($value[$i])) {
-                $newValue[$value[$i]] = $value[$i + 1];
+                if ($value[$i] instanceof UploadedFile) {
+                    $value[$i] = basename($value[$i]->store('public/covers'));
+                    $newValue['cover'] = $value[$i];
+                } else {
+                    $newValue[$value[$i]] = $value[$i + 1];
+                }
             }
         }
         $this->attributes['extra'] = serialize($newValue);

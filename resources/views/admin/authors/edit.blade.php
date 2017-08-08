@@ -20,7 +20,8 @@ author
             <div class="box-body" id="author">
                 {!! Form::model($author, ['method' => 'PATCH',
                                 'action' => ['Admin\AuthorController@update', $author],
-                                'class' => 'form-horizontal']) !!}
+                                'class' => 'form-horizontal',
+                                'files' => true]) !!}
                 @include('admin.authors.includes.form')
                 {!!  Form::close() !!}
             </div>
