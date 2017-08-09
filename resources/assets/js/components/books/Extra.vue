@@ -34,7 +34,7 @@
                 <input type="text" name="extra[]" class="form-control" dir="auto" v-model="inputName">
             </div>
             <div class="col-sm-10">
-                <input v-if="inputName == 'file'" type="file" name="extra[]" class="form-control">
+                <input v-if="inputName == 'cover'" type="file" name="extra[]" class="form-control">
                 <input v-else type="text" name="extra[]" class="form-control">
             </div>
         </div>

@@ -8,8 +8,9 @@ use App\Models\Author;
 use App\Models\Comment;
 use App\Models\Category;
 use App\Models\Publisher;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
@@ -98,6 +99,9 @@ class Book extends Model
             if ($value[$i] != '' && !is_null($value[$i])) {
                 if ($value[$i] == 'content') {
                     Content::batchInsert($value[$i + 1], $this->id);
+                } else if ($value[$i] instanceof UploadedFile) {
+                    $value[$i] = basename($value[$i]->store('public/covers'));
+                    $newValue['cover'] = $value[$i];
                 } else {
                     $newValue[$value[$i]] = $value[$i + 1];
                 }

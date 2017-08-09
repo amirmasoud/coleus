@@ -122,3 +122,9 @@ div.custom-breadcrumb {
     margin-right: 0;
     margin-left: 0;
 }
+
+.caption h5 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
