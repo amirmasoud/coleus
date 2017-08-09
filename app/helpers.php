@@ -70,7 +70,7 @@ if (! function_exists('breadcrumb')) {
                         'name' => $book->title,
                         'href' => route('books.list', ['author' => $author->slug, 'book' => $book->slug])
                     ], [
-                        'name' => $parent,
+                        'name' => \App\Repositories\TableRepo::slug($parent)->title,
                         'href' => '#'
                     ]];
                 } else {
@@ -103,7 +103,7 @@ if (! function_exists('breadcrumb')) {
                         'name' => $book->title,
                         'href' => route('books.list', ['author' => $author->slug, 'book' => $book->slug])
                     ], [
-                        'name' => $parent,
+                        'name' => \App\Repositories\TableRepo::slug($parent)->title,
                         'href' => route('books.list', ['author' => $author->slug, 'book' => $book->slug, 'parent' => $parent])
                     ], [
                         'name' => convert($content->title),

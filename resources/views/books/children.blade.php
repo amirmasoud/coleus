@@ -7,7 +7,7 @@
             <p>
                 <a href="{{ route('books.list', ['author' => $author->slug, 
                                                  'book' => $book->slug,
-                                                 'table' => $child->title]) }}">
+                                                 'table' => $child->slug]) }}">
                     {{ convert($child->title) }}
                 </a>
             </p>

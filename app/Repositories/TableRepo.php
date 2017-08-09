@@ -17,7 +17,7 @@ class TableRepo extends Repo
     {
         return Cache::remember("table:{$slug}",
             self::MONTH_IN_MINUTE, function () use ($slug) {
-                return Table::where('title', $slug)->first();
+                return Table::where('slug', $slug)->first();
             });
     }
 
