@@ -24,7 +24,7 @@ class BookController extends Controller
         $book = BookRepo::slug($book);
         if (TableRepo::isMultiLevel($book->id) && is_null($parent)) {
             return [
-                'children' => TableRepo::routeChildren($book->id)->v1Json(),
+                'children' => TableRepo::routeChildren($book->id),
                 'author'   => $author->v1Json(),
                 'book'     => $book->v1Json()
             ];
