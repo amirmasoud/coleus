@@ -23,7 +23,6 @@ class ReadController extends Controller
         $content = ContentRepo::leaf($book->id, $order, $parent);
         $next = ContentRepo::next($book->id, $order, $parent);
         $prev = ContentRepo::prev($book->id, $order, $parent);
-        $content->text = [$content->text];
         unset($next->content, $prev->content);
         return [
             // 'author' => $author->v1Json(),
