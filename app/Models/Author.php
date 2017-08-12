@@ -30,6 +30,8 @@ class Author extends Model
      */
     protected $fillable = ['name', 'born', 'extra', 'slug'];
 
+    protected $dateFormat = 'Y-m-d';
+
     /**
      * Return the sluggable configuration array for this model.
      *

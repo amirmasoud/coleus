@@ -69,4 +69,39 @@ class Table extends Model
     {
         return $this->belongsTo(Content::class, 'id', 'table_id');
     }
+
+    public function v1Json()
+    {
+        return [
+            'id' => $this->id,
+            'slug' => $this->slug,
+            'type' => $this->type,    
+            'parent_id' => $this->parent_id,
+            'text' => $this->text,
+            'order' => $this->order,
+            'table_id' => $this->table_id,
+        ];
+    }
+
+    /**
+     * Set the text value.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setTextAttribute($value)
+    {
+        $this->attributes['text'] = json_encode($value);
+    }
+
+    /**
+     * Get the text value.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getTextAttribute($value)
+    {
+        return json_decode($value);
+    }
 }

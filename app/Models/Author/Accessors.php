@@ -33,8 +33,8 @@ trait Accessors {
      * @param  string  $value
      * @return string
      */
-    public function getBornAttribute($value)
-    {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $value)->toDateString();
-    }
+    // public function getBornAttribute($value)
+    // {
+    //     return Carbon::createFromFormat('Y-m-d H:i:s', $value)->toDateString();
+    // }
 }

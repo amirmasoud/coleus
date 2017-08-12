@@ -13,7 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('v1/books', 'Api\V1\BookController@index');
+Route::group(['namespace' => 'Api\V1'], function() {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('{author}', 'AuthorController@books')->name('authors.books');
+    Route::get('{author}/{book}/sh{index}/{parent?}', 'ReadController@show')->name('reads.show');
+    Route::get('{author}/{book}/{parent?}', 'BookController@list')->name('books.list');
+});
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

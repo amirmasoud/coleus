@@ -187,12 +187,11 @@ class Content extends Model
      */
     public static function insertContentIfNotExists($child, $table)
     {
-        $text = json_encode($child->text);
         $hash = md5($text);
         if (! Content::where('hash', $hash)
                 ->exists()) {
             Content::create([
-                'text' => $text,
+                'text' => $child->text,
                 'order' => $child->order,
                 'hash' => $hash,
                 'table_id' => $table->id
@@ -211,5 +210,27 @@ class Content extends Model
         return property_exists($value = json_decode($this->value), 'title')
             ? ' - ' . $value->title
             : '';
+    }
+
+    /**
+     * Set the text value.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setTextAttribute($value)
+    {
+        $this->attributes['text'] = json_encode($value);
+    }
+
+    /**
+     * Get the text value.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getTextAttribute($value)
+    {
+        return json_decode($value);
     }
 }

@@ -145,4 +145,14 @@ class Book extends Model
             return $book;
         }
     }
+
+    public function v1Json()
+    {
+        return [
+            'id'    => $this->id,
+            'title' => $this->title,
+            'slug'  => $this->slug,
+            'cover' => $this->extra['cover']
+        ];
+    }
 }

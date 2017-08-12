@@ -24,6 +24,9 @@ book
                                 'files' => true]) !!}
                 @include('admin.books.includes.form')
                 {!!  Form::close() !!}
+                @foreach($tree as $branch)
+                    <p><a href="{{ route('tables.edit', ['table'=>$branch]) }}">{{ $branch->title }}</a></p>
+                @endforeach
             </div>
             <!-- /.box-body -->
         </div>

@@ -69,7 +69,8 @@ class BookController extends Controller
     {
         $authors = Author::pluck('id', 'name');
         $publishers = Publisher::pluck('id', 'name');
-        return view('admin.books.edit', compact('book', 'authors', 'publishers'));
+        $tree = $book->table()->orderBy('title', 'asc')->get()->toFlatTree();
+        return view('admin.books.edit', compact('book', 'authors', 'publishers', 'tree'));
     }
 
     /**
