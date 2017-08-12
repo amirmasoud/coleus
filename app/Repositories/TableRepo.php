@@ -71,7 +71,7 @@ class TableRepo extends Repo
                             ->where('tables.book_id', $book_id)
                             ->where('parent_id', $parent_id)
                             ->orderBy('contents.order')
-                            ->get();
+                            ->get(['title', 'contents.slug', 'type', 'book_id', 'order']);
             });
     }
 
