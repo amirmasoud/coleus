@@ -16,7 +16,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $authors = [];
         foreach (AuthorRepo::all() as $author) {
             $authors[] = $author->v1Json();
         }

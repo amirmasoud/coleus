@@ -7,7 +7,7 @@ use App\Repositories\TableRepo;
 use App\Repositories\AuthorRepo;
 use App\Repositories\ContentRepo;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\ReadController;
+use App\Http\Controllers\Api\V1\ReadController;
 
 class BookController extends Controller
 {
