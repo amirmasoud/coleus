@@ -14,7 +14,7 @@ class Table extends Model
         Sluggable::replicate insteadof NodeTrait;
         NodeTrait::replicate as NodeTraitReplicate;
     }
-    
+
     protected $fillable = ['title', 'slug', 'book_id', 'type'];
 
 
@@ -75,11 +75,12 @@ class Table extends Model
         return [
             'id' => $this->id,
             'slug' => $this->slug,
-            'type' => $this->type,    
+            'type' => $this->type,
             'parent_id' => $this->parent_id,
             'text' => $this->text,
             'order' => $this->order,
             'table_id' => $this->table_id,
+            'content' => $this->content,
         ];
     }
 

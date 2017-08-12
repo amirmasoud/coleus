@@ -27,8 +27,8 @@ class ReadController extends Controller
             'author' => $author->v1Json(),
             'book' => $book->v1Json(),
             'content' => $content->v1Json(),
-            'next' => ($next == '#') ? '#' : $next->v1Json(),
-            'prev' => ($prev == '#') ? '#' : $prev->v1Json(),
+            'next' => ($next == '#') ? '#' : $next,
+            'prev' => ($prev == '#') ? '#' : $prev,
         ];
     }
 }
