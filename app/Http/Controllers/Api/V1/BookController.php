@@ -40,8 +40,13 @@ class BookController extends Controller
         if ($book->pages == 1) {
             return (new ReadController())->show($author->slug, $book->slug, 1);
         } else {
+            $leaves = [];
+            foreach (TableRepo::leaves($book->id) as $leaf) {
+                unset($leaf->text);
+                $leaves[] = $leaf;
+            }
             return [
-                'leaves' => TableRepo::leaves($book->id),
+                'leaves' => $leaves,
                 'author' => $author->v1Json(),
                 'book'  => $book->v1Json()
             ];
