@@ -31,7 +31,7 @@ class BookController extends Controller
         }
         if (TableRepo::isMultiLevel($book->id) && !is_null($parent)) {
             return [
-                'leaves' => TableRepo::leavesOfParent($book->id, TableRepo::slug($parent)->id),
+                'children' => TableRepo::leavesOfParent($book->id, TableRepo::slug($parent)->id),
                 'author' => $author->v1Json(),
                 'book'   => $book->v1Json(),
                 'parent' => $parent
@@ -46,7 +46,7 @@ class BookController extends Controller
                 $leaves[] = $leaf;
             }
             return [
-                'leaves' => $leaves,
+                'children' => $leaves,
                 'author' => $author->v1Json(),
                 'book'  => $book->v1Json()
             ];
