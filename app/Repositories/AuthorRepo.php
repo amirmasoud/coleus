@@ -46,7 +46,17 @@ class AuthorRepo extends Repo
     public static function API_all()
     {
         return Cache::remember('api:author:*', 60*24*7, function() {
-            return Author::orderBy('slug', 'desc')->get(['name', 'slug', 'extra']);
+            $authors = Author::orderBy('slug', 'desc')->get(['id', 'name', 'slug', 'extra']);
+            $formated = [];
+            foreach ($authors as $author) {
+                $formated[] = [
+                    'id' => $author->id,
+                    'name' => $author->name,
+                    'slug' => $author->slug,
+                    'cover' => asset('storage/covers/' . $author->extra['cover']),
+                ];
+            }
+            return $formated;
         });
     }
 }
