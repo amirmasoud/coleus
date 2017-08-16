@@ -52,7 +52,7 @@ class AuthorRepo extends Repo
                 $formated = [];
                 foreach ($books as $book) {
                     $formated[] = [
-                        'name'  => $book->title,
+                        'title' => $book->title,
                         'slug'  => $book->slug,
                         'cover' => asset('storage/covers/' . $book->extra['cover']),
                     ];
