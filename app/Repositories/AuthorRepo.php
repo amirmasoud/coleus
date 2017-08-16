@@ -50,9 +50,9 @@ class AuthorRepo extends Repo
             $formated = [];
             foreach ($authors as $author) {
                 $formated[] = [
-                    'id' => $author->id,
-                    'name' => $author->name,
-                    'slug' => $author->slug,
+                    'id'    => $author->id,
+                    'name'  => $author->name,
+                    'slug'  => $author->slug,
                     'cover' => asset('storage/covers/' . $author->extra['cover']),
                 ];
             }
