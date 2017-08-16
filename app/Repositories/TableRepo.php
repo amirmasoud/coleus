@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Cache;
 use App\Models\Table;
+use App\Http\Controllers\Api\V1\ReadController;
 
 class TableRepo extends Repo
 {
