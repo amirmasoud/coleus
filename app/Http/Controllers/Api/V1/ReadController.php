@@ -47,11 +47,11 @@ class ReadController extends Controller
         // $book = BookRepo::slug($content->table->book->slug);
         $next = ContentRepo::next($content->table->book->id, $content->order, $content->table->parent->slug);
         $prev = ContentRepo::prev($content->table->book->id, $content->order, $content->table->parent->slug);
-        unset($next->content, $prev->content);
+        // unset($next->content, $prev->content);
         return [
             'content' => $content,
-            'next' => ($next == '#') ? '#' : $next,
-            'prev' => ($prev == '#') ? '#' : $prev,
+            'next' => ($next == '#') ? '#' : $next->content->slug,
+            'prev' => ($prev == '#') ? '#' : $prev->content->slug,
         ];
     }
 }
