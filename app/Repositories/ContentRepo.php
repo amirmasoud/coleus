@@ -69,7 +69,7 @@ class ContentRepo extends Repo
     {
         return Cache::remember("content:{$slug}",
             self::MONTH_IN_MINUTE, function() use ($slug) {
-            return Content::whereSlug($slug)->first();
+            return Content::with('table')->whereSlug($slug)->first();
         });
     }
 

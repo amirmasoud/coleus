@@ -19,7 +19,7 @@ class AuthorRepo extends Repo
         return Cache::remember('author:' . implode(':', $with),
             self::MONTH_IN_MINUTE, function () use ($slug, $with) {
                 array_shift($with);
-                return Author::with($with)->where('slug', $slug)->first() 
+                return Author::with($with)->where('slug', $slug)->first()
                     ?? abort(404);
             });
     }
@@ -38,10 +38,15 @@ class AuthorRepo extends Repo
             });
     }
 
-    public static function all()
+    /**
+     * Get all authors.
+     *
+     * @return Collection
+     */
+    public static function API_all()
     {
-        return Cache::remember('author:*', 60*24*7, function() {
-            return Author::orderBy('slug', 'desc')->get();
+        return Cache::remember('api:author:*', 60*24*7, function() {
+            return Author::orderBy('slug', 'desc')->get(['name', 'slug', 'extra']);
         });
     }
 }

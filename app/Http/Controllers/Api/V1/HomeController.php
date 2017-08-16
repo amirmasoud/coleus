@@ -16,9 +16,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        foreach (AuthorRepo::all() as $author) {
-            $authors[] = $author->v1Json();
-        }
-        return( ['authors' => $authors]);
+        return( ['authors' => AuthorRepo::API_all()]);
     }
 }
