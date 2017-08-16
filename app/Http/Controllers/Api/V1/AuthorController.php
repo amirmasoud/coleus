@@ -16,7 +16,7 @@ class AuthorController extends Controller
      */
     public function books($author)
     {
-        return ['author' => AuthorRepo::API_books($author)];
+        return ['books' => AuthorRepo::API_books($author)];
     }
 
 }
