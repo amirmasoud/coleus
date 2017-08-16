@@ -39,6 +39,42 @@ class AuthorRepo extends Repo
     }
 
     /**
+     * Get author's books.
+     *
+     * @param  string $slug
+     * @return collection
+     */
+    public static function API_books($slug)
+    {
+        return Cache::remember("api:author:{$slug}:books",
+            self::MONTH_IN_MINUTE, function () use ($slug) {
+                $books = self::slug($slug)->books;
+                $formated = [];
+                foreach ($books as $book) {
+                    $formated[] = [
+                        'name'  => $book->title,
+                        'slug'  => $book->slug,
+                        'cover' => asset('storage/covers/' . $book->extra['cover']),
+                    ];
+                }
+                return $formated;
+            });
+    }
+
+    /**
+     * Get all authors.
+     *
+     * @return Collection
+     */
+    public static function all()
+    {
+        return Cache::remember('author:*', 60*24*7, function() {
+            return Author::orderBy('slug', 'desc')->get();
+        });
+    }
+
+
+    /**
      * Get all authors.
      *
      * @return Collection
@@ -50,7 +86,6 @@ class AuthorRepo extends Repo
             $formated = [];
             foreach ($authors as $author) {
                 $formated[] = [
-                    'id'    => $author->id,
                     'name'  => $author->name,
                     'slug'  => $author->slug,
                     'cover' => asset('storage/covers/' . $author->extra['cover']),

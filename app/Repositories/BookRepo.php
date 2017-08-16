@@ -9,7 +9,7 @@ class BookRepo extends Repo
 {
     /**
      * Find a book by slug.
-     * 
+     *
      * @param  string $slug
      * @return \App\Models\Book
      */

@@ -16,6 +16,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return( ['authors' => AuthorRepo::API_all()]);
+        return(['authors' => AuthorRepo::API_all()]);
     }
 }

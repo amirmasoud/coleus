@@ -16,7 +16,7 @@ class AuthorController extends Controller
      */
     public function books($author)
     {
-        return ['author' => AuthorRepo::slug($author, 'books')->v1Json()];
+        return ['author' => AuthorRepo::API_books($author)];
     }
 
 }

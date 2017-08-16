@@ -52,4 +52,15 @@ class BookController extends Controller
             ];
         }
     }
+
+    /**
+     * Get books of author.
+     *
+     * @param  string $slug Author's slug
+     * @return Collection
+     */
+    public function author($slug)
+    {
+        return ['books' => BookRepo::API_author($slug)];
+    }
 }
