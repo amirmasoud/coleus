@@ -163,11 +163,24 @@ class TableRepo extends Repo
                     return ['children' => TableRepo::API_leavesOfParent($book->id, TableRepo::slug($parent)->id)];
                 }
                 if ($book->pages == 1) {
-
                     return (new ReadController())->slug($book->table->content->slug);
                 } else {
                     return ['children' => TableRepo::API_leaves($book->id)];
                 }
+            });
+    }
+
+    /**
+     * Count of parent's ID
+     * @param  integer $id
+     * @return integer
+     */
+    public static function count($id)
+    {
+        return Cache::remember("api:table:{$id}:count",
+            self::MONTH_IN_MINUTE, function () use ($id) {
+                return Table::where('parent_id', Table::find($id)->parent->id)
+                            ->count();
             });
     }
 

@@ -5,6 +5,7 @@ namespace App\Models;
 use Cache;
 use App\Models\Table;
 use App\Models\Content;
+use App\Repositories\TableRepo;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
@@ -237,5 +238,16 @@ class Content extends Model
     public function getTextAttribute($value)
     {
         return json_decode($value);
+    }
+
+    /**
+     * Get the pages value.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getPagesAttribute($value)
+    {
+        return TableRepo::count($this->table_id);
     }
 }
