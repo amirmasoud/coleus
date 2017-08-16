@@ -23,14 +23,14 @@ class BookController extends Controller
         if (TableRepo::isMultiLevel($book->id) && is_null($parent)) {
             $children = TableRepo::routeChildren($book->id);
             return view('books.children', compact('children', 'author', 'book'));
-        } 
+        }
         if (TableRepo::isMultiLevel($book->id) && !is_null($parent)) {
             $leaves = TableRepo::leavesOfParent($book->id, TableRepo::slug($parent)->id);
             return view('books.parent', compact('leaves', 'author', 'book', 'parent'));
         }
         if ($book->pages == 1) {
-            return redirect()->route('reads.show', ['author'=>$author->slug, 
-                                                    'book'=>$book->slug, 
+            return redirect()->route('reads.show', ['author'=>$author->slug,
+                                                    'book'=>$book->slug,
                                                     'index'=>1]);
         } else {
             $leaves = TableRepo::leaves($book->id);

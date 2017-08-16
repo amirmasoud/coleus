@@ -59,6 +59,24 @@ class TableRepo extends Repo
      * Get leaves of book's table of content.
      *
      * @param  integer $book_id
+     * @return collection
+     */
+    public static function API_leaves($book_id)
+    {
+        return Cache::remember("api:table:book:{$book_id}:leaves",
+            self::MONTH_IN_MINUTE, function () use ($book_id) {
+                return self::formatted(Table::join('contents', 'contents.table_id', 'tables.id')
+                                            ->whereRaw('tables._lft + 1 = tables._rgt')
+                                            ->where('tables.book_id', $book_id)
+                                            ->orderBy('contents.order')
+                                            ->get());
+            });
+    }
+
+    /**
+     * Get leaves of book's table of content.
+     *
+     * @param  integer $book_id
      * @param  integer $parent_id
      * @return collection
      */
@@ -77,6 +95,22 @@ class TableRepo extends Repo
 
 
     /**
+     * Get leaves of book's table of content.
+     *
+     * @param  integer $book_id
+     * @param  integer $parent_id
+     * @return collection
+     */
+    public static function API_leavesOfParent($book_id, $parent_id)
+    {
+        return Cache::remember("api:table:book:{$book_id}:parent:{$parent_id}:leaves",
+            self::MONTH_IN_MINUTE, function () use ($book_id, $parent_id) {
+                return self::formatted(self::leavesOfParent($book_id, $parent_id));
+            });
+    }
+
+
+    /**
      * Get route's children.
      *
      * @param  integer $book_id
@@ -87,10 +121,77 @@ class TableRepo extends Repo
         return Cache::remember("table:book:{$book_id}:routeChildren",
             self::MONTH_IN_MINUTE, function () use ($book_id) {
                 return Table::where('book_id', $book_id)
-                          ->where('parent_id', Table::where('book_id', $book_id)
-                                                    ->whereIsRoot()->first()->id)
-                          ->orderBy('id')
-                          ->get();
+                              ->where('parent_id', Table::where('book_id', $book_id)
+                                                        ->whereIsRoot()->first()->id)
+                              ->orderBy('id')
+                              ->get();
             });
+    }
+
+    /**
+     * Get route's children.
+     *
+     * @param  integer $book_id
+     * @return \App\Models\Table
+     */
+    public static function API_routeChildren($book_id)
+    {
+        return Cache::remember("api:table:book:{$book_id}:routeChildren",
+            self::MONTH_IN_MINUTE, function () use ($book_id) {
+                return self::formatted(self::routeChildren($book_id));
+            });
+    }
+
+    /**
+     * List of content of the book.
+     *
+     * @param  string $slug
+     * @param  string $parent
+     * @return Illuminate\Http\Response
+     */
+    public static function API_list($slug, $parent = null)
+    {
+        return Cache::remember("api:table:book:{$slug}:parent:{$parent}:list",
+            self::MONTH_IN_MINUTE, function () use ($slug, $parent) {
+                $book = BookRepo::slug($slug);
+                $author = $book->author;
+                if (TableRepo::isMultiLevel($book->id) && is_null($parent)) {
+                    return ['children' => TableRepo::API_routeChildren($book->id)];
+                }
+                if (TableRepo::isMultiLevel($book->id) && !is_null($parent)) {
+                    return ['children' => TableRepo::API_leavesOfParent($book->id, TableRepo::slug($parent)->id)];
+                }
+                if ($book->pages == 1) {
+                    return (new ReadController())->show($author->slug, $book->slug, 1);
+                } else {
+                    return ['children' => TableRepo::API_leaves($book->id)];
+                }
+            });
+    }
+
+    /**
+     * Prepare json for table.
+     * @param  Collection|\App\Models\Table $table
+     * @return array
+     */
+    public static function formatted($table)
+    {
+        if ($table instanceof Table) {
+            return [
+                'title' => $table->title,
+                'slug'  => $table->slug,
+                'type'  => $table->type,
+            ];
+        } else {
+            $formatted = [];
+            foreach ($table as $t) {
+                $formatted[] = [
+                    'title' => $t->title,
+                    'slug'  => $t->slug,
+                    'type'  => $t->type,
+                ];
+            }
+            return $formatted;
+        }
     }
 }

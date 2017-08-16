@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Cache;
 use App\Models\Author;
+use App\Repositories\BookRepo;
 
 class AuthorRepo extends Repo
 {
@@ -49,15 +50,7 @@ class AuthorRepo extends Repo
         return Cache::remember("api:author:{$slug}:books",
             self::MONTH_IN_MINUTE, function () use ($slug) {
                 $books = self::slug($slug)->books;
-                $formated = [];
-                foreach ($books as $book) {
-                    $formated[] = [
-                        'title' => $book->title,
-                        'slug'  => $book->slug,
-                        'cover' => asset('storage/covers/' . $book->extra['cover']),
-                    ];
-                }
-                return $formated;
+                return BookRepo::formatted($books);
             });
     }
 
@@ -83,15 +76,33 @@ class AuthorRepo extends Repo
     {
         return Cache::remember('api:author:*', 60*24*7, function() {
             $authors = Author::orderBy('slug', 'desc')->get(['id', 'name', 'slug', 'extra']);
-            $formated = [];
-            foreach ($authors as $author) {
-                $formated[] = [
-                    'name'  => $author->name,
-                    'slug'  => $author->slug,
-                    'cover' => asset('storage/covers/' . $author->extra['cover']),
+            return self::formatted($authors);
+        });
+    }
+
+    /**
+     * Prepare json for author.
+     * @param  Collection|\App\Models\Author $author
+     * @return array
+     */
+    public static function formatted($author)
+    {
+        if ($author instanceof Author) {
+            return [
+                'name'  => $author->name,
+                'slug'  => $author->slug,
+                'cover' => asset('storage/covers/' . $author->extra['cover']),
+            ];
+        } else {
+            $formatted = [];
+            foreach ($author as $a) {
+                $formatted[] = [
+                    'name'  => $a->name,
+                    'slug'  => $a->slug,
+                    'cover' => asset('storage/covers/' . $a->extra['cover']),
                 ];
             }
-            return $formated;
-        });
+            return $formatted;
+        }
     }
 }

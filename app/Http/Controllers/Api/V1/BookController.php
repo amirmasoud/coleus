@@ -13,44 +13,14 @@ class BookController extends Controller
 {
     /**
      * List of content of the book.
-     * @param  integer $author
-     * @param  integer $book
-     * @param  integer|null $parent
+     *
+     * @param  string $slug
+     * @param  string $parent
      * @return Illuminate\Http\Response
      */
-    public function list($author, $book, $parent = null)
+    public function list($slug, $parent = null)
     {
-        $author = AuthorRepo::slug($author);
-        $book = BookRepo::slug($book);
-        if (TableRepo::isMultiLevel($book->id) && is_null($parent)) {
-            return [
-                'children' => TableRepo::routeChildren($book->id),
-                'author'   => $author->v1Json(),
-                'book'     => $book->v1Json()
-            ];
-        }
-        if (TableRepo::isMultiLevel($book->id) && !is_null($parent)) {
-            return [
-                'children' => TableRepo::leavesOfParent($book->id, TableRepo::slug($parent)->id),
-                'author' => $author->v1Json(),
-                'book'   => $book->v1Json(),
-                'parent' => $parent
-            ];
-        }
-        if ($book->pages == 1) {
-            return (new ReadController())->show($author->slug, $book->slug, 1);
-        } else {
-            $leaves = [];
-            foreach (TableRepo::leaves($book->id) as $leaf) {
-                unset($leaf->text);
-                $leaves[] = $leaf;
-            }
-            return [
-                'children' => $leaves,
-                'author' => $author->v1Json(),
-                'book'  => $book->v1Json()
-            ];
-        }
+        return TableRepo::API_list($slug, $parent);
     }
 
     /**
