@@ -163,7 +163,8 @@ class TableRepo extends Repo
                     return ['children' => TableRepo::API_leavesOfParent($book->id, TableRepo::slug($parent)->id)];
                 }
                 if ($book->pages == 1) {
-                    return (new ReadController())->show($author->slug, $book->slug, 1);
+
+                    return (new ReadController())->slug($book->table->content->slug);
                 } else {
                     return ['children' => TableRepo::API_leaves($book->id)];
                 }

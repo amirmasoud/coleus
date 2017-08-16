@@ -11,17 +11,16 @@ class ReadController extends Controller
 {
     /**
      * Show content of a book.
-     * @param  integer $author
-     * @param  integer $book
-     * @param  integer $order
+     *
+     * @param  string $slug
      * @return Illuminate\Http\Response
      */
     public function slug($slug)
     {
         return [
             'content' => ContentRepo::API_slug($slug),
-            'next'   => ContentRepo::API_next($slug),
-            'prev' => ContentRepo::API_prev($slug),
+            'next'    => ContentRepo::API_next($slug),
+            'prev'    => ContentRepo::API_prev($slug),
         ];
     }
 }
