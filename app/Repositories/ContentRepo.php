@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Cache;
 use App\Models\Table;
+use App\Models\Content;
 use App\Repositories\TableRepo;
 
 class ContentRepo extends Repo
@@ -37,7 +38,7 @@ class ContentRepo extends Repo
     public static function next($book_id, $order, $parent = null)
     {
         $content = self::leaf($book_id, $order, $parent);
-        return Cache::remember("content:{$order}:book:{$book_id}:parent:{$parent}:next", 
+        return Cache::remember("content:{$order}:book:{$book_id}:parent:{$parent}:next",
             self::MONTH_IN_MINUTE, function() use ($content) {
             return self::checkLink($content->getNextSibling());
         });
@@ -52,15 +53,29 @@ class ContentRepo extends Repo
     public static function prev($book_id, $order, $parent = null)
     {
         $content = self::leaf($book_id, $order, $parent);
-        return Cache::remember("content:{$order}:book:{$book_id}:parent:{$parent}:prev", 
+        return Cache::remember("content:{$order}:book:{$book_id}:parent:{$parent}:prev",
             self::MONTH_IN_MINUTE, function() use ($content) {
             return self::checkLink($content->getPrevSibling());
         });
     }
 
     /**
+     * Get content by slug
+     *
+     * @param  string $slug
+     * @return \App\Models\Content
+     */
+    public static function slug($slug)
+    {
+        return Cache::remember("content:{$slug}",
+            self::MONTH_IN_MINUTE, function() use ($slug) {
+            return Content::whereSlug($slug)->first();
+        });
+    }
+
+    /**
      * Check boundary of content.
-     * 
+     *
      * @param  \App\Models\Content $content
      * @return string|\App\Models\Content
      */

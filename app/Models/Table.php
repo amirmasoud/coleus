@@ -70,6 +70,11 @@ class Table extends Model
         return $this->belongsTo(Content::class, 'id', 'table_id');
     }
 
+    public function book()
+    {
+        return $this->belongsTo('App\Models\Book');
+    }
+
     public function v1Json()
     {
         return [

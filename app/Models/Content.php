@@ -28,6 +28,11 @@ class Content extends Model
         ];
     }
 
+    public function table()
+    {
+        return $this->belongsTo(Table::class);
+    }
+
     /**
      *
      * @param  integer $ucid Unique Cache ID
