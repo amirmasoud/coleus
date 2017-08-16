@@ -167,6 +167,7 @@ class ContentRepo extends Repo
     {
         if ($content instanceof Content) {
             return [
+                'title'  => $content->table->title,
                 'text'   => $content->text,
                 'page'   => $content->order,
                 'pages'  => $content->pages,
@@ -175,6 +176,7 @@ class ContentRepo extends Repo
             $formatted = [];
             foreach ($content as $c) {
                 $formatted[] = [
+                    'title'  => $c->title,
                     'text'   => $c->text,
                     'page'   => $c->order,
                     'pages'  => $c->pages,

@@ -206,19 +206,6 @@ class Content extends Model
     }
 
     /**
-     * Get the title value.
-     *
-     * @param  string  $value
-     * @return string
-     */
-    public function getTitleAttribute($value)
-    {
-        return property_exists($value = json_decode($this->value), 'title')
-            ? ' - ' . $value->title
-            : '';
-    }
-
-    /**
      * Set the text value.
      *
      * @param  string  $value
