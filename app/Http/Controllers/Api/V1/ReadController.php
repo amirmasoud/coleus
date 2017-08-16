@@ -19,7 +19,7 @@ class ReadController extends Controller
     public function show($author, $book, $order, $parent = null)
     {
         // $author = AuthorRepo::slug($author);
-        // $book = BookRepo::slug($book);
+        $book = BookRepo::slug($book);
         $content = ContentRepo::leaf($book->id, $order, $parent);
         $next = ContentRepo::next($book->id, $order, $parent);
         $prev = ContentRepo::prev($book->id, $order, $parent);
