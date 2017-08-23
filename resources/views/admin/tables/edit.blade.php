@@ -7,7 +7,7 @@ book
 <li class="active">Table</li>
 @endsection
 @section('content')
-<div class="row">
+<div class="row" id="table">
     <div class="col-xs-12">
         <div class="box box-solid">
             <div class="box-header">
@@ -66,6 +66,13 @@ book
                         </div>
                     </div>
                     <div class="form-group">
+                        {!! Form::label('html', 'HTML: ', ['class' => 'col-sm-2 control-label']) !!}
+                        <div class="col-sm-10">
+                            <textarea id="summernote" name="html" class="form-control" dir="ltr">{!! $table->content->html !!}</textarea>
+                            <!-- <div id="editor_holder"></div> -->
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" class="btn btn-primary">Publish</button>
                         </div>
@@ -79,9 +86,55 @@ book
     </div>
 </div>
 @endsection
+@push('style')
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.7/summernote.css" rel="stylesheet">
+<style type="text/css">
+    .m1, .m2 {
+        width: 50%;
+        display: inline-block;
+        float: right;
+    }
+    .m1 {
+        text-align: left;
+        padding-left: 50px;
+    }
+
+    .m2 {
+        text-align: right;
+        padding-right: 50px;
+        margin-bottom: 20px;
+    }
+    @media (max-width: 768px) {
+        .m1, .m2 {
+            text-align: center !important;
+            width: 100%;
+            padding-right: 0 !important;
+            padding-left: 0 !important;
+        }
+    }
+</style>
+@endpush
 @push('js')
 <script src="{{ mix('admin/js/json-editor.js') }}"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.7/summernote.js"></script>
 <script type="text/javascript">
+    $(document).ready(function() {
+$('#summernote').summernote({
+  height: 300,
+  minHeight: null,
+  maxHeight: null,
+  focus: true,
+  toolbar: [
+    ['style', ['bold', 'clear']],
+    ['height', ['height']],
+    ['misc', ['fullscreen', 'codeview', 'undo', 'redo', 'help']]
+  ],
+  disableDragAndDrop: true
+});
+    });
       var editor = new JSONEditor(document.getElementById('editor_holder'),{
         schema: {
           type: "object",

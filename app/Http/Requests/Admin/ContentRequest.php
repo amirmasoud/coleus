@@ -27,6 +27,7 @@ class ContentRequest extends FormRequest
             'slug' => 'required|max:255',
             'order' => 'required|max:255',
             'text' => 'required',
+            'html' => 'required',
         ];
     }
 }

@@ -19,7 +19,10 @@ class ContentController extends Controller
     public function update(Request $request, Content $content)
     {
         $content->fill($request->all())->save();
+        $parent = $content->table->parent->slug;
+        Cache::forget("content:{$content->order}:book:{$content->table->book->id}:parent:{$parent}");
+        Cache::forget("content:{$content->order}:book:{$content->table->book->id}:parent:");
         flash('Content updated.');
-        return redirect()->route('books.index');
+        return redirect()->route('tables.edit', ['table' => $content->table]);
     }
 }

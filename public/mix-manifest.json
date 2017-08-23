@@ -1,8 +1,9 @@
 {
   "/js/app.js": "/js/app.182076a5dee4cd5858e8.js",
-  "/css/app.css": "/css/app.162a386dffd86b0f79e5.css",
-  "/admin/css/admin.css": "/admin/css/admin.162a386dffd86b0f79e5.css",
+  "/css/app.css": "/css/app.d9f591ea01a172e25f4f.css",
+  "/admin/css/admin.css": "/admin/css/admin.d9f591ea01a172e25f4f.css",
   "/admin/js/admin.js": "/admin/js/admin.0eab7c32c5c81eb72d36.js",
+  "/admin/js/table.js": "/admin/js/table.8f01ca7e8f52a674a5ac.js",
   "/admin/js/author.js": "/admin/js/author.ba6b24c0876bc9596c0b.js",
   "/admin/js/book.js": "/admin/js/book.6610745c2d0b2e6e5a07.js",
   "/admin/js/json-editor.js": "/admin/js/json-editor.9bcfbb53796aa2312dc0.js"
