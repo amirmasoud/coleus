@@ -169,6 +169,7 @@ class ContentRepo extends Repo
             return [
                 'title'  => $content->table->title,
                 'text'   => $content->text,
+                'html'   => $content->html,
                 'page'   => $content->order,
                 'pages'  => $content->pages,
             ];
