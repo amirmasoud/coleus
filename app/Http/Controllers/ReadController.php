@@ -24,6 +24,8 @@ class ReadController extends Controller
         $prev = ContentRepo::prev($book->id, $order, $parent);
         $text = $content->text;
         $html = $content->html;
+        return view('reads.mix', compact('author', 'book', 'content', 'next',
+                                          'prev', 'text', 'parent', 'html'));
         if(in_array($content->type, ['ghazal', 'masnavi', 'ghate', 'robaee', 'ghaside'])) {
             return view('reads.show', compact('author', 'book', 'content', 'next',
                                               'prev', 'text', 'parent'));
