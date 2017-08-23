@@ -26,7 +26,7 @@ class ContentRequest extends FormRequest
         return [
             'slug' => 'required|max:255',
             'order' => 'required|max:255',
-            'text' => 'required|json',
+            'text' => 'required',
         ];
     }
 }

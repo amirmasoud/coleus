@@ -197,7 +197,7 @@ class Content extends Model
         if (! Content::where('hash', $hash)
                 ->exists()) {
             Content::create([
-                'text' => $child->text,
+                'text' => json_encode($child->text),
                 'order' => $child->order,
                 'hash' => $hash,
                 'table_id' => $table->id
@@ -211,10 +211,10 @@ class Content extends Model
      * @param  string  $value
      * @return void
      */
-    public function setTextAttribute($value)
-    {
-        $this->attributes['text'] = json_encode($value);
-    }
+    // public function setTextAttribute($value)
+    // {
+    //     $this->attributes['text'] = json_encode($value);
+    // }
 
     /**
      * Get the text value.
