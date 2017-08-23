@@ -13,7 +13,7 @@ class Content extends Model
 {
     use Sluggable;
 
-    protected $fillable = ['text', 'hash', 'slug', 'order', 'table_id'];
+    protected $fillable = ['text', 'hash', 'slug', 'order', 'table_id', 'html'];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -197,12 +197,35 @@ class Content extends Model
         if (! Content::where('hash', $hash)
                 ->exists()) {
             Content::create([
+                'html' => self::htmlify($child->text),
                 'text' => json_encode($child->text),
                 'order' => $child->order,
                 'hash' => $hash,
                 'table_id' => $table->id
             ]);
         }
+    }
+
+    public static function htmlify($text)
+    {
+        $html = '';
+        foreach ($text as $content) {
+            if (isset($content->m1)) {
+                $html .= '<div class="b"><span class="m1">' . $content->m1 .
+                '</span><span class="m2">' . $content->m2 . '</span></div>';
+            } else if (isset($content->p)) {
+                $html .= '<div class="p"><p>' . $content->p . '</p></div>';
+            } else if (isset($content->t1)) {
+                $html .= '<div class="t">' .
+                    '<p class="t1 text-center"><strong>' . $content->t1 .
+                    '</strong></p>' .
+                    '<p class="t2 text-center"><strong>' . $content->t2 .
+                    '</strong></p></div>';
+            } else {
+                // What to do ?
+            }
+        }
+        return $html;
     }
 
     /**

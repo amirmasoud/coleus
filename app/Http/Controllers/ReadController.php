@@ -23,18 +23,19 @@ class ReadController extends Controller
         $next = ContentRepo::next($book->id, $order, $parent);
         $prev = ContentRepo::prev($book->id, $order, $parent);
         $text = $content->text;
+        $html = $content->html;
         if(in_array($content->type, ['ghazal', 'masnavi', 'ghate', 'robaee', 'ghaside'])) {
-            return view('reads.show', compact('author', 'book', 'content', 'next', 
+            return view('reads.show', compact('author', 'book', 'content', 'next',
                                               'prev', 'text', 'parent'));
         } else if (in_array($content->type, ['tarje', 'teke'])) {
-            return view('reads.tarje', compact('author', 'book', 'content', 'next', 
+            return view('reads.tarje', compact('author', 'book', 'content', 'next',
                                               'prev', 'text', 'parent'));
         } else if (in_array($content->type, ['text'])) {
-            return view('reads.text', compact('author', 'book', 'content', 'next', 
+            return view('reads.text', compact('author', 'book', 'content', 'next',
                                               'prev', 'text', 'parent'));
         } else if (in_array($content->type, ['mix'])) {
-            return view('reads.mix', compact('author', 'book', 'content', 'next', 
-                                              'prev', 'text', 'parent'));
+            return view('reads.mix', compact('author', 'book', 'content', 'next',
+                                              'prev', 'text', 'parent', 'html'));
         }
     }
 }
