@@ -35,89 +35,6 @@ class Content extends Model
     }
 
     /**
-     *
-     * @param  integer $ucid Unique Cache ID
-     * @return \App\Models\Author
-     */
-    public static function cache($ucid, ...$extra)
-    {
-        $cache_key = config('app.name') . '_content_' . $ucid;
-        if (Cache::has($cache_key)) {
-            return Cache::get($cache_key);
-        } else {
-            if ($ucid == '*') {
-                $cache_value = Content::get();
-            } elseif (strpos($ucid, 'next')) {
-                // {$content->id}_content_{$content->book_slug}_book_{$section}_section_next
-                $pieces = explode('_', $ucid);
-                if ($pieces[4] == '') {
-                    $cache_value = self::cache("{$pieces[0]}_poem_{$pieces[2]}_book__section", $extra[0])
-                                        ->getNextSibling();
-                    if (! is_null($cache_value)) {
-                        $cache_value->content = $cache_value->content;
-                    } else {
-                        $cache_value = '#';
-                    }
-                } else {
-                    ////////////
-                    $cache_value = Content::where('id', '>', $pieces[0])
-                                          ->where('book_id', $pieces[2])
-                                          ->where('type', 'poem')
-                                          ->where('content_id', $pieces[4])
-                                          ->orderBy('id')
-                                          ->first() ?? '#';
-                }
-            } elseif (strpos($ucid, 'prev')) {
-                // {$content->id}_content_{$poem->book_id}_book_{$section}_section_prev
-                $pieces = explode('_', $ucid);
-                if ($pieces[4] == '') {
-                    $cache_value = self::cache("{$pieces[0]}_poem_{$pieces[2]}_book__section", $extra[0])
-                                        ->getPrevSibling();
-                    if (! is_null($cache_value)) {
-                        $cache_value->content = $cache_value->content;
-                    } else {
-                        $cache_value = '#';
-                    }
-                } else {
-                    ///////////
-                    $cache_value = Content::where('id', '<', $pieces[0])
-                                          ->where('book_id', $pieces[2])
-                                          ->where('type', 'poem')
-                                          ->where('content_id', $pieces[4])
-                                          ->orderBy('id', 'desc')
-                                          ->first() ?? '#';
-                }
-            } elseif (strpos($ucid, 'poem')) {
-                // {$index}_poem_{$book_slug}_book_{$section}_section
-                $pieces = explode('_', $ucid);
-                if ($pieces[4] == '') {
-                    $cache_value = Table::join('contents', 'contents.table_id', 'tables.id')
-                                        ->where('tables.book_id', $extra[0]->id) // $extra[0] -> Book
-                                        ->where('contents.order', $pieces[0])
-                                        ->first();
-                } else {
-                    /////////////
-                    $cache_value = Content::where('book_id', $pieces[2])
-                                          ->where('type', 'poem')
-                                          ->where('content_id', $pieces[4])
-                                          ->where('key', $pieces[0])->first();
-                }
-            } elseif (strpos($ucid, 'section')) {
-                // _content_{$book->id}_book_{$content->value}_section
-                $cache_value = Content::where('type', 'poem')
-                                      ->where('book_id', explode('_', $ucid)[0])
-                                      ->where('content_id', explode('_', $ucid)[2])
-                                      ->orderBy('key')
-                                      ->get();
-            } else {
-                $cache_value = Content::find($ucid);
-            }
-            Cache::forever($cache_key, $cache_value);
-            return $cache_value;
-        }
-    }
-
-    /**
      * Insert poems.
      * @param  json $content
      * @param  integer $book_id
@@ -229,17 +146,6 @@ class Content extends Model
         }
         return $html;
     }
-
-    /**
-     * Set the text value.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    // public function setTextAttribute($value)
-    // {
-    //     $this->attributes['text'] = json_encode($value);
-    // }
 
     /**
      * Get the text value.
