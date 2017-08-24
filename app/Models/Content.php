@@ -193,12 +193,14 @@ class Content extends Model
      */
     public static function insertContentIfNotExists($child, $table)
     {
-        $hash = md5(json_encode($child->text));
+        $html = self::htmlify($child->text);
+        $text =json_encode($child->text);
+        $hash = md5($text . '-' . $html . '-' . $table->id . '-' . $child->order);
         if (! Content::where('hash', $hash)
                 ->exists()) {
             Content::create([
-                'html' => self::htmlify($child->text),
-                'text' => json_encode($child->text),
+                'html' => $html,
+                'text' => $text,
                 'order' => $child->order,
                 'hash' => $hash,
                 'table_id' => $table->id

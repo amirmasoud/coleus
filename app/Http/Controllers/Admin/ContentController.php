@@ -18,6 +18,8 @@ class ContentController extends Controller
      */
     public function update(Request $request, Content $content)
     {
+        $text =json_encode($request->text);
+        $request['hash'] = md5($text . '-' . $request->html . '-' . $content->table->id . '-' . $content->order);
         $content->fill($request->all())->save();
         $parent = $content->table->parent->slug;
         Cache::forget("content:{$content->order}:book:{$content->table->book->id}:parent:{$parent}");
