@@ -8,9 +8,10 @@ use App\Models\Author;
 use App\Models\Comment;
 use App\Models\Category;
 use App\Models\Publisher;
+use App\Scopes\VisibilityScope;
 use Illuminate\Http\UploadedFile;
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Book extends Model
 {
@@ -22,9 +23,21 @@ class Book extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'pages', 'ISBN', 'price', 'year', 'extra', 
+        'title', 'description', 'pages', 'ISBN', 'price', 'year', 'extra',
         'author_id', 'publisher_id', 'slug'
     ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new VisibilityScope);
+    }
 
     /**
      * Return the sluggable configuration array for this model.
@@ -127,7 +140,7 @@ class Book extends Model
 
     /**
      * Get the book(s) by cache server.
-     * 
+     *
      * @param  integer $ucid Unique Cache ID
      * @return \App\Models\Book
      */
