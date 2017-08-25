@@ -168,19 +168,20 @@ class ContentRepo extends Repo
         if ($content instanceof Content) {
             return [
                 'title'  => $content->table->title,
-                'text'   => $content->text,
                 'html'   => $content->html,
                 'page'   => $content->order,
                 'pages'  => $content->pages,
+                'hash'   => $content->hash,
             ];
         } else {
             $formatted = [];
             foreach ($content as $c) {
                 $formatted[] = [
                     'title'  => $c->title,
-                    'text'   => $c->text,
+                    'html'   => $content->html,
                     'page'   => $c->order,
                     'pages'  => $c->pages,
+                    'hash'   => $c->hash,
                 ];
             }
             return $formatted;
