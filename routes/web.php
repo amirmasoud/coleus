@@ -18,5 +18,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 require base_path('routes/admin/web.php');
 Route::get('{author}', 'AuthorController@books')->name('authors.books');
-Route::get('{author}/{book}/sh{index}/{parent?}', 'ReadController@show')->name('reads.show');
+Route::get('{author}/{book}/sh{index}/{parent?}', 'ReadController@show')
+    ->name('reads.show')
+    ->where('index', '[0-9]+');
 Route::get('{author}/{book}/{parent?}', 'BookController@list')->name('books.list');
