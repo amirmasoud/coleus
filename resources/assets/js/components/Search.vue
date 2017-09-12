@@ -1,7 +1,7 @@
 <template>
 
   <autocomplete
-    url="http://negarin.dev/api/v1/search"
+    url="http://negar.in/api/v1/search"
     anchor="title"
     label="author"
     :classes="{input: 'form-control'}"
