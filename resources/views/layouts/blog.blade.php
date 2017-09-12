@@ -37,6 +37,17 @@
             </div>
             <div class="container">
                 <div class="row">
+                    <div class="search-bar col-xs-12">
+                        <form class="navbar-form">
+                            <div class="form-group">
+                                <search></search>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
                     @if (!empty($links = breadcrumb()))
                     <div class="custom-breadcrumb">
                         @foreach ($links as $link)
@@ -51,6 +62,47 @@
                         @endforeach
                     </div>
                     @endif
+<!--                     <p>کتاب‌ها</p>
+                    <div class="owl-carousel owl-theme">
+                    @foreach (\App\Models\Book::get() as $book)
+                    <div class="item">
+                        <a href="#">
+                            <div class="thumbnail">
+                                <img src="{{ asset('storage/covers/' . $book->extra['cover']) }}"
+                                    class="img-responsive"
+                                    alt="{{ $book->title }}"
+                                    data-src="{{ asset('storage/covers/' . $book->extra['cover']) }}">
+                                <div class="caption">
+                                    <h5 class="text-center">{{ $book->title }}</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    @endforeach
+                    </div> -->
+
+
+
+
+<!--                     <p>شاعران</p>
+                    <div class="owl-carousel owl-theme">
+                    @foreach (\App\Models\Author::get() as $author)
+                    <div class="item">
+                        <a href="#">
+                            <div class="thumbnail">
+                                <img src="{{ asset('storage/covers/' . $author->extra['cover']) }}"
+                                    class="img-responsive"
+                                    alt="{{ $author->name }}"
+                                    data-src="{{ asset('storage/covers/' . $author->extra['cover']) }}">
+                                <div class="caption">
+                                    <h5 class="text-center">{{ $author->name }}</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    @endforeach
+                    </div> -->
+
                     @yield('content')
                 </div>
             </div>

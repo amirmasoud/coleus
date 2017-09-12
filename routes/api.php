@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 Route::group(['namespace' => 'Api\V1'], function() {
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('search', 'SearchController@search')->name('search');
     Route::get('content/{slug}', 'ReadController@slug')->name('reads.slug');
     Route::get('author/{slug}/books', 'AuthorController@books')->name('author.books');
     Route::get('book/{slug}/{parent?}', 'BookController@list')->name('books.list');

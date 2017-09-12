@@ -21,6 +21,7 @@
     "owl.carousel": "^2.2.0",
     "vue-froala-wysiwyg": "^2.0.0",
     "vue-resource": "^1.2.1",
-    "vue-shortkey": "^2.1.9"
+    "vue-shortkey": "^2.1.9",
+    "vue2-autocomplete-js": "^0.2.2"
   }
 }

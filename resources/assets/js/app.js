@@ -14,17 +14,26 @@ require('owl.carousel');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// Vue.component('example', require('./components/Example.vue'));
+Vue.component('auto-complete', require('./components/Autocomplete.vue'));
+Vue.component('search', require('./components/Search.vue'));
 
 const app = new Vue({
     el: '#app',
     mounted: function() {
-        $('.owl-carousel').owlCarousel({
-            center: true,
-            items: 1,
-            loop: true,
+        let owl = $('.owl-carousel');
+        owl.owlCarousel({
+            rtl: true,
             nav: true,
-            margin:5
+            navText: ['<i class="fa fa-fw fa-angle-right"></i>', '<i class="fa fa-fw fa-angle-left"></i>'],
+            lazyLoad: true,
+            dots: false,
+        });
+        owl.on('mousewheel', '.owl-stage', function (e) {
+            if (event.deltaX > 0) {
+                owl.trigger('prev.owl');
+            } else if (event.deltaX < 0) {
+                owl.trigger('next.owl');
+            }
         });
     },
     methods: {
