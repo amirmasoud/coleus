@@ -11,6 +11,7 @@ use App\Models\Content;
 use App\Models\Table;
 use App\Models\Author;
 use App\Models\Book;
+use Cache;
 
 class SearchController extends Controller
 {
@@ -31,21 +32,23 @@ class SearchController extends Controller
      */
     public function search(Request $request)
     {
-        $results = $this->content($request);
-        return $results;
+        return Cache::remember("search:content:" . $request->q . ":page:" . ($request->page ?? 1),
+            24*60, function () use ($request) {
+                return $this->content($request);
+            });
     }
 
     private function content($request)
     {
         $result = [];
-        $content = Content::where('html', 'like', '%' . $request->input('q') . '%')->get();
-        if(in_array($request->input('q'), ['m1', 'm2', 't1', 't2', 'p', 'span', 'div', 'b', '"', '<', '>', '/'])) {
+        $content = Content::where('html', 'like', '%' . $request->q . '%')->paginate(10);
+        if (preg_match ('/[a-zA-Z0-9 ]/', $request->q)) { //['class', 'm1', 'm2', 't1', 't2', 'p', 'span', 'div', 'b', '"', '<', '>', '/']
             return [];
         }
         foreach ($content as $c) {
             $record = [];
             $html = $c->html;
-            $pos = strpos($html, $request->input('q'));
+            $pos = strpos($html, $request->q);
             $start = 0;
             $end = 0;
             for ($i = (int)$pos; $i < strlen($html); $i++) {
