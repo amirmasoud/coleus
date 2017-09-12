@@ -38,7 +38,7 @@ class SearchController extends Controller
     private function content($request)
     {
         $result = [];
-        $content = Content::where('html', 'like', '%' . $request->input('q') . '%')->limit(7)->get();
+        $content = Content::where('html', 'like', '%' . $request->input('q') . '%')->get();
         if(in_array($request->input('q'), ['m1', 'm2', 't1', 't2', 'p', 'span', 'div', 'b', '"', '<', '>', '/'])) {
             return [];
         }
