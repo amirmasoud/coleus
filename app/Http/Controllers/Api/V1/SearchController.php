@@ -42,7 +42,7 @@ class SearchController extends Controller
     {
         $result = [];
         $content = Content::where('html', 'like', '%' . $request->q . '%')->paginate(10);
-        if (preg_match ('/[a-zA-Z0-9 ]/', $request->q)) { //['class', 'm1', 'm2', 't1', 't2', 'p', 'span', 'div', 'b', '"', '<', '>', '/']
+        if (preg_match('/[a-zA-Z0-9 ]/', $request->q) || $request->q == '') { //['class', 'm1', 'm2', 't1', 't2', 'p', 'span', 'div', 'b', '"', '<', '>', '/']
             return [];
         }
         foreach ($content as $c) {
