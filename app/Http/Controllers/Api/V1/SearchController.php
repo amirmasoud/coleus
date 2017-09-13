@@ -32,7 +32,7 @@ class SearchController extends Controller
      */
     public function search(Request $request)
     {
-        return Cache::remember("search:content:" . $request->q . ":page:" . ($request->page ?? 1),
+        return Cache::remember("search:content:" . md5($request->q) . ":page:" . ($request->page ?? 1),
             24*60, function () use ($request) {
                 return $this->content($request);
             });
