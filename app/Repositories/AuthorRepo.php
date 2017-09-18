@@ -62,7 +62,7 @@ class AuthorRepo extends Repo
     public static function all()
     {
         return Cache::remember('author:*', 60*24*7, function() {
-            return Author::orderBy('slug', 'asc')->get();
+            return Author::orderBy('name', 'asc')->get();
         });
     }
 
@@ -75,7 +75,7 @@ class AuthorRepo extends Repo
     public static function API_all()
     {
         return Cache::remember('api:author:*', 60*24*7, function() {
-            $authors = Author::orderBy('slug', 'asc')->get(['id', 'name', 'slug', 'extra']);
+            $authors = Author::orderBy('name', 'asc')->get(['id', 'name', 'slug', 'extra']);
             return self::formatted($authors);
         });
     }
