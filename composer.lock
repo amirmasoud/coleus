@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1b3f86ef37eeca3c5969cdfb1e4c5412",
-    "content-hash": "90aed1d879173024e8d39cfcac510a76",
+    "hash": "40ff2f56019716408828e324c971ec4a",
+    "content-hash": "a58c808f49efd73722ade67cbfb778ed",
     "packages": [
         {
             "name": "barryvdh/laravel-cors",
@@ -118,6 +118,56 @@
                 "webprofiler"
             ],
             "time": "2017-07-21 11:56:48"
+        },
+        {
+            "name": "chaseconey/laravel-datadog-helper",
+            "version": "0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chaseconey/laravel-datadog-helper.git",
+                "reference": "16f45310dd454ba3ac79d1eff1dac429ca1849c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chaseconey/laravel-datadog-helper/zipball/16f45310dd454ba3ac79d1eff1dac429ca1849c2",
+                "reference": "16f45310dd454ba3ac79d1eff1dac429ca1849c2",
+                "shasum": ""
+            },
+            "require": {
+                "datadog/php-datadogstatsd": "^0.4.0",
+                "illuminate/support": "~5.1",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0||~5.0",
+                "scrutinizer/ocular": "~1.1",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ChaseConey\\LaravelDatadogHelper\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chase Coney",
+                    "email": "chasiepoo@gmail.com",
+                    "homepage": "http://chaseconey.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel Datadog helper package.",
+            "homepage": "https://github.com/chaseconey/laravel-datadog-helper",
+            "keywords": [
+                "chaseconey",
+                "laravel-datadog-helper"
+            ],
+            "time": "2017-09-15 01:36:49"
         },
         {
             "name": "cocur/slugify",
@@ -245,6 +295,55 @@
                 "sluggable"
             ],
             "time": "2017-08-31 18:16:01"
+        },
+        {
+            "name": "datadog/php-datadogstatsd",
+            "version": "0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DataDog/php-datadogstatsd.git",
+                "reference": "90aee3687a43ba31e7d94b6c0a9ad9b127c5dd1c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DataDog/php-datadogstatsd/zipball/90aee3687a43ba31e7d94b6c0a9ad9b127c5dd1c",
+                "reference": "90aee3687a43ba31e7d94b6c0a9ad9b127c5dd1c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "lib-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "libraries/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Corley",
+                    "email": "anthroprose@gmail.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Datadog",
+                    "email": "dev@datadoghq.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This is an extremely simple PHP datadogstatsd client",
+            "homepage": "https://www.datadoghq.com/",
+            "keywords": [
+                "DataDog",
+                "php"
+            ],
+            "time": "2016-05-24 12:56:33"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
