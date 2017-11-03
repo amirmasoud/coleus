@@ -6,12 +6,13 @@ use Cache;
 use App\Models\Table;
 use App\Models\Content;
 use App\Repositories\TableRepo;
+use Elasticquent\ElasticquentTrait;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
 class Content extends Model
 {
-    use Sluggable;
+    use Sluggable, ElasticquentTrait;
 
     protected $fillable = ['text', 'hash', 'slug', 'order', 'table_id', 'html'];
 
@@ -167,5 +168,25 @@ class Content extends Model
     public function getPagesAttribute($value)
     {
         return TableRepo::count($this->table_id);
+    }
+
+    private function buildFieldsParameter($getSourceIfPossible, $getTimestampIfPossible)
+    {
+        return null;
+    }
+
+    /**
+     * Paginate Collection
+     *
+     * @param int $pageLimit
+     *
+     * @return Paginator
+     */
+    public function paginate($pageLimit = 10)
+    {
+        $page = Paginator::resolveCurrentPage() ?: 1;
+        //$sliced_items = array_slice($this->items, ($page - 1) * $pageLimit, $pageLimit);
+
+        return new Paginator($this->items, $this->hits, $this->totalHits(), $pageLimit, $page, ['path' => Paginator::resolveCurrentPath()]);
     }
 }
