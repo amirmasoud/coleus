@@ -13,4 +13,7 @@
         @include('reads.includes.pagination', compact('next', 'prev', 'book', 'author', 'parent'))
     </div>
 </div>
+<div class="col-xs-12">
+    @include('components.comment', ['content_id' => $content])
+</div>
 @endsection

@@ -11,6 +11,9 @@ Route::group(['namespace' => 'Admin',
                   Route::resource('contents', 'ContentController');
                   Route::resource('publishers', 'PublisherController');
                   Route::resource('categories', 'CategoryController');
+                  Route::resource('comments', 'CommentController', ['only' => [
+                    'index', 'edit', 'update', 'destroy'
+                  ]]);
                   Route::resource('authors', 'AuthorController');
                   Route::resource('occupations', 'OccupationController');
                   Route::resource('movements', 'MovementController');

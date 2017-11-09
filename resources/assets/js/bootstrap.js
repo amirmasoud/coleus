@@ -47,4 +47,4 @@ window.axios.defaults.headers.common = {
 
 
 // Other libraries
-Vue.use(require('vue-shortkey'))
+Vue.use('vue-shortkey', { prevent: ['input', 'textarea'] });
