@@ -1,12 +1,12 @@
 @extends('layouts.blog')
 @section('content')
-<div class="panel panel-default">
+<div class="row">
     <div class="panel-heading">ورود</div>
-    <div class="panel-body">
-        <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
+    <div class="col-md">
+        <form role="form" method="POST" action="{{ route('login') }}">
             {{ csrf_field() }}
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6 offset-md-3">
                     <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus dir="ltr">
                     @if ($errors->has('email'))
                     <span class="help-block">
@@ -17,7 +17,7 @@
                 <label for="email" class="col-md-2 text-left-important control-label">رایانامه</label>
             </div>
             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-4 offset-md-3">
                     <input id="password" type="password" class="form-control" name="password" required dir="ltr">
                     @if ($errors->has('password'))
                     <span class="help-block">
@@ -28,7 +28,7 @@
                 <label for="password" class="col-md-2 text-left-important control-label">گذرواژه</label>
             </div>
             <div class="form-group">
-                <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6 offset-md-3">
                     <div class="checkbox pull-right">
                         <label>
                             <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> مرا به خاطر بسپار
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6 offset-md-3">
                     <a class="btn btn-link" href="{{ route('password.request') }}">
                         گذر واژه خود را فراموش کرده‌اید؟
                     </a>

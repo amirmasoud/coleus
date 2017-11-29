@@ -10,7 +10,6 @@ Dashboard
 <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
 @endsection
 
-
 @section('content')
 
 @endsection

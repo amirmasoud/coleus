@@ -9,7 +9,7 @@ window._ = require('lodash');
 
 window.$ = window.jQuery = require('jquery');
 
-require('bootstrap-sass');
+require('bootstrap/dist/js/bootstrap.bundle.min');
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -47,4 +47,4 @@ window.axios.defaults.headers.common = {
 
 
 // Other libraries
-Vue.use(require('vue-shortkey'))
+Vue.use('vue-shortkey', { prevent: ['input', 'textarea'] });

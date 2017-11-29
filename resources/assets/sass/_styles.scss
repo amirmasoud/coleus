@@ -2,7 +2,7 @@
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
 
-body {
+body, .tooltip {
   padding-bottom: 40px;
   color: #5a5a5a;
   direction: rtl;
@@ -13,14 +13,14 @@ a:hover, a:focus {
   text-decoration: none !important;
 }
 
-.radio input[type="radio"], 
-.radio-inline input[type="radio"], 
-.checkbox input[type="checkbox"], 
+.radio input[type="radio"],
+.radio-inline input[type="radio"],
+.checkbox input[type="checkbox"],
 .checkbox-inline input[type="checkbox"] {
   margin-right: -20px;
 }
 
-.radio label, 
+.radio label,
 .checkbox label {
   padding-right: 20px;
 }
