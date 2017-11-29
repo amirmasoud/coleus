@@ -30,26 +30,16 @@
     </head>
     <body>
         <div id="app">
-            <div class="navbar navbar-default navbar-static-top">
-                <div class="container">
-                    @include('components.nav')
-                </div>
-            </div>
-            <div class="container">
+            <nav class="navbar-light bg-light"
+                v-bind:class="{ sepia: sepia, dark: dark }">
+                <div class="container">@include('components.nav')</div>
+            </nav>
+            <div class="container animation"
+                v-bind:class="{ sepia: sepia, dark: dark }"
+                style="margin-top: 15px;">
+                @if (!empty($links = breadcrumb()))
                 <div class="row">
-                    <div class="search-bar col-xs-12">
-                        <form class="navbar-form">
-                            <div class="form-group">
-                                <search></search>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    @if (!empty($links = breadcrumb()))
-                    <div class="custom-breadcrumb">
+                    <div class="custom-breadcrumb col text-right">
                         @foreach ($links as $link)
                         @if ($link['href'] == '#')
                         <strong><span>{{ $link['name'] }}</span></strong>
@@ -61,52 +51,16 @@
                         @endunless
                         @endforeach
                     </div>
-                    @endif
-<!--                     <p>کتاب‌ها</p>
-                    <div class="owl-carousel owl-theme">
-                    @foreach (\App\Models\Book::get() as $book)
-                    <div class="item">
-                        <a href="#">
-                            <div class="thumbnail">
-                                <img src="{{ asset('storage/covers/' . $book->extra['cover']) }}"
-                                    class="img-responsive"
-                                    alt="{{ $book->title }}"
-                                    data-src="{{ asset('storage/covers/' . $book->extra['cover']) }}">
-                                <div class="caption">
-                                    <h5 class="text-center">{{ $book->title }}</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    @endforeach
+                </div>
+                @endif
+                <div class="row">
+<!--                     <div class="reading-mode-buttons center-block text-center row">
+                    @include('components.readerModeButtons')
+                    <br />
                     </div> -->
-
-
-
-
-<!--                     <p>شاعران</p>
-                    <div class="owl-carousel owl-theme">
-                    @foreach (\App\Models\Author::get() as $author)
-                    <div class="item">
-                        <a href="#">
-                            <div class="thumbnail">
-                                <img src="{{ asset('storage/covers/' . $author->extra['cover']) }}"
-                                    class="img-responsive"
-                                    alt="{{ $author->name }}"
-                                    data-src="{{ asset('storage/covers/' . $author->extra['cover']) }}">
-                                <div class="caption">
-                                    <h5 class="text-center">{{ $author->name }}</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    @endforeach
-                    </div> -->
-
                     @yield('content')
                 </div>
             </div>
-            @include('components.footer')
         </div>
     </div>
     <!-- Scripts -->

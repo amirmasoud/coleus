@@ -1,11 +1,11 @@
 @extends('layouts.blog')
 @section('content')
-<div class="col-xs-12">
-    <div class="panel panel-default">
-        <div class="panel-body">
+<div class="col">
+    <div class="card">
+        <div class="card-body text-right">
             @foreach($leaves as $leaf)
-            <p>
-                <a href="{{ route('reads.show', ['author' => $author->slug, 
+            <p class="card-text">
+                <a href="{{ route('reads.show', ['author' => $author->slug,
                                                  'book' => $book->slug,
                                                  'index'=>$leaf->order]) }}">
                     {{ convert($leaf->title) }}
