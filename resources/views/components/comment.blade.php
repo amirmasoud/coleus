@@ -1,4 +1,5 @@
-<div class="panel panel-default" id="comment-form">
+<transition name="fade">
+<div class="panel panel-default" id="comment-form" v-if="show">
     <div class="panel-body">
         <div class="col-md-8 col-md-offset-2 zero-padding">
             @include('flash::message')
@@ -39,3 +40,4 @@
         </form>
     </div>
 </div>
+</transition>

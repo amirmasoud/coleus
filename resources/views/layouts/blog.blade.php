@@ -30,12 +30,14 @@
     </head>
     <body>
         <div id="app">
-            <div class="navbar navbar-default navbar-static-top">
+            <div class="navbar navbar-default navbar-static-top"
+                v-bind:class="{ sepia: sepia, dark: dark }">
                 <div class="container">
                     @include('components.nav')
                 </div>
             </div>
-            <div class="container">
+            <div class="container"
+                v-bind:class="{ sepia: sepia, dark: dark }">
                 <div class="row">
                     <div class="search-bar col-xs-12">
                         <form class="navbar-form">
@@ -46,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
+            <div class="container animation" v-bind:class="{ sepia: sepia, dark: dark }">
                 <div class="row">
                     @if (!empty($links = breadcrumb()))
                     <div class="custom-breadcrumb">
@@ -62,51 +64,13 @@
                         @endforeach
                     </div>
                     @endif
-<!--                     <p>کتاب‌ها</p>
-                    <div class="owl-carousel owl-theme">
-                    @foreach (\App\Models\Book::get() as $book)
-                    <div class="item">
-                        <a href="#">
-                            <div class="thumbnail">
-                                <img src="{{ asset('storage/covers/' . $book->extra['cover']) }}"
-                                    class="img-responsive"
-                                    alt="{{ $book->title }}"
-                                    data-src="{{ asset('storage/covers/' . $book->extra['cover']) }}">
-                                <div class="caption">
-                                    <h5 class="text-center">{{ $book->title }}</h5>
-                                </div>
-                            </div>
-                        </a>
+                    <div class="reading-mode-buttons center-block text-center col-xs-12">
+                    @include('components.readerModeButtons')
                     </div>
-                    @endforeach
-                    </div> -->
-
-
-
-
-<!--                     <p>شاعران</p>
-                    <div class="owl-carousel owl-theme">
-                    @foreach (\App\Models\Author::get() as $author)
-                    <div class="item">
-                        <a href="#">
-                            <div class="thumbnail">
-                                <img src="{{ asset('storage/covers/' . $author->extra['cover']) }}"
-                                    class="img-responsive"
-                                    alt="{{ $author->name }}"
-                                    data-src="{{ asset('storage/covers/' . $author->extra['cover']) }}">
-                                <div class="caption">
-                                    <h5 class="text-center">{{ $author->name }}</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    @endforeach
-                    </div> -->
-
+                    <br />
                     @yield('content')
                 </div>
             </div>
-            @include('components.footer')
         </div>
     </div>
     <!-- Scripts -->

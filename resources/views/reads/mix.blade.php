@@ -1,8 +1,8 @@
 @extends('layouts.blog')
 @section('content')
-<div class="col-xs-12">
+<div class="col-xs-12" v-bind:style="{ fontSize: fontSize + 'px', lineHeight: lineHeight }">
     <div class="panel panel-default">
-        <div class="panel-body">
+        <div class="panel-body center-block" v-bind:style="{ maxWidth: width + 'px' }">
             {!! $html !!}
             @if (Auth::check() && Auth::user()->role == 'admin')
             <a href="{{ route('tables.edit', ['table'=>$content->table_id]) }}">ویرایش</a>
