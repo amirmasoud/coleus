@@ -21,9 +21,9 @@ const app = new Vue({
     el: '#app',
     data() {
       return {
-        fontSize: 14,
-        lineHeight: 1.6,
-        width: 640,
+        fontSize: 16,
+        lineHeight: 1.5,
+        width: 700,
         dark: false,
         sepia: false,
         show: true

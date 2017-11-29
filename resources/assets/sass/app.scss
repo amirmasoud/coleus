@@ -57,7 +57,7 @@
 @import "variables";
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/bootstrap/dist/css/bootstrap.min";
 
 // Style
 @import "styles";
@@ -122,7 +122,7 @@
     font-size: 18px;
     display: block;
     padding: 10.5px;
-    text-align: center;
+    text-align: right;
     color: #373737;
 }
 
@@ -331,4 +331,18 @@ body, html {
   -webkit-transform: rotate(135deg);
   -ms-transform: rotate(135deg);
   transform: rotate(135deg);
+}
+
+.search-nav {
+  margin-top: 13px;
+}
+
+.card-title {
+  margin-top: 0.5rem;
+  color: #858e95;
+}
+
+.b {
+  width: 100%;
+  display: inline-flex;
 }

@@ -30,28 +30,16 @@
     </head>
     <body>
         <div id="app">
-            <div class="navbar navbar-default navbar-static-top"
+            <nav class="navbar-light bg-light"
                 v-bind:class="{ sepia: sepia, dark: dark }">
-                <div class="container">
-                    @include('components.nav')
-                </div>
-            </div>
-            <div class="container"
-                v-bind:class="{ sepia: sepia, dark: dark }">
+                <div class="container">@include('components.nav')</div>
+            </nav>
+            <div class="container animation"
+                v-bind:class="{ sepia: sepia, dark: dark }"
+                style="margin-top: 15px;">
+                @if (!empty($links = breadcrumb()))
                 <div class="row">
-                    <div class="search-bar col-xs-12">
-                        <form class="navbar-form">
-                            <div class="form-group">
-                                <search></search>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="container animation" v-bind:class="{ sepia: sepia, dark: dark }">
-                <div class="row">
-                    @if (!empty($links = breadcrumb()))
-                    <div class="custom-breadcrumb">
+                    <div class="custom-breadcrumb col text-right">
                         @foreach ($links as $link)
                         @if ($link['href'] == '#')
                         <strong><span>{{ $link['name'] }}</span></strong>
@@ -63,11 +51,13 @@
                         @endunless
                         @endforeach
                     </div>
-                    @endif
-                    <div class="reading-mode-buttons center-block text-center col-xs-12">
+                </div>
+                @endif
+                <div class="row">
+<!--                     <div class="reading-mode-buttons center-block text-center row">
                     @include('components.readerModeButtons')
-                    </div>
                     <br />
+                    </div> -->
                     @yield('content')
                 </div>
             </div>
