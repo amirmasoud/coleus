@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col">
         <a class="custom-navbar-brand" href="{{ url('/') }}">
-            <img src="{{ asset('images/logo.png') }}"
+            <img src="{{ secure_asset('images/logo.png') }}"
                 alt="{{ config('app.name', 'Negar') }}"
                 style="width: 45px;"
                 data-toggle="tooltip"
