@@ -1,3 +1,8 @@
 <a class="custom-navbar-brand" href="{{ url('/') }}">
-    {{ config('app.name', 'Negar') }}<span style="display: block;font-size: 11px;">ßeta</span>
+    <img src="{{ asset('storage/logo.png') }}"
+        alt="{{ config('app.name', 'Negar') }}"
+        style="width: 45px;"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="{{ config('app.name', 'Negar') }}"/>
 </a>
