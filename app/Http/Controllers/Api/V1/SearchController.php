@@ -55,7 +55,7 @@ class SearchController extends Controller
                 }
             }
         }
-        return array_unique($result, SORT_REGULAR);
+        return array_values(array_unique($result, SORT_REGULAR));
     }
 
     private function innerSearch($term, $c)
