@@ -346,3 +346,29 @@ body, html {
   width: 100%;
   display: inline-block;
 }
+
+footer.footer {
+  margin-top: 30px;
+  width: 100%;
+  line-height: 60px;
+  background-color: #464a4e;
+  color: #d6d6d6;
+  text-align: right;
+  background: url('../images/footer-bg.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  .footer-overlay {
+    background-color: rgba(0, 0, 0, 0.85);
+  }
+  & div.row>div {
+    margin: 50px 0 0 0;
+  }
+  h6, a {
+    color: #d6d6d6;
+  }
+  hr {
+    border-top: 1px dashed transparent;
+  }
+}

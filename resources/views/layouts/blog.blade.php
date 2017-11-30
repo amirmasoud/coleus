@@ -34,7 +34,7 @@
                 v-bind:class="{ sepia: sepia, dark: dark }">
                 <div class="container">@include('components.nav')</div>
             </nav>
-            <div class="container animation"
+            <main class="container animation"
                 v-bind:class="{ sepia: sepia, dark: dark }"
                 style="margin-top: 15px;">
                 @if (!empty($links = breadcrumb()))
@@ -60,7 +60,29 @@
                     </div> -->
                     @yield('content')
                 </div>
-            </div>
+            </main>
+            <footer class="footer">
+                <div class="footer-overlay">
+                    <div class="container row mx-auto">
+                        <div class="col-12 text-center">
+                            <h6>ما را دنبال کنید</h6>
+                            <span><a href="https://t.me/negarin_telegram"><i class="fa fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+                            <hr />
+                        </div>
+                        <div class="col-12 text-center">
+                            <span>
+                            <a href="{{ url('/') }}">
+                                <img src="{{ secure_asset('images/logo.png') }}"
+                                    alt="{{ config('app.name', 'Negar') }}"
+                                    style="width: 28px;"
+                                    title="{{ config('app.name', 'Negar') }}"
+                                    data-pagespeed-no-transform/>
+                            </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
     <!-- Scripts -->
