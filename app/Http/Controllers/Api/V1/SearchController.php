@@ -45,7 +45,8 @@ class SearchController extends Controller
         if (preg_match('/[a-zA-Z0-9]/', $request->q) || $request->q == '' || $request->q == ' ') { //['class', 'm1', 'm2', 't1', 't2', 'p', 'span', 'div', 'b', '"', '<', '>', '/']
             return [];
         }
-        $content = Content::search($request->q)->paginate(10);
+        // $content = Content::search($request->q)->paginate(10);
+        $content = Content::searchByQuery(array('query_string' => array('query' => $request->q)))->paginate(10);
         foreach ($content as $c) {
             $terms = explode(' ', $request->q);
             foreach ($terms as $term) {
