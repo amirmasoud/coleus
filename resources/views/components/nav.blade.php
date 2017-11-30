@@ -6,7 +6,8 @@
                 style="width: 45px;"
                 data-toggle="tooltip"
                 data-placement="bottom"
-                title="{{ config('app.name', 'Negar') }}"/>
+                title="{{ config('app.name', 'Negar') }}"
+                data-pagespeed-no-transform/>
         </a>
     </div>
     <div class="col search-nav">
