@@ -175,7 +175,6 @@ return [
         Barryvdh\Cors\ServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Elasticquent\ElasticquentServiceProvider::class,
-        ChaseConey\LaravelDatadogHelper\LaravelDatadogHelperServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -240,7 +239,6 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Es' => Elasticquent\ElasticquentElasticsearchFacade::class,
-        'Datadog' => ChaseConey\LaravelDatadogHelper\Datadog::class
 
     ],
 
