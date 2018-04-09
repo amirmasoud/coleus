@@ -72,7 +72,7 @@
                         <div class="col-12 text-center">
                             <span>
                             <a href="{{ url('/') }}">
-                                <img src="{{ secure_asset('images/logo.png') }}"
+                                <img src="{{ asset('images/logo.png') }}"
                                     alt="{{ config('app.name', 'Negar') }}"
                                     style="width: 28px;"
                                     title="{{ config('app.name', 'Negar') }}"
