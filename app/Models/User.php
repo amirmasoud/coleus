@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +10,12 @@ use App\Notifications\ResetPassword as ResetPasswordNotification;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
+
+    /**
+     * @var string
+     */
+    protected $guard_name = 'api';
 
     /**
      * The attributes that are mass assignable.
@@ -88,11 +94,13 @@ class User extends Authenticatable implements JWTSubject
     /**
      * Set the user's password.
      *
-     * @param  string $password
+     * @param  string|null $password
      * @return void
      */
-    public function setPasswordAttribute(string $password): void
+    public function setPasswordAttribute($password): void
     {
-        $this->attributes['password'] = bcrypt($password);
+        if (!is_null($password)) {
+            $this->attributes['password'] = bcrypt($password);
+        }
     }
 }

@@ -2,17 +2,15 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\User;
+use Spatie\Permission\Models\Permission;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
-use Carbon\Carbon;
-use Spatie\Permission\Models\Role;
 
-class UserController extends Controller
+class PermissionController extends Controller
 {
     use HasResourceActions;
 
@@ -81,15 +79,13 @@ class UserController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new User);
+        $grid = new Grid(new Permission);
 
-        $grid->id('Id')->sortable();
-        $grid->name('Name')->sortable();
-        $grid->email('Email')->sortable();
-        // $grid->password('Password');
-        // $grid->remember_token('Remember token');
-        $grid->created_at('Created at')->sortable();
-        // $grid->updated_at('Updated at');
+        $grid->id('Id');
+        $grid->name('Name');
+        $grid->guard_name('Guard name');
+        $grid->created_at('Created at');
+        $grid->updated_at('Updated at');
 
         return $grid;
     }
@@ -102,13 +98,11 @@ class UserController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(User::findOrFail($id));
+        $show = new Show(Permission::findOrFail($id));
 
         $show->id('Id');
         $show->name('Name');
-        $show->email('Email');
-        // $show->password('Password');
-        // $show->remember_token('Remember token');
+        $show->guard_name('Guard name');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
 
@@ -122,20 +116,11 @@ class UserController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new User);
+        $form = new Form(new Permission);
 
         $form->text('name', 'Name');
-        $form->email('email', 'Email');
-        $form->password('password', 'Password');
-        // $form->text('remember_token', 'Remember token');
+        $form->text('guard_name', 'Guard name');
 
-        $form->divide();
-
-        $form->multipleSelect('roles')->options(Role::all()->pluck('name', 'id'));
-        $form->saved(function (Form $form) {
-            $form->model()->syncRoles($form->roles);
-        });
-        
         return $form;
     }
 }
