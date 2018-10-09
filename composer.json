@@ -13,6 +13,7 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "predis/predis": "^1.1",
+        "sentry/sentry-laravel": "^0.10.0",
         "spatie/laravel-backup": "^5.10",
         "spatie/laravel-permission": "^2.21",
         "tymon/jwt-auth": "1.0.0-rc.3"
