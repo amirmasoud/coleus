@@ -39,9 +39,9 @@ class AddRoles extends Command
     public function handle()
     {
         $this->comment('Adding default roles...');
-        Role::firstOrNew(['name' => 'subscriber']);
-        Role::firstOrNew(['name' => 'writer']);
-        Role::firstOrNew(['name' => 'publisher']);
+        Role::firstOrCreate(['name' => 'subscriber']);
+        Role::firstOrCreate(['name' => 'writer']);
+        Role::firstOrCreate(['name' => 'publisher']);
         $this->info('3 roles added/found: subscriber, writer and publisher.');
     }
 }
