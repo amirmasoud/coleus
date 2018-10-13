@@ -158,6 +158,7 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      *
      * @param  \Spatie\MediaLibrary\Models\Media|null $media
      * @return void
+     * @throws \Spatie\Image\Exceptions\InvalidManipulation
      */
     public function registerMediaConversions(Media $media = null): void
     {
