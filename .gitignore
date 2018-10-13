@@ -11,3 +11,5 @@ Homestead.yaml
 .DS_Store
 *.sublime-*
 storage/negarin.sqlite
+public/js
+public/css
