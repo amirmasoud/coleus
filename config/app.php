@@ -157,6 +157,7 @@ return [
          * Package Service Providers...
          */
         \Torann\GeoIP\GeoIPServiceProvider::class,
+        Negarin\Admin\AdminServiceProvider::class,
 
         /*
          * Application Service Providers...
