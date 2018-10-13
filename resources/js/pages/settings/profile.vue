@@ -3,6 +3,19 @@
     <form @submit.prevent="update" @keydown="form.onKeydown($event)" enctype="multipart/form-data">
       <alert-success :form="form" :message="$t('info_updated')"/>
 
+      <!-- Avatar -->
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label text-md-right">{{ $t('avatar') }}</label>
+        <div class="col-md-7">
+          <template v-if="user">
+            <b-img v-if="user.small" rounded="circle" width="128" height="128" alt="avatar" class="my-1" :src="user.small" />
+            <b-img v-else rounded="circle" width="128" height="128" alt="avatar" class="my-1" :src="user.photo_url" />
+          </template>
+          <b-form-file name="avatar" v-model="form.avatar" accept="image/jpeg, image/png"></b-form-file>
+          <has-error :form="form" field="avatar" />
+        </div>
+      </div>
+
       <!-- Name -->
       <div class="form-group row">
         <label class="col-md-3 col-form-label text-md-right">{{ $t('name') }}</label>
@@ -18,15 +31,6 @@
         <div class="col-md-7">
           <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
           <has-error :form="form" field="email" />
-        </div>
-      </div>
-
-      <!-- Avatar -->
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label text-md-right">{{ $t('avatar') }}</label>
-        <div class="col-md-7">
-          <b-form-file name="avatar" v-model="form.avatar" accept="image/jpeg, image/png"></b-form-file>
-          <has-error :form="form" field="avatar" />
         </div>
       </div>
 
