@@ -1,6 +1,6 @@
 <template>
   <card :title="$t('your_info')">
-    <form @submit.prevent="update" @keydown="form.onKeydown($event)">
+    <form @submit.prevent="update" @keydown="form.onKeydown($event)" enctype="multipart/form-data">
       <alert-success :form="form" :message="$t('info_updated')"/>
 
       <!-- Name -->
@@ -21,6 +21,15 @@
         </div>
       </div>
 
+      <!-- Avatar -->
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label text-md-right">{{ $t('avatar') }}</label>
+        <div class="col-md-7">
+          <b-form-file name="avatar" v-model="form.avatar" accept="image/jpeg, image/png"></b-form-file>
+          <has-error :form="form" field="avatar" />
+        </div>
+      </div>
+
       <!-- Submit Button -->
       <div class="form-group row">
         <div class="col-md-9 ml-md-auto">
@@ -34,6 +43,7 @@
 <script>
 import Form from 'vform'
 import { mapGetters } from 'vuex'
+import objectToFormData from 'object-to-formdata'
 
 export default {
   scrollToTop: false,
@@ -45,7 +55,8 @@ export default {
   data: () => ({
     form: new Form({
       name: '',
-      email: ''
+      email: '',
+      avatar: ''
     })
   }),
 
@@ -62,7 +73,13 @@ export default {
 
   methods: {
     async update () {
-      const { data } = await this.form.patch('/api/settings/profile')
+      this.form['_method'] = 'PATCH'
+      const { data } = await this.form.submit('post', '/api/settings/profile', {
+        // Transform form data to FormData
+        transformRequest: [function (data, headers) {
+          return objectToFormData(data)
+        }]
+      })
 
       this.$store.dispatch('auth/updateUser', { user: data })
     }
