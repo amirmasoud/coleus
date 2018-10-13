@@ -10,5 +10,5 @@ return array(
     'breadcrumbs.sql_bindings' => true,
 
     // Capture default user context
-    'user_context' => false,
+    'user_context' => true
 );
