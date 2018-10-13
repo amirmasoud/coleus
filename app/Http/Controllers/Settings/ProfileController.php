@@ -20,7 +20,10 @@ class ProfileController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$user->id,
+            'avatar' => 'nullable|image'
         ]);
+
+        $user->addMediaFromRequest('avatar')->toMediaCollection('users/avatar');
 
         return tap($user)->update($request->only('name', 'email'));
     }
