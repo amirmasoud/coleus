@@ -1,0 +1,13 @@
+{
+    "name": "amirmasoud/admin",
+    "description": "Admin Package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "amirmasoud",
+            "email": "amirmasood33@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

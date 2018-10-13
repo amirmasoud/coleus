@@ -35,7 +35,8 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Negarin\\Admin\\": "packages/negarin/admin/src"
         }
     },
     "autoload-dev": {
