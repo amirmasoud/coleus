@@ -52,8 +52,9 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return User
+     * @throws \Exception
      */
     protected function create(array $data)
     {
@@ -61,10 +62,33 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $data['password'],
+            'username' => $this->username(13)
         ]);
 
         $user->assignRole('subscriber');
 
         return $user;
+    }
+
+    /**
+     * Generate random string for username.
+     *
+     * @param  string $length
+     * @return string
+     * @throws \Exception
+     */
+    private function username(string $length)
+    {
+        $token = "";
+        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
+        $codeAlphabet.= "0123456789";
+        $max = strlen($codeAlphabet);
+
+        for ($i=0; $i < $length; $i++) {
+            $token .= $codeAlphabet[random_int(0, $max-1)];
+        }
+
+        return $token;
     }
 }
