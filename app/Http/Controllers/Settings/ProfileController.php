@@ -18,9 +18,11 @@ class ProfileController extends Controller
         $user = $request->user();
 
         $this->validate($request, [
+            'avatar' => 'nullable|image',
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$user->id,
-            'avatar' => 'nullable|image'
+            'website' => 'nullable|url',
+            'bio' => 'nullable'
         ]);
 
         if ($request->hasFile('avatar')) {
@@ -28,6 +30,6 @@ class ProfileController extends Controller
             $user->addMediaFromRequest('avatar')->toMediaCollection('users/avatar');
         }
 
-        return tap($user)->update($request->only('name', 'email'));
+        return tap($user)->update($request->only('name', 'email', 'website', 'bio'));
     }
 }

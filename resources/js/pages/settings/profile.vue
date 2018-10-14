@@ -34,10 +34,28 @@
         </div>
       </div>
 
+      <!-- Website -->
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label text-md-right">{{ $t('website') }}</label>
+        <div class="col-md-7">
+          <input v-model="form.website" :class="{ 'is-invalid': form.errors.has('website') }" class="form-control" type="text" name="website">
+          <has-error :form="form" field="website"/>
+        </div>
+      </div>
+
+      <!-- Bio -->
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label text-md-right">{{ $t('bio') }}</label>
+        <div class="col-md-7">
+          <textarea v-model="form.bio" :class="{ 'is-invalid': form.errors.has('website') }" class="form-control" name="bio"></textarea>
+          <has-error :form="form" field="bio"/>
+        </div>
+      </div>
+
       <!-- Submit Button -->
       <div class="form-group row">
         <div class="col-md-9 ml-md-auto">
-          <v-button :loading="form.busy" type="success">{{ $t('update') }}</v-button>
+          <v-button :loading="form.busy">{{ $t('update') }}</v-button>
         </div>
       </div>
     </form>
@@ -60,7 +78,9 @@ export default {
     form: new Form({
       name: '',
       email: '',
-      avatar: ''
+      avatar: '',
+      website: '',
+      bio: ''
     })
   }),
 
