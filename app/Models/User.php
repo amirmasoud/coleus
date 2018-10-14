@@ -28,7 +28,7 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'username', 'website', 'bio'
     ];
 
     /**
@@ -185,5 +185,15 @@ class User extends Authenticatable implements JWTSubject, HasMedia
             ->height(32)
             ->crop('crop-center', 32, 32)
             ->performOnCollections('users/avatar');
+    }
+
+    /**
+     * A user specified an optional gender.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
     }
 }
