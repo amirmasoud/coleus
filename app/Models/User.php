@@ -196,4 +196,12 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     {
         return $this->belongsTo(Gender::class);
     }
+
+    /**
+     * Get all of the users that are sticky.
+     */
+    public function sticks()
+    {
+        return $this->morphMany(Stick::class, 'stickable');
+    }
 }
