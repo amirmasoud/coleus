@@ -132,6 +132,7 @@ class UserController extends Controller
         $form->divide();
 
         $form->multipleSelect('roles')->options(Role::all()->pluck('name', 'id'));
+
         $form->saved(function (Form $form) {
             $form->model()->syncRoles($form->roles);
         });
