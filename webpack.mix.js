@@ -44,7 +44,7 @@ mix.webpackConfig({
     }
   },
   output: {
-    chunkFilename: 'js/[name].[chunkhash].js',
-    publicPath: mix.config.hmr ? '//negarin.test' : '/'
+    chunkFilename: mix.config.hmr ? 'js/[name].js' : 'js/[name].[chunkhash].js',
+    publicPath: '/'
   }
 })
