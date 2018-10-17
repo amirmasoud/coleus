@@ -204,4 +204,26 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     {
         return $this->morphMany(Stick::class, 'stickable');
     }
+
+    /**
+     * Get locked attribute.
+     *
+     * @param  locked
+     * @return bool
+     */
+    public function getLockedAttribute($locked): bool
+    {
+        return is_null($locked) ? false : $locked;
+    }
+
+    /**
+     * Set locked attribute.
+     *
+     * @param  $locked
+     * @return void
+     */
+    public function setLockedAttribute($locked): void
+    {
+        $this->attributes['locked'] = $locked ? true : false;
+    }
 }
