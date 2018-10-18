@@ -2,17 +2,16 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\User;
+use App\Models\Stick;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
-use Carbon\Carbon;
-use Spatie\Permission\Models\Role;
 
-class UserController extends Controller
+class StickController extends Controller
 {
     use HasResourceActions;
 
@@ -81,15 +80,13 @@ class UserController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new User);
+        $grid = new Grid(new Stick);
 
-        $grid->id('Id')->sortable();
-        $grid->name('Name')->sortable();
-        $grid->email('Email')->sortable();
-        // $grid->password('Password');
-        // $grid->remember_token('Remember token');
-        $grid->created_at('Created at')->sortable();
-        // $grid->updated_at('Updated at');
+        $grid->id('Id');
+        $grid->stickable_type('Stickable type');
+        $grid->stickable_id('Stickable id');
+        $grid->created_at('Created at');
+        $grid->updated_at('Updated at');
 
         return $grid;
     }
@@ -102,13 +99,11 @@ class UserController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(User::findOrFail($id));
+        $show = new Show(Stick::findOrFail($id));
 
         $show->id('Id');
-        $show->name('Name');
-        $show->email('Email');
-        // $show->password('Password');
-        // $show->remember_token('Remember token');
+        $show->stickable_type('Stickable type');
+        $show->stickable_id('Stickable id');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
 
@@ -122,21 +117,11 @@ class UserController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new User);
+        $form = new Form(new Stick);
 
-        $form->text('name', 'Name');
-        $form->email('email', 'Email');
-        $form->password('password', 'Password');
-        // $form->text('remember_token', 'Remember token');
+        $form->select('stickable_type', 'Model')->options(['App\Models\User' => 'User']);
+        $form->select('stickable_id', 'ID')->options(User::all()->pluck('name', 'id'));
 
-        $form->divide();
-
-        $form->multipleSelect('roles')->options(Role::all()->pluck('name', 'id'));
-
-        $form->saved(function (Form $form) {
-            $form->model()->syncRoles($form->roles);
-        });
-        
         return $form;
     }
 }

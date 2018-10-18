@@ -14,5 +14,7 @@ Route::group([
     $router->resource('users', UserController::class);
     $router->resource('roles', RoleController::class);
     $router->resource('permissions', PermissionController::class);
+    $router->resource('sticks', StickController::class);
+    $router->resource('media', MediaController::class);
 
 });

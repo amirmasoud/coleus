@@ -28,7 +28,7 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'username', 'website', 'bio'
     ];
 
     /**
@@ -185,5 +185,45 @@ class User extends Authenticatable implements JWTSubject, HasMedia
             ->height(32)
             ->crop('crop-center', 32, 32)
             ->performOnCollections('users/avatar');
+    }
+
+    /**
+     * A user specified an optional gender.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
+    }
+
+    /**
+     * Get all of the users that are sticky.
+     */
+    public function sticks()
+    {
+        return $this->morphMany(Stick::class, 'stickable');
+    }
+
+    /**
+     * Get locked attribute.
+     *
+     * @param  locked
+     * @return bool
+     */
+    public function getLockedAttribute($locked): bool
+    {
+        return is_null($locked) ? false : $locked;
+    }
+
+    /**
+     * Set locked attribute.
+     *
+     * @param  $locked
+     * @return void
+     */
+    public function setLockedAttribute($locked): void
+    {
+        $this->attributes['locked'] = $locked ? true : false;
     }
 }

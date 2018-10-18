@@ -3,16 +3,15 @@
 namespace App\Admin\Controllers;
 
 use App\Models\User;
+use Spatie\MediaLibrary\Models\Media;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
-use Carbon\Carbon;
-use Spatie\Permission\Models\Role;
 
-class UserController extends Controller
+class MediaController extends Controller
 {
     use HasResourceActions;
 
@@ -81,15 +80,23 @@ class UserController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new User);
+        $grid = new Grid(new Media);
 
-        $grid->id('Id')->sortable();
-        $grid->name('Name')->sortable();
-        $grid->email('Email')->sortable();
-        // $grid->password('Password');
-        // $grid->remember_token('Remember token');
-        $grid->created_at('Created at')->sortable();
-        // $grid->updated_at('Updated at');
+        $grid->id('Id');
+        $grid->model_type('Model type');
+        $grid->model_id('Model id');
+        $grid->collection_name('Collection name');
+        $grid->name('Name');
+        $grid->file_name('File name');
+        $grid->mime_type('Mime type');
+        $grid->disk('Disk');
+        $grid->size('Size');
+        $grid->manipulations('Manipulations');
+        $grid->custom_properties('Custom properties');
+        $grid->responsive_images('Responsive images');
+        $grid->order_column('Order column');
+        $grid->created_at('Created at');
+        $grid->updated_at('Updated at');
 
         return $grid;
     }
@@ -102,13 +109,21 @@ class UserController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(User::findOrFail($id));
+        $show = new Show(Media::findOrFail($id));
 
         $show->id('Id');
+        $show->model_type('Model type');
+        $show->model_id('Model id');
+        $show->collection_name('Collection name');
         $show->name('Name');
-        $show->email('Email');
-        // $show->password('Password');
-        // $show->remember_token('Remember token');
+        $show->file_name('File name');
+        $show->mime_type('Mime type');
+        $show->disk('Disk');
+        $show->size('Size');
+        $show->manipulations('Manipulations');
+        $show->custom_properties('Custom properties');
+        $show->responsive_images('Responsive images');
+        $show->order_column('Order column');
         $show->created_at('Created at');
         $show->updated_at('Updated at');
 
@@ -122,21 +137,18 @@ class UserController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new User);
+        $form = new Form(new Media);
 
+        $form->select('model_type', 'Model type')->options(['App\Models\User' => 'User']);
+        $form->select('model_id', 'Model id')->options(User::all()->pluck('name', 'id'));
+        $form->text('collection_name', 'Collection name');
         $form->text('name', 'Name');
-        $form->email('email', 'Email');
-        $form->password('password', 'Password');
-        // $form->text('remember_token', 'Remember token');
+        $form->text('file_name', 'File name');
+        $form->text('mime_type', 'Mime type');
+        $form->text('disk', 'Disk');
+        $form->text('size', 'Size');
+        $form->text('order_column', 'Order column');
 
-        $form->divide();
-
-        $form->multipleSelect('roles')->options(Role::all()->pluck('name', 'id'));
-
-        $form->saved(function (Form $form) {
-            $form->model()->syncRoles($form->roles);
-        });
-        
         return $form;
     }
 }

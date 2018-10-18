@@ -82,8 +82,7 @@ return [
 
     'locales' => [
         'en' => 'EN',
-        'zh-CN' => '中文',
-        'es' => 'ES',
+        'fa' => 'فا',
     ],
 
     /*
@@ -158,6 +157,7 @@ return [
          */
         \Torann\GeoIP\GeoIPServiceProvider::class,
         Negarin\Admin\AdminServiceProvider::class,
+        Folklore\GraphQL\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -217,6 +217,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
+        'GraphQL' => Folklore\GraphQL\Support\Facades\GraphQL::class,
 
     ],
 
