@@ -40,7 +40,7 @@ export default {
 
     return {
       title: appName,
-      titleTemplate: `%s · ${appName}`
+      titleTemplate: `%s · ${this.$t('negarin')}`
     }
   },
 
