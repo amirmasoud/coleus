@@ -1,9 +1,9 @@
 <template>
   <b-row v-if="writers">
-    <b-col cols="12"
+    <b-col cols="6"
            sm="4"
-           md="2"
-           lg="2"
+           md="4"
+           lg="3"
            xl="2"
            v-for="writer in writers"
            :key="writer.id">
