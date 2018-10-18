@@ -1,0 +1,13 @@
+div.main-layout.rtl {
+  direction: rtl;
+
+  .navbar {
+    direction: ltr;
+  }
+
+  .card {
+    .card-title {
+      text-align: right;
+    }
+  }
+}

@@ -14,3 +14,73 @@ $border-radius-sm: .15rem;
 
 // Nav Pills
 $nav-pills-border-radius: 0;
+
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: bold;
+  src: url('../fonts/iranyekan/eot/iranyekanwebbold.eot');
+  src: url('../fonts/iranyekan/eot/iranyekanwebbold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('../fonts/iranyekan/woff2/iranyekanwebbold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('../fonts/iranyekan/woff/iranyekanwebbold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('../fonts/iranyekan/ttf/iranyekanwebbold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: 300;
+  src: url('../fonts/iranyekan/eot/iranyekanweblight.eot');
+  src: url('../fonts/iranyekan/eot/iranyekanweblight.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('../fonts/iranyekan/woff2/iranyekanweblight.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('../fonts/iranyekan/woff/iranyekanweblight.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('../fonts/iranyekan/ttf/iranyekanweblight.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: iranyekan;
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/iranyekan/eot/iranyekanwebregular.eot');
+  src: url('../fonts/iranyekan/eot/iranyekanwebregular.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('../fonts/iranyekan/woff2/iranyekanwebregular.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('../fonts/iranyekan/woff/iranyekanwebregular.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('../fonts/iranyekan/ttf/iranyekanwebregular.ttf') format('truetype');
+}
+
+/* Latin fonts (Roboto) */
+
+@font-face {
+  font-family: roboto;
+  font-style: normal;
+  font-weight: bold;
+  src: url('../fonts/iranyekan/eot/robotobold.eot');
+  src: url('../fonts/iranyekan/eot/robotobold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('../fonts/iranyekan/woff2/robotobold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('../fonts/iranyekan/woff/robotobold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('../fonts/iranyekan/ttf/robotobold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: roboto;
+  font-style: normal;
+  font-weight: 300;
+  src: url('../fonts/iranyekan/eot/robotolight.eot');
+  src: url('../fonts/iranyekan/eot/robotolight.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('../fonts/iranyekan/woff2/robotolight.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('../fonts/iranyekan/woff/robotolight.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('../fonts/iranyekan/ttf/robotolight.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: roboto;
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/iranyekan/eot/robotoregular.eot');
+  src: url('../fonts/iranyekan/eot/robotoregular.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+  url('../fonts/iranyekan/woff2/robotoregular.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+  url('../fonts/iranyekan/woff/robotoregular.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  url('../fonts/iranyekan/ttf/robotoregular.ttf') format('truetype');
+}
+
+$font-family-base: IRANYekan, sans-serif;
