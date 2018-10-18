@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container">
       <router-link :to="{ name: 'welcome' }" class="navbar-brand">
-        {{ appName }}
+        {{ $t('negarin') }}
       </router-link>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false">
@@ -65,10 +65,6 @@ export default {
   components: {
     LocaleDropdown
   },
-
-  data: () => ({
-    appName: window.config.appName
-  }),
 
   computed: mapGetters({
     user: 'auth/user'
