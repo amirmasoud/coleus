@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container">
-      <router-link :to="{ name: 'welcome' }" class="navbar-brand">
-        <b-img class="logo logo-en" fluid src="./images/logo-en.png" alt="Logo" v-if="$store.state.lang.locale == 'en'" />
-        <b-img class="logo logo-fa" fluid src="./images/logo-fa.png" alt="Logo" v-else />
+      <router-link :to="{ name: 'welcome' }" class="navbar-brand" v-if="config">
+        <b-img class="logo logo-en" fluid :src="config.logoEn" alt="Logo" v-if="$store.state.lang.locale == 'en'" />
+        <b-img class="logo logo-fa" fluid :src="config.logoFa" alt="Logo" v-else />
         {{ $t('negarin') }}
       </router-link>
 
@@ -71,6 +71,14 @@ export default {
   computed: mapGetters({
     user: 'auth/user'
   }),
+
+  data: () => ({
+    config: null
+  }),
+
+  created () {
+    this.config = window.config
+  },
 
   methods: {
     async logout () {

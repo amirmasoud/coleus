@@ -4,6 +4,8 @@ $config = [
     'locale' => $locale = app()->getLocale(),
     'locales' => config('app.locales'),
     'githubAuth' => config('services.github.client_id'),
+    'logoFa' => asset('images/logo-fa.png'),
+    'logoEn' => asset('images/logo-en.png')
 ];
 
 $polyfills = [
