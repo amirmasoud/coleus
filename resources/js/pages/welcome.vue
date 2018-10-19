@@ -11,7 +11,7 @@
               :img-src="writer.small || writer.photo_url"
               :img-alt="`${writer.name}'s image`"
               img-top
-              title-tag="h5"
+              title-tag="p"
               class="mb-2">
       </b-card>
     </b-col>

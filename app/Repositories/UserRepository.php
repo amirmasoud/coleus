@@ -13,7 +13,7 @@ class UserRepository extends Repository
     {
         return User::role('writer')
             ->whereHas('sticks')
-            ->take(self::$perPage)
+            // ->take(self::$perPage)
             ->get();
     }
 
