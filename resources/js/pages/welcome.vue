@@ -9,7 +9,7 @@
            :key="writer.id">
       <div>
         <b-card :title="writer.name"
-                :img-src="writer.small"
+                :img-src="writer.small || writer.photo_url"
                 :img-alt="`${writer.name}'s image`"
                 img-top
                 title-tag="h5"
@@ -39,14 +39,15 @@ export default {
 
   methods: {
     async fetchFeaturedAuthors () {
-      const {data} = await axios.get(`graphql/?query=
-        query FetchUsers {
+      const {data} = await axios.get((`graphql/?query=
+        query+FetchUsers {
           users(sticky: true) {
-            id
-            name
-            small
+            id,
+            name,
+            small,
+            photo_url
           }
-        }`)
+        }`).replace(/\s+/g, ''))
       this.writers = data.data.users
     }
   }
