@@ -11,6 +11,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'failed' => '用户名或手机号与密码不匹配或用户被禁用',
-    'throttle' => '失败次数太多，请在:seconds秒后再尝试',
+
+    'failed'   => '用户名或密码错误。',
+    'throttle' => '您的尝试登录次数过多，请 :seconds 秒后再试。',
 ];

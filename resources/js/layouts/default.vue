@@ -1,5 +1,5 @@
 <template>
-  <div class="main-layout" :class="$store.state.lang.locale == 'fa' ? 'rtl' : ''">
+  <div class="main-layout" :class="$store.state.lang.locale == 'fa' ? 'rtl' : 'ltr'">
     <navbar/>
 
     <div class="container mt-4">
