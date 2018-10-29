@@ -10,6 +10,10 @@ const Settings = () => import('~/pages/settings/index').then(m => m.default || m
 const SettingsProfile = () => import('~/pages/settings/profile').then(m => m.default || m)
 const SettingsPassword = () => import('~/pages/settings/password').then(m => m.default || m)
 
+const Profile = () => import('~/pages/profile').then(m => m.default || m)
+
+const NewBook = () => import('~/pages/books/new').then(m => m.default || m)
+
 export default [
   { path: '/', name: 'welcome', component: Welcome },
 
@@ -27,5 +31,9 @@ export default [
       { path: 'password', name: 'settings.password', component: SettingsPassword }
     ] },
 
-  { path: '*', component: NotFound }
+  { path: '/new-book', name: 'books.new', component: NewBook },
+
+  { path: '/@:username', name: 'profile', component: Profile },
+
+  { path: '*', name: 'notFound', component: NotFound }
 ]

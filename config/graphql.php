@@ -41,16 +41,19 @@ return [
     //     'mutation' => '\Folklore\GraphQL\GraphQLController@mutation'
     // ]
     //
-    'controllers' => \Folklore\GraphQL\GraphQLController::class.'@query',
+    // 'controllers' => \Folklore\GraphQL\GraphQLController::class.'@query',
+    'controllers' => \App\Http\Controllers\UploadAwareGraphQLController::class.'@query',
 
     // The name of the input that contain variables when you query the endpoint.
     // Some library use "variables", you can change it here. "params" will stay
     // the default for now but will be changed to "variables" in the next major
     // release.
-    'variables_input_name' => 'params',
+    'variables_input_name' => 'variables',
 
     // Any middleware for the graphql route group
-    'middleware' => [],
+    'middleware' => [
+        \App\Http\Middleware\UploadMiddleware::class
+    ],
 
     // Config for GraphiQL (https://github.com/graphql/graphiql).
     // To disable GraphiQL, set this to null.
@@ -92,9 +95,10 @@ return [
         'default' => [
             'query' => [
                 'users' => 'App\GraphQL\Query\UsersQuery',
+                'user' => 'App\GraphQL\Query\UserQuery',
             ],
             'mutation' => [
-
+                'newBook' => 'App\GraphQL\Mutation\Books\NewBookMutation'
             ]
         ]
     ],
@@ -116,6 +120,8 @@ return [
     //
     'types' => [
         'User' => 'App\GraphQL\Type\UserType',
+        'Book' => 'App\GraphQL\Type\BookType',
+        'Collaboration' => 'App\GraphQL\Type\CollaborationType',
     ],
 
     // This callable will received every Error objects for each errors GraphQL catch.

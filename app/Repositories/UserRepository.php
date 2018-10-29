@@ -12,9 +12,9 @@ class UserRepository extends Repository
     public function featuredAuthors()
     {
         return User::role('writer')
-            ->whereHas('sticks')
+            ->whereHas('sticks');
             // ->take(self::$perPage)
-            ->get();
+            // ->get();
     }
 
     /**
@@ -22,7 +22,7 @@ class UserRepository extends Repository
      */
     public function latest()
     {
-        return User::take(self::$perPage)->get();
+        return User::take(self::$perPage);
     }
 
     /**
@@ -31,7 +31,7 @@ class UserRepository extends Repository
      */
     public function findByEmail(string $email)
     {
-        return User::whereEmail($email)->firstOrFail();
+        return User::whereEmail($email);
     }
 
     /**
@@ -40,6 +40,15 @@ class UserRepository extends Repository
      */
     public function findById(int $id)
     {
-        return User::whereId($id)->get();
+        return User::whereId($id);
+    }
+
+    /**
+     * @param  string $username
+     * @return mixed
+     */
+    public function findByUsername(string $username)
+    {
+        return User::whereUsername($username);
     }
 }
