@@ -22,7 +22,7 @@
                  class="form-control"
                  dir="auto"></textarea>
       </b-form-group>
-      <b-button type="submit" variant="primary">{{ $t('submit') }}</b-button>
+      <v-button :loading="loading">{{ $t('submit') }}</v-button>
     </b-form>
   </div>
   <!-- <div class="my-4 text-center"><img src="svg-loaders/oval.svg" /></div> -->
@@ -45,46 +45,32 @@ export default {
       description: null,
       cover: null,
     }),
+    loading: false
   }),
 
   methods: {
     async onSubmit () {
-      // Call to the graphql mutation
-      // console.log(this.$apollo)
-      // let formData = new FormData()
-      // Object.keys(this.form).map(d => {
-      //   formData.append(d, this.form[d])
-      // })
+      this.loading = true
       const result = await this.$apollo.mutate({
-        // Query
         mutation: gql`mutation ($title: String!, $description: String!, $cover: Upload!) {
           newBook(title: $title, description: $description, cover: $cover) {
             id
           }
         }`,
-        // Parameters
         variables: {
           title: this.form.title,
           description: this.form.description,
           cover: this.form.cover
         },
+      }).then((data) => {
+        this.loading = false
+        // Result
+        // console.log(data)
+      }).catch((error) => {
+        this.loading = false
+        // Error
+        // console.error(error)
       })
-
-      // let formData = new FormData()
-      // Object.keys(this.form).map(d => {
-      //   formData.append(d, this.form[d])
-      // })
-
-      // const { data } = axios.post((`graphql/?query=
-      //   mutation+books {
-      //     newBook(
-      //       title: "${this.form.title}",
-      //       description: "${this.form.description}",
-      //       cover: ""
-      //     ) {
-      //       id
-      //     }
-      //   }`).replace(/\s+/g, ''), formData, { headers: { 'Content-Type': 'multipart/form-data' } })
     }
   }
 }
