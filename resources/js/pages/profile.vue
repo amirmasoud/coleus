@@ -47,6 +47,7 @@
 
 <script>
 import axios from 'axios'
+import gql from 'graphql-tag'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -58,18 +59,16 @@ export default {
     auth: 'auth/user'
   }),
 
-  data: () => ({
-    user: null
-  }),
-
-  created () {
-    this.fetchUserByUsername (this.$route.params['username']);
+  data () {
+    return {
+      user: null,
+      username: this.$route.params['username']
+    }
   },
 
-  methods: {
-    async fetchUserByUsername (username) {
-      const { data } = await axios.get((`graphql/?query=
-        query+FetchUserByUsername($username: String) {
+  apollo: {
+    user: {
+      query: gql`query FetchUserByUsername($username: String) {
           user(username: $username) {
             id,
             name,
@@ -93,9 +92,13 @@ export default {
               }
             }
           }
-        }&variables={"username":"${this.$route.params['username']}"}`).replace(/\s+/g, ''))
-      this.user = data.data.user
-    }
+        }`,
+      variables() {
+        return{
+          username: this.username,
+        }
+      },
+    },
   }
 }
 </script>
