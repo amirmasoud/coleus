@@ -40,7 +40,10 @@
         "psr-4": {
             "App\\": "app/",
             "Negarin\\Admin\\": "packages/negarin/admin/src"
-        }
+        },
+        "files": [
+            "app/helper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

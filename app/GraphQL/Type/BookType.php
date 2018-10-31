@@ -32,6 +32,10 @@ class BookType extends BaseType
                 'type' => Type::string(),
                 'description' => 'The cover of the book'
             ],
+            'slug' => [
+                'type' => Type::string(),
+                'description' => 'The slug of the book'
+            ],
             'collaborators' => [
                 'args' => \Facades\App\GraphQL\Type\CollaborationType::fields(),
                 'type' => Type::listOf(GraphQL::type('Collaboration')),
@@ -39,14 +43,4 @@ class BookType extends BaseType
             ],
         ];
     }
-
-//    /**
-//     * @param  $root
-//     * @param  $args
-//     * @return mixed
-//     */
-//    function resolveCollaborationRolesField($root, $args)
-//    {
-//        return $root->collaborators()->count();
-//    }
 }

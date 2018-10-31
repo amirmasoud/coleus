@@ -28,7 +28,7 @@ class Book extends Model implements HasMedia
      * @var array
      */
     protected $appends = [
-        'cover'
+        'cover', 'slug'
     ];
 
     /**
@@ -68,20 +68,20 @@ class Book extends Model implements HasMedia
 
         $relation = $this->morphToMany(User::class, 'collaboratable',
             'collaboratables', 'collaboratable_id', 'collaborate_id')
-
             ->using(Collaborate::class)
-//            ->as('collaboratable_id')
-//            ->withPivot('collaboratable_id')// 'collaboration_role_id', 'collaborationRoles'
             ->withTimestamps();
 
-//        $relation->getQuery()
-//            ->where('collaboratables.collaboratable_type', get_class($this))
-//            ->where('collaboratables.collaboratable_id', $bookId)
-//            ->join('collaboration_roles AS cr', 'cr.id', '=', 'collaboratables.collaboration_role_id')
-//            ->join('collaboratables AS c', 'c.collaborate_id', '=','users.id')
-//            ->select('*', 'users.id AS id')->distinct()
-//            ->groupBy('users.id', 'collaboratables.id', 'cr.id', 'c.id');
-
         return $relation;
+    }
+
+    /**
+     * Get appended attribute, slug with concating title slug and id.
+     *
+     * @param  null $value
+     * @return string
+     */
+    public function getSlugAttribute($value): string
+    {
+        return slug($this->title) . '-' . $this->id;
     }
 }

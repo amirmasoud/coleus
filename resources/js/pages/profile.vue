@@ -31,13 +31,15 @@
              xl="2"
              v-for="book in user.books"
              :key="book.id">
-        <b-card :title="book.title"
-                :img-src="book.cover"
-                :img-alt="`${user.name}'s book`"
-                img-top
-                title-tag="p"
-                class="mb-2">
-        </b-card>
+        <b-link :to="{ name: 'books.read', params: { slug: book.slug }}">
+          <b-card :title="book.title"
+                  :img-src="book.cover"
+                  :img-alt="`${user.name}'s book`"
+                  img-top
+                  title-tag="p"
+                  class="mb-2">
+          </b-card>
+        </b-link>
       </b-col>
     </b-row>
     <div class="text-center mt-3" v-else>{{ $t('no_book') }}</div>
@@ -83,6 +85,7 @@ export default {
               title,
               description,
               cover,
+              slug,
               collaborators {
                 collaboration_role,
                 name,

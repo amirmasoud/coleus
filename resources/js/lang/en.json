@@ -43,5 +43,6 @@
   "title": "Title",
   "description": "Description",
   "submit": "Submit",
-  "no_book": "No book found."
+  "no_book": "No book written yet.",
+  "read_book": "Reader"
 }

@@ -13,6 +13,7 @@ const SettingsPassword = () => import('~/pages/settings/password').then(m => m.d
 const Profile = () => import('~/pages/profile').then(m => m.default || m)
 
 const NewBook = () => import('~/pages/books/new').then(m => m.default || m)
+const ReadBook = () => import('~/pages/books/read').then(m => m.default || m)
 
 export default [
   { path: '/', name: 'welcome', component: Welcome },
@@ -34,6 +35,7 @@ export default [
   { path: '/new-book', name: 'books.new', component: NewBook },
 
   { path: '/@:username', name: 'profile', component: Profile },
+  { path: '/@:username/:slug', name: 'books.read', component: ReadBook },
 
   { path: '*', name: 'notFound', component: NotFound }
 ]
