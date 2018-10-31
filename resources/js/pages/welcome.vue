@@ -7,13 +7,15 @@
            xl="2"
            v-for="writer in users"
            :key="writer.id">
-      <b-card :title="writer.name"
-              :img-src="writer.small || writer.photo_url"
-              :img-alt="`${writer.name}'s image`"
-              img-top
-              title-tag="p"
-              class="mb-2">
-      </b-card>
+      <b-link :to="{ name: 'profile', params: { username: writer.username }}">
+        <b-card :title="writer.name"
+                :img-src="writer.small || writer.photo_url"
+                :img-alt="`${writer.name}'s image`"
+                img-top
+                title-tag="p"
+                class="mb-2">
+        </b-card>
+      </b-link>
     </b-col>
   </b-row>
   <div v-else class="my-4 text-center"><img src="svg-loaders/oval.svg" /></div>
@@ -42,7 +44,8 @@ export default {
           id,
           name,
           small,
-          photo_url
+          photo_url,
+          username
         }
       }`
     },
