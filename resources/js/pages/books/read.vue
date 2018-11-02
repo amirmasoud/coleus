@@ -23,7 +23,7 @@
           <p>Hi, I'm just a boring paragraph</p>
         </div>
       </editor> -->
-      <editor class="editor" :extensions="extensions" @update="onUpdate">
+      <editor class="editor" :extensions="extensions">
 
         <div class="menububble" slot="menububble" slot-scope="{ marks, focus, nodes }">
           <template v-if="nodes && marks">
@@ -131,7 +131,6 @@ import {
   PlaceholderExtension
 } from 'tiptap-extensions'
 import ParagraphAlignmentNode from '~/components/editor/Paragraph.js'
-import ParagraphHalfWidthNode from '~/components/editor/HalfWidth.js'
 
 export default {
   metaInfo () {
@@ -163,8 +162,7 @@ export default {
       new PlaceholderExtension({
         emptyNodeClass: 'is-empty',
       }),
-      new ParagraphAlignmentNode(),
-      new ParagraphHalfWidthNode()
+      new ParagraphAlignmentNode()
     ],
     myArray: [
       {
@@ -226,13 +224,7 @@ export default {
       type.command({ href: url })
       this.hideLinkMenu()
       focus()
-    },
-    onUpdate({ getJSON, getHTML }) {
-      // this.json = getJSON()
-      // this.html = getHTML()
-      console.log(getJSON())
-      console.log(getHTML())
-    },
+    }
   }
 }
 </script>
