@@ -1,0 +1,181 @@
+.button {
+  font-weight: bold;
+  display: inline-flex;
+  background: transparent;
+  border: 0;
+  color: $black;
+  padding: 0.2rem 0.5rem;
+  margin-right: 0.2rem;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: rgba($black, 0.1);
+}
+
+.editor {
+  position: relative;
+  max-width: initial;
+  margin: 0 auto 5rem auto;
+
+  .ProseMirror {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+
+    &-focused {
+      outline: 0;
+    }
+  }
+
+  &__content {
+    pre {
+      padding: 0.7rem 1rem;
+      border-radius: 5px;
+      background: $black;
+      color: $white;
+      font-size: 0.8rem;
+      overflow-x: auto;
+
+      code {
+        display: block;
+      }
+    }
+
+    p code {
+      display: inline-block;
+      padding: 0 0.4rem;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      background: rgba($black, 0.1);
+      color: rgba($black, 0.8);
+    }
+
+    ul,
+    ol {
+      padding-left: 1rem;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
+
+    blockquote {
+      border-left: 3px solid rgba($black, 0.1);
+      color: rgba($black, 0.8);
+      padding-left: 0.8rem;
+      font-style: italic;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 3px;
+    }
+
+  }
+
+  p.is-empty:first-child::before {
+    content: 'Start typing…';
+    float: left;
+    color: #aaa;
+    pointer-events: none;
+    height: 0;
+    font-style: italic;
+  }
+}
+
+.menubar {
+
+  display: flex;
+  margin-bottom: 1rem;
+  transition: visibility 0.2s 0.4s, opacity 0.2s 0.4s;
+
+  &.is-hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &.is-focused {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0.2s, opacity 0.2s;
+  }
+
+  &__button {
+    font-weight: bold;
+    display: inline-flex;
+    background: transparent;
+    border: 0;
+    color: $black;
+    padding: 0.2rem 0.5rem;
+    margin-right: 0.2rem;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba($black, 0.05);
+    }
+
+    &.is-active {
+      background-color: rgba($black, 0.1);
+    }
+  }
+}
+
+.menububble {
+  position: absolute;
+  display: flex;
+  z-index: 20;
+  background: $gray-100;
+  border-radius: 5px;
+  padding: 0.3rem;
+  margin-bottom: 0.5rem;
+  transform: translateX(-50%);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s, visibility 0.2s;
+  border: 1px solid $gray-300;
+
+  &__button {
+    display: inline-flex;
+    background: transparent;
+    border: 0;
+    color: $black;
+    padding: 0.2rem 0.5rem;
+    margin-right: 0.2rem;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      background-color: rgba($gray-500, 0.1);
+    }
+
+    &.is-active {
+      background-color: rgba($gray-700, 0.2);
+    }
+  }
+
+  &__form {
+    display: flex;
+    align-items: center;
+  }
+
+  &__input {
+    font: inherit;
+    border: none;
+    background: transparent;
+    color: $black;
+  }
+}

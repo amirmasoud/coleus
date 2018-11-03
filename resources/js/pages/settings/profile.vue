@@ -104,8 +104,6 @@ export default {
           return objectToFormData(data)
         }]
       })
-
-      this.$store.dispatch('auth/updateUser', { user: data })
     }
   }
 }

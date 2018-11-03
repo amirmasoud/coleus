@@ -15,7 +15,7 @@ class UsersQuery extends Query
      */
     protected $attributes = [
         'name' => 'UsersQuery',
-        'description' => 'A users collection'
+        'description' => 'List of users filtered by featured users and letest users.'
     ];
 
     /**
@@ -50,9 +50,11 @@ class UsersQuery extends Query
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
         if(isset($args['sticky'])) {
-            return UserRepository::featuredAuthors();
+            $users = UserRepository::featuredAuthors();
         } else {
-            return UserRepository::latest();
+            $users = UserRepository::latest();
         }
+
+        return $users->get();
     }
 }

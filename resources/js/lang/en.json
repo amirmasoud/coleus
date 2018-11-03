@@ -35,5 +35,14 @@
   "avatar": "Avatar",
   "website": "Website",
   "bio": "Bio",
-  "beta_version": "Beta version"
+  "beta_version": "Beta version",
+  "books": "Books",
+  "my_books": "My books",
+  "new_book": "New book",
+  "follow": "Follow",
+  "title": "Title",
+  "description": "Description",
+  "submit": "Submit",
+  "no_book": "No book written yet.",
+  "read_book": "Reader"
 }
