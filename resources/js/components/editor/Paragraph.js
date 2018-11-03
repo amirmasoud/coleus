@@ -13,8 +13,8 @@ export default class ParagraphNode extends Node {
                 textAlign: {
                     default: 'left',
                 },
-                textWidth: {
-                    default: 'col-12'
+                class: {
+                    default: 'col-12 col-md-6'
                 }
             },
             content: 'inline*',
@@ -23,11 +23,11 @@ export default class ParagraphNode extends Node {
             parseDOM: [{
                 tag: 'p',
                 getAttrs: node => ({
-                    textAlign: node.style.textAlign,
-                    class: node.class
+                    textAlign: node.attributes ? node.attributes.textAlign : node.attrs.textAlign,
+                    class: node.attributes ? node.attributes.class : node.attrs.class
                 }),
             }],
-            toDOM: node => ['p', { class: `${node.attrs.textWidth}`, style: `text-align: ${node.attrs.textAlign}` }, 0],
+            toDOM: node => ['p', { class: `${node.attrs.class}`, style: `text-align: ${node.attrs.textAlign}` }, 0],
         }
     }
 

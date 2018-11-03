@@ -23,7 +23,7 @@
           <p>Hi, I'm just a boring paragraph</p>
         </div>
       </editor> -->
-      <editor class="editor" :extensions="extensions">
+      <editor class="editor" :extensions="extensions" @update="onUpdate">
 
         <div class="menububble" slot="menububble" slot-scope="{ marks, focus, nodes }">
           <template v-if="nodes && marks">
@@ -67,32 +67,32 @@
 
             <button
               class="menubar__button"
-              :class="{ 'is-active': nodes.paragraph.active({ textAlign: 'left', textWidth: 'col-12' }) || nodes.paragraph.active({ textAlign: 'left', textWidth: 'col-6' }) }"
-              @click="nodes.paragraph.command({ textAlign: 'left' })"
+              :class="{ 'is-active': nodes.paragraph.active({ textAlign: 'left', class: 'col-12 col-md-6' }) || nodes.paragraph.active({ textAlign: 'left', class: 'col-6' }) }"
+              @click="nodes.paragraph.command({ textAlign: 'left', class: lastClass })"
             >
               <img :src="'/icons/align-left.svg'" width="16" />
             </button>
 
             <button
               class="menubar__button"
-              :class="{ 'is-active': nodes.paragraph.active({ textAlign: 'center', textWidth: 'col-12' }) || nodes.paragraph.active({ textAlign: 'center', textWidth: 'col-6' }) }"
-              @click="nodes.paragraph.command({ textAlign: 'center' })"
+              :class="{ 'is-active': nodes.paragraph.active({ textAlign: 'center', class: 'col-12 col-md-6' }) || nodes.paragraph.active({ textAlign: 'center', class: 'col-6' }) }"
+              @click="nodes.paragraph.command({ textAlign: 'center', class: lastClass })"
             >
               <img :src="'/icons/align-center.svg'" width="16" />
             </button>
 
             <button
               class="menubar__button"
-              :class="{ 'is-active': nodes.paragraph.active({ textAlign: 'right', textWidth: 'col-12' }) || nodes.paragraph.active({ textAlign: 'right', textWidth: 'col-6' }) }"
-              @click="nodes.paragraph.command({ textAlign: 'right' })"
+              :class="{ 'is-active': nodes.paragraph.active({ textAlign: 'right', class: 'col-12 col-md-6' }) || nodes.paragraph.active({ textAlign: 'right', class: 'col-6' }) }"
+              @click="nodes.paragraph.command({ textAlign: 'right', class: lastClass })"
             >
               <img :src="'/icons/align-right.svg'" width="16" />
             </button>
 
             <button
               class="menubar__button"
-              :class="{ 'is-active': nodes.paragraph.active({ textWidth: 'col-6', textAlign: 'right' }) || nodes.paragraph.active({ textWidth: 'col-6', textAlign: 'center' }) || nodes.paragraph.active({ textWidth: 'col-6', textAlign: 'left' }) }"
-              @click="nodes.paragraph.command({ textWidth: 'col-6' })"
+              :class="{ 'is-active': nodes.paragraph.active({ class: 'col-6', textAlign: 'right' }) || nodes.paragraph.active({ class: 'col-6', textAlign: 'center' }) || nodes.paragraph.active({ class: 'col-6', textAlign: 'left' }) }"
+              @click="nodes.paragraph.command({ class: 'col-12 col-md-6', textAlign: lastTextAlign })"
             >
               <img :src="'/icons/paragraph.svg'" width="16" />
             </button>
@@ -144,6 +144,8 @@ export default {
     linkMenuIsActive: false,
     json: 'Update content to see changes',
     html: 'Update content to see changes',
+    lastClass: 'col-12 col-md-6',
+    lastTextAlign: 'left',
     extensions: [
       new BlockquoteNode(),
       new BulletListNode(),
@@ -224,7 +226,11 @@ export default {
       type.command({ href: url })
       this.hideLinkMenu()
       focus()
-    }
+    },
+    onUpdate({ getJSON, getHTML }) {
+      this.lastClass = getJSON().content[getJSON().content.length - 1].attrs.class
+      this.lastTextAlign = getJSON().content[getJSON().content.length - 1].attrs.textAlign
+    },
   }
 }
 </script>
