@@ -14,7 +14,7 @@ export default class ParagraphNode extends Node {
                     default: 'left',
                 },
                 class: {
-                    default: 'col-12 col-md-6'
+                    default: 'col-12'
                 }
             },
             content: 'inline*',
