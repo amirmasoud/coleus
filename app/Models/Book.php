@@ -6,7 +6,7 @@ use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Book extends Model implements HasMedia
@@ -83,5 +83,25 @@ class Book extends Model implements HasMedia
     public function getSlugAttribute($value): string
     {
         return slug($this->title) . '-' . $this->id;
+    }
+
+    /**
+     * Get all of the book's sorts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function sorts(): MorphMany
+    {
+        return $this->morphMany(Sort::class, 'sortable');
+    }
+
+    /**
+     * A book has many books.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pages(): HasMany
+    {
+        return $this->HasMany(Page::class);
     }
 }
