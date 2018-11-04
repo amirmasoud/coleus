@@ -14,8 +14,10 @@ class CreateSortsTable extends Migration
     public function up()
     {
         Schema::create('sorts', function (Blueprint $table) {
+            $table->increments('id');
             $table->nestedSet();
             $table->morphs('sortable');
+            $table->string('scope');
         });
     }
 
