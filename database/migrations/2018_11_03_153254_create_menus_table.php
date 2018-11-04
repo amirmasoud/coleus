@@ -15,11 +15,7 @@ class CreateMenusTable extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title')->default('Untitled');
-            $table->integer('order')->default(0);
-            $table->unsignedInteger('book_id');
-            $table->foreign('book_id')->references('id')
-                ->on('books')->onDelete('cascade');
+            $table->string('title');
             $table->timestamps();
         });
     }
