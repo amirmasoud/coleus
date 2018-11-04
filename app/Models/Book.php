@@ -104,4 +104,14 @@ class Book extends Model implements HasMedia
     {
         return $this->HasMany(Page::class);
     }
+
+    /**
+     * Get sorting index (parent)
+     *
+     * @return \App\Models\Sort|null
+     */
+    public function sort()
+    {
+        return Sort::ofType($this)->first();
+    }
 }
