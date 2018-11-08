@@ -96,6 +96,8 @@ return [
             'query' => [
                 'users' => 'App\GraphQL\Query\UsersQuery',
                 'user' => 'App\GraphQL\Query\UserQuery',
+                'book' => 'App\GraphQL\Query\BookQuery',
+                'page' => 'App\GraphQL\Query\PageQuery',
             ],
             'mutation' => [
                 'newBook' => 'App\GraphQL\Mutation\Books\NewBookMutation'
@@ -122,6 +124,7 @@ return [
         'User' => 'App\GraphQL\Type\UserType',
         'Book' => 'App\GraphQL\Type\BookType',
         'Collaboration' => 'App\GraphQL\Type\CollaborationType',
+        'Page' => 'App\GraphQL\Type\PageType',
     ],
 
     // This callable will received every Error objects for each errors GraphQL catch.
