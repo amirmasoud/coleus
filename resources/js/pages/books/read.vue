@@ -1,7 +1,8 @@
 <template>
-  <div v-if="page">
+  <div v-if="page && ! this.$apollo.queries.page.loading">
     <div class="row" v-html="page.content"></div>
   </div>
+  <div v-else class="my-4 text-center"><img :src="'/svg-loaders/oval.svg'" /></div>
 </template>
 
 <script>
