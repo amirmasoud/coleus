@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
@@ -9,13 +10,16 @@ use Illuminate\Database\Eloquent\Model;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Overtrue\LaravelFollow\Traits\CanFollow;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Overtrue\LaravelFollow\Traits\CanBeFollowed;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
 
 class User extends Authenticatable implements JWTSubject, HasMedia
 {
-    use Notifiable, HasRoles, HasMediaTrait;
+    use Notifiable, HasRoles, HasMediaTrait, CanFollow, CanBeFollowed;
 
     /**
      * @var string
@@ -225,5 +229,23 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     public function setLockedAttribute($locked): void
     {
         $this->attributes['locked'] = $locked ? true : false;
+    }
+
+    /**
+     * Get all of the books that are collaborated by this user.
+     *
+     * @return \Illuminate/Database/Eloquent/Relations/MorphToMany
+     */
+    public function books(): MorphToMany
+    {
+        return $this->morphedByMany(Book::class, 'collaboratable',
+            'collaboratables', 'collaborate_id', 'collaboratable_id')
+            ->withPivot('collaboration_role_id')
+            ->withTimestamps();
+    }
+
+    public function collaborationRoles()
+    {
+        return $this->hasManyThrough(CollaborationRole::class, \App\Pivots\Collaborate::class);
     }
 }

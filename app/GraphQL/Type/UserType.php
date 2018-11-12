@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Type;
 
+use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as BaseType;
 
@@ -72,7 +73,24 @@ class UserType extends BaseType
             'sticky' => [
                 'type' => Type::boolean(),
                 'description' => 'The user is sticky'
-            ]
+            ],
+            'followers_count' => [
+                'type' => Type::int(),
+                'description' => 'The user followers count'
+            ],
+            'following_count' => [
+                'type' => Type::int(),
+                'description' => 'The user following count'
+            ],
+            'books_count' => [
+                'type' => Type::int(),
+                'description' => 'The user books count'
+            ],
+            'books' => [
+                'args' => \Facades\App\GraphQL\Type\BookType::fields(),
+                'type' => Type::listOf(GraphQL::type('Book')),
+                'description' => 'The user\'s books'
+            ],
         ];
     }
 
@@ -94,5 +112,15 @@ class UserType extends BaseType
     protected function resolveStickyField($root, $args)
     {
         return $root->sticks()->exists();
+    }
+
+    /**
+     * @param  $root
+     * @param  $args
+     * @return mixed
+     */
+    function resolveFollowingCountField($root, $args)
+    {
+        return $root->followings()->count();
     }
 }

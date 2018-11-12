@@ -29,6 +29,15 @@
                 <img :src="user.thumbnail || user.photo_url" class="rounded-circle profile-photo mr-1">
               </a>
               <div class="dropdown-menu">
+                <router-link :to="{ name: 'profile', params: { 'username': user.username } }" class="dropdown-item pl-3">
+                  {{ $t('my_books') }}
+                </router-link>
+
+                <router-link :to="{ name: 'books.new' }" class="dropdown-item pl-3">
+                  {{ $t('new_book') }}
+                </router-link>
+
+                <div class="dropdown-divider"/>
                 <router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
                   <fa icon="cog" fixed-width/>
                   {{ $t('settings') }}

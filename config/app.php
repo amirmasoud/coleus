@@ -158,6 +158,7 @@ return [
         \Torann\GeoIP\GeoIPServiceProvider::class,
         Negarin\Admin\AdminServiceProvider::class,
         Folklore\GraphQL\ServiceProvider::class,
+        Overtrue\LaravelFollow\FollowServiceProvider::class,
 
         /*
          * Application Service Providers...
