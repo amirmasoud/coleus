@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMenusTable extends Migration
+class CreateSortsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateMenusTable extends Migration
      */
     public function up()
     {
-        Schema::create('menus', function (Blueprint $table) {
+        Schema::create('sorts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->timestamps();
+            $table->nestedSet();
+            $table->morphs('sortable');
+            $table->string('scope');
         });
     }
 
@@ -27,6 +28,6 @@ class CreateMenusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menus');
+        Schema::dropIfExists('sorts');
     }
 }

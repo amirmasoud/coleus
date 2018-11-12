@@ -46,5 +46,14 @@ mix.webpackConfig({
   output: {
     chunkFilename: mix.config.hmr ? 'js/[name].js' : 'js/[name].[chunkhash].js',
     publicPath: '/'
-  }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader',
+      },
+    ],
+  },
 })

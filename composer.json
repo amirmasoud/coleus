@@ -10,6 +10,7 @@
         "fideloper/proxy": "^4.0",
         "folklore/graphql": "~1.0.0",
         "guzzlehttp/guzzle": "^6.3",
+        "kalnoy/nestedset": "^4.3",
         "laravel/framework": "5.7.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",

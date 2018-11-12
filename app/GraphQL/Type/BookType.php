@@ -41,6 +41,11 @@ class BookType extends BaseType
                 'type' => Type::listOf(GraphQL::type('Collaboration')),
                 'description' => 'Collaborations on the book'
             ],
+            'pages' => [
+                'args' => \Facades\App\GraphQL\Type\PageType::fields(),
+                'type' => Type::listOf(GraphQL::type('Page')),
+                'description' => 'The book\'s pages'
+            ],
         ];
     }
 }

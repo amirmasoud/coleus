@@ -12,6 +12,6 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'order'
+        'name'
     ];
 }
