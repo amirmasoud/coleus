@@ -1,6 +1,5 @@
 @import "~bootstrap/scss/functions";
 @import "variables";
-// @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/root";
 @import "~bootstrap/scss/reboot";
@@ -38,9 +37,10 @@ div.main-layout.ltr {
   @import "~bootstrap/scss/utilities";
   @import "~bootstrap/scss/print";
 }
+
 div.main-layout.rtl {
   direction: rtl;
-  @import 'rtl/bootstrap';
+  @import "rtl/bootstrap";
 
   input[type="email"], input[type="password"] {
     direction: ltr;
@@ -51,14 +51,14 @@ div.main-layout.rtl {
   }
 }
 
-@import '~sweetalert2/src/sweetalert2';
+@import "~sweetalert2/src/sweetalert2";
 
-@import 'elements/card';
-@import 'elements/navbar';
-@import 'elements/buttons';
-@import 'elements/transitions';
-@import 'elements/contents';
-@import 'elements/editor';
+@import "elements/card";
+@import "elements/navbar";
+@import "elements/buttons";
+@import "elements/transitions";
+@import "elements/contents";
+@import "elements/editor";
 
 .logo {
   max-width: 2rem !important;
