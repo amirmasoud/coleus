@@ -1,0 +1,2 @@
+webpackJsonp([8],{WY9G:function(e,o,n){"use strict";Object.defineProperty(o,"__esModule",{value:!0});n("c9IV");throw new Error('Cannot find module "vform"')},c9IV:function(e,o){throw new Error('Module parse failed: Unexpected token (2:0)\nYou may need an appropriate loader to handle this file type.\n| \n| <card :title="$t(\'your_password\')">\n|   <form @submit.prevent="update" @keydown="form.onKeydown($event)">\n|     <alert-success :form="form" :message="$t(\'password_updated\')"/>')}});
+//# sourceMappingURL=8.c1627226537f0b36919d.js.map
