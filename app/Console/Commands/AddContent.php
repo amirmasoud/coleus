@@ -44,6 +44,7 @@ class AddContent extends Command
     {
         if (!Book::find($this->argument('book'))->pages()->count() || $this->confirm('Do you wish to continue?')) {
             $guy = Storage::disk('dataset')->allFiles($this->argument('path'));
+            sort($guy);
             foreach ($guy as $poem) {
                 if (Str::endsWith($poem, '.json')) {
                     $file = json_decode(Storage::disk('dataset')->get($poem));
