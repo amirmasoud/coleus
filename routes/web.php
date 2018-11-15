@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 Route::get('test', function() {
-    $hafez = Storage::disk('dataset')->allFiles('ganjoor/hafez/ghaside');
+    $hafez = Storage::disk('dataset')->allFiles('ganjoor/moulavi/shams/ghazalsh');
+    sort($hafez, SORT_NATURAL);
+    dd($hafez);
     foreach ($hafez as $poem) {
         if (Str::endsWith($poem, '.json')) {
             $file = json_decode(Storage::disk('dataset')->get($poem));
