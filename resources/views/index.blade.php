@@ -18,6 +18,7 @@ $polyfills = [
     'String.prototype.includes',
     'String.prototype.startsWith',
     'String.prototype.endsWith',
+    'IntersectionObserver'
 ];
 @endphp
 <!DOCTYPE html>
