@@ -40,6 +40,7 @@
     "vue-i18n": "^7.6.0",
     "vue-infinite-scroll": "^2.0.2",
     "vue-meta": "^1.5.0",
+    "vue-mq": "^0.2.1",
     "vue-resize": "^0.4.4",
     "vue-router": "^3.0.1",
     "vue-virtual-scroller": "^1.0.0-beta.2",

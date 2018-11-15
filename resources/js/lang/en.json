@@ -45,5 +45,6 @@
   "submit": "Submit",
   "no_book": "No book written yet.",
   "read_book": "Reader",
-  "search_title": "Search title"
+  "search_title": "Search title",
+  "contents": "Contents"
 }

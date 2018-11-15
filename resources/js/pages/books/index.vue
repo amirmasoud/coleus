@@ -1,48 +1,61 @@
 <template>
   <b-row v-if="book">
     <b-col cols="12"
-           sm="4"
-           md="4">
-      <b-form-input v-model="title" type="search"
-                    :placeholder="$t('search_title')"></b-form-input>
-      <hr />
-      <div class="book-contents" :style="'height: ' + height">
-        <b-list-group>
-          <DynamicScroller
-            class="scroller"
-            :items="bookContents(book.pages)"
-            :min-item-height="48"
-            page-mode
-          >
-            <template slot-scope="{ item, index, active }">
-              <DynamicScrollerItem
-                :item="item"
-                :active="active"
-                :size-dependencies="[
-                  item.title,
-                ]"
-                :data-index="index"
-              >
-                <b-list-group-item class="text-left"
-                  v-if="item.is_header"
-                  style="background-color: transparent; border: none;">
-                  {{ item.title }}
-                </b-list-group-item>
-                <b-list-group-item
-                  v-else
-                  :to="{ name: 'books.read', params: { slug: slug, page: item.id }}">
-                  {{ item.title }}
-                </b-list-group-item>
-              </DynamicScrollerItem>
-            </template>
-          </DynamicScroller>
-        </b-list-group>
-      </div>
+           :sm="collapseMenu ? 4 : 1"
+           :md="collapseMenu ? 4 : 1">
+      <b-btn @click="collapseMenu = !collapseMenu"
+             variant="primary"
+             class="mb-3"
+             aria-controls="collapseMenu"
+             :aria-expanded="collapseMenu ? 'true' : 'false'"
+             block>
+        <fa :icon="collapseMenu ? 'chevron-right' : 'chevron-left'" fixed-width />
+        <span v-show="collapseMenu && $mq !== 'mobile'">{{ $t('contents') }}</span>
+        <span v-show="$mq === 'mobile'">{{ $t('contents') }}</span>
+      </b-btn>
+      <b-collapse id="collapseMenu" v-model="collapseMenu" class="mb-2">
+        <b-form-input v-model="title" type="search"
+                      :placeholder="$t('search_title')"></b-form-input>
+        <hr />
+        <div class="book-contents" :style="'height: ' + height">
+          <b-list-group>
+            <DynamicScroller
+              class="scroller"
+              :items="bookContents(book.pages)"
+              :min-item-height="48"
+              page-mode
+            >
+              <template slot-scope="{ item, index, active }">
+                <DynamicScrollerItem
+                  :item="item"
+                  :active="active"
+                  :size-dependencies="[
+                    item.title,
+                  ]"
+                  :data-index="index"
+                >
+                  <b-list-group-item class="text-left"
+                    v-if="item.is_header"
+                    style="background-color: transparent; border: none;">
+                    {{ item.title }}
+                  </b-list-group-item>
+                  <b-list-group-item
+                    v-else
+                    :to="{ name: 'books.read', params: { slug: slug, page: item.id }}"
+                    @click="changePage">
+                    {{ item.title }}
+                  </b-list-group-item>
+                </DynamicScrollerItem>
+              </template>
+            </DynamicScroller>
+          </b-list-group>
+        </div>
+      </b-collapse>
     </b-col>
 
     <b-col cols="12"
-       sm="8"
-       md="8">
+       :sm="collapseMenu ? 8 : 11"
+       :md="collapseMenu ? 8 : 11">
       <transition name="fade"
                   mode="out-in">
         <router-view :key="$route.fullPath"
@@ -62,7 +75,7 @@ export default {
   components: { DynamicScroller, DynamicScrollerItem },
 
   created () {
-    this.height = window.innerHeight - 200 + 'px'
+    this.height = window.innerHeight - 274 + 'px'
   },
 
   data () {
@@ -71,6 +84,7 @@ export default {
       book: null,
       height: null,
       title: '',
+      collapseMenu: true
     }
   },
 
@@ -95,9 +109,13 @@ export default {
     }),
   },
 
+  beforeMount () {
+    this.collapseMenu = this.$mq !== 'mobile'
+  },
+
   methods: {
     getFirstId (pages) {
-      for (var i = pages.length - 1; i >= 0; i--) {
+      for (let i = pages.length - 1; i >= 0; i--) {
         if (! pages[i].is_header) {
           return pages[i].id
         }
@@ -112,6 +130,12 @@ export default {
         })
       }
       return pages
+    },
+
+    changePage () {
+      if (this.$mq === 'mobile') {
+        this.collapseMenu = false
+      }
     }
   },
 }
