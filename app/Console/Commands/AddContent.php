@@ -90,6 +90,10 @@ class AddContent extends Command
                             $content .= '<p class="t col-12 col-md-6" style="text-align: right;">' . $part->t1 . '</p>';
                             $content .= '<p class="t col-12 col-md-6" style="text-align: right;">' . $part->t2 . '</p>';
                         }
+
+                        if (property_exists($part, 'p')) {
+                            $content .= '<p class="t col-12" style="text-align: right;">' . $part->p . '</p>';
+                        }
                     }
 
                     Book::find($this->argument('book'))
