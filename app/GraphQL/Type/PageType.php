@@ -27,6 +27,10 @@ class PageType extends BaseType
             'content' => [
                 'type' => Type::string(),
                 'description' => 'The content of page'
+            ],
+            'is_header' => [
+                'type' => Type::boolean(),
+                'description' => 'Is page a header with no content'
             ]
         ];
     }

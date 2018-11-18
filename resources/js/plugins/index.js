@@ -1,5 +1,5 @@
 import './axios'
 import './fontawesome'
 import './bootstrap'
-// import './apollo'
+import './mq'
 import 'bootstrap'

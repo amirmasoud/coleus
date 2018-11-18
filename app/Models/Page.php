@@ -17,6 +17,22 @@ class Page extends Model
         'title', 'content'
     ];
 
+    protected $appends = [
+        'is_header'
+    ];
+
+    protected $parent = null;
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    public function setParent($value)
+    {
+        $this->parent = $value;
+    }
+
     /**
      * Get all of the page's sorts.
      *
@@ -35,5 +51,30 @@ class Page extends Model
     public function book(): BelongsTo
     {
         return $this->belongsTo(Book::class);
+    }
+
+    public function getIsHeaderAttribute()
+    {
+        return $this->content != ':empty'
+            ? false
+            : true;
+    }
+
+    /**
+     * Fill the model with an array of attributes.
+     *
+     * @param  array  $attributes
+     * @return $this
+     *
+     * @throws \Illuminate\Database\Eloquent\MassAssignmentException
+     */
+    public function fill(array $attributes)
+    {
+        if (isset($attributes['parent']))
+        {
+            $this->setParent($attributes['parent']);
+        }
+
+        return parent::fill($attributes);
     }
 }

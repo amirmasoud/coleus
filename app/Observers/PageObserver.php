@@ -23,10 +23,16 @@ class PageObserver
             'scope' => 'book#' . $book->id
         ]);
 
-        Sort::where('scope', 'book#' . $book->id)
-            ->where('sortable_type', get_class($book))
-            ->first() // Parent
+        Sort::when($page->getParent(), function($query) use ($book, $page) {
+            $query->where('scope', 'book#' . $book->id)
+                ->where('sortable_type', get_class($page->getParent()))
+                ->where('sortable_id', $page->getParent()->id);
+        }, function($query) use ($book) {
+            $query->where('scope', 'book#' . $book->id)
+                ->where('sortable_type', get_class($book));
+        })->first()
             ->appendNode($child);
+
     }
 
     /**
