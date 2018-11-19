@@ -38,7 +38,9 @@ class BookQuery extends Query
 
             foreach ( $fields as $field => $keys) {
                 if ($field === 'pages') {
-                    $book->with('pages');
+                    $book->with(['pages' => function($query) {
+                        $query->orderBy('id', 'asc');
+                    }]);
                 }
             }
 
