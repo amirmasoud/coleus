@@ -37,6 +37,24 @@ class Page extends Model
     }
 
     /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $record = $this->toArray();
+
+        $content = str_replace(['<p class="col-12 col-md-6" style="text-align: right;">',
+            '<p class="t col-12 col-md-6" style="text-align: right;">', '<p class="t col-12" style="text-align: right;">'],
+            '', $record['content']);
+
+        $record['content'] = str_replace('</p>', '\n', $content);
+
+        return $record;
+    }
+
+    /**
      * Get all of the page's sorts.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
