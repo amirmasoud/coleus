@@ -3,7 +3,7 @@
     <b-col cols="12"
            sm="4"
            md="4">
-      <div class="sidebar-nav d-none d-sm-block" :style="{'top': top + 'px'}">
+      <div class="sidebar-nav d-none d-sm-block">
           <b-form-input v-model="title" type="search" class="mb-3"
                         :placeholder="$t('search_title')"></b-form-input>
           <div class="book-contents" :style="'height: ' + height">
@@ -65,7 +65,7 @@ export default {
   components: { DynamicScroller, DynamicScrollerItem },
 
   created () {
-    this.height = window.innerHeight - 200 + 'px'
+    // this.height = window.innerHeight - 200 + 'px'
     window.addEventListener('scroll', this.handleScroll);
   },
 
@@ -126,11 +126,11 @@ export default {
     handleScroll (event) {
       if (window.scrollY > 115) {
         this.top = 15
-        this.height = window.innerHeight - 80 + 'px'
+        // this.height = window.innerHeight - 80 + 'px'
       } else {
         for (var i = Math.min(this.top, window.scrollY); i <= Math.max(this.top, window.scrollY); i++) {
           this.top = Math.abs(115 - window.scrollY)
-          this.height = window.innerHeight - 80 - (115 - window.scrollY) + 'px'
+          // this.height = window.innerHeight - 80 - (115 - window.scrollY) + 'px'
         }
       }
     }
@@ -141,16 +141,17 @@ export default {
 <style scoped>
 .book-contents {
   overflow-y: scroll;
+  height: calc(100vh - 140px)
 }
 .book-contents::-webkit-scrollbar {
   width: 0.3rem;
 }
-
 .book-contents::-webkit-scrollbar-thumb {
   background-color: #a2a2a2;
 }
 .sidebar-nav {
   position: fixed;
-  width: 350px;
+  max-width: 350px;
+  width: 100%;
 }
 </style>

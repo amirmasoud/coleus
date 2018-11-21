@@ -2,7 +2,7 @@
   <div class="main-layout" :class="$store.state.lang.locale == 'fa' ? 'rtl' : 'ltr'">
     <navbar/>
 
-    <div class="container mt-4">
+    <div class="container mt-6">
       <child/>
     </div>
   </div>
