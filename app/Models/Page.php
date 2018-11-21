@@ -36,6 +36,11 @@ class Page extends Model
         $this->parent = $value;
     }
 
+    public function paragraphs()
+    {
+        return $this->hasMany(Paragraph::class);
+    }
+
     /**
      * Get the indexable data array for the model.
      *
@@ -45,11 +50,13 @@ class Page extends Model
     {
         $record = $this->toArray();
 
-        $content = str_replace(['<p class="col-12 col-md-6" style="text-align: right;">',
-            '<p class="t col-12 col-md-6" style="text-align: right;">', '<p class="t col-12" style="text-align: right;">'],
-            '', $record['content']);
+        // $content = str_replace(['<p class="col-12 col-md-6" style="text-align: right;">',
+        //     '<p class="t col-12 col-md-6" style="text-align: right;">', '<p class="t col-12" style="text-align: right;">'],
+        //     '', $record['content']);
 
-        $record['content'] = str_replace('</p>', '\n', $content);
+        // $record['content'] = str_replace('</p>', '\n', $content);
+
+        unset($record['content']);
 
         return $record;
     }
