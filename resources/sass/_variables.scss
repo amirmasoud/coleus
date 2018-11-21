@@ -168,7 +168,7 @@ $body-color:                $gray-900 !default;
 $link-color:                theme-color("primary") !default;
 $link-decoration:           none !default;
 $link-hover-color:          darken($link-color, 15%) !default;
-$link-hover-decoration:     underline !default;
+$link-hover-decoration:     none !default;
 
 // Paragraphs
 //
@@ -848,18 +848,18 @@ $progress-bar-transition:           width .6s ease !default;
 
 // List group
 
-$list-group-bg:                     $white !default;
-$list-group-border-color:           rgba($black, .125) !default;
+$list-group-bg:                     transparent !default;
+$list-group-border-color:           transparent !default;
 $list-group-border-width:           $border-width !default;
 $list-group-border-radius:          $border-radius !default;
 
-$list-group-item-padding-y:         .75rem !default;
-$list-group-item-padding-x:         1.25rem !default;
+$list-group-item-padding-y:         .5rem !default;
+$list-group-item-padding-x:         .75rem !default;
 
 $list-group-hover-bg:               $gray-100 !default;
-$list-group-active-color:           $component-active-color !default;
-$list-group-active-bg:              $component-active-bg !default;
-$list-group-active-border-color:    $list-group-active-bg !default;
+$list-group-active-color:           $black !default;
+$list-group-active-bg:              rgba($black, .05) !default;
+$list-group-active-border-color:    transparent !default;
 
 $list-group-disabled-color:         $gray-600 !default;
 $list-group-disabled-bg:            $list-group-bg !default;
@@ -960,7 +960,7 @@ $body-bg: #f7f9fb;
 
 // Cards
 $card-spacer-x: 0.9375rem;
-$card-spacer-y: 0.625rem;
+$card-spacer-y: 0;
 $card-cap-bg: #fbfbfb;
 $card-border-color: #e8eced;
 

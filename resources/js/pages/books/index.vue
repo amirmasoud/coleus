@@ -1,65 +1,55 @@
 <template>
   <b-row v-if="book">
     <b-col cols="12"
-           :sm="collapseMenu ? 4 : 1"
-           :md="collapseMenu ? 4 : 1">
-      <b-btn @click="collapseMenu = !collapseMenu"
-             variant="primary"
-             class="mb-3"
-             aria-controls="collapseMenu"
-             :aria-expanded="collapseMenu ? 'true' : 'false'"
-             block>
-        <fa :icon="collapseMenu ? 'chevron-right' : 'chevron-left'" fixed-width />
-        <span v-show="collapseMenu && $mq !== 'mobile'">{{ $t('contents') }}</span>
-        <span v-show="$mq === 'mobile'">{{ $t('contents') }}</span>
-      </b-btn>
-      <b-collapse id="collapseMenu" v-model="collapseMenu" class="mb-2">
-        <b-form-input v-model="title" type="search"
-                      :placeholder="$t('search_title')"></b-form-input>
-        <hr />
-        <div class="book-contents" :style="'height: ' + height">
-          <b-list-group>
-            <DynamicScroller
-              class="scroller"
-              :items="bookContents(book.pages)"
-              :min-item-height="48"
-              page-mode
-            >
-              <template slot-scope="{ item, index, active }">
-                <DynamicScrollerItem
-                  :item="item"
-                  :active="active"
-                  :size-dependencies="[
-                    item.title,
-                  ]"
-                  :data-index="index"
-                >
-                  <b-list-group-item class="text-left"
-                    v-if="item.is_header"
-                    style="background-color: transparent; border: none;">
-                    {{ item.title }}
-                  </b-list-group-item>
-                  <b-list-group-item
-                    v-else
-                    :to="{ name: 'books.read', params: { slug: slug, page: item.id }}"
-                    @click="changePage">
-                    {{ item.title }}
-                  </b-list-group-item>
-                </DynamicScrollerItem>
-              </template>
-            </DynamicScroller>
-          </b-list-group>
-        </div>
-      </b-collapse>
+           sm="4"
+           md="4">
+      <div class="sidebar-nav d-none d-sm-block" :style="{'top': top + 'px'}">
+          <b-form-input v-model="title" type="search" class="mb-3"
+                        :placeholder="$t('search_title')"></b-form-input>
+          <div class="book-contents" :style="'height: ' + height">
+            <b-list-group>
+              <DynamicScroller
+                class="scroller"
+                :items="bookContents(book.pages)"
+                :min-item-height="48"
+                page-mode
+              >
+                <template slot-scope="{ item, index, active }">
+                  <DynamicScrollerItem
+                    :item="item"
+                    :active="active"
+                    :size-dependencies="[
+                      item.title,
+                    ]"
+                    :data-index="index"
+                  >
+                    <b-list-group-item class="text-left"
+                      v-if="item.is_header"
+                      style="background-color: transparent; border: none;">
+                      <strong>{{ item.title }}</strong>
+                    </b-list-group-item>
+                    <b-list-group-item
+                      v-else
+                      :to="{ name: 'books.read', params: { slug: slug, page: item.id }}">
+                      {{ item.title }}
+                    </b-list-group-item>
+                  </DynamicScrollerItem>
+                </template>
+              </DynamicScroller>
+            </b-list-group>
+          </div>
+      </div>
     </b-col>
 
     <b-col cols="12"
-       :sm="collapseMenu ? 8 : 11"
-       :md="collapseMenu ? 8 : 11">
+           sm="8"
+           md="8">
       <transition name="fade"
                   mode="out-in">
-        <router-view :key="$route.fullPath"
-                     :firstId="getFirstId(book.pages)"/>
+        <b-card class="p-2">
+          <router-view :key="$route.fullPath"
+                       :firstId="getFirstId(book.pages)"/>
+        </b-card>
       </transition>
     </b-col>
   </b-row>
@@ -68,14 +58,19 @@
 
 <script>
 import gql from 'graphql-tag'
-import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
+import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
 
 export default {
   components: { DynamicScroller, DynamicScrollerItem },
 
   created () {
-    this.height = window.innerHeight - 274 + 'px'
+    this.height = window.innerHeight - 200 + 'px'
+    window.addEventListener('scroll', this.handleScroll);
+  },
+
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll);
   },
 
   data () {
@@ -84,7 +79,7 @@ export default {
       book: null,
       height: null,
       title: '',
-      collapseMenu: true
+      top: 115
     }
   },
 
@@ -109,10 +104,6 @@ export default {
     }),
   },
 
-  beforeMount () {
-    this.collapseMenu = this.$mq !== 'mobile'
-  },
-
   methods: {
     getFirstId (pages) {
       for (let i = pages.length - 1; i >= 0; i--) {
@@ -132,9 +123,15 @@ export default {
       return pages
     },
 
-    changePage () {
-      if (this.$mq === 'mobile') {
-        this.collapseMenu = false
+    handleScroll (event) {
+      if (window.scrollY > 115) {
+        this.top = 15
+        this.height = window.innerHeight - 80 + 'px'
+      } else {
+        for (var i = Math.min(this.top, window.scrollY); i <= Math.max(this.top, window.scrollY); i++) {
+          this.top = Math.abs(115 - window.scrollY)
+          this.height = window.innerHeight - 80 - (115 - window.scrollY) + 'px'
+        }
       }
     }
   },
@@ -151,5 +148,9 @@ export default {
 
 .book-contents::-webkit-scrollbar-thumb {
   background-color: #a2a2a2;
+}
+.sidebar-nav {
+  position: fixed;
+  width: 350px;
 }
 </style>

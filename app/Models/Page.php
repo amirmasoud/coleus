@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Page extends Model
 {
+    use Searchable;
+
     /**
      * The attributes that are mass assignable.
      *

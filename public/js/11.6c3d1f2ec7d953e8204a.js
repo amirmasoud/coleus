@@ -1,2 +1,0 @@
-webpackJsonp([11],{Dp46:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var o=t("cGjl"),a=t("K1/g"),l=Object(a.a)({name:"NotFound"},o.render,o.staticRenderFns,!1,null,null,null);l.options.__file="404.vue";n.default=l.exports},cGjl:function(e,n){throw new Error('Module parse failed: Unexpected token (2:0)\nYou may need an appropriate loader to handle this file type.\n| \n| <card class="text-center">\n|   <h3 class="mb-4">{{ $t(\'page_not_found\') }}</h3>\n| ')}});
-//# sourceMappingURL=11.6c3d1f2ec7d953e8204a.js.map

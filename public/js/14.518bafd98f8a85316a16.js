@@ -1,2 +1,0 @@
-webpackJsonp([14],{b8f7:function(e,o,n){"use strict";Object.defineProperty(o,"__esModule",{value:!0});n("enof");throw new Error('Cannot find module "vform"')},enof:function(e,o){throw new Error('Module parse failed: Unexpected token (2:0)\nYou may need an appropriate loader to handle this file type.\n| \n| <div class="row">\n|   <div class="col-lg-8 m-auto">\n|     <card :title="$t(\'reset_password\')">')}});
-//# sourceMappingURL=14.518bafd98f8a85316a16.js.map

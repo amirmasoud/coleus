@@ -1,6 +1,0 @@
-webpackJsonp([12],{mqYV:function(t,e){throw new Error('Module parse failed: Unexpected token (2:0)\nYou may need an appropriate loader to handle this file type.\n| \n| <div>\n|   <h2>{{ $t(\'new_book\') }}</h2>\n|   <b-form @submit.prevent="onSubmit" enctype="multipart/form-data">')},rVmA:function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n=i("mqYV"),o=(i("mtWM"),i("tlQw")),r=i.n(o),a={middleware:"auth",metaInfo(){return{title:this.$t("new_book")}},data:()=>({form:new FormData({title:null,description:null,cover:null}),loading:!1}),methods:{async onSubmit(){this.loading=!0;await this.$apollo.mutate({mutation:r.a`mutation ($title: String!, $description: String!, $cover: Upload!) {
-          newBook(title: $title, description: $description, cover: $cover) {
-            id
-          }
-        }`,variables:{title:this.form.title,description:this.form.description,cover:this.form.cover}}).then(t=>{this.loading=!1}).catch(t=>{this.loading=!1})}}},l=i("K1/g"),d=Object(l.a)(a,n.render,n.staticRenderFns,!1,null,null,null);d.options.__file="new.vue";e.default=d.exports}});
-//# sourceMappingURL=12.36f4866122f093ac1a20.js.map

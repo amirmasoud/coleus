@@ -1,6 +1,7 @@
 query FetchPageById($id: Int) {
   page(id: $id) {
     id
+    title
     content
   }
 }

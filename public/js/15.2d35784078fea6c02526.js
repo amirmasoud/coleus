@@ -1,2 +1,0 @@
-webpackJsonp([15],{Iexn:function(e,n,o){"use strict";Object.defineProperty(n,"__esModule",{value:!0});o("IpW8");throw new Error('Cannot find module "vform"')},IpW8:function(e,n){throw new Error('Module parse failed: Unexpected token (2:0)\nYou may need an appropriate loader to handle this file type.\n| \n| <div class="row">\n|   <div class="col-lg-8 m-auto">\n|     <card :title="$t(\'reset_password\')">')}});
-//# sourceMappingURL=15.2d35784078fea6c02526.js.map
