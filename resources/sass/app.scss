@@ -52,6 +52,7 @@ div.main-layout.rtl {
 }
 
 @import "~sweetalert2/src/sweetalert2";
+@import "~vue-snotify/styles/material";
 
 @import "elements/card";
 @import "elements/navbar";
@@ -70,4 +71,9 @@ div.main-layout.rtl {
 
 .mt-6 {
   margin-top: 5rem !important;
+}
+
+.modal {
+  background: linear-gradient(to right, rgba(150, 231, 211, 0.15), rgba(252, 119, 104, 0.15));
+  background: -webkit-linear-gradient(to right, rgba(150, 231, 211, 0.15), rgba(252, 119, 104, 0.15));
 }

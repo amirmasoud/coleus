@@ -70,6 +70,10 @@ class UserType extends BaseType
                 'type' => Type::string(),
                 'description' => 'The medium photo of user'
             ],
+            'placeholder' => [
+                'type' => Type::string(),
+                'description' => 'The placeholder photo of user'
+            ],
             'sticky' => [
                 'type' => Type::boolean(),
                 'description' => 'The user is sticky'

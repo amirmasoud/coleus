@@ -19,12 +19,12 @@ const ReadBook = () => import('~/pages/books/read').then(m => m.default || m)
 export default [
   { path: '/', name: 'welcome', component: Welcome },
 
-  { path: '/login', name: 'login', component: Login },
-  { path: '/register', name: 'register', component: Register },
-  { path: '/password/reset', name: 'password.request', component: PasswordEmail },
-  { path: '/password/reset/:token', name: 'password.reset', component: PasswordReset },
+  // { path: '/login', name: 'login', component: Login },
+  // { path: '/register', name: 'register', component: Register },
+  // { path: '/password/reset', name: 'password.request', component: PasswordEmail },
+  // { path: '/password/reset/:token', name: 'password.reset', component: PasswordReset },
 
-  { path: '/home', name: 'home', component: Home },
+  // { path: '/home', name: 'home', component: Home },
   { path: '/settings',
     component: Settings,
     children: [

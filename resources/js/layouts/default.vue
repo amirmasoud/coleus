@@ -5,6 +5,7 @@
     <div class="container mt-6">
       <child/>
     </div>
+    <vue-snotify></vue-snotify>
   </div>
 </template>
 

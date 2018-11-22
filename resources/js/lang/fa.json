@@ -14,7 +14,7 @@
   "email": "ایمیل",
   "remember_me": "مرا به خاطر بسپار",
   "password": "گذرواژه",
-  "forgot_password": "گذرواژهتان را فراموش کرده‌اید؟",
+  "forgot_password": "گذرواژه‌تان را فراموش کرده‌اید؟",
   "confirm_password": "تایید گذرواژه",
   "name": "نام",
   "toggle_navigation": "نمایش/عدم نماش پیمایشگر",
@@ -48,5 +48,10 @@
   "following": "دنبال شوندگان",
   "read_book": "کتابخوان",
   "search_title": "جستجوی عنوان‌ها",
-  "contents": "فهرست"
+  "contents": "فهرست",
+  "successful_login_header": "با موفقیت وارد شدید",
+  "successful_logout_header": "با موفقیت خارج شدید",
+  "read_count": "خوانده شده",
+  "reading_count": "در حال خواندن",
+  "toread_count": "برای خواندن"
 }

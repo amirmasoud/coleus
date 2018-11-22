@@ -51,14 +51,7 @@
           <!-- Guest -->
           <template v-else>
             <li class="nav-item">
-              <router-link :to="{ name: 'login' }" class="nav-link" active-class="active">
-                {{ $t('login') }}
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link :to="{ name: 'register' }" class="nav-link" active-class="active">
-                {{ $t('register') }}
-              </router-link>
+              <login></login>
             </li>
           </template>
         </ul>
@@ -90,11 +83,18 @@ export default {
 
   methods: {
     async logout () {
+      let logoutMessage = this.$t('successful_logout_header')
       // Log out the user.
       await this.$store.dispatch('auth/logout')
 
       // Redirect to login.
-      this.$router.push({ name: 'login' })
+      this.$router.push({ name: 'welcome' })
+
+      try {
+        this.$snotify.success(logoutMessage)
+      } catch (e) {
+        // console.warn(e)
+      }
     }
   }
 }

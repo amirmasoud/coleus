@@ -46,5 +46,10 @@
   "no_book": "No book written yet.",
   "read_book": "Reader",
   "search_title": "Search title",
-  "contents": "Contents"
+  "contents": "Contents",
+  "successful_login_header": "you're logged in",
+  "successful_logout_header": "logged out successfully",
+  "read_count": "read",
+  "reading_count": "reading",
+  "toread_count": "to read"
 }

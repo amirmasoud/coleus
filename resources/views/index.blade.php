@@ -29,7 +29,6 @@ $polyfills = [
 
   <title>{{ __('general.negarin') }}</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Markazi+Text" rel="stylesheet">
   <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
 <body>

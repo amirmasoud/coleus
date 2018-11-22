@@ -78,6 +78,7 @@
   @include box-shadow($modal-content-box-shadow-xs);
   // Remove focus outline from opened modal
   outline: 0;
+  text-align: initial;
 }
 
 // Modal background
@@ -108,7 +109,7 @@
   .close {
     padding: $modal-header-padding;
     // auto on the left force icon to the right even when there is no .modal-title
-    margin: (-$modal-header-padding) (-$modal-header-padding) (-$modal-header-padding) auto;
+    margin: (-$modal-header-padding) auto (-$modal-header-padding) (-$modal-header-padding);
   }
 }
 
