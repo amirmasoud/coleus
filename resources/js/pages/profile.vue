@@ -10,7 +10,7 @@
                            class="rounded float-left img-fluid mr-4"
                            style="width: 64px; height: 64px;" />
           <div>
-            <h4><img src="/icons/correct.svg" width="24" height="24"> {{ user.name }}</h4>
+            <h4><img src="/svg/correct.svg" width="24" height="24"> {{ user.name }}</h4>
             <small>@{{ user.username }}</small>
           </div>
           <div class="ml-3">
