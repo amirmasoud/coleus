@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Page extends Model
 {
-    use Searchable;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -39,26 +36,6 @@ class Page extends Model
     public function paragraphs()
     {
         return $this->hasMany(Paragraph::class);
-    }
-
-    /**
-     * Get the indexable data array for the model.
-     *
-     * @return array
-     */
-    public function toSearchableArray()
-    {
-        $record = $this->toArray();
-
-        // $content = str_replace(['<p class="col-12 col-md-6" style="text-align: right;">',
-        //     '<p class="t col-12 col-md-6" style="text-align: right;">', '<p class="t col-12" style="text-align: right;">'],
-        //     '', $record['content']);
-
-        // $record['content'] = str_replace('</p>', '\n', $content);
-
-        unset($record['content']);
-
-        return $record;
     }
 
     /**

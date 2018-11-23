@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Laravel\Scout\Searchable;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
@@ -20,7 +19,7 @@ use App\Notifications\ResetPassword as ResetPasswordNotification;
 
 class User extends Authenticatable implements JWTSubject, HasMedia
 {
-    use Notifiable, HasRoles, HasMediaTrait, CanFollow, CanBeFollowed, Searchable;
+    use Notifiable, HasRoles, HasMediaTrait, CanFollow, CanBeFollowed;
 
     /**
      * @var string

@@ -51,67 +51,63 @@ class AddContent extends Command
             Book::find($this->argument('book'))->pages()->delete();
         }
 
-        if (!Book::find($this->argument('book'))->pages()->count() || $this->confirm('Do you wish to continue?')) {
-            $guy = Storage::disk('dataset')->allFiles($this->argument('path'));
+        $guy = Storage::disk('dataset')->allFiles($this->argument('path'));
 
-            $bar = $this->output->createProgressBar(count($guy) + 1);
+        $bar = $this->output->createProgressBar(count($guy) + 1);
 
-            sort($guy, SORT_NATURAL);
+        sort($guy, SORT_NATURAL);
 
-            $bar->start();
+        $bar->start();
 
-            if ($this->argument('parent')) {
-                $parent = Book::find($this->argument('book'))
-                    ->pages()
-                    ->create([
-                        'title' => $this->argument('parent'),
-                        'content' => ':empty'
-                    ]);
-            }
+        if ($this->argument('parent')) {
+            $parent = Book::find($this->argument('book'))
+                ->pages()
+                ->create([
+                    'title' => $this->argument('parent'),
+                    'content' => ':empty'
+                ]);
+        }
 
-            $bar->advance();
+        $bar->advance();
 
-            foreach ($guy as $poem) {
-                if (Str::endsWith($poem, '.json')) {
-                    $file = json_decode(Storage::disk('dataset')->get($poem));
-                    $title = '';
-                    $content = '';
-                    foreach ($file->text as $key => $part) {
-                        if (! $key && property_exists($part, 'm1')) { // First item - Generate title of page
-                            $title = $part->m1;
-                        }
-
-                        if (property_exists($part, 'm1') && property_exists($part, 'm2')) {
-                            $content .= '<p class="col-12 col-md-6" style="text-align: right;">' . $part->m1 . '</p>';
-                            $content .= '<p class="col-12 col-md-6" style="text-align: right;">' . $part->m2 . '</p>';
-                        }
-
-                        if (property_exists($part, 't1') && property_exists($part, 't2')) {
-                            $content .= '<p class="t col-12 col-md-6" style="text-align: right;">' . $part->t1 . '</p>';
-                            $content .= '<p class="t col-12 col-md-6" style="text-align: right;">' . $part->t2 . '</p>';
-                        }
-
-                        if (property_exists($part, 'p')) {
-                            $content .= '<p class="t col-12" style="text-align: right;">' . $part->p . '</p>';
-                        }
+        foreach ($guy as $poem) {
+            if (Str::endsWith($poem, '.json')) {
+                $file = json_decode(Storage::disk('dataset')->get($poem));
+                $title = '';
+                $content = '';
+                foreach ($file->text as $key => $part) {
+                    if (! $key && property_exists($part, 'm1')) { // First item - Generate title of page
+                        $title = $part->m1;
                     }
 
-                    Book::find($this->argument('book'))
-                        ->pages()
-                        ->create([
-                            'title'   => $title,
-                            'content' => $content,
-                            'parent' => $this->argument('parent') ? $parent : null
-                        ]);
+                    if (property_exists($part, 'm1') && property_exists($part, 'm2')) {
+                        $content .= '<p class="col-12 col-md-6" style="text-align: right;">' . $part->m1 . '</p>';
+                        $content .= '<p class="col-12 col-md-6" style="text-align: right;">' . $part->m2 . '</p>';
+                    }
+
+                    if (property_exists($part, 't1') && property_exists($part, 't2')) {
+                        $content .= '<p class="t col-12 col-md-6" style="text-align: right;">' . $part->t1 . '</p>';
+                        $content .= '<p class="t col-12 col-md-6" style="text-align: right;">' . $part->t2 . '</p>';
+                    }
+
+                    if (property_exists($part, 'p')) {
+                        $content .= '<p class="t col-12" style="text-align: right;">' . $part->p . '</p>';
+                    }
                 }
-                $bar->advance();
+
+                Book::find($this->argument('book'))
+                    ->pages()
+                    ->create([
+                        'title'   => $title,
+                        'content' => $content,
+                        'parent' => $this->argument('parent') ? $parent : null
+                    ]);
             }
-
-            $bar->finish();
-
-            $this->info('Data added to book.');
-        } else {
-            $this->error('Operation cancelled!');
+            $bar->advance();
         }
+
+        $bar->finish();
+
+        $this->info('    Data added to book.');
     }
 }

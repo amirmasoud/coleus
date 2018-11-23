@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -12,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Book extends Model implements HasMedia
 {
-    use HasMediaTrait, Searchable;
+    use HasMediaTrait;
 
     /**
      * The attributes that are mass assignable.
