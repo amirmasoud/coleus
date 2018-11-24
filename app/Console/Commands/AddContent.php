@@ -20,11 +20,13 @@ class AddContent extends Command
                             {path : The path to dataset}
                             {book : The book ID to content add to}
                             {parent? : The parent of the content}
-                            {title? : The title of the content}
+                            {--T|title= : The title of the content}
                             {--R|refresh : Refresh book\'s content before import}
                             {--C|count : Count title on indexing}
                             {--P|persian : Persian numbers}
-                            {--H|header=* : Subheader titles}';
+                            {--H|header=* : Subheader titles}
+                            {--A|append : Append m1 to titles}
+                            {--D|delimiter= : Delimiter for append and title, default is ": "}';
 
     /**
      * The console command description.
@@ -51,6 +53,7 @@ class AddContent extends Command
     public function handle()
     {
         ini_set('memory_limit', '-1');
+        $delimiter = $this->option('delimiter') ?: ': ';
 
         if ($this->option('refresh')) {
             $this->info('Refreshing book' . PHP_EOL);
@@ -89,7 +92,7 @@ class AddContent extends Command
                 $content = '';
                 foreach ($file->text as $key => $part) {
                     if (! $key) { // First item
-                        if (!$this->argument('title') && property_exists($part, 'm1') && !$this->option('header')) { // First m2
+                        if (!$this->option('title') && property_exists($part, 'm1') && !$this->option('header')) { // First m2
                             $title = $part->m1;
                         } else { // Custom title
                             if ($this->option('header') && @isset($this->option('header')[$index])) {
@@ -104,8 +107,12 @@ class AddContent extends Command
                                     $i++;
                                 }
                                 $title = $this->option('count')
-                                            ? $this->argument('title') . ' ' . ($this->option('persian') ? $str : $i++)
-                                            : $this->argument('title');
+                                            ? $this->option('title') . ' ' . ($this->option('persian') ? $str : $i++)
+                                            : $this->option('title');
+                            }
+
+                            if ($this->option('append') && property_exists($part, 'm1')) {
+                                $title .= $delimiter . $part->m1;
                             }
                         }
                     }
