@@ -44,12 +44,18 @@
     <b-col cols="12"
            sm="8"
            md="8">
+      <b-card class="mb-2 reading-help">
+        <b-button size="sm" variant="link" @click="changeFontSize('up')"><fa icon="font" fixed-width /><fa icon="sort-up" fixed-width /></b-button>
+        <b-button size="sm" variant="link" @click="changeFontSize('down')"><small><fa icon="font" fixed-width /></small><fa icon="sort-down" fixed-width /></b-button>
+      </b-card>
       <transition name="fade"
                   mode="out-in">
-        <b-card class="p-2">
-          <router-view :key="$route.fullPath"
-                       :firstId="getFirstId(book.pages)"/>
-        </b-card>
+        <div :style="'font-size: ' + fontSize">
+          <b-card class="p-2 reading-container">
+            <router-view :key="$route.fullPath"
+                         :firstId="getFirstId(book.pages)"/>
+          </b-card>
+        </div>
       </transition>
     </b-col>
   </b-row>
@@ -79,7 +85,8 @@ export default {
       book: null,
       height: null,
       title: '',
-      top: 115
+      top: 115,
+      fontSize: 'inherit'
     }
   },
 
@@ -133,6 +140,28 @@ export default {
           // this.height = window.innerHeight - 80 - (115 - window.scrollY) + 'px'
         }
       }
+    },
+
+    changeFontSize (size) {
+      let sizes = [
+        'x-large',
+        'larger',
+        'large',
+        'inherit',
+        'smaller',
+        'small',
+        'x-small'
+      ];
+      let currentIndex = sizes.indexOf(this.fontSize)
+      if (size == 'up') {
+        if (currentIndex - 1 >= 0) {
+          this.fontSize = sizes[currentIndex - 1]
+        }
+      } else { // down
+        if (currentIndex + 1 < sizes.length) {
+          this.fontSize = sizes[currentIndex + 1]
+        }
+      }
     }
   },
 }
@@ -153,5 +182,8 @@ export default {
   position: fixed;
   max-width: 350px;
   width: 100%;
+}
+.reading-help .card-body {
+  padding: 0.219rem 0.9375rem !important;
 }
 </style>
