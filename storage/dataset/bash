@@ -10,16 +10,16 @@ php artisan add:content ganjoor/saadi/boostan/bab8 12 'باب هشتم در شک
 php artisan add:content ganjoor/saadi/boostan/bab9 12 'باب نهم در توبه و راه صواب' &&
 php artisan add:content ganjoor/saadi/boostan/bab10 12 'باب دهم در مناجات و ختم کتاب'
 
-php artisan add:content ganjoor/saadi/golestan/dibache 13 'دیباچه' 'بِسم اللهِ الرَّحمنِ الرَّحیم' -R
+php artisan add:content ganjoor/saadi/golestan/dibache 13 'دیباچه' --title='بِسم اللهِ الرَّحمنِ الرَّحیم' -R
 
-php artisan add:content ganjoor/saadi/golestan/gbab1 13 'باب اول در سیرت پادشاهان' 'حکایت شماره ' --count --persian &&
-php artisan add:content ganjoor/saadi/golestan/gbab2 13 'باب دوم در اخلاق درویشان' 'حکایت شماره ' --count --persian &&
-php artisan add:content ganjoor/saadi/golestan/gbab3 13 'باب سوم در فضیلت قناعت' 'حکایت شماره ' --count --persian &&
-php artisan add:content ganjoor/saadi/golestan/gbab4 13 'باب چهارم در فواید خاموشی' 'حکایت شماره ' --count --persian &&
-php artisan add:content ganjoor/saadi/golestan/gbab5 13 'باب پنجم در عشق و جوانی' 'حکایت شماره ' --count --persian &&
-php artisan add:content ganjoor/saadi/golestan/gbab6 13 'باب ششم در ضعف و پیری' 'حکایت شماره ' --count --persian &&
-php artisan add:content ganjoor/saadi/golestan/gbab7 13 'باب هفتم در تأثیر تربیت' 'حکایت شماره ' --count --persian &&
-php artisan add:content ganjoor/saadi/golestan/gbab8 13 'باب هشتم در آداب صحبت' 'حکایت شماره ' --count --persian
+php artisan add:content ganjoor/saadi/golestan/gbab1 13 'باب اول در سیرت پادشاهان' --title='حکایت شماره ' --count --persian &&
+php artisan add:content ganjoor/saadi/golestan/gbab2 13 'باب دوم در اخلاق درویشان' --title='حکایت شماره ' --count --persian &&
+php artisan add:content ganjoor/saadi/golestan/gbab3 13 'باب سوم در فضیلت قناعت' --title='حکایت شماره ' --count --persian &&
+php artisan add:content ganjoor/saadi/golestan/gbab4 13 'باب چهارم در فواید خاموشی' --title='حکایت شماره ' --count --persian &&
+php artisan add:content ganjoor/saadi/golestan/gbab5 13 'باب پنجم در عشق و جوانی' --title='حکایت شماره ' --count --persian &&
+php artisan add:content ganjoor/saadi/golestan/gbab6 13 'باب ششم در ضعف و پیری' --title='حکایت شماره ' --count --persian &&
+php artisan add:content ganjoor/saadi/golestan/gbab7 13 'باب هفتم در تأثیر تربیت' --title='حکایت شماره ' --count --persian &&
+php artisan add:content ganjoor/saadi/golestan/gbab8 13 'باب هشتم در آداب صحبت' --title='حکایت شماره ' --count --persian
 
 php artisan add:content ganjoor/saadi/divan/ghazals 14 'غزلیات' &&
 php artisan add:content ganjoor/saadi/divan/ghetes 14 'قطعات' &&
@@ -36,7 +36,7 @@ php artisan add:content ganjoor/saadi/mavaez/mofradat 15 'مفردات' &&
 php artisan add:content ganjoor/saadi/mavaez/mosalas 15 'مثلثات' &&
 php artisan add:content ganjoor/saadi/mavaez/arabi 15 'قصاید و قطعات عربی'
 
-php artisan add:content ganjoor/ferdousi/shahname/aghaz 57 'آغاز کتاب' --header="بخش ۱ - آغاز کتاب" \
+php artisan add:content ganjoor/ferdousi/shahname/aghaz 16 'آغاز کتاب' --header="بخش ۱ - آغاز کتاب" \
     --header="بخش ۲ - ستایش خرد" \
     --header="بخش ۳ - گفتار اندر آفرینش عالم" \
     --header="بخش ۴ - گفتار اندر آفرینش مردم" \
@@ -48,63 +48,77 @@ php artisan add:content ganjoor/ferdousi/shahname/aghaz 57 'آغاز کتاب' -
     --header="بخش ۱۰ - بنیاد نهادن کتاب" \
     --header="بخش ۱۱ - در داستان ابومنصور" \
     --header="بخش ۱۲ - ستایش سلطان محمود" -R &&
-php artisan add:content ganjoor/ferdousi/shahname/qmars 57 'کیومرث' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/hushang 57 'هوشنگ' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/tahmoores 57 'طهمورث' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/jamshid 57 'جمشید' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/zahak 57 'ضحاک' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/fereydoon 57 'فریدون' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/manoochehr 57 'منوچهر' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/nozar 57 'پادشاهی نوذر' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/zutahmasb 57 'پادشاهی زوطهماسپ' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/garshasp 57 'پادشاهی گرشاسپ' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/kqobad 57 'کیقباد' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/kkavoos 57 'پادشاهی کی‌کاووس و رفتن او به مازندران' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/hamavaran 57 'رزم کاووس با شاه هاماوران' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/sohrab 57 'سهراب' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/siavosh 57 'داستان سیاوش' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/kkhosro 57 'پادشاهی کیخسرو شصت سال بود' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/forood 57 'گفتار اندر داستان فرود سیاوش' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/kamoos 57 'داستان کاموس کشانی' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/khaghan 57 'داستان خاقان چین' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/akvan 57 'داستان اکوان دیو' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/bizhan 57 'داستان بیژن و منیژه' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/12rokh 57 'داستان دوازده رخ' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/mahmood 57 'اندر ستایش سلطان محمود' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/lohrasp 57 'پادشاهی لهراسپ' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/goshtasp 57 'پادشاهی گشتاسپ صد و بیست سال بود' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/7esfandyar 57 'داستان هفتخوان اسفندیار' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/esfandyar 57 'داستان رستم و اسفندیار' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/shqad 57 'داستان رستم و شغاد' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/bahman 57 'پادشاهی بهمن اسفندیار صد و دوازده سال بود' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/homa 57 'پادشاهی همای چهرزاد سی و دو سال بود' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/darab 57 'پادشاهی داراب دوازده سال بود' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/dara 57 'پادشاهی دارای داراب چهارده سال بود' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/eskandar 57 'پادشاهی اسکندر' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/ashkanian 57 'پادشاهی اشکانیان' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/ardeshir 57 'پادشاهی اردشیر' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/shapoor 57 'پادشاهی شاپور پسر اردشیر سی و یک سال بود' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/oormazd 57 'پادشاهی اورمزد' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/bahram 57 'پادشاهی بهرام اورمزد' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/bahram19 57 'پادشاهی بهرام نوزده سال بود' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/bahramian 57 'پادشاهی بهرام بهرامیان' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/nrsi 57 'پادشاهی نرسی بهرام' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/oorner 57 'پادشاهی اورمزد نرسی' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/zolaktaf 57 'پادشاهی شاپور ذوالاکتاف' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/nekookar 57 'پادشاهی اردشیر نکوکار' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/shapoor3 57 'پادشاهی شاپور سوم' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/bahpoor 57 'پادشاهی بهرام شاپور' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/bezehgar 57 'پادشاهی یزدگرد بزه‌گر' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/bahgoor 57 'پادشاهی بهرام گور' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/yazdgerd 57 'پادشاهی یزدگرد هجده سال بود' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/qobad 57 'پادشاهی قباد چهل و سه سال بود' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/anooshirvan 57 'پادشاهی کسری نوشین روان چهل و هشت سال بود' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/hormozd 57 'پادشاهی هرمزد دوازده سال بود' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/parviz 57 'پادشاهی خسرو پرویز' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/shirooye 57 'پادشاهی شیرویه' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/ardeshiroo 57 'پادشاهی اردشیر شیروی' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/farayeen 57 'پادشاهی فرایین' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/pooran 57 'پادشاهی پوران دخت' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/azarmdokht 57 'پادشاهی آزرم دخت' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/farrokh 57 'پادشاهی فرخ زاد' 'بخش ' --count --persian &&
-php artisan add:content ganjoor/ferdousi/shahname/yazdgerd3 57 'پادشاهی یزدگرد' 'بخش ' --count --persian
+php artisan add:content ganjoor/ferdousi/shahname/qmars 16 'کیومرث' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/hushang 16 'هوشنگ' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/tahmoores 16 'طهمورث' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/jamshid 16 'جمشید' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/zahak 16 'ضحاک' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/fereydoon 16 'فریدون' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/manoochehr 16 'منوچهر' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/nozar 16 'پادشاهی نوذر' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/zutahmasb 16 'پادشاهی زوطهماسپ' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/garshasp 16 'پادشاهی گرشاسپ' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/kqobad 16 'کیقباد' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/kkavoos 16 'پادشاهی کی‌کاووس و رفتن او به مازندران' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/hamavaran 16 'رزم کاووس با شاه هاماوران' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/sohrab 16 'سهراب' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/siavosh 16 'داستان سیاوش' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/kkhosro 16 'پادشاهی کیخسرو شصت سال بود' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/forood 16 'گفتار اندر داستان فرود سیاوش' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/kamoos 16 'داستان کاموس کشانی' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/khaghan 16 'داستان خاقان چین' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/akvan 16 'داستان اکوان دیو' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/bizhan 16 'داستان بیژن و منیژه' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/12rokh 16 'داستان دوازده رخ' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/mahmood 16 'اندر ستایش سلطان محمود' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/lohrasp 16 'پادشاهی لهراسپ' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/goshtasp 16 'پادشاهی گشتاسپ صد و بیست سال بود' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/7esfandyar 16 'داستان هفتخوان اسفندیار' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/esfandyar 16 'داستان رستم و اسفندیار' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/shqad 16 'داستان رستم و شغاد' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/bahman 16 'پادشاهی بهمن اسفندیار صد و دوازده سال بود' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/homa 16 'پادشاهی همای چهرزاد سی و دو سال بود' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/darab 16 'پادشاهی داراب دوازده سال بود' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/dara 16 'پادشاهی دارای داراب چهارده سال بود' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/eskandar 16 'پادشاهی اسکندر' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/ashkanian 16 'پادشاهی اشکانیان' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/ardeshir 16 'پادشاهی اردشیر' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/shapoor 16 'پادشاهی شاپور پسر اردشیر سی و یک سال بود' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/oormazd 16 'پادشاهی اورمزد' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/bahram 16 'پادشاهی بهرام اورمزد' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/bahram19 16 'پادشاهی بهرام نوزده سال بود' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/bahramian 16 'پادشاهی بهرام بهرامیان' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/nrsi 16 'پادشاهی نرسی بهرام' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/oorner 16 'پادشاهی اورمزد نرسی' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/zolaktaf 16 'پادشاهی شاپور ذوالاکتاف' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/nekookar 16 'پادشاهی اردشیر نکوکار' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/shapoor3 16 'پادشاهی شاپور سوم' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/bahpoor 16 'پادشاهی بهرام شاپور' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/bezehgar 16 'پادشاهی یزدگرد بزه‌گر' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/bahgoor 16 'پادشاهی بهرام گور' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/yazdgerd 16 'پادشاهی یزدگرد هجده سال بود' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/qobad 16 'پادشاهی قباد چهل و سه سال بود' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/anooshirvan 16 'پادشاهی کسری نوشین روان چهل و هشت سال بود' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/hormozd 16 'پادشاهی هرمزد دوازده سال بود' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/parviz 16 'پادشاهی خسرو پرویز' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/shirooye 16 'پادشاهی شیرویه' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/ardeshiroo 16 'پادشاهی اردشیر شیروی' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/farayeen 16 'پادشاهی فرایین' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/pooran 16 'پادشاهی پوران دخت' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/azarmdokht 16 'پادشاهی آزرم دخت' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/farrokh 16 'پادشاهی فرخ زاد' --title='بخش ' --count --persian &&
+php artisan add:content ganjoor/ferdousi/shahname/yazdgerd3 16 'پادشاهی یزدگرد' --title='بخش ' --count --persian
+
+php artisan add:content ganjoor/khayyam/robaee 58 --title='رباعی شماره ' --count --persian --append -R --delimiter=": "
+
+php artisan add:content ganjoor/khayyam/tarane/moghaddame 60 --title='مقدمه' -R &&
+php artisan add:content ganjoor/khayyam/tarane/khphilo 60 --title='خیام فیلسوف' &&
+php artisan add:content ganjoor/khayyam/tarane/khshaer 60 --title='خیام شاعر' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh1 60 --count --persian --append --delimiter=": " --title="رباعی " 'راز آفرینش [۱۵-۱]' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh2 60 --count --persian --append --delimiter=": " --title="رباعی " 'درد زندگی [۲۵-۱۶]' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh3 60 --count --persian --append --delimiter=": " --title="رباعی " 'از ازل نوشته [۳۴-۲۶]' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh4 60 --count --persian --append --delimiter=": " --title="رباعی " 'گردش دوران [۵۶-۳۵]' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh5 60 --count --persian --append --delimiter=": " --title="رباعی " 'ذرات گردنده [۷۳-۵۷]' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh6 60 --count --persian --append --delimiter=": " --title="رباعی " 'هرچه باداباد [۱۰۰-۷۴]' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh7 60 --count --persian --append --delimiter=": " --title="رباعی " 'هیچ است [۱۰۷-۱۰۱]' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh8 60 --count --persian --append --delimiter=": " --title="رباعی " 'دم را دریابیم [۱۴۳-۱۰۸]'
