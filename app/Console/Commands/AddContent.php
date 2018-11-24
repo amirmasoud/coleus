@@ -23,7 +23,8 @@ class AddContent extends Command
                             {title? : The title of the content}
                             {--R|refresh : Refresh book\'s content before import}
                             {--C|count : Count title on indexing}
-                            {--P|persian : Persian numbers}';
+                            {--P|persian : Persian numbers}
+                            {--H|header=* : Subheader titles}';
 
     /**
      * The console command description.
@@ -81,27 +82,31 @@ class AddContent extends Command
         $bar->advance();
 
         $i = 1;
-        foreach ($guy as $poem) {
+        foreach ($guy as $index => $poem) {
             if (Str::endsWith($poem, '.json')) {
                 $file = json_decode(Storage::disk('dataset')->get($poem));
                 $title = '';
                 $content = '';
                 foreach ($file->text as $key => $part) {
                     if (! $key) { // First item
-                        if (!$this->argument('title') && property_exists($part, 'm1')) { // First m2
+                        if (!$this->argument('title') && property_exists($part, 'm1') && !$this->option('header')) { // First m2
                             $title = $part->m1;
                         } else { // Custom title
-                            if ($this->option('persian')) {
-                                $str = $i;
-                                $western_persian = array('0','1','2','3','4','5','6','7','8','9');
-                                $eastern_persian = array('٠','١','٢','٣','٤','٥','٦','٧','٨','٩');
+                            if ($this->option('header') && @isset($this->option('header')[$index])) {
+                                $title = $this->option('header')[$index];
+                            } else {
+                                if ($this->option('persian')) {
+                                    $str = $i;
+                                    $western_persian = array('0','1','2','3','4','5','6','7','8','9');
+                                    $eastern_persian = array('٠','١','٢','٣','٤','٥','٦','٧','٨','٩');
 
-                                $str = str_replace($western_persian, $eastern_persian, $str);
-                                $i++;
+                                    $str = str_replace($western_persian, $eastern_persian, $str);
+                                    $i++;
+                                }
+                                $title = $this->option('count')
+                                            ? $this->argument('title') . ' ' . ($this->option('persian') ? $str : $i++)
+                                            : $this->argument('title');
                             }
-                            $title = $this->option('count')
-                                        ? $this->argument('title') . ' ' . ($this->option('persian') ? $str : $i++)
-                                        : $this->argument('title');
                         }
                     }
 
