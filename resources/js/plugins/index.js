@@ -1,7 +1,6 @@
 import './axios'
 import './fontawesome'
 import './bootstrap'
-import './mq'
 import './notification'
 import './progressive'
 import 'bootstrap'

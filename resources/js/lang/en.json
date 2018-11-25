@@ -51,5 +51,7 @@
   "successful_logout_header": "logged out successfully",
   "read_count": "read",
   "reading_count": "reading",
-  "toread_count": "to read"
+  "toread_count": "to read",
+  "new_book_added": "New book added",
+  "contents": "Contents"
 }

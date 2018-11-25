@@ -1,63 +1,28 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <router-link :to="{ name: 'welcome' }" class="navbar-brand" v-if="config">
-        <b-img class="logo logo-en" fluid :src="config.logoEn" alt="Logo" v-if="$store.state.lang.locale == 'en'" />
-        <b-img class="logo logo-fa" fluid :src="config.logoFa" alt="Logo" v-else />
-        {{ $t('negarin') }}
-      </router-link>
+  <b-navbar toggleable="md" type="dark" variant="dark" sticky>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false">
-        <span class="navbar-toggler-icon"/>
-      </button>
+    <b-navbar-brand :to="{ name: 'welcome' }">
+      <b-img class="logo logo-fa" fluid :src="config.logoFa" alt="Logo" /> <span class="d-none d-sm-inline">{{ $t('negarin') }}</span>
+    </b-navbar-brand>
 
-      <div id="navbarToggler" class="collapse navbar-collapse">
-        <ul class="navbar-nav">
-          <locale-dropdown/>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li> -->
-        </ul>
+    <b-navbar-nav class="ml-auto">
+      <b-dropdown left variant="link" no-caret v-if="user">
+        <template slot="button-content">
+          <b-img :src="user.thumbnail || user.photo_url" class="rounded-circle profile-photo mr-1" />
+        </template>
+        <b-dropdown-item :to="{ name: 'profile', params: { 'username': user.username } }">{{ $t('my_books') }}</b-dropdown-item>
+        <b-dropdown-item v-b-modal.modal-center-new-book>{{ $t('new_book') }}</b-dropdown-item>
+        <b-dropdown-item :to="{ name: 'settings.profile' }"><fa icon="cog" fixed-width/>{{ $t('settings') }}</b-dropdown-item>
+        <b-dropdown-divider></b-dropdown-divider>
+        <b-dropdown-item @click.prevent="logout" href="#"><fa icon="sign-out-alt" fixed-width/>{{ $t('logout') }}</b-dropdown-item>
+      </b-dropdown>
+      <li class="nav-item">
+        <login></login>
+      </li>
+    </b-navbar-nav>
 
-        <ul class="navbar-nav ml-auto">
-          <!-- Authenticated -->
-          <li v-if="user" class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-dark"
-               href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img :src="user.thumbnail || user.photo_url" class="rounded-circle profile-photo mr-1">
-            </a>
-            <div class="dropdown-menu">
-              <router-link :to="{ name: 'profile', params: { 'username': user.username } }" class="dropdown-item pl-3">
-                {{ $t('my_books') }}
-              </router-link>
-
-              <router-link :to="{ name: 'books.new' }" class="dropdown-item pl-3">
-                {{ $t('new_book') }}
-              </router-link>
-
-              <div class="dropdown-divider"/>
-              <router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
-                <fa icon="cog" fixed-width/>
-                {{ $t('settings') }}
-              </router-link>
-
-              <div class="dropdown-divider"/>
-              <a href="#" class="dropdown-item pl-3" @click.prevent="logout">
-                <fa icon="sign-out-alt" fixed-width/>
-                {{ $t('logout') }}
-              </a>
-            </div>
-          </li>
-          <!-- Guest -->
-          <template v-else>
-            <li class="nav-item">
-              <login></login>
-            </li>
-          </template>
-        </ul>
-      </div>
-    </div>
-  </nav>
+    <new-book></new-book>
+  </b-navbar>
 </template>
 
 <script>

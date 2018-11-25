@@ -77,3 +77,8 @@ div.main-layout.rtl {
   background: linear-gradient(to right, rgba(150, 231, 211, 0.15), rgba(252, 119, 104, 0.15));
   background: -webkit-linear-gradient(to right, rgba(150, 231, 211, 0.15), rgba(252, 119, 104, 0.15));
 }
+
+// Carousel
+.VueCarousel-slide {
+  padding: 0 15px;
+}

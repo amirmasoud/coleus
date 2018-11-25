@@ -21,12 +21,9 @@
       </b-col>
     </b-row>
     <div class="d-flex justify-content-around text-center mt-3 border-top border-bottom py-2">
-      <b-col>{{ user.books_count }}<br /><small class="text-muted">{{ $t('books') }}</small><br /><small class="text-muted">#1</small></b-col>
-      <b-col>{{ user.followers_count }}<br /><small class="text-muted">{{ $t('followers') }}</small><br /><small class="text-muted">#7</small></b-col>
-      <b-col>{{ user.following_count }}<br /><small class="text-muted">{{ $t('following') }}</small><br /><small class="text-muted">#10</small></b-col>
-      <b-col>0<br /><small class="text-muted">{{ $t('read_count') }}</small><br /><small class="text-muted">+#10k</small></b-col>
-      <b-col>0<br /><small class="text-muted">{{ $t('reading_count') }}</small><br /><small class="text-muted">#100</small></b-col>
-      <b-col>0<br /><small class="text-muted">{{ $t('toread_count') }}</small><br /><small class="text-muted">#69</small></b-col>
+      <b-col>{{ user.books_count }}<br /><small class="text-muted">{{ $t('books') }}</small></b-col>
+      <b-col>{{ user.followers_count }}<br /><small class="text-muted">{{ $t('followers') }}</small></b-col>
+      <b-col>{{ user.following_count }}<br /><small class="text-muted">{{ $t('following') }}</small></b-col>
     </div>
     <b-row v-if="user.books && user.books.length" class="mt-3">
       <b-col cols="6"
@@ -76,27 +73,8 @@ export default {
 
   apollo: {
     user: {
-      query: gql`query FetchUserByUsername($username: String) {
-          user(username: $username) {
-            id,
-            name,
-            username,
-            photo_url,
-            xsmall,
-            placeholder,
-            following_count,
-            followers_count,
-            books_count,
-            books {
-              id,
-              title,
-              description,
-              cover,
-              placeholder,
-              slug,
-            }
-          }
-        }`,
+      query: require('~/graphql/profile.gql'),
+      fetchPolicy: 'cache-and-network',
       variables() {
         return{
           username: this.username,

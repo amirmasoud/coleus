@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1751675cd79c10678c6eea71b988c57d",
-    "content-hash": "80d8a01bfe094925a93212e2e5db0181",
+    "hash": "abf82fc64db361231e43e29e582b69a7",
+    "content-hash": "3bc427f45c56d135609faf45f37addb8",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -2761,6 +2761,59 @@
                 "sentry"
             ],
             "time": "2018-10-26 13:09:52"
+        },
+        {
+            "name": "spatie/async",
+            "version": "0.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/async.git",
+                "reference": "8b76df4ab77dcf7680eee4b83353d038e28f92f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/async/zipball/8b76df4ab77dcf7680eee4b83353d038e28f92f7",
+                "reference": "8b76df4ab77dcf7680eee4b83353d038e28f92f7",
+                "shasum": ""
+            },
+            "require": {
+                "opis/closure": "^3.0",
+                "php": "^7.1",
+                "symfony/process": "^3.3 || ^4.0"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.1",
+                "phpunit/phpunit": "^6.0",
+                "symfony/stopwatch": "^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Spatie\\Async\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brent Roose",
+                    "email": "brent@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Asynchronous and parallel PHP with the PCNTL extension",
+            "homepage": "https://github.com/spatie/async",
+            "keywords": [
+                "async",
+                "spatie"
+            ],
+            "time": "2018-01-29 15:09:29"
         },
         {
             "name": "spatie/db-dumper",

@@ -53,5 +53,7 @@
   "successful_logout_header": "با موفقیت خارج شدید",
   "read_count": "خوانده شده",
   "reading_count": "در حال خواندن",
-  "toread_count": "برای خواندن"
+  "toread_count": "برای خواندن",
+  "new_book_added": "کتاب جدید اضافه شد",
+  "contents": "فهرست"
 }

@@ -109,16 +109,16 @@ php artisan add:content ganjoor/ferdousi/shahname/azarmdokht 16 'پادشاهی 
 php artisan add:content ganjoor/ferdousi/shahname/farrokh 16 'پادشاهی فرخ زاد' --title='بخش ' --count --persian &&
 php artisan add:content ganjoor/ferdousi/shahname/yazdgerd3 16 'پادشاهی یزدگرد' --title='بخش ' --count --persian
 
-php artisan add:content ganjoor/khayyam/robaee 58 --title='رباعی شماره ' --count --persian --append -R --delimiter=": "
+php artisan add:content ganjoor/khayyam/robaee 17 --title='رباعی شماره ' --count --persian --append -R --delimiter=": "
 
-php artisan add:content ganjoor/khayyam/tarane/moghaddame 60 --title='مقدمه' -R &&
-php artisan add:content ganjoor/khayyam/tarane/khphilo 60 --title='خیام فیلسوف' &&
-php artisan add:content ganjoor/khayyam/tarane/khshaer 60 --title='خیام شاعر' &&
-php artisan add:content ganjoor/khayyam/tarane/tkh1 60 --count --persian --append --delimiter=": " --title="رباعی " 'راز آفرینش [۱۵-۱]' &&
-php artisan add:content ganjoor/khayyam/tarane/tkh2 60 --count --persian --append --delimiter=": " --title="رباعی " 'درد زندگی [۲۵-۱۶]' &&
-php artisan add:content ganjoor/khayyam/tarane/tkh3 60 --count --persian --append --delimiter=": " --title="رباعی " 'از ازل نوشته [۳۴-۲۶]' &&
-php artisan add:content ganjoor/khayyam/tarane/tkh4 60 --count --persian --append --delimiter=": " --title="رباعی " 'گردش دوران [۵۶-۳۵]' &&
-php artisan add:content ganjoor/khayyam/tarane/tkh5 60 --count --persian --append --delimiter=": " --title="رباعی " 'ذرات گردنده [۷۳-۵۷]' &&
-php artisan add:content ganjoor/khayyam/tarane/tkh6 60 --count --persian --append --delimiter=": " --title="رباعی " 'هرچه باداباد [۱۰۰-۷۴]' &&
-php artisan add:content ganjoor/khayyam/tarane/tkh7 60 --count --persian --append --delimiter=": " --title="رباعی " 'هیچ است [۱۰۷-۱۰۱]' &&
-php artisan add:content ganjoor/khayyam/tarane/tkh8 60 --count --persian --append --delimiter=": " --title="رباعی " 'دم را دریابیم [۱۴۳-۱۰۸]'
+php artisan add:content ganjoor/khayyam/tarane/moghaddame 18 --title='مقدمه' -R &&
+php artisan add:content ganjoor/khayyam/tarane/khphilo 18 --title='خیام فیلسوف' &&
+php artisan add:content ganjoor/khayyam/tarane/khshaer 18 --title='خیام شاعر' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh1 18 --count --persian --append --delimiter=": " --title="رباعی " 'راز آفرینش [۱۵-۱]' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh2 18 --count --persian --append --delimiter=": " --title="رباعی " 'درد زندگی [۲۵-۱۶]' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh3 18 --count --persian --append --delimiter=": " --title="رباعی " 'از ازل نوشته [۳۴-۲۶]' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh4 18 --count --persian --append --delimiter=": " --title="رباعی " 'گردش دوران [۵۶-۳۵]' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh5 18 --count --persian --append --delimiter=": " --title="رباعی " 'ذرات گردنده [۷۳-۵۷]' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh6 18 --count --persian --append --delimiter=": " --title="رباعی " 'هرچه باداباد [۱۰۰-۷۴]' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh7 18 --count --persian --append --delimiter=": " --title="رباعی " 'هیچ است [۱۰۷-۱۰۱]' &&
+php artisan add:content ganjoor/khayyam/tarane/tkh8 18 --count --persian --append --delimiter=": " --title="رباعی " 'دم را دریابیم [۱۴۳-۱۰۸]'
