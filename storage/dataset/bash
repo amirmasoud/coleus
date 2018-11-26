@@ -122,3 +122,7 @@ php artisan add:content ganjoor/khayyam/tarane/tkh5 18 --count --persian --appen
 php artisan add:content ganjoor/khayyam/tarane/tkh6 18 --count --persian --append --delimiter=": " --title="رباعی " 'هرچه باداباد [۱۰۰-۷۴]' &&
 php artisan add:content ganjoor/khayyam/tarane/tkh7 18 --count --persian --append --delimiter=": " --title="رباعی " 'هیچ است [۱۰۷-۱۰۱]' &&
 php artisan add:content ganjoor/khayyam/tarane/tkh8 18 --count --persian --append --delimiter=": " --title="رباعی " 'دم را دریابیم [۱۴۳-۱۰۸]'
+
+php artisan add:content ganjoor/babataher/ghaside 65 --title='بتا تا زار چون تو دلبرستم' 'قصیده' &&
+php artisan add:content ganjoor/babataher/ghazal 65 --title='دلا در عشق تو صد دفترستم' 'غزل' &&
+php artisan add:content ganjoor/babataher/2beytiha 65 --count --persian --append --delimiter=": " --title="دوبیتی شماره " 'دوبیتی‌ها'
