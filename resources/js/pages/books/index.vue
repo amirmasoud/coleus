@@ -57,7 +57,8 @@
           <div :style="'font-size: ' + fontSize">
             <b-card class="p-2 reading-container">
               <router-view :key="$route.fullPath"
-                           :firstId="getFirstId(book.pages)"/>
+                           :firstId="getFirstId(book.pages)"
+                           :slug="slug"/>
             </b-card>
           </div>
         </transition>

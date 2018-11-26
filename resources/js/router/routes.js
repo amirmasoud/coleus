@@ -33,7 +33,7 @@ export default [
       { path: 'password', name: 'settings.password', component: SettingsPassword }
     ] },
 
-  { path: '/new-book', name: 'books.new', component: NewBook },
+  // { path: '/new-book', name: 'books.new', component: NewBook },
 
   { path: '/@:username', name: 'profile', component: Profile },
   { path: '/@:username/:slug/:page?',

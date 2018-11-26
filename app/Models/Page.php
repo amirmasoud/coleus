@@ -18,7 +18,7 @@ class Page extends Model
     ];
 
     protected $appends = [
-        'is_header'
+        'is_header', 'next', 'prev'
     ];
 
     protected $parent = null;
@@ -48,6 +48,11 @@ class Page extends Model
         return $this->morphMany(Sort::class, 'sortable');
     }
 
+    public function sort()
+    {
+        return $this->sorts()->ofType($this)->first();
+    }
+
     /**
      * A page belongs to a book.
      *
@@ -63,6 +68,18 @@ class Page extends Model
         return $this->content != ':empty'
             ? false
             : true;
+    }
+
+    public function getNextAttribute()
+    {
+        $next = $this->sort()->getNextSibling();
+        return $next ? $next->sortable_id : null;
+    }
+
+    public function getPrevAttribute()
+    {
+        $prev = $this->sort()->getPrevSibling();
+        return $prev ? $prev->sortable_id : null;
     }
 
     /**

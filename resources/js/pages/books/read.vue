@@ -1,6 +1,8 @@
 <template>
   <div v-if="page && ! this.$apollo.queries.page.loading">
     <div class="row" v-html="page.content"></div>
+    <b-link v-if="page.next" :to="{ name: 'books.read', params: { slug: slug, page: page.next }}">Next</b-link>
+    <b-link v-if="page.prev" :to="{ name: 'books.read', params: { slug: slug, page: page.prev }}">Prev</b-link>
   </div>
   <div v-else class="my-4 text-center"><img :src="'/svg-loaders/oval.svg'" /></div>
 </template>
@@ -14,7 +16,8 @@ export default {
   },
 
   props: {
-    firstId: Number
+    firstId: Number,
+    slug: String
   },
 
   data () {
