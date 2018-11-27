@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import {
   faUser, faLock, faSignOutAlt, faCog, faChevronRight, faChevronLeft, faCheckCircle,
-  faFont, faSortUp, faSortDown, faTimesCircle, faBars
+  faFont, faSortUp, faSortDown, faTimesCircle, faBars, faAngleDoubleRight,
+  faAngleDoubleLeft
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -15,7 +16,8 @@ import {
 
 library.add(
   faUser, faLock, faSignOutAlt, faCog, faGithub, faChevronRight, faChevronLeft,
-  faCheckCircle, faFont, faSortUp, faSortDown, faTimesCircle, faBars
+  faCheckCircle, faFont, faSortUp, faSortDown, faTimesCircle, faBars,
+  faAngleDoubleRight, faAngleDoubleLeft
 )
 
 Vue.component('fa', FontAwesomeIcon)

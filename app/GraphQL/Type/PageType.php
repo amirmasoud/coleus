@@ -39,6 +39,14 @@ class PageType extends BaseType
             'prev' => [
                 'type' => Type::string(),
                 'description' => 'Previous sibling of the page'
+            ],
+            'next_title' => [
+                'type' => Type::string(),
+                'description' => 'Next sibling title of the page'
+            ],
+            'prev_title' => [
+                'type' => Type::string(),
+                'description' => 'Previous sibling title of the page'
             ]
         ];
     }

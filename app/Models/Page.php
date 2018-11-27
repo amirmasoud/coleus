@@ -18,7 +18,7 @@ class Page extends Model
     ];
 
     protected $appends = [
-        'is_header', 'next', 'prev'
+        'is_header', 'next', 'prev', 'next_title', 'prev_title'
     ];
 
     protected $parent = null;
@@ -80,6 +80,18 @@ class Page extends Model
     {
         $prev = $this->sort()->getPrevSibling();
         return $prev ? $prev->sortable_id : null;
+    }
+
+    public function getNextTitleAttribute()
+    {
+        $next = $this->sort()->getNextSibling();
+        return $next ? $next->sortable()->first()->title : null;
+    }
+
+    public function getPrevTitleAttribute()
+    {
+        $prev = $this->sort()->getPrevSibling();
+        return $prev ? $prev->sortable()->first()->title : null;
     }
 
     /**

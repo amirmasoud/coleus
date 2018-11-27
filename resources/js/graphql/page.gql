@@ -5,5 +5,7 @@ query FetchPageById($id: Int) {
     content
     next
     prev
+    next_title
+    prev_title
   }
 }

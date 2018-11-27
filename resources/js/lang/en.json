@@ -53,5 +53,7 @@
   "reading_count": "reading",
   "toread_count": "to read",
   "new_book_added": "New book added",
-  "contents": "Contents"
+  "contents": "Contents",
+  "prev": "Previous",
+  "next": "Next"
 }

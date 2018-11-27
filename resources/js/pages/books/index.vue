@@ -32,7 +32,7 @@
                   <b-list-group-item
                     v-else
                     :to="{ name: 'books.read', params: { slug: slug, page: item.id }}"
-                    @click="toggleMenu()">
+                    @click="toggleMenu()" @click="setIndex(index)">
                     {{ item.title }}
                   </b-list-group-item>
                 </DynamicScrollerItem>
@@ -48,18 +48,16 @@
            md="8">
       <div class="reader-container d-md-block" :class="{ 'd-none d-sm-none': menu, 'd-block d-sm-block': ! menu }">
         <b-card class="mb-2 reading-help">
-          <b-button class="d-inline d-sm-inline d-md-none" size="sm" variant="link" @click="toggleMenu()"><fa icon="bars" fixed-width /> {{ $t('contents') }}</b-button>
           <b-button size="sm" variant="link" @click="changeFontSize('up')"><fa icon="font" fixed-width /><fa icon="sort-up" fixed-width /></b-button>
           <b-button size="sm" variant="link" @click="changeFontSize('down')"><small><fa icon="font" fixed-width /></small><fa icon="sort-down" fixed-width /></b-button>
+          <b-button class="d-inline d-sm-inline d-md-none" size="sm" variant="link" @click="toggleMenu()"><fa icon="bars" fixed-width /> {{ $t('contents') }}</b-button>
         </b-card>
         <transition name="fade"
                     mode="out-in">
           <div :style="'font-size: ' + fontSize">
-            <b-card class="p-2 reading-container">
-              <router-view :key="$route.fullPath"
-                           :firstId="getFirstId(book.pages)"
-                           :slug="slug"/>
-            </b-card>
+            <router-view :key="$route.fullPath"
+                         :firstId="getFirstId(book.pages)"
+                         :slug="slug"/>
           </div>
         </transition>
       </div>
@@ -193,6 +191,10 @@ export default {
 
     toggleMenu () {
       this.menu = ! this.menu
+    },
+
+    setIndex (index) {
+      console.log(index)
     }
   },
 }
@@ -214,6 +216,6 @@ export default {
   width: 100%;
 }
 .reading-help .card-body {
-  padding: 0.219rem 0.9375rem !important;
+  padding: 0.392rem 0.9375rem !important;
 }
 </style>
