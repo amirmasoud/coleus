@@ -47,7 +47,7 @@ export default {
   data () {
     return {
       id: this.$route.params['page'],
-      page: null
+      page: null,
     }
   },
 
@@ -66,6 +66,6 @@ export default {
     this.$nextTick(() => {
       this.$apollo.queries.page.refetch()
     });
-  }
+  },
 }
 </script>

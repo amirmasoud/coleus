@@ -6,7 +6,7 @@
       <div class="sidebar-nav" :style="'max-width: ' + width">
         <div class="float-left d-block d-sm-block d-md-none" style="width: calc(100% - 46px);"><b-form-input v-model="title" type="search" class="mb-3" :placeholder="$t('search_title')"></b-form-input></div>
         <div class="d-none d-sm-none d-md-block"><b-form-input v-model="title" type="search" class="mb-3" :placeholder="$t('search_title')"></b-form-input></div>
-        <span class="d-inline d-sm-inline d-md-none" @click="toggleMenu()"><b-button style="margin-bottom: 16px;" variant="link"><fa icon="times-circle" fixed-width /></b-button></span>
+        <span class="d-inline d-sm-inline d-md-none" @click="toggleMenu()"><b-button style="margin: 5px 0px 19px 0px;" variant="link"><fa icon="times-circle" fixed-width /></b-button></span>
         <div class="book-contents" :style="'height: ' + height">
           <b-list-group>
             <DynamicScroller
@@ -32,7 +32,7 @@
                   <b-list-group-item
                     v-else
                     :to="{ name: 'books.read', params: { slug: slug, page: item.id }}"
-                    @click="toggleMenu()" @click="setIndex(index)">
+                    @click="toggleMenu()">
                     {{ item.title }}
                   </b-list-group-item>
                 </DynamicScrollerItem>
@@ -57,7 +57,7 @@
           <div :style="'font-size: ' + fontSize">
             <router-view :key="$route.fullPath"
                          :firstId="getFirstId(book.pages)"
-                         :slug="slug"/>
+                         :slug="slug" />
           </div>
         </transition>
       </div>
@@ -70,18 +70,16 @@
 import gql from 'graphql-tag'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
-import { Slide } from 'vue-burger-menu'
 
 export default {
-  components: { DynamicScroller, DynamicScrollerItem, Slide },
+  components: { DynamicScroller, DynamicScrollerItem },
 
   created () {
-    // this.height = window.innerHeight - 200 + 'px'
-    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('scroll', this.handleScroll)
   },
 
   destroyed () {
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('scroll', this.handleScroll)
   },
 
   mounted: function () {
@@ -107,7 +105,8 @@ export default {
       title: '',
       top: 115,
       fontSize: 'inherit',
-      menu: false
+      menu: false,
+      index: 0
     }
   },
 
@@ -134,7 +133,7 @@ export default {
 
   methods: {
     getFirstId (pages) {
-      for (let i = pages.length - 1; i >= 0; i--) {
+      for (let i = 0; i < pages.length - 1; i++) {
         if (! pages[i].is_header) {
           return pages[i].id
         }
@@ -154,11 +153,9 @@ export default {
     handleScroll (event) {
       if (window.scrollY > 115) {
         this.top = 15
-        // this.height = window.innerHeight - 80 + 'px'
       } else {
         for (var i = Math.min(this.top, window.scrollY); i <= Math.max(this.top, window.scrollY); i++) {
           this.top = Math.abs(115 - window.scrollY)
-          // this.height = window.innerHeight - 80 - (115 - window.scrollY) + 'px'
         }
       }
     },
@@ -191,10 +188,6 @@ export default {
 
     toggleMenu () {
       this.menu = ! this.menu
-    },
-
-    setIndex (index) {
-      console.log(index)
     }
   },
 }
