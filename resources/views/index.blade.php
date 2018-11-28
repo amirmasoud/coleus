@@ -22,16 +22,6 @@ $polyfills = [
 ];
 @endphp
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-106052436-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-106052436-1');
-</script>
-
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
@@ -41,6 +31,19 @@ $polyfills = [
   <title>{{ __('general.negarin') }}</title>
 
   <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
+  @unless(app()->isLocal())
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106052436-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-106052436-1');
+  </script>
+  @endunless
+
 </head>
 <body>
   <div id="app"></div>
