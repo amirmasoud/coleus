@@ -511,3 +511,7 @@ php artisan add:content ganjoor/nezami/5ganj/makhzanolasrar 20 'مخزن الا�
     --header="بخش ۵۸ - مقالت بیستم در وقاحت ابنای عصر" \
     --header="بخش ۵۹ - داستان بلبل با باز" \
     --header="بخش ۶۰ - انجام کتاب"
+
+php artisan add:content ganjoor/naserkhosro/divann/ghaside-naser 21 --count --persian --append --delimiter=": " --title="قصیده شماره " 'قصاید' &&
+php artisan add:content ganjoor/naserkhosro/divann/robaeen 21 --count --persian --append --delimiter=": " --title="رباعی شماره " 'رباعیات' &&
+php artisan add:content ganjoor/naserkhosro/divann/mosammat 21 --title="ای گنبد زنگارگون ای پرجنون پرفنون" 'مسمط'
