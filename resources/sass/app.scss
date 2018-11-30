@@ -52,7 +52,7 @@ div.main-layout.rtl {
 }
 
 @import "~sweetalert2/src/sweetalert2";
-@import "~vue-snotify/styles/material";
+@import "~vue-snotify/styles/dark";
 
 @import "elements/card";
 @import "elements/navbar";
@@ -76,4 +76,27 @@ div.main-layout.rtl {
 .modal {
   background: linear-gradient(to right, rgba(150, 231, 211, 0.15), rgba(252, 119, 104, 0.15));
   background: -webkit-linear-gradient(to right, rgba(150, 231, 211, 0.15), rgba(252, 119, 104, 0.15));
+  overflow-y: auto !important;
+}
+
+.snotifyToast {
+  background-color: rgb(60, 66, 73);
+}
+
+.btn-google {
+  background-color: #4285F4 !important;
+  height: 40px !important;
+  width: 100%;
+  color: #fff;
+  // text-indent: 38px !important;
+  // width: 100% !important;
+  // color: #fff !important;
+  // border-color: #4285f4 !important;
+  // background-color: #4285F4 !important;
+  // height: 40px !important;
+  // display: inline-block !important;
+  // position: relative !important;
+  // height: 26px !important;
+  // border: 1px solid #e5e5e5 !important;
+  // cursor: pointer !important;
 }

@@ -1,11 +1,17 @@
 <template>
-  <span v-if="!$store.state.auth.user">
+  <span v-if="!$store.state.auth.user" v-on:close-modal="closeModal">
     <b-btn variant="link" class="nav-link" style="padding: 0.5rem 0.5rem !important" v-b-modal.register-modal-center>{{ $t('register') }}</b-btn>
     <b-modal id="register-modal-center"
              centered
              :title="$t('register')"
              hide-footer
              ref="registerModal">
+      <login-with-google/>
+      <div class="text-center my-4" style="width: 100%; height: 12px; border-bottom: 1px solid #ebebeb;">
+        <span class="px-3" style="background-color: #ffffff;">
+          {{ $t('or') }}
+        </span>
+      </div>
       <form @submit.prevent="register" @keydown="form.onKeydown($event)">
         <b-form-group :label="$t('name')"
                       label-for="register-name">
@@ -71,9 +77,16 @@
 
 <script>
 import Form from 'vform'
+import LoginWithGoogle from '~/components/LoginWithGoogle'
+import LoginWithGithub from '~/components/LoginWithGithub'
 
 export default {
   name: 'Register',
+
+  components: {
+    LoginWithGoogle,
+    LoginWithGithub
+  },
 
   data: () => ({
     form: new Form({
@@ -110,6 +123,10 @@ export default {
       } catch(e) {
         // console.warn(e)
       }
+    },
+
+    closeModal () {
+      this.$refs.loginModal.hide()
     }
   }
 }

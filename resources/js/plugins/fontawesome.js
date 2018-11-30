@@ -11,13 +11,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
-  faGithub
+  faGithub, faGoogle
 } from '@fortawesome/free-brands-svg-icons'
 
 library.add(
   faUser, faLock, faSignOutAlt, faCog, faGithub, faChevronRight, faChevronLeft,
   faCheckCircle, faFont, faSortUp, faSortDown, faTimesCircle, faBars,
-  faAngleDoubleRight, faAngleDoubleLeft
+  faAngleDoubleRight, faAngleDoubleLeft, faGoogle
 )
 
 Vue.component('fa', FontAwesomeIcon)

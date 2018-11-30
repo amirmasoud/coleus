@@ -1,6 +1,7 @@
 {
   "negarin": "نگارین",
   "ok": "خُب",
+  "or": "یا",
   "cancel": "انصراف",
   "error_alert_title": "واای...",
   "error_alert_text": "مشکلی پیش آمده است، لطفا دوباره تلاش کنید.",
@@ -59,5 +60,7 @@
   "prev": "پیشین",
   "next": "پسین",
   "successful_register_header": "با موفقیت ثبت‌نام کردید",
-  "password_confirmation": "تکرار گذرواژه"
+  "password_confirmation": "تکرار گذرواژه",
+  "continue_with_github": "ورود با گیت‌هاب",
+  "continue_with_google": "ورود با گوگل"
 }
