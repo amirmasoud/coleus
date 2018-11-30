@@ -1,5 +1,5 @@
 <template>
-  <card :title="$t('your_info')">
+  <card>
     <form @submit.prevent="update" @keydown="form.onKeydown($event)" enctype="multipart/form-data">
       <alert-success :form="form" :message="$t('info_updated')"/>
 
