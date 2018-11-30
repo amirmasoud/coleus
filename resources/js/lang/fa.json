@@ -57,5 +57,7 @@
   "new_book_added": "کتاب جدید اضافه شد",
   "contents": "فهرست",
   "prev": "پیشین",
-  "next": "پسین"
+  "next": "پسین",
+  "successful_register_header": "با موفقیت ثبت‌نام کردید",
+  "password_confirmation": "تکرار گذرواژه"
 }

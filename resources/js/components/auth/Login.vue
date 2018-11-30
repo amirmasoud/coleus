@@ -1,6 +1,6 @@
 <template>
   <span v-if="!$store.state.auth.user">
-    <b-btn variant="link" class="nav-link" v-b-modal.modal-center>{{ $t('login') }}</b-btn>
+    <b-btn variant="link" class="nav-link" style="padding: 0.5rem 0.5rem !important" v-b-modal.modal-center>{{ $t('login') }}</b-btn>
     <b-modal id="modal-center"
              centered
              :title="$t('login')"

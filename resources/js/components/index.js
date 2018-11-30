@@ -6,6 +6,7 @@ import Checkbox from './Checkbox'
 import { HasError, AlertError, AlertSuccess } from 'vform'
 
 import Login from './auth/Login'
+import Register from './auth/Register'
 import NewBook from './books/New'
 
 // Components that are registered globaly.
@@ -18,6 +19,7 @@ import NewBook from './books/New'
   AlertError,
   AlertSuccess,
   Login,
+  Register,
   NewBook
 ].forEach(Component => {
   Vue.component(Component.name, Component)

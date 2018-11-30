@@ -5,7 +5,7 @@
       <b-img class="logo logo-fa" fluid :src="config.logoFa" alt="Logo" /> <span class="d-none d-sm-inline">{{ $t('negarin') }}</span>
     </b-navbar-brand>
 
-    <b-navbar-nav class="ml-auto">
+    <b-navbar-nav class="ml-auto" style="flex-direction: row;">
       <b-dropdown left variant="link" no-caret v-if="user">
         <template slot="button-content">
           <b-img :src="user.thumbnail || user.photo_url" class="rounded-circle profile-photo mr-1" />
@@ -16,8 +16,12 @@
         <b-dropdown-divider></b-dropdown-divider>
         <b-dropdown-item @click.prevent="logout" href="#"><fa icon="sign-out-alt" fixed-width/>{{ $t('logout') }}</b-dropdown-item>
       </b-dropdown>
+
       <li class="nav-item">
         <login></login>
+      </li>
+      <li class="nav-item">
+        <register></register>
       </li>
     </b-navbar-nav>
 

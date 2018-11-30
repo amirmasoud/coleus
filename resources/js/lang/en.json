@@ -55,5 +55,7 @@
   "new_book_added": "New book added",
   "contents": "Contents",
   "prev": "Previous",
-  "next": "Next"
+  "next": "Next",
+  "successful_register_header": "Registered successfully",
+  "password_confirmation": "Password confirmation"
 }
