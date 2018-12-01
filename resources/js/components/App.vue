@@ -40,7 +40,65 @@ export default {
 
     return {
       title: appName,
-      titleTemplate: `%s · ${this.$t('negarin')}`
+      titleTemplate: `%s → نگارین`,
+
+      meta: [
+        { name: 'description', content: 'نگارین، جایی برای خواندن و مطالعه' },
+
+        // Open Graph
+        {
+          'property': 'og:title',
+          'content': '',
+          'template': chunk => `${chunk} → نگارین`,
+          'vmid': 'og:title'
+        },
+        { property: 'og:site_name', content: 'نگارین'},
+        { property: 'og:type', content: 'website'},
+        { property: 'og:url', content: 'https://negar.in' + window.location.pathname},
+        { property: 'og:image', content: 'https://negar.in/images/logo-512x512.png', vmid: 'og:image' },
+        {
+          'property': 'og:description',
+          'content': 'نگارین، جایی برای خواندن و مطالعه',
+          'template': chunk => `${chunk} → نگارین`,
+          'vmid': 'description'
+        },
+
+        // Twitter
+        {name: 'twitter:card', content: 'summary'},
+        {name: 'twitter:site', content: '@negarinapp'},
+        {name: 'twitter:creator', content: '@negarinapp'},
+        {
+          'name': 'twitter:title',
+          'content': '',
+          'template': chunk => `${chunk} → نگارین`,
+          'vmid': 'twitter:title'
+        },
+        {
+          'name': 'twitter:description',
+          'content': 'نگارین، جایی برای خواندن و مطالعه',
+          'template': chunk => `${chunk} → نگارین`,
+          'vmid': 'twitter:description'
+        },
+        { property: 'twitter:image', content: 'https://negar.in/images/logo-512x512.png', vmid: 'twitter:image' },
+
+        // Google / Schema.org
+        {
+          'itemprop': 'name',
+          'content': '',
+          'template': chunk => `${chunk} → نگارین`,
+          'vmid': 'name'
+        },
+        {
+          'itemprop': 'description',
+          'content': '',
+          'template': chunk => `${chunk}`,
+          'vmid': 'description'
+        },
+        { itemprop: 'image', content: 'https://negar.in/images/logo-512x512.png', vmid: 'image' },
+      ],
+      links: [
+        {rel: 'canonical', href: 'https://negar.in' + window.location.pathname}
+      ]
     }
   },
 

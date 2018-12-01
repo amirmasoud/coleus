@@ -57,7 +57,24 @@ import { mapGetters } from 'vuex'
 
 export default {
   metaInfo () {
-    return { title: this.$t('books') }
+    return {
+      title: this.$t('books'),
+      meta: [
+        { name: 'description', content: this.user ? this.user.bio.substring(0, 300) : '' },
+
+        { property: 'og:description', content: this.user ? this.user.bio.substring(0, 300) + '...' : '', vmid: 'og:description' },
+        { name: 'twitter:description', content: this.user ? this.user.bio.substring(0, 300) + '...' : '', vmid: 'twitter:description' },
+        { itemprop: 'description', content: this.user ? this.user.bio.substring(0, 300) + '...' : '', vmid: 'description' },
+
+        { property: 'og:title', content: this.user ? this.user.name : '', vmid: 'og:title' },
+        { name: 'twitter:title', content: this.user ? this.user.name : '', vmid: 'twitter:title' },
+        { itemprop: 'name', content: this.user ? this.user.name : '', vmid: 'title' },
+
+        { property: 'og:image', content: this.user ? (this.user.small || this.user.photo_url) : '', vmid: 'og:image' },
+        { name: 'twitter:image', content: this.user ? (this.user.small || this.user.photo_url) : '', vmid: 'twitter:image' },
+        { itemprop: 'image', content: this.user ? (this.user.small || this.user.photo_url) : '', vmid: 'image' },
+      ]
+    }
   },
 
   computed: mapGetters({

@@ -5,10 +5,12 @@ query FetchUserByUsername($username: String) {
     username,
     photo_url,
     xsmall,
+    small,
     placeholder,
     following_count,
     followers_count,
     books_count,
+    bio,
     books {
       id,
       title,
