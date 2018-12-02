@@ -25,10 +25,10 @@ jobs:
       # - image: redis:2.8.19
 
     steps:
-      - checkout
-
-      - run: sudo apt update && sudo apt install zlib1g-dev libsqlite3-dev
-      - run: sudo docker-php-ext-install zip
+      - checkout # special step to check out source code to working directory
+      - run: sudo apt install -y libsqlite3-dev zlib1g-dev
+      - run: sudo docker-php-ext-install mcrypt zip bcmath opcache soap
+      - run: sudo composer self-update
 
       # Download and cache dependencies
 
