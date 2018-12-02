@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Models\Book;
+use App\Models\Page;
+use App\Models\Paragraph;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -16,7 +18,15 @@ class AddContent extends Command
      */
     protected $signature = 'add:content
                             {path : The path to dataset}
-                            {book : The book ID to content add to}';
+                            {book : The book ID to content add to}
+                            {parent? : The parent of the content}
+                            {--T|title= : The title of the content}
+                            {--R|refresh : Refresh book\'s content before import}
+                            {--C|count : Count title on indexing}
+                            {--P|persian : Persian numbers}
+                            {--H|header=* : Subheader titles}
+                            {--A|append : Append m1 to titles}
+                            {--D|delimiter= : Delimiter for append and title, default is ": "}';
 
     /**
      * The console command description.
@@ -42,31 +52,99 @@ class AddContent extends Command
      */
     public function handle()
     {
-        if (!Book::find($this->argument('book'))->pages()->count() || $this->confirm('Do you wish to continue?')) {
-            $guy = Storage::disk('dataset')->allFiles($this->argument('path'));
-            foreach ($guy as $poem) {
-                if (Str::endsWith($poem, '.json')) {
-                    $file = json_decode(Storage::disk('dataset')->get($poem));
-                    $title = '';
-                    $content = '';
-                    foreach ($file->text as $key => $part) {
-                        if (! $key) { // First item - Generate title of page
+        ini_set('memory_limit', '-1');
+        $delimiter = $this->option('delimiter') ?: ': ';
+
+        if ($this->option('refresh')) {
+            $this->info('Refreshing book' . PHP_EOL);
+            $ids = array_map(function($item) {
+                return $item['id'];
+            }, Book::find($this->argument('book'))->pages()->get(['id'])->toArray());
+
+            Paragraph::whereIn('page_id', $ids)->delete();
+            Book::find($this->argument('book'))->pages()->delete();
+        }
+
+        $guy = Storage::disk('dataset')->allFiles($this->argument('path'));
+
+        $bar = $this->output->createProgressBar(count($guy) + 1);
+
+        sort($guy, SORT_NATURAL);
+
+        $bar->start();
+
+        if ($this->argument('parent')) {
+            $parent = Book::find($this->argument('book'))
+                ->pages()
+                ->create([
+                    'title' => $this->argument('parent'),
+                    'content' => ':empty'
+                ]);
+        }
+
+        $bar->advance();
+
+        $i = 1;
+        foreach ($guy as $index => $poem) {
+            if (Str::endsWith($poem, '.json')) {
+                $file = json_decode(Storage::disk('dataset')->get($poem));
+                $title = '';
+                $content = '';
+                foreach ($file->text as $key => $part) {
+                    if (! $key) { // First item
+                        if (!$this->option('title') && property_exists($part, 'm1') && !$this->option('header')) { // First m2
                             $title = $part->m1;
+                        } else { // Custom title
+                            if ($this->option('header') && @isset($this->option('header')[$index])) {
+                                $title = $this->option('header')[$index];
+                            } else {
+                                if ($this->option('persian')) {
+                                    $str = $i;
+                                    $western_persian = array('0','1','2','3','4','5','6','7','8','9');
+                                    $eastern_persian = array('٠','١','٢','٣','٤','٥','٦','٧','٨','٩');
+
+                                    $str = str_replace($western_persian, $eastern_persian, $str);
+                                    $i++;
+                                }
+                                $title = $this->option('count')
+                                            ? $this->option('title') . ' ' . ($this->option('persian') ? $str : $i++)
+                                            : $this->option('title');
+                            }
+
+                            if ($this->option('append') && property_exists($part, 'm1')) {
+                                $title .= $delimiter . $part->m1;
+                            }
                         }
+                    }
+
+                    if (property_exists($part, 'm1') && property_exists($part, 'm2')) {
                         $content .= '<p class="col-12 col-md-6" style="text-align: right;">' . $part->m1 . '</p>';
                         $content .= '<p class="col-12 col-md-6" style="text-align: right;">' . $part->m2 . '</p>';
                     }
-                    \App\Models\Book::find($this->argument('book'))
-                        ->pages()
-                        ->create([
-                            'title' => $title,
-                            'content' => $content
-                        ]);
+
+                    if (property_exists($part, 't1') && property_exists($part, 't2')) {
+                        $content .= '<p class="t col-12 col-md-6" style="text-align: right;">' . $part->t1 . '</p>';
+                        $content .= '<p class="t col-12 col-md-6" style="text-align: right;">' . $part->t2 . '</p>';
+                    }
+
+                    if (property_exists($part, 'p')) {
+                        $content .= '<p class="t col-12" style="text-align: right;">' . $part->p . '</p>';
+                    }
                 }
+
+                Book::find($this->argument('book'))
+                    ->pages()
+                    ->create([
+                        'title'   => $title,
+                        'content' => $content,
+                        'parent' => $this->argument('parent') ? $parent : null
+                    ]);
             }
-            $this->info('Data added to book.');
-        } else {
-            $this->error('Operation cancelled!');
+            $bar->advance();
         }
+
+        $bar->finish();
+
+        $this->info('    Data added to book.');
     }
 }

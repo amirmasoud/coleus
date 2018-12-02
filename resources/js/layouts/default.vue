@@ -2,9 +2,10 @@
   <div class="main-layout" :class="$store.state.lang.locale == 'fa' ? 'rtl' : 'ltr'">
     <navbar/>
 
-    <div class="container mt-4">
+    <div class="container mt-3">
       <child/>
     </div>
+    <vue-snotify></vue-snotify>
   </div>
 </template>
 

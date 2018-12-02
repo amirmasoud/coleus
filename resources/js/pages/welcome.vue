@@ -8,13 +8,16 @@
            v-for="writer in users"
            :key="writer.id">
       <b-link :to="{ name: 'profile', params: { username: writer.username }}">
-        <b-card :title="writer.name"
-                :img-src="writer.small || writer.photo_url"
-                :img-alt="`${writer.name}'s image`"
-                img-top
-                title-tag="p"
-                class="mb-2">
-        </b-card>
+        <div class="card mb-2">
+          <progressive-img class="card-img-top"
+                           :src="writer.small"
+                           :placeholder="writer.placeholder"
+                           :fallback="writer.photo_url"
+                           :aspect-ratio="1" />
+          <div class="card-body">
+            <p class="card-title">{{ writer.name }}</p>
+          </div>
+        </div>
       </b-link>
     </b-col>
   </b-row>
@@ -45,6 +48,7 @@ export default {
           name,
           small,
           photo_url,
+          placeholder,
           username
         }
       }`

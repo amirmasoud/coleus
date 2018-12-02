@@ -27,6 +27,26 @@ class PageType extends BaseType
             'content' => [
                 'type' => Type::string(),
                 'description' => 'The content of page'
+            ],
+            'is_header' => [
+                'type' => Type::boolean(),
+                'description' => 'Is page a header with no content'
+            ],
+            'next' => [
+                'type' => Type::string(),
+                'description' => 'Next sibling of the page'
+            ],
+            'prev' => [
+                'type' => Type::string(),
+                'description' => 'Previous sibling of the page'
+            ],
+            'next_title' => [
+                'type' => Type::string(),
+                'description' => 'Next sibling title of the page'
+            ],
+            'prev_title' => [
+                'type' => Type::string(),
+                'description' => 'Previous sibling title of the page'
             ]
         ];
     }

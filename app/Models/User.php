@@ -158,6 +158,17 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     }
 
     /**
+     * get placeholder avatar attribute.
+     *
+     * @param  string $avatar
+     * @return string
+     */
+    public function getPlaceholderAttribute($avatar): string
+    {
+        return $this->getFirstMediaUrl('users/avatar', 'placeholder');
+    }
+
+    /**
      * Media conversion versions.
      *
      * @param  \Spatie\MediaLibrary\Models\Media|null $media
@@ -188,6 +199,12 @@ class User extends Authenticatable implements JWTSubject, HasMedia
             ->width(32)
             ->height(32)
             ->crop('crop-center', 32, 32)
+            ->performOnCollections('users/avatar');
+
+        $this->addMediaConversion('placeholder')
+            ->width(4)
+            ->height(4)
+            ->crop('crop-center', 4, 4)
             ->performOnCollections('users/avatar');
     }
 

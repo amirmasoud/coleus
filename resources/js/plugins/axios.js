@@ -22,18 +22,7 @@ axios.interceptors.request.use(request => {
 })
 
 // Response interceptor
-axios.interceptors.response.use(response => {
-  if (response.data.errors instanceof Array && ! 'validation' in response.data.errors[0]) {
-    /**
-     * @link https://github.com/vuejs/vue-router/issues/977
-     */
-    router.push({ name: 'notFound' })
-    return Promise.reject(response.data.errors)
-  } else {
-    return Promise.resolve(response)
-  }
-
-}, error => {
+axios.interceptors.response.use(response => response, error => {
   const { status } = error.response
 
   if (status >= 500) {

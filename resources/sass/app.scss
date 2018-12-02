@@ -1,6 +1,5 @@
 @import "~bootstrap/scss/functions";
 @import "variables";
-// @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/root";
 @import "~bootstrap/scss/reboot";
@@ -38,9 +37,10 @@ div.main-layout.ltr {
   @import "~bootstrap/scss/utilities";
   @import "~bootstrap/scss/print";
 }
+
 div.main-layout.rtl {
   direction: rtl;
-  @import 'rtl/bootstrap';
+  @import "rtl/bootstrap";
 
   input[type="email"], input[type="password"] {
     direction: ltr;
@@ -51,15 +51,42 @@ div.main-layout.rtl {
   }
 }
 
-@import '~sweetalert2/src/sweetalert2';
+@import "~sweetalert2/src/sweetalert2";
+@import "~vue-snotify/styles/dark";
 
-@import 'elements/card';
-@import 'elements/navbar';
-@import 'elements/buttons';
-@import 'elements/transitions';
-@import 'elements/contents';
-@import 'elements/editor';
+@import "elements/card";
+@import "elements/navbar";
+@import "elements/buttons";
+@import "elements/transitions";
+@import "elements/contents";
+@import "elements/editor";
 
 .logo {
   max-width: 2rem !important;
+}
+
+.card-body {
+  color: $gray-900;
+}
+
+.mt-6 {
+  margin-top: 5rem !important;
+}
+
+.modal {
+  background: linear-gradient(to right, rgba(150, 231, 211, 0.15), rgba(252, 119, 104, 0.15));
+  background: -webkit-linear-gradient(to right, rgba(150, 231, 211, 0.15), rgba(252, 119, 104, 0.15));
+  overflow-y: auto !important;
+}
+
+.snotifyToast {
+  background-color: rgb(60, 66, 73);
+}
+
+.btn-google {
+  background-color: #4285F4 !important;
+  height: 40px !important;
+  width: 100%;
+  color: #fff;
+  text-indent: 36px;
 }

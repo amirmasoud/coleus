@@ -51,4 +51,26 @@ class UserRepository extends Repository
     {
         return User::whereUsername($username);
     }
+
+    /**
+     * Generate random string for username.
+     *
+     * @param  string $length
+     * @return string
+     * @throws \Exception
+     */
+    public function username(string $length)
+    {
+        $token = "";
+        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
+        $codeAlphabet.= "0123456789";
+        $max = strlen($codeAlphabet);
+
+        for ($i=0; $i < $length; $i++) {
+            $token .= $codeAlphabet[random_int(0, $max-1)];
+        }
+
+        return $token;
+    }
 }

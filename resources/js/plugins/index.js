@@ -1,5 +1,6 @@
 import './axios'
 import './fontawesome'
 import './bootstrap'
-// import './apollo'
+import './notification'
+import './progressive'
 import 'bootstrap'

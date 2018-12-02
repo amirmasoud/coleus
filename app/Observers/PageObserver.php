@@ -23,10 +23,43 @@ class PageObserver
             'scope' => 'book#' . $book->id
         ]);
 
-        Sort::where('scope', 'book#' . $book->id)
-            ->where('sortable_type', get_class($book))
-            ->first() // Parent
+        Sort::when($page->getParent(), function($query) use ($book, $page) {
+            $query->where('scope', 'book#' . $book->id)
+                ->where('sortable_type', get_class($page->getParent()))
+                ->where('sortable_id', $page->getParent()->id);
+        }, function($query) use ($book) {
+            $query->where('scope', 'book#' . $book->id)
+                ->where('sortable_type', get_class($book));
+        })->first()
             ->appendNode($child);
+
+        $chunks = explode('</p>', $page->content);
+        foreach ($chunks as $chunk) {
+            if (starts_with($chunk, '<p class="col-12 col-md-6" style="text-align: right;">')) {
+                $paragraph = str_replace('<p class="col-12 col-md-6" style="text-align: right;">', '', $chunk);
+                $page->paragraphs()->create([
+                    'content' => $paragraph,
+                    'type' => 'App\Types\TowColumns',
+                ]);
+            } else if (starts_with($chunk, '<p class="t col-12 col-md-6" style="text-align: right;">')) {
+                $paragraph = str_replace('<p class="t col-12 col-md-6" style="text-align: right;">', '', $chunk);
+                $page->paragraphs()->create([
+                    'content' => $paragraph,
+                    'type' => 'App\Types\TowColumns',
+                ]);
+            } else if (starts_with($chunk, '<p class="t col-12" style="text-align: right;">')) {
+                $paragraph = str_replace('<p class="t col-12" style="text-align: right;">', '', $chunk);
+                $page->paragraphs()->create([
+                    'content' => $paragraph,
+                    'type' => 'App\Types\OneColumn',
+                ]);
+            } else {
+                $page->paragraphs()->create([
+                    'content' => $chunk,
+                    'type' => 'App\Types\Plain',
+                ]);
+            }
+        }
     }
 
     /**

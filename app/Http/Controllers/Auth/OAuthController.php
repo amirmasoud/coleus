@@ -7,6 +7,7 @@ use App\Models\OAuthProvider;
 use App\Http\Controllers\Controller;
 use App\Exceptions\EmailTakenException;
 use Laravel\Socialite\Facades\Socialite;
+use Facades\App\Repositories\UserRepository;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class OAuthController extends Controller
@@ -22,6 +23,7 @@ class OAuthController extends Controller
     {
         config([
             'services.github.redirect' => route('oauth.callback', 'github'),
+            'services.google.redirect' => route('oauth.callback', 'google'),
         ]);
     }
 
@@ -97,6 +99,7 @@ class OAuthController extends Controller
         $user = User::create([
             'name' => $sUser->getName(),
             'email' => $sUser->getEmail(),
+            'username' => UserRepository::username(13)
         ]);
 
         $user->oauthProviders()->create([

@@ -1,17 +1,19 @@
 <template>
   <div v-if="user">
     <b-row>
-      <b-col cols="4" sm="2">
-        <b-img v-if="user.small" rounded="circle" width="128" height="128" alt="avatar" class="my-1" :src="user.small" left fluid />
-        <b-img v-else rounded="circle" width="128" height="128" alt="avatar" class="my-1" :src="user.photo_url" left fluid />
-      </b-col>
-      <b-col cols="8" sm="10" class="text-left">
+      <b-col class="text-left">
         <div class="d-flex justify-content-start">
+          <progressive-img :src="user.xsmall"
+                           :placeholder="user.placeholder"
+                           :fallback="user.photo_url"
+                           :aspect-ratio="1"
+                           class="rounded float-left img-fluid mr-4"
+                           style="width: 64px; height: 64px;" />
           <div>
-            <h4>{{ user.name }}</h4>
+            <h4><!-- <img src="/svg/correct.svg" width="24" height="24"> --> {{ user.name }}</h4>
             <small>@{{ user.username }}</small>
           </div>
-          <div class="float-right ml-3">
+          <div class="ml-3">
             <b-button class="px-4" size="sm" variant="primary" block v-if="!auth || (auth && auth.id != user.id)">+ {{ $t('follow') }}</b-button>
             <b-button class="px-4" size="sm" variant="success" block v-else :to="{ name: 'books.new' }">+ {{ $t('new_book') }}</b-button>
           </div>
@@ -19,9 +21,9 @@
       </b-col>
     </b-row>
     <div class="d-flex justify-content-around text-center mt-3 border-top border-bottom py-2">
-      <b-col cols="4">{{ user.books_count }}<br /><small class="text-muted">{{ $t('books') }}</small></b-col>
-      <b-col cols="4">{{ user.followers_count }}<br /><small class="text-muted">{{ $t('followers') }}</small></b-col>
-      <b-col cols="4">{{ user.following_count }}<br /><small class="text-muted">{{ $t('following') }}</small></b-col>
+      <b-col>{{ user.books_count }}<br /><small class="text-muted">{{ $t('books') }}</small></b-col>
+      <b-col>{{ user.followers_count }}<br /><small class="text-muted">{{ $t('followers') }}</small></b-col>
+      <b-col>{{ user.following_count }}<br /><small class="text-muted">{{ $t('following') }}</small></b-col>
     </div>
     <b-row v-if="user.books && user.books.length" class="mt-3">
       <b-col cols="6"
@@ -32,13 +34,15 @@
              v-for="book in user.books"
              :key="book.id">
         <b-link :to="{ name: 'books.read', params: { slug: book.slug }}">
-          <b-card :title="book.title"
-                  :img-src="book.cover"
-                  :img-alt="`${user.name}'s book`"
-                  img-top
-                  title-tag="p"
-                  class="mb-2">
-          </b-card>
+          <div class="card mb-2">
+            <progressive-img class="card-img-top"
+                             :src="book.cover"
+                             :placeholder="book.placeholder"
+                             :aspect-ratio="1.6666666667" />
+            <div class="card-body">
+              <p class="card-title">{{ book.title }}</p>
+            </div>
+          </div>
         </b-link>
       </b-col>
     </b-row>
@@ -53,7 +57,24 @@ import { mapGetters } from 'vuex'
 
 export default {
   metaInfo () {
-    return { title: this.$t('books') }
+    return {
+      title: this.$t('books'),
+      meta: [
+        { name: 'description', content: this.user ? this.user.bio.substring(0, 300) : '' },
+
+        { property: 'og:description', content: this.user ? this.user.bio.substring(0, 300) + '...' : '', vmid: 'og:description' },
+        { name: 'twitter:description', content: this.user ? this.user.bio.substring(0, 300) + '...' : '', vmid: 'twitter:description' },
+        { itemprop: 'description', content: this.user ? this.user.bio.substring(0, 300) + '...' : '', vmid: 'description' },
+
+        { property: 'og:title', content: this.user ? this.user.name : '', vmid: 'og:title' },
+        { name: 'twitter:title', content: this.user ? this.user.name : '', vmid: 'twitter:title' },
+        { itemprop: 'name', content: this.user ? this.user.name : '', vmid: 'title' },
+
+        { property: 'og:image', content: this.user ? (this.user.small || this.user.photo_url) : '', vmid: 'og:image' },
+        { name: 'twitter:image', content: this.user ? (this.user.small || this.user.photo_url) : '', vmid: 'twitter:image' },
+        { itemprop: 'image', content: this.user ? (this.user.small || this.user.photo_url) : '', vmid: 'image' },
+      ]
+    }
   },
 
   computed: mapGetters({
@@ -69,32 +90,8 @@ export default {
 
   apollo: {
     user: {
-      query: gql`query FetchUserByUsername($username: String) {
-          user(username: $username) {
-            id,
-            name,
-            username,
-            photo_url,
-            small,
-            following_count,
-            followers_count,
-            books_count,
-            books {
-              id,
-              title,
-              description,
-              cover,
-              slug,
-              collaborators {
-                collaboration_role,
-                name,
-                username,
-                photo_url,
-                xsmall
-              }
-            }
-          }
-        }`,
+      query: require('~/graphql/profile.gql'),
+      fetchPolicy: 'cache-and-network',
       variables() {
         return{
           username: this.username,

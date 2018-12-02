@@ -43,6 +43,17 @@ class Book extends Model implements HasMedia
     }
 
     /**
+     * get placeholder attribute.
+     *
+     * @param  string $avatar
+     * @return string
+     */
+    public function getPlaceholderAttribute($placeholder): string
+    {
+        return $this->getFirstMediaUrl('books/cover', 'placeholder');
+    }
+
+    /**
      * Media conversion versions.
      *
      * @param  \Spatie\MediaLibrary\Models\Media|null $media
@@ -52,8 +63,14 @@ class Book extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('medium')
-            ->width(120)
-            ->crop('crop-center', 120, 200)
+            ->width(240)
+            ->crop('crop-center', 240, 400)
+            ->performOnCollections('books/cover');
+
+        $this->addMediaConversion('placeholder')
+            ->width(6)
+            ->crop('crop-center', 3, 5)
+            ->blur(75)
             ->performOnCollections('books/cover');
     }
 

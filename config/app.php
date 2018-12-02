@@ -78,11 +78,11 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'fa',
 
     'locales' => [
-        'en' => 'EN',
         'fa' => 'فا',
+        // 'en' => 'EN',
     ],
 
     /*
@@ -96,7 +96,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'fa',
 
     /*
     |--------------------------------------------------------------------------
@@ -167,6 +167,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
     ],
