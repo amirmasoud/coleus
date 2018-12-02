@@ -2,7 +2,7 @@
   <b-navbar toggleable="md" type="dark" variant="dark" sticky>
 
     <b-navbar-brand :to="{ name: 'welcome' }">
-      <b-img class="logo logo-fa" fluid :src="config.logoFa" alt="Logo" /> <span class="d-none d-sm-inline">{{ $t('negarin') }}</span>
+      <b-img class="logo logo-fa" fluid src="/images/logo-192x192.png" alt="Logo" /> <span class="d-none d-sm-inline">{{ $t('negarin') }}</span>
     </b-navbar-brand>
 
     <b-navbar-nav class="ml-auto" style="flex-direction: row;">
