@@ -57,11 +57,11 @@ return [
 
     // Config for GraphiQL (https://github.com/graphql/graphiql).
     // To disable GraphiQL, set this to null.
-    'graphiql' => [
-        'routes' => '/graphiql',
-        'middleware' => [],
-        'view' => 'graphql::graphiql'
-    ],
+    // 'graphiql' => [
+    //     'routes' => '/graphiql',
+    //     'middleware' => [],
+    //     'view' => 'graphql::graphiql'
+    // ],
 
     // The name of the default schema used when no argument is provided
     // to GraphQL::schema() or when the route is used without the graphql_schema
@@ -97,10 +97,11 @@ return [
                 'users' => 'App\GraphQL\Query\UsersQuery',
                 'user' => 'App\GraphQL\Query\UserQuery',
                 'book' => 'App\GraphQL\Query\BookQuery',
-                'page' => 'App\GraphQL\Query\PageQuery',
+                'page' => 'App\GraphQL\Query\PageQuery'
             ],
             'mutation' => [
-                'newBook' => 'App\GraphQL\Mutation\Books\NewBookMutation'
+                'newBook' => 'App\GraphQL\Mutation\Books\NewBookMutation',
+                'follow' => 'App\GraphQL\Mutation\Users\FollowMutation'
             ]
         ]
     ],

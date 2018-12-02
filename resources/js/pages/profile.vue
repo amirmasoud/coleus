@@ -14,8 +14,24 @@
             <small>@{{ user.username }}</small>
           </div>
           <div class="ml-3">
-            <b-button class="px-4" size="sm" variant="primary" block v-if="!auth || (auth && auth.id != user.id)">+ {{ $t('follow') }}</b-button>
-            <b-button class="px-4" size="sm" variant="success" block v-else :to="{ name: 'books.new' }">+ {{ $t('new_book') }}</b-button>
+            <template v-if="!auth || (auth && auth.id != user.id)">
+              <v-button v-if="user.is_following"
+                        type="outline-primary"
+                        class="px-4 btn-sm"
+                        block
+                        :loading="togglingFollow"
+                        @click.native="toggleFollow">
+                {{ $t('unfollow') }}
+              </v-button>
+              <v-button v-else
+                        class="px-4 btn-sm"
+                        block
+                        :loading="togglingFollow"
+                        @click.native="toggleFollow">
+                + {{ $t('follow') }}
+              </v-button>
+            </template>
+            <b-button class="px-4" size="sm" variant="success" block v-else v-b-modal.modal-center-new-book>+ {{ $t('new_book') }}</b-button>
           </div>
         </div>
       </b-col>
@@ -60,11 +76,11 @@ export default {
     return {
       title: this.$t('books'),
       meta: [
-        { name: 'description', content: this.user ? this.user.bio.substring(0, 300) : '' },
+        { name: 'description', content: this.user ? (this.user.bio ? this.user.bio.substring(0, 300) : '') : '' },
 
-        { property: 'og:description', content: this.user ? this.user.bio.substring(0, 300) + '...' : '', vmid: 'og:description' },
-        { name: 'twitter:description', content: this.user ? this.user.bio.substring(0, 300) + '...' : '', vmid: 'twitter:description' },
-        { itemprop: 'description', content: this.user ? this.user.bio.substring(0, 300) + '...' : '', vmid: 'description' },
+        { property: 'og:description', content: this.user ? (this.user.bio ? this.user.bio.substring(0, 300) + '...' : '') : '', vmid: 'og:description' },
+        { name: 'twitter:description', content: this.user ? (this.user.bio ? this.user.bio.substring(0, 300) + '...' : '') : '', vmid: 'twitter:description' },
+        { itemprop: 'description', content: this.user ? (this.user.bio ? this.user.bio.substring(0, 300) + '...' : '') : '', vmid: 'description' },
 
         { property: 'og:title', content: this.user ? this.user.name : '', vmid: 'og:title' },
         { name: 'twitter:title', content: this.user ? this.user.name : '', vmid: 'twitter:title' },
@@ -84,7 +100,8 @@ export default {
   data () {
     return {
       user: null,
-      username: this.$route.params['username']
+      username: this.$route.params['username'],
+      togglingFollow: false
     }
   },
 
@@ -92,12 +109,27 @@ export default {
     user: {
       query: require('~/graphql/profile.gql'),
       fetchPolicy: 'cache-and-network',
-      variables() {
-        return{
+      variables () {
+        return {
           username: this.username,
         }
       },
-    },
+    }
+  },
+
+  methods: {
+    toggleFollow () {
+      this.togglingFollow = true
+      this.$apollo.mutate({
+        mutation: require('~/graphql/follow.gql'),
+        variables: {
+          user: this.user ? this.user.id : null
+        },
+      }).then((data) => {
+        this.togglingFollow = false
+        this.$apollo.queries.user.refetch()
+      })
+    }
   }
 }
 </script>

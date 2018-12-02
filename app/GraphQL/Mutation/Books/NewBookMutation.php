@@ -2,13 +2,13 @@
 
 namespace App\GraphQL\Mutation\Books;
 
-use App\Models\CollaborationRole;
 use GraphQL;
 use App\Models\Book;
+use App\GraphQL\Type\Upload;
+use App\Models\CollaborationRole;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use GraphQL\Type\Definition\ResolveInfo;
-use App\GraphQL\Type\Upload;
 
 class NewBookMutation extends Mutation
 {

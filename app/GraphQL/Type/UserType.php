@@ -95,6 +95,10 @@ class UserType extends BaseType
                 'type' => Type::listOf(GraphQL::type('Book')),
                 'description' => 'The user\'s books'
             ],
+            'is_following' => [
+                'type' => Type::boolean(),
+                'description' => 'The user is following the profile'
+            ]
         ];
     }
 
@@ -126,5 +130,25 @@ class UserType extends BaseType
     function resolveFollowingCountField($root, $args)
     {
         return $root->followings()->count();
+    }
+
+    /**
+     * @param  $root
+     * @param  $args
+     * @return mixed
+     */
+    function resolveFollowersCountField($root, $args)
+    {
+        return $root->followers()->count();
+    }
+
+    /**
+     * @param  $root
+     * @param  $args
+     * @return mixed
+     */
+    function resolveIsFollowingField($root, $args)
+    {
+        return auth()->check() ? auth()->user()->isFollowing($root) : false;
     }
 }
