@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Book;
 use App\Models\Page;
+use App\Models\Sort;
 use App\Models\Paragraph;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
@@ -57,6 +58,9 @@ class AddContent extends Command
 
         if ($this->option('refresh')) {
             $this->info('Refreshing book' . PHP_EOL);
+            Sort::where('scope', 'book#' . $this->argument('book'))
+                ->where('sortable_type', '<>', 'App\Models\Book')
+                ->delete();
             $ids = array_map(function($item) {
                 return $item['id'];
             }, Book::find($this->argument('book'))->pages()->get(['id'])->toArray());
