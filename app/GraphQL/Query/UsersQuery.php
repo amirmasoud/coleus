@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Query;
 
+use Cache;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
@@ -49,12 +50,33 @@ class UsersQuery extends Query
      */
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
+        $key = 'users:' . $args['sticky'] ? 'featured' : 'latest';
+
+        // Get users from list cache and return
+        // if (Redis::exists('users:' .  $key)) {
+        //     $users = collect(Redis::lrange('users:' .  $key, 0, -1));
+        //     return $users->map(function ($user) {
+        //         return json_decode($user);
+        //     })->first();
+        // }
+        // @todo: use LIST
+        if (Cache::has($key)) {
+            return Cache::get($key);
+        }
+
+        // Get users from DB
         if(isset($args['sticky'])) {
             $users = UserRepository::featuredAuthors();
         } else {
             $users = UserRepository::latest();
         }
 
-        return $users->get();
+        // Put users in cache and return
+        // $users->map(function ($user) use ($key) {
+        //     Redis::rpush('users:' . $key, $user);
+        // });
+        $users = $users->get();
+        Cache::put($key, $users, 60);
+        return $users;
     }
 }

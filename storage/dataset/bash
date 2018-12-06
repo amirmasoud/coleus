@@ -618,8 +618,8 @@ php artisan add:content ganjoor/naserkhosro/safarname 22 -R 'سفرنامه' \
     --header="بخش ۹۹ - سرخس، مروالرود، باریاب و سنگلان" \
     --header="بخش ۱۰۰ - پایان سفر"
 
-php artisan add:content ganjoor/iqbal/armaghan-hejaz 69
-php artisan add:content ganjoor/iqbal/romooz-bikhodi 70 -R \
+php artisan add:content ganjoor/iqbal/armaghan-hejaz 24
+php artisan add:content ganjoor/iqbal/romooz-bikhodi 25 \
     --header="رموز بیخودی" \
     --header="پیشکش به حضور ملت اسلامیه" \
     --header="تمهید، در معنی ربط فرد و ملت" \
@@ -652,8 +652,7 @@ php artisan add:content ganjoor/iqbal/romooz-bikhodi 70 -R \
     --header="لم یلد و لم یولد" \
     --header="ولم یکن له کفواً احد" \
     --header="عرض حال مصنف بحضور رحمة للعالمین"
-
-php artisan add:content ganjoor/iqbal/payam-mashregh 71 -R \
+php artisan add:content ganjoor/iqbal/payam-mashregh 26 -R \
     --header="پیشکش به حضور اعلیحضرت امیرامان الله خان فرمانروای دولت مستقلهٔ افغانستان خلد الله ملکه و اجلاله: ای امیر کامگار ای شهریار" \
     --header="شهید ناز او بزم وجود است: شهید ناز او بزم وجود است" \
     --header="دل من روشن از سوز درون است: دل من روشن از سوز درون است" \
@@ -953,9 +952,8 @@ php artisan add:content ganjoor/iqbal/payam-mashregh 71 -R \
     --header="خرده (۱۳): ندارد کار با دون همتان عشق" \
     --header="خرده (۱۴): نقد شاعر در خور بازار نیست" \
     --header="خرده (۱۵): چه خوش بودی اگر مرد نکویی" \
-    --header="خرده (۱۶): منم که طوف حرم کرده ام بتی به کنار" \
-
-php artisan add:content ganjoor/iqbal/zaboor-ajam 72 -R \
+    --header="خرده (۱۶): منم که طوف حرم کرده ام بتی به کنار"
+php artisan add:content ganjoor/iqbal/zaboor-ajam 23 \
     --header="به خوانندهٔ کتاب زبور : می شود پردهٔ چشمم پر کاهی گاهی" \
     --header="حصه اول : ز برون در گذشتم ز درون خانه گفتم" \
     --header="دعا : یارب درون سینه دل با خبر بده" \
@@ -1098,8 +1096,7 @@ php artisan add:content ganjoor/iqbal/zaboor-ajam 72 -R \
     --header="موسیقی : مرگ ها اندر فنون بندگی" \
     --header="مذهب غلامان : در غلامی عشق و مذهب را فراق" \
     --header="در فن تعمیر مردان آزاد : یک زمان با رفتگان صحبت گزین"
-
-php artisan add:content ganjoor/iqbal/javidname 77 -R \
+php artisan add:content ganjoor/iqbal/javidname 27 \
     --header="دیباچه: خیال من به تماشای آسمان بود است" \
     --header="مناجات: آدمی اندر جهان هفت رنگ" \
     --header="تمهید آسمانی - نخستین روز آفرینش نکوهش می کند آسمان زمین را: زندگی از لذت غیب و حضور" \
@@ -1162,8 +1159,7 @@ php artisan add:content ganjoor/iqbal/javidname 77 -R \
     --header="غزل زنده رود: به آدمی نرسیدی ، خدا چه میجوئی" \
     --header="حضور: گرچه جنت از تجلی های اوست" \
     --header="خطاب به جاوید: سخنی به نژاد نو"
-
-php artisan add:content ganjoor/iqbal/pas-che-bayad-kard 78 \
+php artisan add:content ganjoor/iqbal/pas-che-bayad-kard 28 \
     --header="بخوانندهٔ کتاب: سپاه تازه برانگیزم از ولایت عشق" \
     --header="تمهید: پیر رومی مرشد روشن ضمیر" \
     --header="خطاب به مهر عالمتاب: ای امیر خاور ای مهر منیر" \
@@ -1188,7 +1184,7 @@ php artisan add:content ganjoor/iqbal/pas-che-bayad-kard 78 \
     --header="قندهار و زیارت خرقه مبارک: قندهار آن کشور مینو سواد" \
     --header="بر مزار حضرت احمد شاه باباعلیه الرحمه مؤسس ملت افغانیه: تربت آن خسرو روشن ضمیر" \
     --header="خطاب به پادشاه اسلام اعلیحضرت ظاهر شاه «ایده‘ الله بنصره»: ای قبای پادشاهی بر تو راست"
-php artisan add:content ganjoor/iqbal/asrar-khodi 79 -R \
+php artisan add:content ganjoor/iqbal/asrar-khodi 29 \
     --header="اسرار خودی: دی شیخ با چراغ همی گشت گرد شهر" \
     --header="تمهید: نیست در خشک و تر بیشهٔ من کوتاهی" \
     --header="در بیان اینکه اصل نظام عالم از خودی است و تسلسل حیات تعینات وجود بر استحکام خودی انحصاردارد: پیکر هستی ز آثار خودی است" \

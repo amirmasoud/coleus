@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Query;
 
+use Cache;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
@@ -31,9 +32,12 @@ class BookQuery extends Query
     {
         $fields = $info->getFieldSelection(1);
 
-        $book = null;
+        if (isset($args['slug'])) {
+            $key = 'book:' . md5(serialize($args + $fields));
+            if (Cache::has($key)) {
+                return Cache::get($key);
+            }
 
-        if(isset($args['slug'])) {
             $book = BookRepository::findBySlug($args['slug']);
 
             foreach ( $fields as $field => $keys) {
@@ -44,7 +48,9 @@ class BookQuery extends Query
                 }
             }
 
-            return $book->firstOrFail();
+            $book = $book->firstOrFail();
+            Cache::put($key, $book, 60);
+            return $book;
         }
 
         return null;

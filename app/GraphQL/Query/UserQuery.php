@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Query;
 
+use Cache;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
@@ -31,6 +32,12 @@ class UserQuery extends Query
     {
         $fields = $info->getFieldSelection(5);
 
+        // @todo: use HASH
+        $key = 'user:' . md5(serialize($args + $fields));
+        if (Cache::has($key)) {
+            return Cache::get($key);
+        }
+
         $user = null;
 
         if(isset($args['username'])) {
@@ -55,6 +62,8 @@ class UserQuery extends Query
             }
         }
 
-        return $user->firstOrFail();
+        $user = $user->firstOrFail();
+        Cache::put($key, $user, 60);
+        return $user;
     }
 }
