@@ -40,7 +40,7 @@ class BookQuery extends Query
 
             $book = BookRepository::findBySlug($args['slug']);
 
-            foreach ( $fields as $field => $keys) {
+            foreach ($fields as $field => $keys) {
                 if ($field === 'pages') {
                     $book->with(['pages' => function($query) {
                         $query->orderBy('id', 'asc');
