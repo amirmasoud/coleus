@@ -1205,3 +1205,12 @@ php artisan add:content ganjoor/iqbal/asrar-khodi 29 \
     --header="اندرز میر نجات نقشبند المعروف به بابای صحرائی که برای مسلمانان هندوستان رقم فرموده است: ای که مثل گل ز گل بالیده ئی" \
     --header="الوقت سیف: سبز بادا خاک پاک شافعی" \
     --header="دعا: ای چو جان اندر وجود عالمی"
+
+php artisan add:content ganjoor/roodaki/baghimande 30 --count --persian --append --delimiter=": " --title="شماره "
+php artisan add:content ganjoor/roodaki/masnaviha/kalila-sand 31 --count --persian --append --delimiter=": " --title="بخش " 'ابیات به جا مانده از کلیله و دمنه و سندبادنامه' -R &&
+php artisan add:content ganjoor/roodaki/masnaviha/motaghareb 31 --count --persian --append --delimiter=": " --title="پاره " 'ابیات به جا مانده از مثنوی بحر متقارب' &&
+php artisan add:content ganjoor/roodaki/masnaviha/khafeef 31 --count --persian --append --delimiter=": " --title="پاره " 'ابیات به جا مانده از مثنوی بحر خفیف' &&
+php artisan add:content ganjoor/roodaki/masnaviha/hzj 31 --count --persian --append --delimiter=": " --title="پاره " 'ابیات به جا مانده از مثنوی بحر هزج' &&
+php artisan add:content ganjoor/roodaki/masnaviha/digar 31 --count --persian --append --delimiter=": " --title="پاره " 'ابیات به جا مانده از دیگر مثنویها'
+php artisan add:content ganjoor/roodaki/parakande 32 --count --persian --append --delimiter=": " --title="شماره "
+php artisan add:content ganjoor/roodaki/robaeer 33 --count --persian --append --delimiter=": " --title="شماره "
