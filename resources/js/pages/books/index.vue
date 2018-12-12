@@ -1,5 +1,8 @@
 <template>
   <b-row v-if="book">
+    <b-col cols="12">
+      <b-breadcrumb :items="items" />
+    </b-col>
     <b-col cols="12"
            sm="12"
            md="4" class="sidebar-wrapper d-md-block" :class="{ 'd-block d-sm-block': menu, 'd-none d-sm-none': ! menu }">
@@ -23,14 +26,12 @@
                     item.title,
                   ]"
                   :data-index="index"
+                  :emitUpdate="true"
                 >
-                  <b-list-group-item class="text-left"
-                    v-if="item.is_header"
-                    style="background-color: transparent; border: none;">
+                  <b-list-group-item v-if="item.is_header" class="text-left">
                     <strong>{{ item.title }}</strong>
                   </b-list-group-item>
-                  <b-list-group-item
-                    v-else
+                  <b-list-group-item v-else
                     :to="{ name: 'books.read', params: { slug: slug, page: item.id }}"
                     @click="toggleMenu()">
                     {{ item.title }}
@@ -67,6 +68,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import gql from 'graphql-tag'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
@@ -84,6 +86,17 @@ export default {
 
   mounted: function () {
     window.addEventListener('resize', this.handleResize)
+    this.$root.$on('page-title-changed', (payload) => {
+      if ('active' in this.items.slice(-1)[0]) {
+        this.items.pop()
+      }
+
+      this.items.push({
+        'text': payload,
+        'href': '#',
+        'active': true
+      })
+    })
   },
 
   updated: function () {
@@ -106,29 +119,49 @@ export default {
       top: 115,
       fontSize: 'inherit',
       menu: false,
-      index: 0
+      index: 0,
+      path: this.$route,
+      show: false,
+      items: [],
+      pageLoading: false
     }
   },
 
   apollo: {
-    book: Object.freeze({
+    book: {
       query: gql`query Book($slug: String) {
         book(slug: $slug) {
           id
+          title
           pages {
             id
             title
             is_header
           }
+          collaborators {
+            name
+          }
         }
       }
       `,
       variables () {
-        return{
+        return {
           slug: this.slug,
         }
       },
-    }),
+      result (res) {
+        this.items = [{
+          text: 'خانه',
+          to: { name: 'welcome' }
+        }, {
+          text: this.book.collaborators[0].name,
+          to: { name: 'profile', params: { username: this.$router.currentRoute.params.username } }
+        }, {
+          text: this.book.title,
+          to: { name: 'books.read', params: { username: this.$router.currentRoute.params.username, slug: this.$router.currentRoute.params.slug } }
+        }]
+      }
+    },
   },
 
   methods: {
@@ -147,6 +180,7 @@ export default {
           return page.title.includes(query)
         })
       }
+
       return pages
     },
 
@@ -188,6 +222,22 @@ export default {
 
     toggleMenu () {
       this.menu = ! this.menu
+    },
+
+    makeItems () {
+      // this.items = [{
+      //   text: 'خانه',
+      //   href: '#'
+      // }, {
+      //   text: this.book.collaborators[0].name,
+      //   href: `/@${this.$router.currentRoute.params.username}`
+      // }, {
+      //   text: this.book.title,
+      //   href: `/@${this.$router.currentRoute.params.username}/${this.$router.currentRoute.params.slug}`
+      // }, {
+      //   text: this.activeTitle,
+      //   active: true
+      // }]
     }
   },
 }
@@ -196,7 +246,7 @@ export default {
 <style scoped>
 .book-contents {
   overflow-y: scroll;
-  height: calc(100vh - 140px)
+  height: calc(100vh - 200px)
 }
 .book-contents::-webkit-scrollbar {
   width: 0.3rem;

@@ -1207,7 +1207,7 @@ php artisan add:content ganjoor/iqbal/asrar-khodi 29 \
     --header="دعا: ای چو جان اندر وجود عالمی"
 
 php artisan add:content ganjoor/roodaki/baghimande 30 --count --persian --append --delimiter=": " --title="شماره "
-php artisan add:content ganjoor/roodaki/masnaviha/kalila-sand 31 --count --persian --append --delimiter=": " --title="بخش " 'ابیات به جا مانده از کلیله و دمنه و سندبادنامه' -R &&
+php artisan add:content ganjoor/roodaki/masnaviha/kalila-sand 31 --count --persian --append --delimiter=": " --title="بخش " 'ابیات به جا مانده از کلیله و دمنه و سندبادنامه' &&
 php artisan add:content ganjoor/roodaki/masnaviha/motaghareb 31 --count --persian --append --delimiter=": " --title="پاره " 'ابیات به جا مانده از مثنوی بحر متقارب' &&
 php artisan add:content ganjoor/roodaki/masnaviha/khafeef 31 --count --persian --append --delimiter=": " --title="پاره " 'ابیات به جا مانده از مثنوی بحر خفیف' &&
 php artisan add:content ganjoor/roodaki/masnaviha/hzj 31 --count --persian --append --delimiter=": " --title="پاره " 'ابیات به جا مانده از مثنوی بحر هزج' &&

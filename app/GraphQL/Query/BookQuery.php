@@ -46,6 +46,10 @@ class BookQuery extends Query
                         $query->orderBy('id', 'asc');
                     }]);
                 }
+
+                if ($field === 'collaborators') {
+                    $book->with('collaborators');
+                }
             }
 
             $book = $book->firstOrFail();

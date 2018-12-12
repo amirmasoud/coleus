@@ -59,6 +59,9 @@ export default {
           id: this.id || this.firstId
         }
       },
+      result (response) {
+        this.$root.$emit('page-title-changed', this.page.title)
+      }
     },
   },
 
