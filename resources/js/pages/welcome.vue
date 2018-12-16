@@ -34,7 +34,6 @@ export default {
   },
 
   data: () => ({
-    title: window.config.appName,
     users: null
   }),
 

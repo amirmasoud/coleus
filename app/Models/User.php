@@ -121,7 +121,9 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      */
     public function getThumbnailAttribute($avatar): string
     {
-        return $this->getFirstMediaUrl('users/avatar', 'thumbnail');
+        return $this->getFirstMedia('users/avatar')
+            ? $this->getFirstMedia('users/avatar')->getFullUrl('thumbnail')
+            : '';
     }
 
     /**
@@ -132,7 +134,9 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      */
     public function getXSmallAttribute($avatar): string
     {
-        return $this->getFirstMediaUrl('users/avatar', 'xsmall');
+        return $this->getFirstMedia('users/avatar')
+            ? $this->getFirstMedia('users/avatar')->getFullUrl('xsmall')
+            : '';
     }
 
     /**
@@ -143,7 +147,9 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      */
     public function getSmallAttribute($avatar): string
     {
-        return $this->getFirstMediaUrl('users/avatar', 'small');
+        return $this->getFirstMedia('users/avatar')
+            ? $this->getFirstMedia('users/avatar')->getFullUrl('small')
+            : '';
     }
 
     /**
@@ -154,7 +160,9 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      */
     public function getMediumAttribute($avatar): string
     {
-        return $this->getFirstMediaUrl('users/avatar', 'medium');
+        return $this->getFirstMedia('users/avatar')
+            ? $this->getFirstMedia('users/avatar')->getFullUrl('medium')
+            : '';
     }
 
     /**
@@ -165,7 +173,9 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      */
     public function getPlaceholderAttribute($avatar): string
     {
-        return $this->getFirstMediaUrl('users/avatar', 'placeholder');
+        return $this->getFirstMedia('users/avatar')
+            ? $this->getFirstMedia('users/avatar')->getFullUrl('placeholder')
+            : '';
     }
 
     /**

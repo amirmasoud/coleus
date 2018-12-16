@@ -39,7 +39,9 @@ class Book extends Model implements HasMedia
      */
     public function getCoverAttribute($cover): string
     {
-        return $this->getFirstMediaUrl('books/cover', 'medium');
+        return $this->getFirstMedia('books/cover')
+            ? $this->getFirstMedia('books/cover')->getFullUrl('medium')
+            : '';
     }
 
     /**
@@ -50,7 +52,9 @@ class Book extends Model implements HasMedia
      */
     public function getPlaceholderAttribute($placeholder): string
     {
-        return $this->getFirstMediaUrl('books/cover', 'placeholder');
+        return $this->getFirstMedia('books/cover')
+            ? $this->getFirstMedia('books/cover')->getFullUrl('placeholder')
+            : '';
     }
 
     /**

@@ -1,0 +1,24 @@
+query FetchUserByUsername($username: String) {
+  user(username: $username) {
+    id,
+    name,
+    username,
+    photo_url,
+    xsmall,
+    small,
+    placeholder,
+    following_count,
+    followers_count,
+    is_following,
+    books_count,
+    bio,
+    books {
+      id,
+      title,
+      description,
+      cover,
+      placeholder,
+      slug,
+    }
+  }
+}

@@ -35,7 +35,7 @@
 import gql from 'graphql-tag'
 
 export default {
-  metaInfo () {
+  head () {
     return { title: this.$t('read_book') }
   },
 

@@ -18,11 +18,11 @@ return [
     //
     // or define each routes
     //
-    // 'routes' => [
-    //     'query' => 'query/{graphql_schema?}',
-    //     'mutation' => 'mutation/{graphql_schema?}',
-    //     'mutation' => 'graphiql'
-    // ]
+    'routes' => [
+        'query' => 'query/{graphql_schema?}',
+        'mutation' => 'mutation/{graphql_schema?}',
+        'mutation' => 'graphiql'
+    ],
     //
     // you can also disable routes by setting routes to null
     //
@@ -100,7 +100,14 @@ return [
                 'page' => 'App\GraphQL\Query\PageQuery'
             ],
             'mutation' => [
+                // Auht
+                'login' => 'App\GraphQL\Mutation\Auth\LoginMutation',
+                'register' => 'App\GraphQL\Mutation\Auth\RegisterMutation',
+
+                // Book
                 'newBook' => 'App\GraphQL\Mutation\Books\NewBookMutation',
+
+                // User
                 'follow' => 'App\GraphQL\Mutation\Users\FollowMutation'
             ]
         ]
@@ -126,6 +133,7 @@ return [
         'Book' => 'App\GraphQL\Type\BookType',
         'Collaboration' => 'App\GraphQL\Type\CollaborationType',
         'Page' => 'App\GraphQL\Type\PageType',
+        'Token' => 'App\GraphQL\Type\TokenType',
     ],
 
     // This callable will received every Error objects for each errors GraphQL catch.
@@ -137,7 +145,7 @@ return [
     //     'locations' => []
     // ]
     //
-    'error_formatter' => [\Folklore\GraphQL\GraphQL::class, 'formatError'],
+    'error_formatter' => [\App\GraphQL\Errors\Format::class, 'formatError'],
 
     // Options to limit the query complexity and depth. See the doc
     // @ https://github.com/webonyx/graphql-php#security
