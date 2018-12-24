@@ -26,9 +26,9 @@ export default {
     async login () {
       const newWindow = openWindow('', this.$t('login'))
 
-      const url = await this.$store.dispatch('auth/fetchOauthUrl', {
-        provider: 'github'
-      })
+      // const url = await this.$store.dispatch('auth/fetchOauthUrl', {
+      //   provider: 'github'
+      // })
 
       newWindow.location.href = url
     },
@@ -41,9 +41,9 @@ export default {
         return
       }
 
-      this.$store.dispatch('auth/saveToken', {
-        token: e.data.token
-      })
+      // this.$store.dispatch('auth/saveToken', {
+      //   token: e.data.token
+      // })
 
       this.$router.push({ name: 'home' })
     }

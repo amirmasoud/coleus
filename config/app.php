@@ -96,7 +96,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'fa',
+    'fallback_locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -156,9 +156,9 @@ return [
          * Package Service Providers...
          */
         \Torann\GeoIP\GeoIPServiceProvider::class,
-        Negarin\Admin\AdminServiceProvider::class,
         Folklore\GraphQL\ServiceProvider::class,
         Overtrue\LaravelFollow\FollowServiceProvider::class,
+        Backpack\MenuCRUD\MenuCRUDServiceProvider::class,
 
         /*
          * Application Service Providers...

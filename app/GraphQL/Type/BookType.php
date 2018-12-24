@@ -50,6 +50,21 @@ class BookType extends BaseType
                 'type' => Type::listOf(GraphQL::type('Page')),
                 'description' => 'The book\'s pages'
             ],
+            'start' => [
+                'type' => Type::Int(),
+                'description' => 'The start of the book'
+            ],
         ];
+    }
+
+    /**
+     * @param  $root
+     * @param  $args
+     * @return mixed
+     */
+    function resolveStartField($root, $args)
+    {
+        $start = $root->pages()->where('content', '!=', ':empty')->first();
+        return $start ? $start->id : 0;
     }
 }

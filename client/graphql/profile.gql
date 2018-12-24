@@ -19,6 +19,7 @@ query FetchUserByUsername($username: String) {
       cover,
       placeholder,
       slug,
+      start
     }
   }
 }

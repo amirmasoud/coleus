@@ -4,7 +4,6 @@ import { scrollBehavior } from '~/utils'
 
 Vue.use(Router)
 
-const Home = () => import('~/pages/home').then(m => m.default || m)
 const Welcome = () => import('~/pages/welcome').then(m => m.default || m)
 
 const Login = () => import('~/pages/auth/login').then(m => m.default || m)
@@ -23,7 +22,6 @@ const ReadBook = () => import('~/pages/books/read').then(m => m.default || m)
 
 const routes = [
   { path: '/', name: 'welcome', component: Welcome },
-  { path: '/home', name: 'home', component: Home },
 
   { path: '/login', name: 'login', component: Login },
   { path: '/register', name: 'register', component: Register },
@@ -39,12 +37,22 @@ const routes = [
     ]
   },
 
+  // { path: '/@:username',
+  //   component: Book,
+  //   children: [
+  //     { path: '', redirect: { name: 'settings.profile' } },
+  //     { path: 'profile', name: 'settings.profile', component: SettingsProfile },
+  //     { path: 'password', name: 'settings.password', component: SettingsPassword }
+  //   ]
+  // },
+
   { path: '/@:username', name: 'profile', component: Profile },
 
-  { path: '/@:username/:slug/:page?',
+  { path: '/book/:slug',
     component: Book,
     children: [
-      { path: '', name: 'books.read', component: ReadBook }
+      { path: '', redirect: { name: 'books.read' } },
+      { path: ':page', name: 'books.read', component: ReadBook }
     ]
   }
 ]

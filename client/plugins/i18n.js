@@ -1,16 +1,18 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 
-Vue.use(VueI18n)
+Vue.use(VueI18n, {
+  inject: true
+})
 
 const i18n = new VueI18n({
   locale: 'fa',
   messages: {}
 })
 
-export default async ({ app, store }) => {
+export default async ({ app }) => {
   if (process.client) {
-    await loadMessages(store.getters['lang/locale'])
+    await loadMessages('fa')
   }
 
   app.i18n = i18n

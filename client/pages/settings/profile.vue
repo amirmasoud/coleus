@@ -11,7 +11,7 @@
             <b-img v-if="user.small" rounded="circle" width="128" height="128" alt="avatar" class="my-1" :src="user.small" />
             <b-img v-else rounded="circle" width="128" height="128" alt="avatar" class="my-1" :src="user.photo_url" />
           </template>
-          <b-form-file :lang="$store.state.lang.locale" name="avatar" v-model="form.avatar" accept="image/jpeg, image/png"></b-form-file>
+          <b-form-file name="avatar" v-model="form.avatar" accept="image/jpeg, image/png"></b-form-file>
           <!-- <has-error :form="form" field="avatar" /> -->
         </div>
       </div>
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 import objectToFormData from 'object-to-formdata'
 
 export default {
@@ -83,9 +83,9 @@ export default {
     }
   }),
 
-  computed: mapGetters({
-    user: 'auth/user'
-  }),
+  // computed: mapGetters({
+  //   user: 'auth/user'
+  // }),
 
   created () {
     // console.log(this.user)

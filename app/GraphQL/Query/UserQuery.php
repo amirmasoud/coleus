@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Query;
 
+use Auth;
 use Cache;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
@@ -42,6 +43,9 @@ class UserQuery extends Query
 
         if(isset($args['username'])) {
             $user = UserRepository::findByUsername($args['username']);
+        } else {
+            Cache::put($key, Auth::guard('api')->user(), 60);
+            return $user;
         }
 
         foreach ($fields as $field => $keys) {

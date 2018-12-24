@@ -1,5 +1,5 @@
 <template>
-  <div v-if="page && ! this.$apollo.queries.page.loading">
+  <div v-if="page">
     <b-card class="p-2 reading-container">
       <div class="row" v-html="page.content"></div>
     </b-card>
@@ -39,22 +39,11 @@ export default {
     return { title: this.$t('read_book') }
   },
 
-  props: {
-    firstId: Number,
-    slug: String
-  },
-
-  // data () {
-  //   return {
-  //     id: this.$route.params.page,
-  //     page: null,
-  //   }
-  // },
-
   asyncData ({ params }) {
     return {
       id: params.page,
-      page: {}
+      slug: params.slug,
+      page: null
     }
   },
 
@@ -70,17 +59,8 @@ export default {
         return {
           id: this.id
         }
-      },
-      result (response) {
-        this.$root.$emit('page-title-changed', this.page.title)
       }
     },
-  },
-
-  created () {
-    this.$nextTick(() => {
-      // this.$apollo.queries.page.refetch()
-    });
-  },
+  }
 }
 </script>

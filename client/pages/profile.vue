@@ -3,18 +3,21 @@
     <b-row>
       <b-col class="text-left">
         <div class="d-flex justify-content-start">
-          <progressive-img :src="user.xsmall"
-                           :placeholder="user.placeholder"
-                           :fallback="user.photo_url"
-                           :aspect-ratio="1"
-                           class="rounded float-left img-fluid mr-4"
-                           style="width: 64px; height: 64px;" />
+          <img :src="user.small" class="d-none">
+          <no-ssr>
+            <progressive-img :src="user.xsmall"
+                             :placeholder="user.placeholder"
+                             :fallback="user.photo_url"
+                             :aspect-ratio="1"
+                             class="rounded float-left img-fluid mr-4"
+                             style="width: 64px; height: 64px;" />
+          </no-ssr>
           <div>
-            <h4><!-- <img src="/svg/correct.svg" width="24" height="24"> --> {{ user.name }}</h4>
+            <h4>{{ user.name }}</h4>
             <small>@{{ user.username }}</small>
           </div>
-          <div class="ml-3">
-            <template v-if="!auth || (auth && auth.id != user.id)">
+          <div class="ml-3" v-if="auth">
+            <template v-if="auth.id != user.id">
               <v-button v-if="user.is_following"
                         type="outline-primary"
                         class="px-4 btn-sm"
@@ -31,7 +34,7 @@
                 + {{ $t('follow') }}
               </v-button>
             </template>
-            <b-button class="px-4" size="sm" variant="success" block v-else v-b-modal.modal-center-new-book>+ {{ $t('new_book') }}</b-button>
+            <b-button v-else class="px-4" size="sm" variant="success" block v-b-modal.modal-center-new-book>+ {{ $t('new_book') }}</b-button>
           </div>
         </div>
       </b-col>
@@ -49,12 +52,15 @@
              xl="2"
              v-for="book in user.books"
              :key="book.id">
-        <b-link :to="{ name: 'books.read', params: { slug: book.slug }}">
+        <b-link :to="{ name: 'books.read', params: { slug: book.slug, page: book.start }}">
           <div class="card mb-2">
-            <progressive-img class="card-img-top"
-                             :src="book.cover"
-                             :placeholder="book.placeholder"
-                             :aspect-ratio="1.6666666667" />
+            <img :src="book.cover" class="d-none">
+            <no-ssr>
+              <progressive-img class="card-img-top"
+                               :src="book.cover"
+                               :placeholder="book.placeholder"
+                               :aspect-ratio="1.6666666667" />
+            </no-ssr>
             <div class="card-body">
               <p class="card-title">{{ book.title }}</p>
             </div>
@@ -69,7 +75,7 @@
 
 <script>
 import gql from 'graphql-tag'
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 
 export default {
   head () {
@@ -93,14 +99,18 @@ export default {
     }
   },
 
-  computed: mapGetters({
-    auth: 'auth/user'
-  }),
+  // computed: mapGetters({
+  //   auth: 'auth/user'
+  // }),
+
+  asyncData ({ params }) {
+    return {
+      username: params.username
+    }
+  },
 
   data () {
     return {
-      user: null,
-      username: this.$route.params['username'],
       togglingFollow: false
     }
   },
@@ -108,13 +118,22 @@ export default {
   apollo: {
     user: {
       query: require('~/graphql/profile.gql'),
-      fetchPolicy: 'cache-and-network',
+      prefetch: ({ params }) => {
+        return {
+          username: params.username
+        }
+      },
       variables () {
         return {
           username: this.username,
         }
       },
-    }
+    },
+    token: gql`
+      query {
+        token @client
+      }
+    `
   },
 
   methods: {

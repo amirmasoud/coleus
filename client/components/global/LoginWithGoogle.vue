@@ -26,9 +26,9 @@ export default {
     async login () {
       const newWindow = openWindow('', this.$t('login'))
 
-      const url = await this.$store.dispatch('auth/fetchOauthUrl', {
-        provider: 'google'
-      })
+      // const url = await this.$store.dispatch('auth/fetchOauthUrl', {
+      //   provider: 'google'
+      // })
 
       newWindow.location.href = url
     },
@@ -44,12 +44,12 @@ export default {
 
       let loginMessage = this.$t('successful_login_header')
 
-      this.$store.dispatch('auth/saveToken', {
-        token: e.data.token
-      })
+      // this.$store.dispatch('auth/saveToken', {
+      //   token: e.data.token
+      // })
 
       // Fetch the user.
-      await this.$store.dispatch('auth/fetchUser')
+      // await this.$store.dispatch('auth/fetchUser')
 
       try {
         this.$snotify.success(loginMessage)
