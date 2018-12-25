@@ -17,7 +17,7 @@
       hide-footer
       ref="loginModal"
       v-on:hidden="revertUrl">
-      <login-form></login-form>
+      <login-form prefix="page-"></login-form>
     </b-modal>
   </span>
 </template>

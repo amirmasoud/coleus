@@ -17,7 +17,7 @@
       ref="registerModal"
       v-on:hidden="revertUrl"
     >
-      <register-form></register-form>
+      <register-form prefix="page-"></register-form>
     </b-modal>
   </span>
 </template>

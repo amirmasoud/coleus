@@ -58,14 +58,13 @@ class UserCrudController extends CrudController
                 'type'  => 'text',
             ],
             [
-                'label' => "tags",
-                'type' => 'checkbox',
-                'name' => 'sticks', // the method that defines the relationship in your Model
-                'entity' => 'stickable', // the method that defines the relationship in your Model
-                'attribute' => 'stickable_type', // foreign key attribute that is shown to user
-                'model' => "App\Models\Stick", // foreign key model
-                'pivot' => true,
-                'morph' => true,
+                'label'     => 'Sticky',
+                'type'      => 'checklist',
+                'name'      => 'sticks',
+                'entity'    => 'stickable',
+                'attribute' => 'stickable_id',
+                'model'     => "App\Models\Stick",
+                'morph'     => true
             ],
             [
                 'name'  => 'email',

@@ -9,7 +9,7 @@
   <form @submit.prevent="register">
     <b-form-group :label="$t('name')"
                   label-for="register-name">
-      <b-form-input id="register-name"
+      <b-form-input :id="prefix + 'register-name'"
                     type="text"
                     v-model="form.name"
                     :class="{ 'is-invalid': errors.has('name') || serr && serr.hasOwnProperty('name') }"
@@ -26,7 +26,7 @@
 
     <b-form-group :label="$t('email')"
                   label-for="register-email">
-      <b-form-input id="register-email"
+      <b-form-input :id="prefix + 'register-email'"
                     type="email"
                     v-model="form.email"
                     :class="{ 'is-invalid': errors.has('email') || serr && serr.hasOwnProperty('email') }"
@@ -43,7 +43,7 @@
 
     <b-form-group :label="$t('password')"
                   label-for="register-password">
-      <b-form-input id="register-password"
+      <b-form-input :id="prefix + 'register-password'"
                     type="password"
                     v-model="form.password"
                     :class="{ 'is-invalid': errors.has('password') || serr && serr.hasOwnProperty('password') }"
@@ -60,7 +60,7 @@
 
     <b-form-group :label="$t('password_confirmation')"
                   label-for="register-password-confirmation">
-      <b-form-input id="register-password-confirmation"
+      <b-form-input :id="prefix + 'register-password-confirmation'"
                     type="password"
                     v-model="form.password_confirmation"
                     :class="{ 'is-invalid': errors.has('password_confirmation') || serr && serr.hasOwnProperty('password_confirmation') }"
@@ -85,7 +85,8 @@ export default {
   name: 'RegisterForm',
 
   props: {
-    redirect: { type: Boolean, default: false }
+    redirect: { type: Boolean, default: false },
+    prefix: { type: String, default: '' }
   },
 
   data: () => ({

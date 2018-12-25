@@ -10,7 +10,7 @@
     <form @submit.prevent="login">
       <b-form-group :label="$t('email')"
                     label-for="login-email">
-        <b-form-input id="login-email"
+        <b-form-input :id="prefix + 'login-email'"
                       type="email"
                       v-model="form.email"
                       required
@@ -26,7 +26,7 @@
 
       <b-form-group :label="$t('password')"
                     label-for="login-password">
-        <b-form-input id="login-password"
+        <b-form-input :id="prefix + 'login-password'"
                       type="password"
                       v-model="form.password"
                       required
@@ -40,8 +40,8 @@
         <div v-if="serr && serr.hasOwnProperty('password')" class="invalid-feedback">{{ serr.password[0] }}</div>
       </b-form-group>
 
-      <b-form-group id="login-remember">
-        <b-form-checkbox-group v-model="remember" id="login-remember">
+      <b-form-group :id="prefix + 'login-remember'">
+        <b-form-checkbox-group v-model="remember" :id="prefix + 'login-remember'">
           <b-form-checkbox name="remember">{{ $t('remember_me') }}</b-form-checkbox>
           <!-- <router-link :to="{ name: 'password.request' }" class="small float-right my-auto">
             {{ $t('forgot_password') }}
@@ -61,7 +61,8 @@ export default {
   name: 'LoginForm',
 
   props: {
-    redirect: { type: Boolean, default: false }
+    redirect: { type: Boolean, default: false },
+    prefix: { type: String, default: '' }
   },
 
   // apollo: {
