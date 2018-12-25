@@ -203,7 +203,6 @@ export default {
     handleResize () {
       if (process.browser) {
         let el = document.querySelector('.sidebar-wrapper')
-        console.log(el)
         if (el) {
           this.width = el.clientWidth - 30 + 'px'
         }
