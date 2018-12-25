@@ -89,30 +89,19 @@ export default {
         variables: this.form
       })
       .then(async ({data}) => {
-        await this.$apollo.mutate({
-          mutation: gql`
-            mutation($token: String!) {
-              setToken(token: $token) @client
-            }
-          `,
-          variables: { token: data.login.token },
-        }).then(async ({res}) => {
-          await this.$apolloHelpers.onLogin(data.login.token)
-
-          this.$apollo.query({
-            query: require('~/graphql/user'),
-          }).then(({data}) => {
-            this.$apollo.mutate({
-              mutation: gql`
-                mutation($user: String!) {
-                  setUser(user: $user) @client
-                }
-              `,
-              variables: { user: data.user },
-            })
+        await this.$apolloHelpers.onLogin(data.login.token)
+        this.$apollo.query({
+          query: require('~/graphql/user'),
+        }).then(({data}) => {
+          this.$apollo.mutate({
+            mutation: gql`
+              mutation($user: String!) {
+                setUser(user: $user) @client
+              }
+            `,
+            variables: { user: data.user },
           })
         })
-
         // user.then(({res}) => {
         //   console.log(res)
         // })

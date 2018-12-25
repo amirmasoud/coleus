@@ -76,7 +76,7 @@ module.exports = {
   loading: { color: '#007bff' },
 
   router: {
-    middleware: []
+    middleware: ['check-auth']
   },
 
   css: [
