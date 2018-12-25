@@ -16,8 +16,8 @@
             <h4>{{ user.name }}</h4>
             <small>@{{ user.username }}</small>
           </div>
-          <div class="ml-3" v-if="auth">
-            <template v-if="auth.id != user.id">
+          <div class="ml-3"> <!-- v-if="auth" -->
+            <template v-if="true"> <!-- auth.id != user.id -->
               <v-button v-if="user.is_following"
                         type="outline-primary"
                         class="px-4 btn-sm"
