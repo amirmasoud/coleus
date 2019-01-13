@@ -5,55 +5,69 @@
       <b-navbar-brand :to="{ name: 'welcome' }">
         <b-img class="logo logo-fa mr-2" fluid src="/images/logo-192x192.png" alt="Logo" />
       </b-navbar-brand>
-
-      <b-navbar-nav class="ml-auto" style="flex-direction: row;">
-<!--         <b-dropdown left variant="link" no-caret v-if="user">
-          <template slot="button-content">
-            <b-img :src="user.thumbnail || user.photo_url" class="rounded-circle profile-photo mr-1" />
-          </template>
-          <b-dropdown-item :to="{ name: 'profile', params: { 'username': user.username } }">{{ $t('my_books') }}</b-dropdown-item>
-          <b-dropdown-item v-b-modal.modal-center-new-book>{{ $t('new_book') }}</b-dropdown-item>
-          <b-dropdown-item :to="{ name: 'settings.profile' }"><fa icon="cog" fixed-width/>{{ $t('settings') }}</b-dropdown-item>
-          <b-dropdown-divider></b-dropdown-divider>
-          <b-dropdown-item @click.prevent="logout" href="#"><fa icon="sign-out-alt" fixed-width/>{{ $t('logout') }}</b-dropdown-item>
-        </b-dropdown> -->
-
-        <li class="nav-item">
-          <login></login>
-        </li>
-        <li class="nav-item">
-          <register></register>
-        </li>
-      </b-navbar-nav>
+        <template v-if="loading">
+          <div class="linear-background rounded-circle profile-photo ml-1"></div>
+        </template>
+        <template v-else>
+          <b-navbar-nav class="ml-auto" style="flex-direction: row;">
+            <b-dropdown left variant="link" no-caret v-if="auth">
+              <template slot="button-content">
+                <b-img :src="auth.thumbnail || auth.photo_url" class="rounded-circle profile-photo ml-1" />
+              </template>
+              <b-dropdown-item :to="{ name: 'profile', params: { 'username': auth.username } }">{{ $t('my_books') }}</b-dropdown-item>
+              <b-dropdown-item v-b-modal.modal-center-new-book>{{ $t('new_book') }}</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'settings.profile' }"><fa icon="cog" fixed-width/>{{ $t('settings') }}</b-dropdown-item>
+              <b-dropdown-divider></b-dropdown-divider>
+              <b-dropdown-item @click.prevent="logout" href="#"><fa icon="sign-out-alt" fixed-width/>{{ $t('logout') }}</b-dropdown-item>
+            </b-dropdown>
+            <template v-else>
+              <li class="nav-item">
+                <login></login>
+              </li>
+              <li class="nav-item">
+                <register></register>
+              </li>
+            </template>
+          </b-navbar-nav>
+        </template>
     </div>
 
     <new-book></new-book>
+
   </b-navbar>
 </template>
 
 <script>
-// import { mapGetters } from 'vuex'
+import gql from 'graphql-tag'
+import { auth } from '~/mixins/auth'
 
 export default {
+  mixins: [auth],
 
-  // computed: mapGetters({
-  //   user: 'auth/user'
-  // }),
+  async mounted () {
+    this.$root.$on('refresh-navbar', this.attempLogin)
+  },
 
   methods: {
     async logout () {
-      // let logoutMessage = this.$t('successful_logout_header')
-      // // Log out the user.
-      // await this.$store.dispatch('auth/logout')
+      let logoutMessage = this.$t('successful_logout_header')
 
-      // // Redirect to login.
-      // this.$router.push({ name: 'welcome' })
+      await this.$apollo.mutate({
+        mutation: require('~/graphql/client/mutation/user'),
+        variables: { user: null },
+      })
+      await this.$apolloHelpers.onLogout()
 
-      // try {
-      //   this.$snotify.success(logoutMessage)
-      // } catch (e) {
-      //   // console.warn(e)
-      // }
+      this.$root.$emit('refresh-navbar')
+
+      // Redirect to login.
+      this.$router.push({ name: 'welcome' })
+
+      try {
+        this.$snotify.success(logoutMessage)
+      } catch (e) {
+        // console.warn(e)
+      }
     }
   }
 }

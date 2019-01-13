@@ -1,0 +1,22 @@
+@keyframes placeholder{
+  0%{
+    background-position: -100% 0
+  }
+  100%{
+    background-position: 100% 0
+  }
+}
+
+.linear-background {
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeholder;
+  animation-timing-function: linear;
+  background: #f6f7f8;
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  background-size: 100vw 100vh;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}

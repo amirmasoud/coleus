@@ -116,27 +116,26 @@ export default {
         }).then(async ({data}) => {
           await this.$apolloHelpers.onLogin(data.login.token)
 
-          // Save the token.
-          // this.$store.dispatch('auth/saveToken', {
-          //   token: data.login.token,
-          //   remember: this.remember
-          // })
+          await this.$apollo.query({
+            query: require('~/graphql/user'),
+          }).then(async ({data}) => {
+            await this.$apollo.mutate({
+              mutation: require('~/graphql/client/mutation/user'),
+              variables: { user: data.user },
+            })
+          })
         })
 
-        // await this.$store.dispatch('auth/updateUser', { user: data })
-
-        // await this.$store.dispatch('auth/fetchUser')
+        this.busy = false
 
         this.$snotify.success(registerMessage)
 
+        this.$root.$emit('refresh-navbar')
         if (this.redirect) {
           this.$router.push({ name: 'welcome' })
         } else {
-          history.back()
-          this.$refs.loginModal.hide()
+          this.$root.$emit('login-done')
         }
-
-        this.busy = false
       }).catch((error) => {
         if (error.graphQLErrors) {
           this.serr = error.graphQLErrors[0].errors

@@ -1,8 +1,5 @@
 <template>
-  <span
-    v-on:close-modal="closeModal"
-    v-on:login-done="closeModal"
-  >
+  <span v-on:close-modal="closeModal">
     <b-btn
       variant="link"
       class="nav-link"
@@ -26,7 +23,7 @@
 export default {
   name: 'Login',
 
-  mounted: function () {
+  mounted () {
     this.$root.$on('login-done', this.closeModal)
   },
 

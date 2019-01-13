@@ -31,6 +31,7 @@ class UserQuery extends Query
 
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
+        \Log::debug($args);
         $fields = $info->getFieldSelection(5);
 
         // @todo: use HASH
@@ -44,8 +45,7 @@ class UserQuery extends Query
         if(isset($args['username'])) {
             $user = UserRepository::findByUsername($args['username']);
         } else {
-            Cache::put($key, Auth::guard('api')->user(), 60);
-            return $user;
+            return Auth::guard('api')->user();
         }
 
         foreach ($fields as $field => $keys) {

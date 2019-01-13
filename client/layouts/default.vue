@@ -2,7 +2,7 @@
   <div class="main-layout rtl">
     <navbar/>
 
-    <div class="container mt-3">
+    <div class="container mt-2">
       <nuxt/>
     </div>
     <no-ssr>

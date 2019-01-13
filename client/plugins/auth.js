@@ -1,11 +1,16 @@
+import Vue from 'vue'
 import gql from 'graphql-tag'
 
-export default function ({ app }) {
+export default async function ({ app }) {
   const token = app.$apolloHelpers.getToken()
 
-  if (token && ! app.user) {
+
+  if (token && ! app.user && ! process.server) {
+    await app.$apolloHelpers.onLogin(token)
+
     app.apolloProvider.defaultClient.query({
       query: require('~/graphql/user'),
+      prefetch: true
     }).then(({data}) => {
       app.apolloProvider.defaultClient.mutate({
         mutation: gql`
@@ -14,6 +19,7 @@ export default function ({ app }) {
           }
         `,
         variables: { user: data.user },
+        prefetch: true
       }).then(({data}) => {
         app.apolloProvider.defaultClient.query({
           query: gql`query user {
@@ -31,10 +37,13 @@ export default function ({ app }) {
                 }
               }
             `,
+          prefetch: true
         }).then(({ data }) => {
           app.user = data.user
         })
       })
+    }).catch((error) => {
+      app.user = false
     })
   }
 

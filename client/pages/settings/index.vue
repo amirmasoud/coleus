@@ -1,16 +1,11 @@
 <template>
   <div class="row">
     <div class="col-md-3">
-      <card :title="$t('settings')" class="settings-card">
-        <ul class="nav flex-column nav-pills">
-          <li v-for="tab in tabs" :key="tab.route" class="nav-item">
-            <nuxt-link :to="{ name: tab.route }" class="nav-link" active-class="active" exact>
-              <fa :icon="tab.icon" fixed-width/>
-              {{ tab.name }}
-            </nuxt-link>
-          </li>
-        </ul>
-      </card>
+      <b-list-group>
+        <b-list-group-item v-for="tab in tabs" :key="tab.route" :to="{ name: tab.route }">
+          <fa :icon="tab.icon" fixed-width/> {{ tab.name }}
+        </b-list-group-item>
+      </b-list-group>
     </div>
 
     <div class="col-md-9">
@@ -23,8 +18,6 @@
 
 <script>
 export default {
-  middleware: 'auth',
-
   computed: {
     tabs () {
       return [

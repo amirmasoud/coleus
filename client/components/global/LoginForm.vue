@@ -55,7 +55,6 @@
 </template>
 
 <script>
-    import gql from 'graphql-tag';
 
 export default {
   name: 'LoginForm',
@@ -64,10 +63,6 @@ export default {
     redirect: { type: Boolean, default: false },
     prefix: { type: String, default: '' }
   },
-
-  // apollo: {
-  //   user: gql`query { user @client }`
-  // },
 
   data: () => ({
     form: {
@@ -90,54 +85,28 @@ export default {
       })
       .then(async ({data}) => {
         await this.$apolloHelpers.onLogin(data.login.token)
-        this.$apollo.query({
+
+        await this.$apollo.query({
           query: require('~/graphql/user'),
-        }).then(({data}) => {
-          this.$apollo.mutate({
-            mutation: gql`
-              mutation($user: String!) {
-                setUser(user: $user) @client
-              }
-            `,
+        }).then(async ({data}) => {
+          await this.$apollo.mutate({
+            mutation: require('~/graphql/client/mutation/user'),
             variables: { user: data.user },
           })
         })
-        // user.then(({res}) => {
-        //   console.log(res)
-        // })
-
-
-
-        // this.$apolloHelpers.onLogin(data.login.token)
-
-        // await this.$apollo.queries.user.refetch()
-        // console.log(this.user)
-
-        // Save the token.
-        // this.$store.dispatch('auth/saveToken', {
-        //   token: data.login.token,
-        //   remember: this.remember
-        // })
-
-
-        // this.setToken(data.login.token)
 
         this.busy = false
 
-        // Fetch the user.
-        // await this.$store.dispatch('auth/fetchUser')
-        // this.fetchUser()
+        this.$snotify.success(loginMessage)
 
-        // this.$snotify.success(loginMessage)
-
-        // if (this.after) {
-        //   this.$router.push({ name: 'welcome' })
-        // } else {
-        //   this.$root.$emit('login-done')
-        // }
+        this.$root.$emit('refresh-navbar')
+        if (this.redirect) {
+          this.$router.push({ name: 'welcome' })
+        } else {
+          this.$root.$emit('login-done')
+        }
       })
       .catch((error) => {
-        console.log(error)
         if (error.graphQLErrors) {
           this.serr = error.graphQLErrors[0].errors
         }
@@ -147,23 +116,6 @@ export default {
 
     clearError (field) {
       delete this.serr[field]
-    },
-
-    setToken (token) {
-      return this.$apollo.mutate({
-        mutation: gql`
-          mutation($token: String!) {
-            setToken(token: $token) @client
-          }
-        `,
-        variables: { token: 'K' },
-      })
-    },
-
-    fetchUser () {
-      return this.$apollo.query({
-        query: gql`query { user @client }`,
-      })
     }
   }
 }

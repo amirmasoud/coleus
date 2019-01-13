@@ -16,8 +16,8 @@
             <h4>{{ user.name }}</h4>
             <small>@{{ user.username }}</small>
           </div>
-          <div class="ml-3"> <!-- v-if="auth" -->
-            <template v-if="true"> <!-- auth.id != user.id -->
+          <div class="ml-3" v-if="auth">
+            <template v-if="auth.username != $route.params.username">
               <v-button v-if="user.is_following"
                         type="outline-primary"
                         class="px-4 btn-sm"
@@ -39,12 +39,12 @@
         </div>
       </b-col>
     </b-row>
-    <div class="d-flex justify-content-around text-center mt-3 border-top border-bottom py-2">
+    <div class="d-flex justify-content-around text-center mt-2 border-top border-bottom py-2">
       <b-col>{{ user.books_count }}<br /><small class="text-muted">{{ $t('books') }}</small></b-col>
       <b-col>{{ user.followers_count }}<br /><small class="text-muted">{{ $t('followers') }}</small></b-col>
       <b-col>{{ user.following_count }}<br /><small class="text-muted">{{ $t('following') }}</small></b-col>
     </div>
-    <b-row v-if="user.books && user.books.length" class="mt-3">
+    <b-row v-if="user.books && user.books.length" class="mt-2">
       <b-col cols="6"
              sm="4"
              md="4"
@@ -68,7 +68,7 @@
         </b-link>
       </b-col>
     </b-row>
-    <div class="text-center mt-3" v-else>{{ $t('no_book') }}</div>
+    <div class="text-center mt-2" v-else>{{ $t('no_book') }}</div>
   </div>
   <div v-else class="my-4 text-center"><img src="svg-loaders/oval.svg" /></div>
 </template>
@@ -99,10 +99,6 @@ export default {
     }
   },
 
-  // computed: mapGetters({
-  //   auth: 'auth/user'
-  // }),
-
   asyncData ({ params }) {
     return {
       username: params.username
@@ -111,8 +107,15 @@ export default {
 
   data () {
     return {
+      auth: null,
       togglingFollow: false
     }
+  },
+
+  mounted () {
+    this.attempLogin()
+
+    this.$root.$on('logged-in', this.attempLogin)
   },
 
   apollo: {
@@ -127,13 +130,8 @@ export default {
         return {
           username: this.username,
         }
-      },
-    },
-    token: gql`
-      query {
-        token @client
       }
-    `
+    }
   },
 
   methods: {
@@ -147,6 +145,17 @@ export default {
       }).then((data) => {
         this.togglingFollow = false
         this.$apollo.queries.user.refetch()
+      })
+    },
+
+    async attempLogin () {
+      await this.$apollo.query({
+        query: require('~/graphql/client/query/user'),
+        prefetch: false
+      }).then(({ data }) => {
+        this.auth = data.user
+      }).catch((error) => {
+        this.auth = null
       })
     }
   }

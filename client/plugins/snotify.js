@@ -6,7 +6,7 @@ const options = {
     icon: false,
     pauseOnHover: false,
     showProgressBar: false,
-    position: SnotifyPosition.rightBottom,
+    position: SnotifyPosition.centerBottom,
     type: SnotifyStyle.simple
   },
   global: {

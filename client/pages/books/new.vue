@@ -64,11 +64,11 @@ export default {
       }).then((data) => {
         this.loading = false
         // Result
-        // console.log(data)
+        console.log(data)
       }).catch((error) => {
         this.loading = false
         // Error
-        // console.error(error)
+        console.error(error)
       })
     }
   }

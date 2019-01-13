@@ -1,0 +1,14 @@
+query user {
+  user @client {
+    name
+    bio
+    email
+    locked
+    photo_url
+    small
+    thumbnail
+    username
+    website
+    xsmall
+  }
+}

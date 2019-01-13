@@ -7,9 +7,9 @@
       <div class="form-group row">
         <label class="col-md-3 col-form-label text-md-right">{{ $t('avatar') }}</label>
         <div class="col-md-7">
-          <template v-if="user">
-            <b-img v-if="user.small" rounded="circle" width="128" height="128" alt="avatar" class="my-1" :src="user.small" />
-            <b-img v-else rounded="circle" width="128" height="128" alt="avatar" class="my-1" :src="user.photo_url" />
+          <template v-if="auth">
+            <b-img v-if="auth.small" rounded="circle" width="128" height="128" alt="avatar" class="my-1" :src="auth.small" />
+            <b-img v-else rounded="circle" width="128" height="128" alt="avatar" class="my-1" :src="auth.photo_url" />
           </template>
           <b-form-file name="avatar" v-model="form.avatar" accept="image/jpeg, image/png"></b-form-file>
           <!-- <has-error :form="form" field="avatar" /> -->
@@ -63,17 +63,20 @@
 </template>
 
 <script>
-// import { mapGetters } from 'vuex'
+import { auth } from '~/mixins/auth'
 import objectToFormData from 'object-to-formdata'
 
 export default {
   scrollToTop: false,
+
+  mixins: [auth],
 
   head () {
     return { title: this.$t('profile') }
   },
 
   data: () => ({
+    protected: true,
     form: {
       name: '',
       email: '',
@@ -83,16 +86,8 @@ export default {
     }
   }),
 
-  // computed: mapGetters({
-  //   user: 'auth/user'
-  // }),
-
-  created () {
-    // console.log(this.user)
-    // Fill the form with user data.
-    // this.form.forEach(key => {
-    //   this.form[key] = this.user[key]
-    // })
+  mounted () {
+    this.$root.$on('auth-ready', this.fill)
   },
 
   methods: {
@@ -103,6 +98,12 @@ export default {
         transformRequest: [function (data, headers) {
           return objectToFormData(data)
         }]
+      })
+    },
+
+    fill () {
+      Object.keys(this.form).forEach(key => {
+        this.form[key] = this.auth[key]
       })
     }
   }

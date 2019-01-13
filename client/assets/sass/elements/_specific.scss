@@ -1,0 +1,49 @@
+.logo {
+  max-width: 2rem !important;
+}
+
+.card-body {
+  color: $gray-900;
+}
+
+.mt-6 {
+  margin-top: 5rem !important;
+}
+
+.modal {
+  background: linear-gradient(to right, rgba(150, 231, 211, 0.15), rgba(252, 119, 104, 0.15));
+  background: -webkit-linear-gradient(to right, rgba(150, 231, 211, 0.15), rgba(252, 119, 104, 0.15));
+  overflow-y: auto !important;
+}
+
+.snotify {
+  width: 200px;
+}
+
+.snotifyToast {
+  background-color: rgb(60, 66, 73);
+  text-align: center;
+  border-radius: 15rem;
+}
+
+.snotify-centerBottom {
+  left: calc(50% - 100px);
+  height: 40px;
+  bottom: 35px;
+}
+
+.snotifyToast__body {
+  width: 100%;
+}
+
+.snotifyToast__inner {
+  min-height: 40px;
+}
+
+.btn-google {
+  background-color: #4285F4 !important;
+  height: 40px !important;
+  width: 100%;
+  color: #fff;
+  text-indent: 36px;
+}

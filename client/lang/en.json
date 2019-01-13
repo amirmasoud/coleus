@@ -61,5 +61,6 @@
   "successful_register_header": "Registered successfully",
   "password_confirmation": "Password confirmation",
   "continue_with_github": "Continue with GitHub",
-  "continue_with_google": "Continue with Google"
+  "continue_with_google": "Continue with Google",
+  "should_login": "Please login to your account"
 }

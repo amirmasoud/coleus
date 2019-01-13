@@ -1,6 +1,7 @@
 <template>
   <span
     v-on:close-modal="closeModal"
+    v-on:login-done="closeModal"
   >
     <b-btn
       variant="link"
@@ -26,9 +27,13 @@
 export default {
   name: 'Register',
 
+  mounted () {
+    this.$root.$on('login-done', this.closeModal)
+  },
+
   methods: {
     closeModal () {
-      this.$refs.loginModal.hide()
+      this.$refs.registerModal.hide()
     },
 
     changeUrl () {

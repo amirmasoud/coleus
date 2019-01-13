@@ -76,7 +76,7 @@ module.exports = {
   loading: { color: '#007bff' },
 
   router: {
-    middleware: ['check-auth']
+    middleware: []
   },
 
   css: [
@@ -89,6 +89,7 @@ module.exports = {
     '~plugins/axios',
     '~plugins/fontawesome',
     // '~plugins/nuxt-client-init',
+    // { src: '~plugins/auth', ssr: false },
     { src: '~plugins/progressive', ssr: false },
     { src: '~plugins/snotify', ssr: false },
     { src: '~plugins/vee-validate.js', ssr: true },

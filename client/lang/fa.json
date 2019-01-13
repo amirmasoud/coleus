@@ -63,5 +63,6 @@
   "successful_register_header": "با موفقیت ثبت‌نام کردید",
   "password_confirmation": "تکرار گذرواژه",
   "continue_with_github": "ورود با گیت‌هاب",
-  "continue_with_google": "ورود با گوگل"
+  "continue_with_google": "ورود با گوگل",
+  "should_login": "لطفا وارد حساب کاربری خود شوید"
 }
