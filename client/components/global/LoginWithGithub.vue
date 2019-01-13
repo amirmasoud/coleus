@@ -16,10 +16,12 @@ export default {
 
   mounted () {
     window.addEventListener('message', this.onMessage, false)
+    console.log('mounted')
   },
 
   beforeDestroy () {
     window.removeEventListener('message', this.onMessage)
+    console.log('destroyed')
   },
 
   methods: {

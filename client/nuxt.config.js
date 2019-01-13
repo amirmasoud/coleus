@@ -19,11 +19,12 @@ module.exports = {
   srcDir: __dirname,
 
   env: {
-    apiUrl: process.env.APP_URL,
+    apiUrl: process.env.API_URL,
     gqlUrl: process.env.GQL_URL,
     appName: process.env.APP_NAME || 'نگارین',
     appLocale: process.env.APP_LOCALE || 'fa',
-    googleAuth: !!process.env.GOOGLE_CLIENT_ID
+    googleAuth: !!process.env.GOOGLE_CLIENT_ID,
+    githubAuth: !!process.env.GITHUB_CLIENT_ID
   },
 
   head: {

@@ -1,6 +1,7 @@
 <template>
   <div>
     <login-with-google/>
+    <login-with-github/>
     <div class="text-center my-4" style="width: 100%; height: 12px; border-bottom: 1px solid #ebebeb;">
       <span class="px-3" style="background-color: #ffffff;">
         {{ $t('or') }}
