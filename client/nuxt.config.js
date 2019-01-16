@@ -19,6 +19,7 @@ module.exports = {
   srcDir: __dirname,
 
   env: {
+    appUrl: process.env.APP_URL,
     apiUrl: process.env.API_URL,
     gqlUrl: process.env.GQL_URL,
     appName: process.env.APP_NAME || 'نگارین',

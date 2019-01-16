@@ -16,8 +16,8 @@ class OAuthType extends BaseType
     public function fields()
     {
         return [
-            'token' => [
-                'url' => Type::String(),
+            'url' => [
+                'type' => Type::String(),
                 'description' => 'Authentication page url'
             ]
         ];

@@ -103,6 +103,8 @@ return [
                 // Auht
                 'login' => 'App\GraphQL\Mutation\Auth\LoginMutation',
                 'register' => 'App\GraphQL\Mutation\Auth\RegisterMutation',
+                'oauth' => 'App\GraphQL\Mutation\Auth\OAuthMutation',
+                'callback' => 'App\GraphQL\Mutation\Auth\CallbackMutation',
 
                 // Book
                 'newBook' => 'App\GraphQL\Mutation\Books\NewBookMutation',
@@ -134,6 +136,7 @@ return [
         'Collaboration' => 'App\GraphQL\Type\CollaborationType',
         'Page' => 'App\GraphQL\Type\PageType',
         'Token' => 'App\GraphQL\Type\TokenType',
+        'OAuth' => 'App\GraphQL\Type\OAuthType',
     ],
 
     // This callable will received every Error objects for each errors GraphQL catch.

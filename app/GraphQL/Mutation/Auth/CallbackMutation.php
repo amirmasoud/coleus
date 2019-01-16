@@ -2,21 +2,21 @@
 
 namespace App\GraphQL\Mutation\Auth;
 
-use GraphQL;
-use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use GraphQL\Type\Definition\ResolveInfo;
+use GraphQL\Type\Definition\Type;
+use GraphQL;
 
-class OAuthMutation extends Mutation
+class CallbackMutation extends Mutation
 {
     protected $attributes = [
-        'name' => 'OAuthMutation',
+        'name' => 'CallbackMutation',
         'description' => 'A mutation'
     ];
 
     public function type()
     {
-        return GraphQL::type('OAuth');
+        return GraphQL::type('Token');
     }
 
     public function args()
@@ -26,6 +26,11 @@ class OAuthMutation extends Mutation
                 'name' => 'driver',
                 'type' => Type::nonNull(Type::string()),
                 'rules' => ['required']
+            ],
+            'code' => [
+                'name' => 'code',
+                'type' => Type::nonNull(Type::string()),
+                'rules' => ['required']
             ]
         ];
     }
@@ -33,6 +38,6 @@ class OAuthMutation extends Mutation
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
         return (new \App\Http\Controllers\Auth\OAuthController())
-            ->redirectToProvider($args['driver']);
+            ->handleProviderCallback($args['driver'], $args['code']);
     }
 }

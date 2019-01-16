@@ -26,11 +26,12 @@ export default {
     async login () {
       const newWindow = openWindow('', this.$t('login'))
 
-      // const url = await this.$store.dispatch('auth/fetchOauthUrl', {
-      //   provider: 'google'
-      // })
+      const driver = await this.$apollo.mutate({
+        mutation: require('~/graphql/oauth'),
+        variables: { driver: 'github' },
+      })
 
-      newWindow.location.href = url
+      newWindow.location.href = driver.data.oauth.url
     },
 
     /**

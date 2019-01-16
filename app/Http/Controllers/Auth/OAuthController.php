@@ -22,8 +22,8 @@ class OAuthController extends Controller
     public function __construct()
     {
         config([
-            'services.github.redirect' => route('oauth.callback', 'github'),
-            'services.google.redirect' => route('oauth.callback', 'google'),
+            'services.github.redirect' => env('FRONT_URL') . '/oauth/github/callback',
+            'services.google.redirect' => env('FRONT_URL') . '/oauth/google/callback',
         ]);
     }
 
@@ -46,8 +46,9 @@ class OAuthController extends Controller
      * @param  string $driver
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback($provider)
+    public function handleProviderCallback($provider, $code)
     {
+        request()->merge(['code' => $code]);
         $user = Socialite::driver($provider)->stateless()->user();
         $user = $this->findOrCreateUser($provider, $user);
 
@@ -55,11 +56,9 @@ class OAuthController extends Controller
             $token = $this->guard()->login($user)
         );
 
-        return view('oauth/callback', [
-            'token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => $this->guard()->getPayload()->get('exp') - time(),
-        ]);
+        return [
+            'token' => $token
+        ];
     }
 
     /**

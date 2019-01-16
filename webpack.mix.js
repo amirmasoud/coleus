@@ -2,6 +2,7 @@
 const path = require('path')
 const mix = require('laravel-mix')
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 mix.config.vue.esModule = true
 
@@ -49,6 +50,7 @@ if (mix.inProduction()) {
 
 mix.webpackConfig({
   plugins: [
+    // new ExtractTextPlugin("style.css")
     // new BundleAnalyzerPlugin()
   ],
   resolve: {
@@ -68,6 +70,13 @@ mix.webpackConfig({
         exclude: /node_modules/,
         loader: 'graphql-tag/loader',
       },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract({
+          use: 'css-loader',
+          fallback: 'vue-style-loader'
+        })
+      }
     ],
   }
 })

@@ -16,38 +16,63 @@ export default {
 
   mounted () {
     window.addEventListener('message', this.onMessage, false)
-    console.log('mounted')
   },
 
   beforeDestroy () {
     window.removeEventListener('message', this.onMessage)
-    console.log('destroyed')
   },
+
+  data: () => ({
+    busy: false
+  }),
 
   methods: {
     async login () {
       const newWindow = openWindow('', this.$t('login'))
 
-      // const url = await this.$store.dispatch('auth/fetchOauthUrl', {
-      //   provider: 'github'
-      // })
+      const driver = await this.$apollo.mutate({
+        mutation: require('~/graphql/oauth'),
+        variables: { driver: 'github' },
+      })
 
-      newWindow.location.href = url
+      newWindow.location.href = driver.data.oauth.url
     },
 
     /**
      * @param {MessageEvent} e
      */
-    onMessage (e) {
-      if (e.origin !== process.env.apiUrl) {
+    async onMessage (e) {
+      if (! e.data.token) {
         return
       }
 
-      // this.$store.dispatch('auth/saveToken', {
-      //   token: e.data.token
-      // })
+      let loginMessage = this.$t('successful_login_header')
 
-      this.$router.push({ name: 'home' })
+      this.busy = true
+
+      await this.$apolloHelpers.onLogin(e.data.token)
+
+      await this.$apollo.query({
+        query: require('~/graphql/user'),
+      }).then(async ({data}) => {
+        await this.$apollo.mutate({
+          mutation: require('~/graphql/client/mutation/user'),
+          variables: { user: data.user },
+        })
+      })
+
+      this.busy = false
+
+      this.$snotify.success(loginMessage)
+
+      this.$root.$emit('refresh-navbar')
+      if (this.redirect) {
+        this.$router.push({ name: 'welcome' })
+      } else {
+        this.$root.$emit('login-done')
+      }
+
+      // this.$router.push({ name: 'home' })
     }
   }
 }

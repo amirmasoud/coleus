@@ -7,6 +7,7 @@ Vue.use(Router)
 const Welcome = () => import('~/pages/welcome').then(m => m.default || m)
 
 const Login = () => import('~/pages/auth/login').then(m => m.default || m)
+const OAuth = () => import('~/pages/auth/oauth').then(m => m.default || m)
 const Register = () => import('~/pages/auth/register').then(m => m.default || m)
 const PasswordReset = () => import('~/pages/auth/password/reset').then(m => m.default || m)
 const PasswordRequest = () => import('~/pages/auth/password/email').then(m => m.default || m)
@@ -24,6 +25,7 @@ const routes = [
   { path: '/', name: 'welcome', component: Welcome },
 
   { path: '/login', name: 'login', component: Login },
+  { path: '/oauth/:driver/callback', name: 'oauth', component: OAuth },
   { path: '/register', name: 'register', component: Register },
   { path: '/password/reset', name: 'password.request', component: PasswordRequest },
   { path: '/password/reset/:token', name: 'password.reset', component: PasswordReset },
@@ -36,15 +38,6 @@ const routes = [
       { path: 'password', name: 'settings.password', component: SettingsPassword }
     ]
   },
-
-  // { path: '/@:username',
-  //   component: Book,
-  //   children: [
-  //     { path: '', redirect: { name: 'settings.profile' } },
-  //     { path: 'profile', name: 'settings.profile', component: SettingsProfile },
-  //     { path: 'password', name: 'settings.password', component: SettingsPassword }
-  //   ]
-  // },
 
   { path: '/@:username', name: 'profile', component: Profile },
 
