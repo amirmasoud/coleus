@@ -14,9 +14,7 @@ Homestead.yaml
 storage/negarin.sqlite
 npm-debug.log
 yarn-error.log
-# public/js
-# public/css
-# public/mix-manifest.json
 _ide_helper.php
 phpunit.dusk.xml
 .nuxt
+tests_output
