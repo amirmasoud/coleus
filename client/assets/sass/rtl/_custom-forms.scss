@@ -16,7 +16,7 @@
 
 .custom-control-inline {
   display: inline-flex;
-  margin-left: $custom-control-spacer-x;
+  margin-right: $custom-control-spacer-x;
 }
 
 .custom-control-input {
@@ -165,7 +165,7 @@
   display: inline-block;
   width: 100%;
   height: $custom-select-height;
-  padding: $custom-select-padding-y ($custom-select-padding-x + $custom-select-indicator-padding) $custom-select-padding-y $custom-select-padding-x;
+  padding: $custom-select-padding-y $custom-select-padding-x $custom-select-padding-y ($custom-select-padding-x + $custom-select-indicator-padding);
   line-height: $custom-select-line-height;
   color: $custom-select-color;
   vertical-align: middle;
@@ -203,7 +203,7 @@
   &[multiple],
   &[size]:not([size="1"]) {
     height: auto;
-    padding-left: $custom-select-padding-x;
+    padding-right: $custom-select-padding-x;
     background-image: none;
   }
 
@@ -291,7 +291,7 @@
   &::after {
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     bottom: 0;
     z-index: 3;
     display: block;
@@ -301,7 +301,7 @@
     color: $custom-file-button-color;
     content: "Browse";
     @include gradient-bg($custom-file-button-bg);
-    border-left: $custom-file-border-width solid $custom-file-border-color;
+    border-right: $custom-file-border-width solid $custom-file-border-color;
     @include border-radius(0 $custom-file-border-radius $custom-file-border-radius 0);
   }
 }
@@ -314,7 +314,7 @@
 
 .custom-range {
   width: 100%;
-  padding-right: 0; // Firefox specific
+  padding-left: 0; // Firefox specific
   background-color: transparent;
   appearance: none;
 
@@ -420,7 +420,7 @@
   }
 
   &::-ms-fill-upper {
-    margin-left: 15px; // arbitrary?
+    margin-right: 15px; // arbitrary?
     background-color: $custom-range-track-bg;
     @include border-radius($custom-range-track-border-radius);
   }

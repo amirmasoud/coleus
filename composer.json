@@ -15,6 +15,7 @@
         "backpack/permissionmanager": "^4.0",
         "backpack/settings": "^2.1",
         "barryvdh/laravel-elfinder": "^0.4.1",
+        "binarytorch/larecipe": "^1.2",
         "fideloper/proxy": "^4.0",
         "folklore/graphql": "~1.0.0",
         "guzzlehttp/guzzle": "^6.3",
