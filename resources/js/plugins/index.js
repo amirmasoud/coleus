@@ -1,6 +1,0 @@
-import './axios'
-import './fontawesome'
-import './bootstrap'
-import './notification'
-import './progressive'
-import 'bootstrap'

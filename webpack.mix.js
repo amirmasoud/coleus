@@ -1,17 +1,7 @@
-
 const path = require('path')
 const mix = require('laravel-mix')
-// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 mix.config.vue.esModule = true
-
-mix
-  .js('resources/js/app.js', 'public/js')
-  .sass('resources/sass/app.scss', 'public/css')
-
-  .sourceMaps()
-  .disableNotifications()
 
 if (mix.inProduction()) {
   mix.version()
@@ -49,15 +39,8 @@ if (mix.inProduction()) {
 }
 
 mix.webpackConfig({
-  plugins: [
-    // new ExtractTextPlugin("style.css")
-    // new BundleAnalyzerPlugin()
-  ],
   resolve: {
     extensions: ['.js', '.json', '.vue'],
-    alias: {
-      '~': path.join(__dirname, './resources/js')
-    }
   },
   output: {
     chunkFilename: 'js/[name].[chunkhash].js',
@@ -69,13 +52,6 @@ mix.webpackConfig({
         test: /\.(graphql|gql)$/,
         exclude: /node_modules/,
         loader: 'graphql-tag/loader',
-      },
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          use: 'css-loader',
-          fallback: 'vue-style-loader'
-        })
       }
     ],
   }
