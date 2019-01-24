@@ -1,26 +1,30 @@
 <template>
-  <div class="row">
-    <div class="col-lg-8 m-auto">
-      <card :title="$t('reset_password')">
-        <form @submit.prevent="send" @keydown="form.onKeydown($event)">
-          <alert-success :form="form" :message="status"/>
+  <div class="row mt-5">
+    <div class="col-md-6 m-auto">
+      <card>
+        <b-alert :show="sent" variant="success">{{ $t('sent') }}</b-alert>
+        <form @submit.prevent="send">
 
           <!-- Email -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" type="email" name="email"
-                     class="form-control">
-              <has-error :form="form" field="email"/>
-            </div>
-          </div>
+          <b-form-group :label="$t('email')"
+                        label-for="login-email">
+            <b-form-input :id="'login-email'"
+                          type="email"
+                          v-model="form.email"
+                          required
+                          name="email"
+                          autocomplete="email"
+                          :class="{ 'is-invalid': errors.has('email') || serr && serr.hasOwnProperty('email') }"
+                          v-validate="'required|email'"
+                          @input="clearError('email')">
+            </b-form-input>
+            <div v-show="errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</div>
+            <div v-if="serr && serr.hasOwnProperty('email')" class="invalid-feedback">{{ serr.email[0] }}</div>
+          </b-form-group>
 
           <!-- Submit Button -->
-          <div class="form-group row">
-            <div class="col-md-9 ml-md-auto">
-              <v-button :loading="form.busy">{{ $t('send_password_reset_link') }}</v-button>
-            </div>
-          </div>
+          <v-button :loading="busy">{{ $t('send_password_reset_link') }}</v-button>
+
         </form>
       </card>
     </div>
@@ -34,19 +38,37 @@ export default {
   },
 
   data: () => ({
-    status: '',
-    form: new Form({
+    busy: false,
+    sent: false,
+    serr: {},
+    form: {
       email: ''
-    })
+    }
   }),
 
   methods: {
     async send () {
-      const { data } = await this.form.post('/password/email')
+      this.busy = true
+      const result = await this.$apollo.mutate({
+        mutation: require('~/graphql/reset'),
+        prefetch: false,
+        variables: {
+          email: this.form.email
+        },
+      }).then((res) => {
+        this.busy = false
+        this.sent = true
+      }).catch((error) => {
+        if (error.graphQLErrors) {
+          this.serr = error.graphQLErrors[0].errors
+        }
+        this.busy = false
+        this.sent = false
+      })
+    },
 
-      this.status = data.status
-
-      this.form.reset()
+    clearError (field) {
+      delete this.serr[field]
     }
   }
 }

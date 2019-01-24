@@ -1,46 +1,65 @@
 <template>
-  <div class="row">
-    <div class="col-lg-8 m-auto">
-      <card :title="$t('reset_password')">
+  <div class="row mt-5">
+    <div class="col-md-6 m-auto">
+      <card>
         <form @submit.prevent="reset" @keydown="form.onKeydown($event)">
-          <alert-success :form="form" :message="status"/>
 
           <!-- Email -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" type="email" name="email"
-                     class="form-control" readonly>
-              <has-error :form="form" field="email"/>
-            </div>
-          </div>
+          <b-form-group :label="$t('email')"
+                        label-for="login-email">
+            <b-form-input :id="'login-email'"
+                          type="email"
+                          v-model="form.email"
+                          required
+                          name="email"
+                          autocomplete="email"
+                          :class="{ 'is-invalid': errors.has('email') || serr && serr.hasOwnProperty('email') }"
+                          v-validate="'required|email'"
+                          @input="clearError('email')">
+            </b-form-input>
+            <div v-show="errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</div>
+            <div v-if="serr && serr.hasOwnProperty('email')" class="invalid-feedback">{{ serr.email[0] }}</div>
+          </b-form-group>
 
           <!-- Password -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('password') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" type="password" name="password"
-                     class="form-control">
-              <has-error :form="form" field="password"/>
-            </div>
-          </div>
+          <b-form-group :label="$t('password')"
+                        label-for="register-password">
+            <b-form-input :id="'register-password'"
+                          type="password"
+                          v-model="form.password"
+                          :class="{ 'is-invalid': errors.has('password') || serr && serr.hasOwnProperty('password') }"
+                          required
+                          name="password"
+                          autocomplete="new-password"
+                          dir="ltr"
+                          v-validate="'required|min:6|max:255'"
+                          @input="clearError('password')">
+            </b-form-input>
+            <div v-show="errors.has('password')" class="invalid-feedback">{{ errors.first('password') }}</div>
+            <div v-if="serr && serr.hasOwnProperty('password')" class="invalid-feedback">{{ serr.password[0] }}</div>
+          </b-form-group>
 
           <!-- Password Confirmation -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('confirm_password') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.password_confirmation" :class="{ 'is-invalid': form.errors.has('password_confirmation') }" type="password" name="password_confirmation"
-                     class="form-control">
-              <has-error :form="form" field="password_confirmation"/>
-            </div>
-          </div>
+          <b-form-group :label="$t('password_confirmation')"
+                        label-for="register-password-confirmation">
+            <b-form-input :id="'register-password-confirmation'"
+                          type="password"
+                          v-model="form.password_confirmation"
+                          :class="{ 'is-invalid': errors.has('password_confirmation') || serr && serr.hasOwnProperty('password_confirmation') }"
+                          required
+                          name="password_confirmation"
+                          autocomplete="new-password"
+                          dir="ltr"
+                          v-validate="'required|min:6|confirmed:password|max:255'"
+                          @input="clearError('password_confirmation')">
+            </b-form-input>
+            <div v-show="errors.has('password_confirmation')" class="invalid-feedback">{{ errors.first('password_confirmation') }}</div>
+            <div v-if="serr && serr.hasOwnProperty('password_confirmation')" class="invalid-feedback">{{ serr.password_confirmation[0] }}</div>
+          </b-form-group>
 
-          <!-- Submit Button -->
-          <div class="form-group row">
-            <div class="col-md-9 ml-md-auto">
-              <v-button :loading="form.busy">{{ $t('reset_password') }}</v-button>
-            </div>
-          </div>
+          <!-- Reset Password Button -->
+          <v-button :loading="busy">{{ $t('reset_password') }}</v-button>
+
         </form>
       </card>
     </div>
@@ -54,13 +73,14 @@ export default {
   },
 
   data: () => ({
-    status: '',
-    form: new Form({
+    form: {
       token: '',
       email: '',
       password: '',
       password_confirmation: ''
-    })
+    },
+    busy: false,
+    serr: {}
   }),
 
   created () {
@@ -75,6 +95,10 @@ export default {
       this.status = data.status
 
       this.form.reset()
+    },
+
+    clearError (field) {
+      delete this.serr[field]
     }
   }
 }

@@ -8,6 +8,8 @@
     </div>
 
     <form @submit.prevent="login">
+
+      <!-- Email -->
       <b-form-group :label="$t('email')"
                     label-for="login-email">
         <b-form-input :id="prefix + 'login-email'"
@@ -24,6 +26,7 @@
         <div v-if="serr && serr.hasOwnProperty('email')" class="invalid-feedback">{{ serr.email[0] }}</div>
       </b-form-group>
 
+      <!-- Password -->
       <b-form-group :label="$t('password')"
                     label-for="login-password">
         <b-form-input :id="prefix + 'login-password'"
@@ -40,16 +43,14 @@
         <div v-if="serr && serr.hasOwnProperty('password')" class="invalid-feedback">{{ serr.password[0] }}</div>
       </b-form-group>
 
-      <b-form-group :id="prefix + 'login-remember'">
-        <b-form-checkbox-group v-model="remember" :id="prefix + 'login-remember'">
-          <b-form-checkbox name="remember">{{ $t('remember_me') }}</b-form-checkbox>
-          <!-- <router-link :to="{ name: 'password.request' }" class="small float-right my-auto">
-            {{ $t('forgot_password') }}
-          </router-link> -->
-        </b-form-checkbox-group>
-      </b-form-group>
-
+      <!-- Login Button -->
       <v-button :loading="busy">{{ $t('login') }}</v-button>
+
+      <!-- Reset Password Link -->
+      <router-link :to="{ name: 'password.request' }" class="small mt-2 float-right">
+        {{ $t('forgot_password') }}
+      </router-link>
+
     </form>
   </div>
 </template>
@@ -69,7 +70,6 @@ export default {
       email: '',
       password: ''
     },
-    remember: false,
     busy: false,
     serr: {}
   }),

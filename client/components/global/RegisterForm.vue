@@ -7,6 +7,8 @@
     </span>
   </div>
   <form @submit.prevent="register">
+
+    <!-- Name -->
     <b-form-group :label="$t('name')"
                   label-for="register-name">
       <b-form-input :id="prefix + 'register-name'"
@@ -24,6 +26,7 @@
       <div v-if="serr && serr.hasOwnProperty('name')" class="invalid-feedback">{{ serr.name[0] }}</div>
     </b-form-group>
 
+    <!-- Email -->
     <b-form-group :label="$t('email')"
                   label-for="register-email">
       <b-form-input :id="prefix + 'register-email'"
@@ -41,6 +44,7 @@
       <div v-if="serr && serr.hasOwnProperty('email')" class="invalid-feedback">{{ serr.email[0] }}</div>
     </b-form-group>
 
+    <!-- Password -->
     <b-form-group :label="$t('password')"
                   label-for="register-password">
       <b-form-input :id="prefix + 'register-password'"
@@ -58,6 +62,7 @@
       <div v-if="serr && serr.hasOwnProperty('password')" class="invalid-feedback">{{ serr.password[0] }}</div>
     </b-form-group>
 
+    <!-- Password Confirmation -->
     <b-form-group :label="$t('password_confirmation')"
                   label-for="register-password-confirmation">
       <b-form-input :id="prefix + 'register-password-confirmation'"
@@ -75,7 +80,9 @@
       <div v-if="serr && serr.hasOwnProperty('password_confirmation')" class="invalid-feedback">{{ serr.password_confirmation[0] }}</div>
     </b-form-group>
 
+    <!-- Register Button -->
     <v-button :loading="busy">{{ $t('register') }}</v-button>
+
   </form>
 </div>
 </template>

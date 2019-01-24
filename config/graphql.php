@@ -105,6 +105,8 @@ return [
                 'register' => 'App\GraphQL\Mutation\Auth\RegisterMutation',
                 'oauth' => 'App\GraphQL\Mutation\Auth\OAuthMutation',
                 'callback' => 'App\GraphQL\Mutation\Auth\CallbackMutation',
+                'passwordEmail' => 'App\GraphQL\Mutation\Auth\RequestResetMutation',
+                'reset' => 'App\GraphQL\Mutation\Auth\ResetPasswordMutation',
 
                 // Book
                 'newBook' => 'App\GraphQL\Mutation\Books\NewBookMutation',
@@ -137,6 +139,7 @@ return [
         'Page' => 'App\GraphQL\Type\PageType',
         'Token' => 'App\GraphQL\Type\TokenType',
         'OAuth' => 'App\GraphQL\Type\OAuthType',
+        'Reset' => 'App\GraphQL\Type\Auth\ResetPasswordType',
     ],
 
     // This callable will received every Error objects for each errors GraphQL catch.

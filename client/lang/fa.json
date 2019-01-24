@@ -64,5 +64,6 @@
   "password_confirmation": "تکرار گذرواژه",
   "continue_with_github": "ورود با گیت‌هاب",
   "continue_with_google": "ورود با گوگل",
-  "should_login": "لطفا وارد حساب کاربری خود شوید"
+  "should_login": "لطفا وارد حساب کاربری خود شوید",
+  "sent": "لینک بازگردانی گذرواژه به ایمیل شما ارسال شد."
 }
