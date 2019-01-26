@@ -52,7 +52,10 @@ return [
     |
     */
 
+    'fnt' => env('FRONT_URL', 'http://localhost:3000'),
     'url' => env('APP_URL', 'http://localhost'),
+    'api' => env('API_URL', 'http://localhost/api'),
+    'gql' => env('GQL_URL', 'http://localhost/graphql'),
 
     /*
     |--------------------------------------------------------------------------

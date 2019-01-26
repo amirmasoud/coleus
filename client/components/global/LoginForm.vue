@@ -1,6 +1,12 @@
 <template>
   <div>
+    <!-- Login With Google Button -->
     <login-with-google/>
+
+    <!-- Login With Google Button -->
+    <login-with-github/>
+
+    <!-- Separator Line -->
     <div class="text-center my-4" style="width: 100%; height: 12px; border-bottom: 1px solid #ebebeb;">
       <span class="px-3" style="background-color: #ffffff;">
         {{ $t('or') }}
@@ -47,7 +53,10 @@
       <v-button :loading="busy">{{ $t('login') }}</v-button>
 
       <!-- Reset Password Link -->
-      <router-link :to="{ name: 'password.request' }" class="small mt-2 float-right">
+      <router-link
+        @click.native="closeModal"
+        :to="{ name: 'password.request' }"
+        class="small mt-2 float-right">
         {{ $t('forgot_password') }}
       </router-link>
 
@@ -61,31 +70,46 @@ export default {
   name: 'LoginForm',
 
   props: {
+    // Redirect after logn or not
     redirect: { type: Boolean, default: false },
+
+    // Unique element IDs
     prefix: { type: String, default: '' }
   },
 
   data: () => ({
+    // Login inputs
     form: {
       email: '',
       password: ''
     },
     busy: false,
+
+    // Server Errors
     serr: {}
   }),
 
   methods: {
+    /**
+     * Authenticate user.
+     *
+     * @return {void}
+     */
     async login () {
       let loginMessage = this.$t('successful_login_header')
 
       this.busy = true
+
+      // Attempt login
       this.$apollo.mutate({
         mutation: require('~/graphql/auth.gql'),
         variables: this.form
       })
       .then(async ({data}) => {
+        // Save token
         await this.$apolloHelpers.onLogin(data.login.token)
 
+        // Fetch user
         await this.$apollo.query({
           query: require('~/graphql/user'),
         }).then(async ({data}) => {
@@ -99,6 +123,7 @@ export default {
 
         this.$snotify.success(loginMessage)
 
+        // Refresh navbar and close modal
         this.$root.$emit('refresh-navbar')
         if (this.redirect) {
           this.$router.push({ name: 'welcome' })
@@ -107,6 +132,7 @@ export default {
         }
       })
       .catch((error) => {
+        // Login errors
         if (error.graphQLErrors) {
           this.serr = error.graphQLErrors[0].errors
         }
@@ -114,8 +140,25 @@ export default {
       })
     },
 
+    /**
+     * Clear input errors.
+     *
+     * @param  {string} field
+     * @return {void}
+     */
     clearError (field) {
       delete this.serr[field]
+    },
+
+    /**
+     * Close modal after login.
+     *
+     * @return {void}
+     */
+    closeModal () {
+      if (this.prefix != '') {
+        this.$root.$emit('close-modal', false)
+      }
     }
   }
 }
