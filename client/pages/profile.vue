@@ -8,26 +8,10 @@
             <h4>{{ user.name }}</h4>
             <small>@{{ user.username }}</small>
           </div>
-          <div class="ml-3" v-if="auth">
-            <template v-if="auth.username != $route.params.username">
-              <v-button v-if="user.is_following"
-                        type="outline-primary"
-                        class="px-4 btn-sm"
-                        block
-                        :loading="togglingFollow"
-                        @click.native="toggleFollow">
-                {{ $t('unfollow') }}
-              </v-button>
-              <v-button v-else
-                        class="px-4 btn-sm"
-                        block
-                        :loading="togglingFollow"
-                        @click.native="toggleFollow">
-                + {{ $t('follow') }}
-              </v-button>
-            </template>
-            <b-button v-else class="px-4" size="sm" variant="success" block v-b-modal.modal-center-new-book>+ {{ $t('new_book') }}</b-button>
-          </div>
+          <toggle-book-follow-button v-on:toggle-follow="refetch"
+                                     :loading="loadingUser"
+                                     :user="user"
+                                     :auth="auth"></toggle-book-follow-button>
         </div>
       </b-col>
     </b-row>
@@ -78,7 +62,6 @@ export default {
   data () {
     return {
       auth: null,
-      togglingFollow: false,
       loadingUser: true
     }
   },
@@ -109,17 +92,10 @@ export default {
   },
 
   methods: {
-    toggleFollow () {
-      this.togglingFollow = true
-      this.$apollo.mutate({
-        mutation: require('~/graphql/follow.gql'),
-        variables: {
-          user: this.user ? this.user.id : null
-        },
-      }).then((data) => {
-        this.togglingFollow = false
-        this.$apollo.queries.user.refetch()
-      })
+    async refetch () {
+      this.loadingUser = true
+      await this.$apollo.queries.user.refetch()
+      this.loadingUser = false
     },
 
     async attempLogin () {

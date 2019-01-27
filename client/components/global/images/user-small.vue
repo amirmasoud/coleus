@@ -1,5 +1,5 @@
 <template>
-  <span v-if="user">
+  <span>
     <img :src="user.small" class="d-none">
     <no-ssr>
       <progressive-img :src="user.xsmall"
