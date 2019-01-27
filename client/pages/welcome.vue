@@ -1,45 +1,16 @@
 <template>
+
+  <!-- List of users -->
   <b-row v-if="users">
-    <div class="ph-item">
-        <div class="ph-col-12">
-            <div class="ph-picture"></div>
-            <div class="ph-row">
-                <div class="ph-col-6 big"></div>
-                <div class="ph-col-4 empty big"></div>
-                <div class="ph-col-2 big"></div>
-                <div class="ph-col-4"></div>
-                <div class="ph-col-8 empty"></div>
-                <div class="ph-col-6"></div>
-                <div class="ph-col-6 empty"></div>
-                <div class="ph-col-12"></div>
-            </div>
-        </div>
-    </div>
-    <b-col cols="6"
-           sm="4"
-           md="4"
-           lg="3"
-           xl="2"
-           v-for="user in users"
-           :key="user.id">
-      <nuxt-link :to="{ name: 'profile', params: { username: user.username }}">
-        <div class="card mb-2">
-          <img :src="user.small" class="d-none">
-          <no-ssr>
-            <progressive-img class="card-img-top"
-                             :src="user.small"
-                             :placeholder="user.placeholder"
-                             :fallback="user.photo_url"
-                             :aspect-ratio="1" />
-          </no-ssr>
-          <div class="card-body">
-            <p class="card-title">{{ user.name }}</p>
-          </div>
-        </div>
-      </nuxt-link>
+    <b-col cols="6" sm="4" md="4" lg="3" xl="2"
+           v-for="user in users" :key="user.id">
+      <user-card :user="user"></user-card>
     </b-col>
   </b-row>
-  <div v-else class="my-4 text-center"><img src="svg-loaders/oval.svg" /></div>
+
+  <!-- Loading -->
+  <oval-loader v-else />
+
 </template>
 
 <script>

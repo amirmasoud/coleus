@@ -63,8 +63,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import gql from 'graphql-tag'
 import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
 
 export default {

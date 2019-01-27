@@ -74,9 +74,6 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
-// import { mapGetters } from 'vuex'
-
 export default {
   head () {
     return {

@@ -32,8 +32,6 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
-
 export default {
   head () {
     return { title: this.$t('read_book') }
