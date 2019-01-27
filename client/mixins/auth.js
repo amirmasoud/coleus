@@ -18,6 +18,8 @@ export const auth = {
 
   methods: {
     async attempLogin () {
+      this.$apollo.skipAllQueries = true
+
       let forbidden = this.$t('should_login')
 
       await this.$apollo.query({
@@ -26,6 +28,7 @@ export const auth = {
       }).then(({ data }) => {
         this.auth = data.user
         this.$root.$emit('auth-ready')
+        this.$apollo.skipAllQueries = false
       }).catch((error) => {
         this.auth = null
 
@@ -33,10 +36,13 @@ export const auth = {
           this.$router.push({ name: 'login' })
           this.$snotify.success(forbidden)
         }
+
+        this.$apollo.skipAllQueries = false
       })
     },
 
     async login () {
+      this.$apollo.skipAllQueries = true
       const token = await this.$apolloHelpers.getToken()
 
       if (token && ! this.auth && ! process.server) {
@@ -58,11 +64,13 @@ export const auth = {
               this.auth = data.user
               this.loading = false
               this.$root.$emit('logged-in')
+              this.$apollo.skipAllQueries = false
             })
           })
         }).catch((error) => {
           this.auth = false
           this.loading = false
+          this.$apollo.skipAllQueries = false
         })
       } else {
         this.auth = false

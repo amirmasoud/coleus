@@ -91,7 +91,6 @@ module.exports = {
     '~plugins/axios',
     '~plugins/fontawesome',
     // '~plugins/nuxt-client-init',
-    // { src: '~plugins/auth', ssr: false },
     { src: '~plugins/progressive', ssr: false },
     { src: '~plugins/snotify', ssr: false },
     { src: '~plugins/vee-validate.js', ssr: true },

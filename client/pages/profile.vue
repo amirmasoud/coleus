@@ -1,13 +1,21 @@
 <template>
+
+  <!-- User Profile -->
   <div v-if="user">
     <b-row>
       <b-col class="text-left">
         <div class="d-flex justify-content-start">
+
+          <!-- User Image -->
           <user-small-image :user="user"></user-small-image>
+
+          <!-- User Name -->
           <div>
             <h4>{{ user.name }}</h4>
             <small>@{{ user.username }}</small>
           </div>
+
+          <!-- Follow/New Book Button -->
           <toggle-book-follow-button v-on:toggle-follow="refetch"
                                      :loading="loadingUser"
                                      :user="user"
@@ -15,14 +23,21 @@
         </div>
       </b-col>
     </b-row>
+
+    <!-- Follows/Followers/Books Count -->
     <social-status-bar :user="user"></social-status-bar>
+
+    <!-- Books -->
     <b-row v-if="user.books && user.books.length" class="mt-2">
       <b-col cols="6" sm="4" md="4" lg="3" xl="2"
              v-for="book in user.books" :key="book.id">
         <book-card :book="book"></book-card>
       </b-col>
     </b-row>
+
+    <!-- No Book -->
     <book-nil v-else />
+
   </div>
 
   <!-- Loading -->
@@ -31,6 +46,8 @@
 </template>
 
 <script>
+import { auth } from '~/mixins/auth'
+
 export default {
   head () {
     return {
@@ -53,6 +70,8 @@ export default {
     }
   },
 
+  mixins: [auth],
+
   asyncData ({ params }) {
     return {
       username: params.username
@@ -61,15 +80,8 @@ export default {
 
   data () {
     return {
-      auth: null,
       loadingUser: true
     }
-  },
-
-  mounted () {
-    this.attempLogin()
-
-    this.$root.$on('logged-in', this.attempLogin)
   },
 
   apollo: {
@@ -92,21 +104,19 @@ export default {
   },
 
   methods: {
+    /**
+     * Refetch profile after toggling follow to reflect social status count.
+     *
+     * @return {void}
+     */
     async refetch () {
+      // Let the child component know about process, so spinning icon will be
+      // shown as long as parent process completed.
       this.loadingUser = true
-      await this.$apollo.queries.user.refetch()
-      this.loadingUser = false
-    },
 
-    async attempLogin () {
-      await this.$apollo.query({
-        query: require('~/graphql/client/query/user'),
-        prefetch: false
-      }).then(({ data }) => {
-        this.auth = data.user
-      }).catch((error) => {
-        this.auth = null
-      })
+      await this.$apollo.queries.user.refetch()
+
+      this.loadingUser = false
     }
   }
 }

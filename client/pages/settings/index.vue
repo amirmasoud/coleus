@@ -1,5 +1,8 @@
 <template>
+
   <div class="row">
+
+    <!-- Settings Items -->
     <div class="col-md-3">
       <b-list-group>
         <b-list-group-item v-for="tab in tabs" :key="tab.route" :to="{ name: tab.route }">
@@ -8,16 +11,20 @@
       </b-list-group>
     </div>
 
+    <!-- Child -->
     <div class="col-md-9">
       <transition name="fade" mode="out-in">
         <nuxt-child/>
       </transition>
     </div>
+
   </div>
+
 </template>
 
 <script>
 export default {
+
   computed: {
     tabs () {
       return [
@@ -34,6 +41,7 @@ export default {
       ]
     }
   }
+
 }
 </script>
 
