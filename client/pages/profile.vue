@@ -3,15 +3,7 @@
     <b-row>
       <b-col class="text-left">
         <div class="d-flex justify-content-start">
-          <img :src="user.small" class="d-none">
-          <no-ssr>
-            <progressive-img :src="user.xsmall"
-                             :placeholder="user.placeholder"
-                             :fallback="user.photo_url"
-                             :aspect-ratio="1"
-                             class="rounded float-left img-fluid mr-4"
-                             style="width: 64px; height: 64px;" />
-          </no-ssr>
+          <user-small-image :user="user"></user-small-image>
           <div>
             <h4>{{ user.name }}</h4>
             <small>@{{ user.username }}</small>
@@ -39,38 +31,19 @@
         </div>
       </b-col>
     </b-row>
-    <div class="d-flex justify-content-around text-center mt-2 border-top border-bottom py-2">
-      <b-col>{{ user.books_count }}<br /><small class="text-muted">{{ $t('books') }}</small></b-col>
-      <b-col>{{ user.followers_count }}<br /><small class="text-muted">{{ $t('followers') }}</small></b-col>
-      <b-col>{{ user.following_count }}<br /><small class="text-muted">{{ $t('following') }}</small></b-col>
-    </div>
+    <social-status-bar :user="user"></social-status-bar>
     <b-row v-if="user.books && user.books.length" class="mt-2">
-      <b-col cols="6"
-             sm="4"
-             md="4"
-             lg="3"
-             xl="2"
-             v-for="book in user.books"
-             :key="book.id">
-        <b-link :to="{ name: 'books.read', params: { slug: book.slug, page: book.start }}">
-          <div class="card mb-2">
-            <img :src="book.cover" class="d-none">
-            <no-ssr>
-              <progressive-img class="card-img-top"
-                               :src="book.cover"
-                               :placeholder="book.placeholder"
-                               :aspect-ratio="1.6666666667" />
-            </no-ssr>
-            <div class="card-body">
-              <p class="card-title">{{ book.title }}</p>
-            </div>
-          </div>
-        </b-link>
+      <b-col cols="6" sm="4" md="4" lg="3" xl="2"
+             v-for="book in user.books" :key="book.id">
+        <book-card :book="book"></book-card>
       </b-col>
     </b-row>
-    <div class="text-center mt-2" v-else>{{ $t('no_book') }}</div>
+    <book-nil v-else />
   </div>
-  <div v-else class="my-4 text-center"><img src="svg-loaders/oval.svg" /></div>
+
+  <!-- Loading -->
+  <oval-loader v-else />
+
 </template>
 
 <script>
@@ -105,7 +78,8 @@ export default {
   data () {
     return {
       auth: null,
-      togglingFollow: false
+      togglingFollow: false,
+      loadingUser: true
     }
   },
 
@@ -127,7 +101,10 @@ export default {
         return {
           username: this.username,
         }
-      }
+      },
+      result({ data, loading, networkStatus }) {
+        this.loadingUser = false
+      },
     }
   },
 
