@@ -85,37 +85,23 @@ export default {
   },
 
   apollo: {
+    /**
+     * Prefetch user profile object with username and loading state.
+     *
+     * @type {Object}
+     */
     user: {
       query: require('~/graphql/profile.gql'),
-
-      /**
-       * Prefetch with given params.
-       *
-       * @param  {object} options.params
-       * @return {object}
-       */
       prefetch: ({ params }) => {
         return {
           username: params.username
         }
       },
-
-      /**
-       * Prepare prefetch variables.
-       *
-       * @return {object}
-       */
       variables () {
         return {
           username: this.username,
         }
       },
-
-      /**
-       * Update loading user state.
-       *
-       * @return {void}
-       */
       result () {
         this.loadingUser = false
       },
