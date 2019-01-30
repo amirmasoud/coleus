@@ -107,6 +107,7 @@ return [
                 'callback' => 'App\GraphQL\Mutation\Auth\CallbackMutation',
                 'passwordEmail' => 'App\GraphQL\Mutation\Auth\RequestResetMutation',
                 'reset' => 'App\GraphQL\Mutation\Auth\ResetPasswordMutation',
+                'password' => 'App\GraphQL\Mutation\Auth\PasswordMutation',
 
                 // Book
                 'newBook' => 'App\GraphQL\Mutation\Books\NewBookMutation',
@@ -140,6 +141,7 @@ return [
         'Token' => 'App\GraphQL\Type\TokenType',
         'OAuth' => 'App\GraphQL\Type\OAuthType',
         'Reset' => 'App\GraphQL\Type\Auth\ResetPasswordType',
+        'Status' => 'App\GraphQL\Type\Common\StatusType',
     ],
 
     // This callable will received every Error objects for each errors GraphQL catch.

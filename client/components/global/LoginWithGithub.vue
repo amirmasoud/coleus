@@ -1,6 +1,6 @@
 <template>
-  <button v-if="githubAuth" type="button" class="btn btn-dark ml-auto" @click="login">
-    {{ $t('login_with') }}
+  <button v-if="githubAuth" type="button" class="btn btn-dark btn-block" @click="login">
+    {{ $t('continue_with_github') }}
     <fa :icon="['fab', 'github']"/>
   </button>
 </template>

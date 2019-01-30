@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <span></span>
 </template>
 
 <script>
@@ -9,18 +9,23 @@ export default {
     return { title: this.$t('login') }
   },
 
+  /**
+   * When component mounted, call oauth callback for fetching token and pass it
+   * to application using window postMessage method.
+   *
+   * @return {void}
+   */
   async mounted () {
-    const result = await this.$apollo.mutate({
+    await this.$apollo.mutate({
       mutation: require('~/graphql/callback'),
       prefetch: false,
       variables: {
         driver: this.$route.params.driver,
         code: this.$route.query.code
       },
-    }).then((res) => {
-      console.log(res)
-      completeCallback(res.data.callback.token)
     })
+
+    completeCallback(res.data.callback.token)
   },
 
   data: () => ({
@@ -29,6 +34,12 @@ export default {
   })
 }
 
+/**
+ * Send back the token after successful oauth registration
+ *
+ * @param  {String} token
+ * @return {void}
+ */
 function completeCallback (token) {
   window.opener.postMessage({ token: token }, '/')
   window.close()

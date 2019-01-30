@@ -1,5 +1,4 @@
 <template>
-
   <!-- User Profile -->
   <div v-if="user">
     <b-row>
@@ -42,7 +41,6 @@
 
   <!-- Loading -->
   <oval-loader v-else />
-
 </template>
 
 <script>

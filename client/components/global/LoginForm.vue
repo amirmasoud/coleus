@@ -1,10 +1,17 @@
 <template>
   <div>
-    <!-- Login With Google Button -->
-    <login-with-google/>
 
-    <!-- Login With Google Button -->
-    <login-with-github/>
+    <b-row>
+      <b-col cols="12">
+        <!-- Login With Google Button -->
+        <login-with-google/>
+      </b-col>
+
+      <b-col cols="12 mt-2">
+        <!-- Login With Google Button -->
+        <login-with-github/>
+      </b-col>
+    </b-row>
 
     <!-- Separator Line -->
     <div class="text-center my-4" style="width: 100%; height: 12px; border-bottom: 1px solid #ebebeb;">

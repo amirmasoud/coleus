@@ -1,15 +1,15 @@
 <?php
 
-namespace App\GraphQL\Type\Auth;
+namespace App\GraphQL\Type\Common;
 
+use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as BaseType;
-use GraphQL;
 
-class ResetPasswordType extends BaseType
+class StatusType extends BaseType
 {
     protected $attributes = [
-        'name' => 'ResetPasswordType',
+        'name' => 'StatusType',
         'description' => 'A type'
     ];
 
