@@ -16,12 +16,16 @@ class TokenType extends BaseType
     public function fields()
     {
         return [
+            'taken' => [
+                'type' => Type::Boolean(),
+                'description' => 'Set to true if an EmailTokenException has been thrown'
+            ],
             'token' => [
                 'type' => Type::String(),
                 'description' => 'The token of the user'
             ],
             'token_type' => [
-                'type' => Type::string(),
+                'type' => Type::String(),
                 'description' => 'The token_type of the user'
             ],
             'expires_in' => [
