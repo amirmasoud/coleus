@@ -56,6 +56,7 @@ class AddContent extends Command
         ini_set('memory_limit', '-1');
         $delimiter = $this->option('delimiter') ?: ': ';
 
+        // Remove all book content before adding new content.
         if ($this->option('refresh')) {
             $this->info('Refreshing book' . PHP_EOL);
             Sort::where('scope', 'book#' . $this->argument('book'))
@@ -69,11 +70,11 @@ class AddContent extends Command
             Book::find($this->argument('book'))->pages()->delete();
         }
 
-        $guy = Storage::disk('dataset')->allFiles($this->argument('path'));
+        $person = Storage::disk('dataset')->allFiles($this->argument('path'));
 
-        $bar = $this->output->createProgressBar(count($guy) + 1);
+        $bar = $this->output->createProgressBar(count($person) + 1);
 
-        sort($guy, SORT_NATURAL);
+        sort($person, SORT_NATURAL);
 
         $bar->start();
 
@@ -88,8 +89,9 @@ class AddContent extends Command
 
         $bar->advance();
 
+        // Insert content
         $i = 1;
-        foreach ($guy as $index => $poem) {
+        foreach ($person as $index => $poem) {
             if (Str::endsWith($poem, '.json')) {
                 $file = json_decode(Storage::disk('dataset')->get($poem));
                 $title = '';
