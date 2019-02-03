@@ -17,39 +17,48 @@
         + {{ $t('follow') }}
       </v-button>
     </template>
-    <b-button v-else class="px-4" size="sm" variant="success" block v-b-modal.modal-center-new-book>+ {{ $t('new_book') }}</b-button>
+    <b-button v-else class="px-4" size="sm" variant="success" block v-b-modal.modal-center-new-book>
+      + {{ $t('new_book') }}
+    </b-button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'toggle-book-follow-button',
+  name: 'toggleBookFollowButton',
 
   props: ['auth', 'user', 'loading'],
-
-  data () {
-    return {
-      mutateLoading: this.loading
-    }
+  props: {
+    auth: { type: Object },
+    user: { type: Object },
+    loading: { type: Boolean }
   },
 
-  methods: {
-    toggleFollow () {
-      this.mutateLoading = true
-      this.$apollo.mutate({
-        mutation: require('~/graphql/follow.gql'),
-        variables: {
-          user: this.user ? this.user.id : null
-        },
-      }).then((data) => {
-        this.$emit('toggle-follow')
-      })
+  data:() => {
+    return {
+      mutateLoading: this.loading
     }
   },
 
   watch: {
     loading: function(newVal, oldVal) {
       this.mutateLoading = newVal
+    }
+  },
+
+  methods: {
+    toggleFollow() {
+      this.mutateLoading = true
+      this.$apollo
+        .mutate({
+          mutation: require('~/graphql/follow.gql'),
+          variables: {
+            user: this.user ? this.user.id : null
+          },
+        })
+        .then(data => {
+          this.$emit('toggle-follow')
+        })
     }
   }
 }

@@ -57,6 +57,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~components/global',
     '~plugins/i18n',
     '~plugins/fontawesome',
     { src: '~plugins/progressive', ssr: false },

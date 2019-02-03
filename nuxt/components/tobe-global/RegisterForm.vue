@@ -143,7 +143,8 @@ export default {
         } else {
           this.$root.$emit('login-done')
         }
-      }).catch((error) => {
+      })
+      .catch((error) => {
         if (error.graphQLErrors) {
           this.serr = error.graphQLErrors[0].errors
         }
@@ -151,10 +152,9 @@ export default {
       })
     },
 
-    clearError (field) {
+    clearError(field) {
       delete this.serr[field]
     }
   }
 }
 </script>
-

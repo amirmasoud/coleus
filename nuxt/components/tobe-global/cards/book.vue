@@ -3,10 +3,12 @@
     <div class="card mb-2">
       <img :src="book.cover" class="d-none">
       <no-ssr>
-        <progressive-img class="card-img-top"
-                         :src="book.cover"
-                         :placeholder="book.placeholder"
-                         :aspect-ratio="1.6666666667" />
+        <progressive-img
+          class="card-img-top"
+          :src="book.cover"
+          :placeholder="book.placeholder"
+          :aspect-ratio="1.6666666667"
+        />
       </no-ssr>
       <div class="card-body">
         <p class="card-title">{{ book.title }}</p>
