@@ -1,0 +1,113 @@
+<template>
+  <button v-if="githubAuth" type="button" class="btn btn-dark btn-block" @click="login">
+    {{ $t('continue_with_github') }}
+    <fa :icon="['fab', 'github']"/>
+  </button>
+</template>
+
+<script>
+export default {
+  name: 'LoginWithGithub',
+
+  computed: {
+    githubAuth: () => process.env.githubAuth,
+    url: () => `${process.env.apiUrl}/oauth/github`
+  },
+
+  mounted () {
+    window.addEventListener('message', this.onMessage, false)
+  },
+
+  beforeDestroy () {
+    window.removeEventListener('message', this.onMessage)
+  },
+
+  data: () => ({
+    busy: false
+  }),
+
+  methods: {
+    async login () {
+      const newWindow = openWindow('', this.$t('login'))
+
+      const driver = await this.$apollo.mutate({
+        mutation: require('~/graphql/oauth'),
+        variables: { driver: 'github' },
+      })
+
+      newWindow.location.href = driver.data.oauth.url
+    },
+
+    /**
+     * @param {MessageEvent} e
+     */
+    async onMessage (e) {
+      if (! e.data.token) {
+        return
+      }
+
+      let loginMessage = this.$t('successful_login_header')
+
+      this.busy = true
+
+      await this.$apolloHelpers.onLogin(e.data.token)
+
+      await this.$apollo.query({
+        query: require('~/graphql/user'),
+      }).then(async ({data}) => {
+        await this.$apollo.mutate({
+          mutation: require('~/graphql/client/mutation/user'),
+          variables: { user: data.user },
+        })
+      })
+
+      this.busy = false
+
+      this.$snotify.success(loginMessage)
+
+      this.$root.$emit('refresh-navbar')
+      if (this.redirect) {
+        this.$router.push({ name: 'welcome' })
+      } else {
+        this.$root.$emit('login-done')
+      }
+
+      // this.$router.push({ name: 'home' })
+    }
+  }
+}
+
+/**
+ * @param  {Object} options
+ * @return {Window}
+ */
+function openWindow (url, title, options = {}) {
+  if (typeof url === 'object') {
+    options = url
+    url = ''
+  }
+
+  options = { url, title, width: 600, height: 720, ...options }
+
+  const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screen.left
+  const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screen.top
+  const width = window.innerWidth || document.documentElement.clientWidth || window.screen.width
+  const height = window.innerHeight || document.documentElement.clientHeight || window.screen.height
+
+  options.left = ((width / 2) - (options.width / 2)) + dualScreenLeft
+  options.top = ((height / 2) - (options.height / 2)) + dualScreenTop
+
+  const optionsStr = Object.keys(options).reduce((acc, key) => {
+    acc.push(`${key}=${options[key]}`)
+    return acc
+  }, []).join(',')
+
+  const newWindow = window.open(url, title, optionsStr)
+
+  if (window.focus) {
+    newWindow.focus()
+  }
+
+  return newWindow
+}
+</script>
