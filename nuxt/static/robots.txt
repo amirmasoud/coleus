@@ -1,0 +1,3 @@
+Sitemap: https://negar.in/sitemap.xml
+User-agent: *
+Disallow:

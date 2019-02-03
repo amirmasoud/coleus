@@ -1,0 +1,5 @@
+mutation PasswordEmail($email: String!) {
+  passwordEmail(email: $email) {
+    status
+  }
+}
