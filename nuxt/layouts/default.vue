@@ -1,8 +1,9 @@
 <template>
-  <div dir="rlt">
+  <div dir="rlt" style="direction: rtl;">
     <navbar />
-    <div class="container mx-auto flex w-full max-w-3xl px-3 mt-16">
-      <Nuxt />
+
+    <div class="container mx-auto w-full max-w-3xl px-6 mt-16">
+      <nuxt />
     </div>
   </div>
 </template>

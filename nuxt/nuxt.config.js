@@ -98,5 +98,15 @@ module.exports = {
     clientConfigs: {
       default: '~/plugins/apollo-default-config.js',
     },
+  },
+
+  router: {
+    extendRoutes (routes, resolve) {
+      routes.push({
+        name: 'profile',
+        path: '/@:username',
+        component: resolve(__dirname, 'pages/user/_username.vue')
+      })
+    }
   }
 }

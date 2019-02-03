@@ -52,10 +52,15 @@
     "nightwatch": "^1.0.18",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
+    "tailwindcss-dir": "^2.0.0",
     "vue-jest": "^3.0.2"
   },
   "jest": {
-    "moduleFileExtensions": ["js", "json", "vue"],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
     "transform": {
       "^.+\\.js$": "babel-jest",
       "^.+\\.vue$": "vue-jest"
