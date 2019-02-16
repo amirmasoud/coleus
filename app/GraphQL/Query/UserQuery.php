@@ -31,7 +31,6 @@ class UserQuery extends Query
 
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
-        \Log::debug($args);
         $fields = $info->getFieldSelection(5);
 
         // @todo: use HASH

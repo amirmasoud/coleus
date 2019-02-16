@@ -15,7 +15,9 @@ const polyfills = [
 ]
 
 module.exports = {
-  mode: 'universal',
+  mode: 'spa',
+
+  debug: true,
 
   /*
   ** Global .env variables
@@ -40,7 +42,10 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    bodyAttrs: {
+      class: 'bg-white'
+    }
   },
 
   /*
@@ -51,7 +56,10 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['~/assets/css/tailwind.css'],
+  css: [
+    '~/assets/css/tailwind.css',
+    '~/assets/css/dosearch.css'
+  ],
 
   /*
   ** Plugins to load before mounting the App
@@ -61,14 +69,14 @@ module.exports = {
     '~plugins/i18n',
     '~plugins/fontawesome',
     { src: '~plugins/progressive', ssr: false },
-    { src: '~plugins/snotify', ssr: false }
+    { src: '~plugins/snotify', ssr: false },
+    { src: '~plugins/scroller.js', ssr: false }
   ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/pwa',
     '@nuxtjs/apollo'
   ],
 

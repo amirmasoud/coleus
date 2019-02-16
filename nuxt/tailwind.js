@@ -517,7 +517,8 @@ module.exports = {
     '48': '12rem',
     '64': '16rem',
     full: '100%',
-    screen: '100vh'
+    screen: '100vh',
+    'screen-91': '91vh'
   },
 
   /*
@@ -575,6 +576,7 @@ module.exports = {
   */
 
   maxWidth: {
+    ss: '15.6rem',
     xs: '20rem',
     sm: '30rem',
     md: '40rem',
@@ -899,7 +901,8 @@ module.exports = {
       // center: true,
       // padding: '1rem',
     }),
-    require('tailwindcss-dir')()
+    require('tailwindcss-dir')(),
+    require('glhd-tailwindcss-transitions')()
   ],
 
   /*

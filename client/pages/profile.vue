@@ -36,7 +36,6 @@
 
     <!-- No Book -->
     <book-nil v-else />
-
   </div>
 
   <!-- Loading -->

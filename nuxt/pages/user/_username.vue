@@ -25,96 +25,46 @@
     <social-status-bar :user="user" />
 
     <!-- Books -->
-<!--     <b-row v-if="user.books && user.books.length" class="mt-2">
-      <b-col
+    <div v-if="user.books && user.books.length" class="flex content-start flex-wrap mx-2">
+      <div
         v-for="book in user.books"
         :key="book.id"
-        cols="6"
-        sm="4"
-        md="4"
-        lg="3"
-        xl="2"
+        class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/6 p-2"
       >
         <book-card :book="book" />
-      </b-col>
-    </b-row>
+      </div>
+    </div>
 
-    <book-nil v-else /> -->
+    <book-nil v-else />
   </div>
 
-  <!-- Loading -->
-  <oval-loader v-else />
+  <!-- <oval-loader v-else /> -->
 </template>
 
 <script>
-import { auth } from '~/mixins/auth'
+// import { auth } from '~/mixins/auth'
 // import ToggleBookFollowButton from '~/components/buttons/ToggleBookFollow'
 import UserSmallImage from '~/components/images/UserSmall'
 import SocialStatusBar from '~/components/bars/SocialStatus'
+import BookCard from '~/components/cards/Book'
+import profile from '~/graphql/profile'
 
 export default {
   components: {
     // ToggleBookFollowButton,
     UserSmallImage,
-    SocialStatusBar
+    SocialStatusBar,
+    BookCard
   },
 
-  head() {
-    return {
-      title: this.user ? this.user.name : this.$t('books')
-      // meta: [
-      //   {
-      //     name: 'description',
-      //     content: this.user ? ( this.user.bio ? this.user.bio.substring(0, 300) : '' ) : ''
-      //   },
-
-      //   { property: 'og:description', content: this.user ? (this.user.bio ? this.user.bio.substring(0, 300) + '...' : '') : '', vmid: 'og:description' },
-      //   { name: 'twitter:description', content: this.user ? (this.user.bio ? this.user.bio.substring(0, 300) + '...' : '') : '', vmid: 'twitter:description' },
-      //   { itemprop: 'description', content: this.user ? (this.user.bio ? this.user.bio.substring(0, 300) + '...' : '') : '', vmid: 'description' },
-
-      //   { property: 'og:title', content: this.user ? this.user.name : '', vmid: 'og:title' },
-      //   { name: 'twitter:title', content: this.user ? this.user.name : '', vmid: 'twitter:title' },
-      //   { itemprop: 'name', content: this.user ? this.user.name : '', vmid: 'title' },
-
-      //   { property: 'og:image', content: this.user ? (this.user.small || this.user.photo_url) : '', vmid: 'og:image' },
-      //   { name: 'twitter:image', content: this.user ? (this.user.small || this.user.photo_url) : '', vmid: 'twitter:image' },
-      //   { itemprop: 'image', content: this.user ? (this.user.small || this.user.photo_url) : '', vmid: 'image' },
-      // ]
-    }
-  },
-
-  mixins: [auth],
-
-  asyncData({ params }) {
-    return {
-      username: params.username
-    }
-  },
-
-  data: () => ({
-    loadingUser: true
-  }),
+  // mixins: [auth],
 
   apollo: {
-    /**
-     * Prefetch user profile object with username and loading state.
-     *
-     * @type {Object}
-     */
     user: {
-      query: require('~/graphql/profile.gql'),
-      prefetch: ({ params }) => {
-        return {
-          username: params.username
-        }
-      },
+      query: profile,
+      prefetch: ({ route }) => ({ username: route.params.username }),
       variables() {
-        return {
-          username: this.username
-        }
-      },
-      result() {
-        this.loadingUser = false
+        return { username: this.$route.params.username }
       }
     }
   },
