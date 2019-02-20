@@ -23,7 +23,7 @@ class UserType extends BaseType
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'The id of the user'
             ],
             'name' => [
@@ -98,7 +98,11 @@ class UserType extends BaseType
             'is_following' => [
                 'type' => Type::boolean(),
                 'description' => 'The user is following the profile'
-            ]
+            ],
+            'highlight' => [
+                'type' => Type::listOf(GraphQL::type('UserHighlight')),
+                'description' => 'The user search highlight'
+            ],
         ];
     }
 

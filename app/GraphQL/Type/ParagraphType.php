@@ -2,15 +2,15 @@
 
 namespace App\GraphQL\Type;
 
+use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as BaseType;
-use GraphQL;
 
-class ParagraphTypeType extends BaseType
+class ParagraphType extends BaseType
 {
     protected $attributes = [
         'name' => 'ParagraphTypeType',
-        'description' => 'A type'
+        'description' => 'A type that '
     ];
 
     public function fields()
@@ -27,7 +27,11 @@ class ParagraphTypeType extends BaseType
             'type' => [
                 'type' => Type::string(),
                 'description' => 'Type of paragraph'
-            ]
+            ],
+            'highlight' => [
+                'type' => Type::listOf(GraphQL::type('ParagraphHighlight')),
+                'description' => 'The paragraph search highlight'
+            ],
         ];
     }
 }

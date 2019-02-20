@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <div class="pointer-events-none absolute pin-y pin-r pr-3 flex items-center">
-      <svg v-if="searching" class="fill-current pointer-events-none text-grey-dark w-4 h-4" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#acacac"><g fill="none" fill-rule="evenodd"><g transform="translate(1 1)" stroke-width="2"><circle stroke-opacity=".5" cx="18" cy="18" r="18"/><path d="M36 18c0-9.94-8.06-18-18-18">
+      <svg v-if="loading" class="fill-current pointer-events-none text-grey-dark w-4 h-4" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#acacac"><g fill="none" fill-rule="evenodd"><g transform="translate(1 1)" stroke-width="2"><circle stroke-opacity=".5" cx="18" cy="18" r="18"/><path d="M36 18c0-9.94-8.06-18-18-18">
         <animateTransform
           attributeName="transform"
           type="rotate"
@@ -16,52 +16,57 @@
       class="h-8 transition outline-none border border-transparent rounded focus:bg-white focus:border-grey-light placeholder-grey-darkest bg-grey-lighter py-2 pr-4 pr-10 block w-full appearance-none leading-normal"
       type="text"
       placeholder="جستجو"
-      @focus="search"
-      @blur="loseFocus"
+      @focus="focus"
+      @blur="unfocus"
       v-model="query">
     <span
-      class="w-full bg-white rounded border border-grey-light border p-4 absolute pin-l block mt-2 z-50"
+      v-if="search"
+      class="search-result w-full bg-white rounded border border-grey-light border p-4 absolute pin-l block mt-2 z-50 max-h-screen overflow-y-scroll"
       role="listbox"
       style="top: 100%; right: auto;"
       v-show="focused"
     >
-      <div class="suggestion-header leading-normal border-b border-b-1 border-grey mb-1">
-        <span class="font-normal">شاعران</span>
-      </div>
-      <a href="#" class="suggestion-link no-underline text-black">
-        <div class="suggestion-item leading-normal flex content-end pb-2">
-          <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1">حافظ<br><span class="px-2"></span><small class="border-b border-b-1 border-dashed border-teal pb-1 font-light">hafez@</small></div>
-          <div class="suggestion-content w-2/3 transition px-3 py-1">
-            <p><span class="bg-teal-lightest text-teal-dark">خواجه حافظ شیرازی</span></p>
-            <small class="font-light">...وی در قرن چندم هجری به دنیا <span class="border-b border-b-1 border-dashed border-teal pb-1">نیامد</span></small>
-          </div>
+      <template v-if="search.users">
+        <div class="suggestion-header leading-normal border-b border-b-1 border-grey mb-1">
+          <span class="font-normal">شاعران</span>
         </div>
-      </a>
+        <a v-for="user in search.users" :key="user.id" href="#" class="suggestion-link no-underline text-black">
+          <div class="suggestion-item leading-normal flex content-end pb-2">
+            <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1">{{ user.name }}<br><span class="px-2"></span>
+              <template v-if="user.highlight[0].username && user.highlight[0].username[0]"><span v-html="user.highlight[0].username[0]" /></template>
+              <template v-else><small class="font-light">{{ user.highlight[0].username[0] }}</small></template>@ <!-- An @ sign is living here -->
+            </div>
+            <div class="suggestion-content w-2/3 transition px-3 py-1">
+              <p>
+                <template v-if="user.highlight[0].name && user.highlight[0].name[0]"><span v-html="user.highlight[0].name[0]" /></template>
+                <template v-else>{{ user.name }}</template>
+              </p>
+              <small class="font-light">{{ user.bio }}</small>
+            </div>
+          </div>
+        </a>
+      </template>
 
-      <div class="suggestion-header leading-normal border-b border-b-1 border-grey mb-1">
-        <span class="font-normal">کتاب‌ها</span>
-      </div>
-      <a href="#" class="suggestion-link no-underline text-black">
-        <div class="suggestion-item leading-normal flex content-end pb-2">
-          <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1">حافظ</div>
-          <div class="suggestion-content w-2/3 transition px-3 py-1">
-            <p>دیوان <span class="bg-teal-lightest text-teal-dark">حافظ</span></p>
-            <small class="font-light">سراندازان همی‌آیی <span class="border-b border-b-1 border-dashed border-teal pb-1">نگارین</span> جگرخواره</small>
+      <template v-if="search.books">
+        <div class="suggestion-header leading-normal border-b border-b-1 border-grey mb-1">
+          <span class="font-normal">کتاب‌ها</span>
+        </div>
+        <a v-for="book in search.books" :key="book.id" href="#" class="suggestion-link no-underline text-black">
+          <div class="suggestion-item leading-normal flex content-end pb-2">
+            <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1">حافظ</div>
+            <div class="suggestion-content w-2/3 transition px-3 py-1">
+              <p>
+                <template v-if="book.highlight[0].title && book.highlight[0].title[0]"><span v-html="book.highlight[0].title[0]" /></template>
+                <template v-else>{{ book.title }}</template>
+              </p>
+              <small class="font-light">
+                <template v-if="book.highlight[0].description && book.highlight[0].description[0]"><span v-html="book.highlight[0].description[0]" /></template>
+                <template v-else>{{ book.description }}</template>
+              </small>
+            </div>
           </div>
-        </div>
-      </a>
-      <a href="#" class="suggestion-link no-underline text-black">
-        <div class="suggestion-item leading-normal flex content-end pb-2">
-          <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1"><span class="bg-teal-lightest text-teal-dark">مولانا</span></div>
-          <div class="suggestion-content w-2/3 transition px-3 py-1">شمس تبریزی</div>
-        </div>
-      </a>
-      <a href="#" class="suggestion-link no-underline text-black">
-        <div class="suggestion-item leading-normal flex content-end pb-2">
-          <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1">مولانا</div>
-          <div class="suggestion-content w-2/3 transition px-3 py-1"><span class="bg-teal-lightest text-teal-dark">مثنوی</span> معنوی</div>
-        </div>
-      </a>
+        </a>
+      </template>
 
       <div class="suggestion-header leading-normal border-b border-b-1 border-grey mb-1">
         <span class="font-normal">اشعار</span>
@@ -84,20 +89,29 @@ export default {
   name: 'AutocompleteSearch',
 
   data: () => ({
-    query: '',
-    focused: false,
-    searching: false
+    query: 'حافظ',
+    focused: true,
+    loading: false
   }),
 
+  apollo: {
+    search: {
+      query: require('~/graphql/autocomplete.gql'),
+      variables: {
+        query: 'حافظ'
+      }
+    }
+  },
+
   methods: {
-    search() {
+    focus() {
       this.focused = true
-      this.searching = true
+      this.loading = true
     },
 
-    loseFocus() {
+    unfocus() {
       this.focused = false
-      this.searching = false
+      this.loading = false
     }
   }
 }
@@ -106,5 +120,11 @@ export default {
 <style>
 .suggestion-link:hover .suggestion-content {
   background-color: #dfe4ea;
+}
+.search-result::-webkit-scrollbar {
+  width: 0.3rem;
+}
+.search-result::-webkit-scrollbar-thumb {
+  background-color: #a2a2a2;
 }
 </style>

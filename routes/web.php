@@ -11,40 +11,105 @@
 |
 */
 
+use Illuminate\Support\Str;
+
 Route::get('/', function () {
     $params = [
         'body'  => [
             ['index' => 'paragraphs'],
             [
+                'size' => 5,
                 'query' => [
-                    'match' => [
-                        'content' => 'با من صنما دل دل'
+                    'multi_match' => [
+                        'query' => 'تو',
+                        'fields' => [
+                            'content^3'
+                        ]
                     ]
                 ],
+                'highlight' => [
+                    'fragment_size' => 100,
+                    'fields' => [
+                        'content' => [
+                            'pre_tags' => '<span class="border-b border-b-1 border-dashed border-teal pb-1">',
+                            'post_tags' => '</span>',
+                        ]
+                    ]
+                ]
             ],
             ['index' => 'books'],
             [
+                'size' => 3,
                 'query' => [
-                    'match' => [
-                        'title' => 'صنما'
+                    'multi_match' => [
+                        'query' => 'دیوان',
+                        'fields' => [
+                            'title^3', 'description'
+                        ]
+                    ]
+                ],
+                'highlight' => [
+                    'fragment_size' => 100,
+                    'fields' => [
+                        'title' => [
+                            'pre_tags' => '<span class="bg-teal-lightest text-teal-dark">',
+                            'post_tags' => '</span>',
+                        ],
+                        'description' => [
+                            'pre_tags' => '<span class="border-b border-b-1 border-dashed border-teal pb-1">',
+                            'post_tags' => '</span>',
+                        ]
                     ]
                 ]
             ],
             ['index' => 'users'],
             [
+                'size' => 2,
                 'query' => [
                     'multi_match' => [
-                        'query' => 'میلادی',
+                        'query' => 'hafez',
                         'fields' => [
-                            'name^3', 'username^3', 'website', 'bio^2'
+                            'name^3', 'username^3', 'bio^2'
+                        ]
+                    ]
+                ],
+                'highlight' => [
+                    'fragment_size' => 100,
+                    'fields' => [
+                        'name' => [
+                            'pre_tags' => '<span class="bg-teal-lightest text-teal-dark">',
+                            'post_tags' => '</span>',
                         ],
-                        'type' => 'phrase_prefix'
-                    ],
+                        'username' => [
+                            'pre_tags' => '<span class="border-b border-b-1 border-dashed border-teal pb-1">',
+                            'post_tags' => '</span>',
+                        ],
+                        'bio' => [
+                            'pre_tags' => '<span class="border-b border-b-1 border-dashed border-teal pb-1">',
+                            'post_tags' => '</span>',
+                        ]
+                    ]
                 ]
             ]
         ],
     ];
-    return Elasticsearch::msearch($params);
+    $results = Elasticsearch::msearch($params);
+    $return = [];
+    // return $results;
+
+    foreach ($results['responses'] as $result) {
+        if (!$result['timed_out'] && count($result['hits']) && count($result['hits']['hits'])) {
+            foreach ($result['hits']['hits'] as $hit) {
+                $res = $hit['_source'];
+                $res['highlight'] = (array) json_decode(json_encode($hit['highlight'], true));
+                $res['highlight']['__typename'] = ucfirst(Str::singular($hit['_index'])) . 'Highlight';
+                $res['__typename'] = ucfirst(Str::singular($hit['_index']));
+                $return[$hit['_index']][] = $res;
+            }
+        }
+    }
+
+    return $return;
 });
 
 Route::get('{path}', function () {

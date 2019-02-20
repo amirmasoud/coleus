@@ -54,6 +54,10 @@ class BookType extends BaseType
                 'type' => Type::Int(),
                 'description' => 'The start of the book'
             ],
+            'highlight' => [
+                'type' => Type::listOf(GraphQL::type('BookHighlight')),
+                'description' => 'The book search highlight'
+            ]
         ];
     }
 

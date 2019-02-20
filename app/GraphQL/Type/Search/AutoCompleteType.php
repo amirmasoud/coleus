@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Type\Search;
 
+use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as BaseType;
-use GraphQL;
 
 class AutoCompleteType extends BaseType
 {
@@ -18,17 +18,17 @@ class AutoCompleteType extends BaseType
         return [
             'paragraphs' => [
                 'args' => \Facades\App\GraphQL\Type\ParagraphType::fields(),
-                'type' => Type::listOf(GraphQL::type('Page')),
+                'type' => Type::listOf(GraphQL::type('Paragraph')),
                 'description' => 'The result\'s paragraphs'
             ],
             'books' => [
                 'args' => \Facades\App\GraphQL\Type\BookType::fields(),
-                'type' => Type::listOf(GraphQL::type('Page')),
+                'type' => Type::listOf(GraphQL::type('Book')),
                 'description' => 'The result\'s books'
             ],
             'users' => [
                 'args' => \Facades\App\GraphQL\Type\UserType::fields(),
-                'type' => Type::listOf(GraphQL::type('Page')),
+                'type' => Type::listOf(GraphQL::type('User')),
                 'description' => 'The result\'s users'
             ],
         ];

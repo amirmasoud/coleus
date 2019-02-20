@@ -97,7 +97,8 @@ return [
                 'users' => 'App\GraphQL\Query\UsersQuery',
                 'user' => 'App\GraphQL\Query\UserQuery',
                 'book' => 'App\GraphQL\Query\BookQuery',
-                'page' => 'App\GraphQL\Query\PageQuery'
+                'page' => 'App\GraphQL\Query\PageQuery',
+                'search' => 'App\GraphQL\Query\SearchQuery'
             ],
             'mutation' => [
                 // Auht
@@ -142,6 +143,11 @@ return [
         'OAuth' => 'App\GraphQL\Type\OAuthType',
         'Reset' => 'App\GraphQL\Type\Auth\ResetPasswordType',
         'Status' => 'App\GraphQL\Type\Common\StatusType',
+        'Paragraph' => 'App\GraphQL\Type\ParagraphType',
+        'Search' => 'App\GraphQL\Type\Search\AutocompleteType',
+        'UserHighlight' => 'App\GraphQL\Type\Search\Highlight\UserType',
+        'BookHighlight' => 'App\GraphQL\Type\Search\Highlight\BookType',
+        'ParagraphHighlight' => 'App\GraphQL\Type\Search\Highlight\ParagraphType',
     ],
 
     // This callable will received every Error objects for each errors GraphQL catch.

@@ -1,0 +1,31 @@
+query Search($query: String) {
+  search(query: $query) {
+    paragraphs {
+      id
+      content
+      highlight {
+        content
+      }
+    }
+    books {
+      id
+      title
+      description
+      slug
+      highlight {
+        title
+        description
+      }
+    }
+    users {
+      name
+      username
+      bio
+      highlight {
+        name
+        username
+        bio
+      }
+    }
+  }
+}

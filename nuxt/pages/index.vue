@@ -24,6 +24,12 @@ export default {
   apollo: {
     users: {
       query: require('../graphql/users.gql')
+    },
+    autocomplete: {
+      query: require('../graphql/autocomplete.gql'),
+      variables: {
+        query: 'دیوان'
+      }
     }
   }
 }
