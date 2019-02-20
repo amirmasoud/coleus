@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class SearchRepository extends Repository
 {
-    public function autocomplete($query)
+    public function autocomplete($query, $fields)
     {
         $params = [
             'body'  => [
@@ -98,6 +98,10 @@ class SearchRepository extends Repository
                     $res = $hit['_source'];
                     $res['highlight'] = [$hit['highlight']];
                     $res['__typename'] = ucfirst(Str::singular($hit['_index']));
+
+                    if ($res['__typename'] == 'Book' && array_key_exists('collaborators', $fields['books'])) {
+                        $res['collaborators'] = \App\Models\Book::find($res['id'])->collaborators;
+                    }
                     $return[$hit['_index']][] = $res;
                 }
             }

@@ -53,7 +53,7 @@
         </div>
         <a v-for="book in search.books" :key="book.id" href="#" class="suggestion-link no-underline text-black">
           <div class="suggestion-item leading-normal flex content-end pb-2">
-            <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1">حافظ</div>
+            <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1">{{ book.collaborators[0].name }}</div>
             <div class="suggestion-content w-2/3 transition px-3 py-1">
               <p>
                 <template v-if="book.highlight[0].title && book.highlight[0].title[0]"><span v-html="book.highlight[0].title[0]" /></template>

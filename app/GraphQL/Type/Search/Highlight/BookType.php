@@ -27,7 +27,12 @@ class BookType extends BaseType
             'slug' => [
                 'type' => Type::listOf(Type::string()),
                 'description' => 'The slug of book'
-            ]
+            ],
+            'collaborators' => [
+                'args' => \Facades\App\GraphQL\Type\CollaborationType::fields(),
+                'type' => Type::listOf(GraphQL::type('Collaboration')),
+                'description' => 'Collaborations on the book'
+            ],
         ];
     }
 }

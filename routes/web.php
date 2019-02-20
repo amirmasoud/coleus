@@ -21,7 +21,7 @@ Route::get('/', function () {
                 'size' => 5,
                 'query' => [
                     'multi_match' => [
-                        'query' => 'تو',
+                        'query' => 'صنما',
                         'fields' => [
                             'content^3'
                         ]
@@ -95,15 +95,17 @@ Route::get('/', function () {
     ];
     $results = Elasticsearch::msearch($params);
     $return = [];
-    // return $results;
 
     foreach ($results['responses'] as $result) {
         if (!$result['timed_out'] && count($result['hits']) && count($result['hits']['hits'])) {
             foreach ($result['hits']['hits'] as $hit) {
                 $res = $hit['_source'];
-                $res['highlight'] = (array) json_decode(json_encode($hit['highlight'], true));
-                $res['highlight']['__typename'] = ucfirst(Str::singular($hit['_index'])) . 'Highlight';
+                $res['highlight'] = [$hit['highlight']];
                 $res['__typename'] = ucfirst(Str::singular($hit['_index']));
+
+                if ($res['__typename'] == 'Book') {
+                    $res['collaborators'] = \App\Models\Book::find($res['id'])->collaborators;
+                }
                 $return[$hit['_index']][] = $res;
             }
         }

@@ -15,6 +15,9 @@ query Search($query: String) {
       highlight {
         title
         description
+      },
+      collaborators {
+        name
       }
     }
     users {

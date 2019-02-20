@@ -32,7 +32,7 @@ class SearchQuery extends Query
         $fields = $info->getFieldSelection(4);
 
         if (isset($args['query'])) {
-            return SearchRepository::autocomplete($args['query']);
+            return SearchRepository::autocomplete($args['query'], $fields);
         }
 
         return null;
