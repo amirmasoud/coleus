@@ -32,6 +32,21 @@ class ParagraphType extends BaseType
                 'type' => Type::listOf(GraphQL::type('ParagraphHighlight')),
                 'description' => 'The paragraph search highlight'
             ],
+            'page' => [
+                'args' => \Facades\App\GraphQL\Type\PageType::fields(),
+                'type' => Type::listOf(GraphQL::type('Page')),
+                'description' => 'The paragraph\'s page'
+            ],
+            'book' => [
+                'args' => \Facades\App\GraphQL\Type\BookType::fields(),
+                'type' => Type::listOf(GraphQL::type('Book')),
+                'description' => 'The paragraph\'s book'
+            ],
+            'collaborators' => [
+                'args' => \Facades\App\GraphQL\Type\CollaborationType::fields(),
+                'type' => Type::listOf(GraphQL::type('Collaboration')),
+                'description' => 'Collaborations on the book'
+            ],
         ];
     }
 }

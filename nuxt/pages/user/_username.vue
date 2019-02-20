@@ -47,6 +47,7 @@
 import UserSmallImage from '~/components/images/UserSmall'
 import SocialStatusBar from '~/components/bars/SocialStatus'
 import BookCard from '~/components/cards/Book'
+import BookNil from '~/components/nils/Book'
 import profile from '~/graphql/profile'
 
 export default {
@@ -54,7 +55,8 @@ export default {
     // ToggleBookFollowButton,
     UserSmallImage,
     SocialStatusBar,
-    BookCard
+    BookCard,
+    BookNil
   },
 
   // mixins: [auth],

@@ -13,10 +13,10 @@ class SearchRepository extends Repository
             'body'  => [
                 ['index' => 'paragraphs'],
                 [
-                    'size' => 5,
+                    'size' => 3,
                     'query' => [
                         'multi_match' => [
-                            'query' => 'صنما',
+                            'query' => $query,
                             'fields' => [
                                 'content^3'
                             ]
@@ -34,10 +34,10 @@ class SearchRepository extends Repository
                 ],
                 ['index' => 'books'],
                 [
-                    'size' => 3,
+                    'size' => 2,
                     'query' => [
                         'multi_match' => [
-                            'query' => 'دیوان',
+                            'query' => $query,
                             'fields' => [
                                 'title^3', 'description'
                             ]
@@ -62,7 +62,7 @@ class SearchRepository extends Repository
                     'size' => 2,
                     'query' => [
                         'multi_match' => [
-                            'query' => 'hafez',
+                            'query' => $query,
                             'fields' => [
                                 'name^3', 'username^3', 'bio^2'
                             ]
@@ -102,6 +102,19 @@ class SearchRepository extends Repository
                     if ($res['__typename'] == 'Book' && array_key_exists('collaborators', $fields['books'])) {
                         $res['collaborators'] = \App\Models\Book::find($res['id'])->collaborators;
                     }
+
+                    if ($res['__typename'] == 'Paragraph' && array_key_exists('page', $fields['paragraphs'])) {
+                        $res['page'] = [\App\Models\Paragraph::find($res['id'])->page];
+                    }
+
+                    if ($res['__typename'] == 'Paragraph') {
+                        $res['book'] = [\App\Models\Paragraph::find($res['id'])->page->book];
+                    }
+
+                    if ($res['__typename'] == 'Paragraph') {
+                        $res['collaborators'] = \App\Models\Paragraph::find($res['id'])->page->book->collaborators;
+                    }
+
                     $return[$hit['_index']][] = $res;
                 }
             }

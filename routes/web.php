@@ -21,7 +21,7 @@ Route::get('/', function () {
                 'size' => 5,
                 'query' => [
                     'multi_match' => [
-                        'query' => 'صنما',
+                        'query' => 'معبود',
                         'fields' => [
                             'content^3'
                         ]
@@ -106,6 +106,21 @@ Route::get('/', function () {
                 if ($res['__typename'] == 'Book') {
                     $res['collaborators'] = \App\Models\Book::find($res['id'])->collaborators;
                 }
+
+                if ($res['__typename'] == 'Paragraph') {
+                    $res['page'] = \App\Models\Paragraph::find($res['id'])->page;
+                }
+
+                if ($res['__typename'] == 'Paragraph') {
+                    $res['book'] = [\App\Models\Paragraph::find($res['id'])->page->book];
+                }
+
+                if ($res['__typename'] == 'Paragraph') {
+                    $res['collaborators'] = \App\Models\Paragraph::find($res['id'])->page->book->collaborators;
+                }
+
+                return $res;
+
                 $return[$hit['_index']][] = $res;
             }
         }

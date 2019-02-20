@@ -68,7 +68,9 @@ class BookType extends BaseType
      */
     function resolveStartField($root, $args)
     {
-        $start = $root->pages()->where('content', '!=', ':empty')->first();
+        $start = \App\Models\Book::find($root['id'])->pages()
+                    ->where('content', '!=', ':empty')
+                    ->orderBy('id', 'asc')->first();
         return $start ? $start->id : 0;
     }
 }

@@ -4,6 +4,6 @@
 
 <script>
 export default {
-  name: 'book-nil'
+  name: 'BookNil'
 }
 </script>

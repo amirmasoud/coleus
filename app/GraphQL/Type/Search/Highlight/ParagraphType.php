@@ -19,7 +19,7 @@ class ParagraphType extends BaseType
             'content' => [
                 'type' => Type::listOf(Type::string()),
                 'description' => 'The content of the paragraph'
-            ]
+            ],
         ];
     }
 }

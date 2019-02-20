@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="{ name: 'user-username', params: { username: user.username }}" class="no-underline text-black">
+  <NuxtLink :to="{ name: 'user-username', params: { username: user.username }}" class="no-underline text-black">
     <div class="max-w-sm rounded overflow-hidden shadow-md hover:shadow-lg transition bg-white">
       <img :src="user.cover" class="hidden">
       <no-ssr>
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-  </nuxt-link>
+  </NuxtLink>
 </template>
 
 <script>

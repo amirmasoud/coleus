@@ -4,7 +4,7 @@
       <div class="px-6 py-4">
         <template v-if="page">
           <div class="font-bold text-xl mb-8 mt-4 px-4">{{ page.title }}</div>
-          <div class="text-grey-darker text-base leading-loose flex flex-wrap" v-html="page.content"></div>
+          <div class="text-grey-darkest text-base leading-loose flex flex-wrap" v-html="page.content"></div>
         </template>
         <oval-loader v-else />
       </div>

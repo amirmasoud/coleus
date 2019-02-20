@@ -6,12 +6,24 @@ query Search($query: String) {
       highlight {
         content
       }
+      page {
+        id
+        title
+      }
+      book {
+        title
+        slug
+      }
+      collaborators {
+        name
+      }
     }
     books {
       id
       title
       description
       slug
+      start
       highlight {
         title
         description

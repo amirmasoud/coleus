@@ -18,40 +18,45 @@
       placeholder="جستجو"
       @focus="focus"
       @blur="unfocus"
+      @input="update"
       v-model="query">
     <span
-      v-if="search"
-      class="search-result w-full bg-white rounded border border-grey-light border p-4 absolute pin-l block mt-2 z-50 max-h-screen overflow-y-scroll"
+      v-if="search && (search.paragraphs || search.books || search.users)"
+      class="search-result w-full bg-white rounded border border-grey-light border p-4 absolute pin-l block my-2 z-50 overflow-y-scroll"
       role="listbox"
-      style="top: 100%; right: auto;"
-      v-show="focused"
+      style="top: 100%; right: auto; max-height: 93vh;"
+      v-show="focused || list"
+      v-on-clickaway="away"
     >
       <template v-if="search.users">
         <div class="suggestion-header leading-normal border-b border-b-1 border-grey mb-1">
           <span class="font-normal">شاعران</span>
         </div>
-        <a v-for="user in search.users" :key="user.id" href="#" class="suggestion-link no-underline text-black">
+        <NuxtLink v-for="user in search.users" :key="user.id" @click.native="navigate" :to="{ name: 'user-username', params: { username: user.username }}" class="suggestion-link no-underline text-black">
           <div class="suggestion-item leading-normal flex content-end pb-2">
             <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1">{{ user.name }}<br><span class="px-2"></span>
-              <template v-if="user.highlight[0].username && user.highlight[0].username[0]"><span v-html="user.highlight[0].username[0]" /></template>
-              <template v-else><small class="font-light">{{ user.highlight[0].username[0] }}</small></template>@ <!-- An @ sign is living here -->
+              <template v-if="get(user, 'highlight[0].username[0]')"><span v-html="get(user, 'highlight[0].username[0]')" /></template>
+              <template v-else><small class="font-light">{{ user.username }}</small></template>@<!-- An @ sign is living here -->
             </div>
             <div class="suggestion-content w-2/3 transition px-3 py-1">
               <p>
-                <template v-if="user.highlight[0].name && user.highlight[0].name[0]"><span v-html="user.highlight[0].name[0]" /></template>
+                <template v-if="get(user, 'highlight[0].name[0]')"><span v-html="get(user, 'highlight[0].name[0]')" /></template>
                 <template v-else>{{ user.name }}</template>
               </p>
-              <small class="font-light">{{ user.bio }}</small>
+              <small class="font-light">
+                <template v-if="get(user, 'highlight[0].bio[0]')"><span v-html="get(user, 'highlight[0].bio[0]')" /></template>
+                <template v-else>{{ truncate(user.bio) }}</template>
+              </small>
             </div>
           </div>
-        </a>
+        </NuxtLink>
       </template>
 
       <template v-if="search.books">
         <div class="suggestion-header leading-normal border-b border-b-1 border-grey mb-1">
           <span class="font-normal">کتاب‌ها</span>
         </div>
-        <a v-for="book in search.books" :key="book.id" href="#" class="suggestion-link no-underline text-black">
+        <NuxtLink v-for="book in search.books" :key="book.id" @click.native="navigate" :to="{ name: 'book-slug-page-id', params: { slug: book.slug, id: book.start }}" class="suggestion-link no-underline text-black">
           <div class="suggestion-item leading-normal flex content-end pb-2">
             <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1">{{ book.collaborators[0].name }}</div>
             <div class="suggestion-content w-2/3 transition px-3 py-1">
@@ -65,53 +70,98 @@
               </small>
             </div>
           </div>
-        </a>
+        </NuxtLink>
       </template>
 
-      <div class="suggestion-header leading-normal border-b border-b-1 border-grey mb-1">
-        <span class="font-normal">اشعار</span>
-      </div>
-      <a href="#" class="suggestion-link no-underline text-black">
-        <div class="suggestion-item leading-normal flex content-end pb-2">
-          <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1"><span class="bg-teal-lightest text-teal-dark">مولانا</span> &raquo; شمس تبریزی</div>
-          <div class="suggestion-content w-2/3 transition px-3 py-1">
-            <p>حکایت شماره ۵</p>
-            <small class="font-light">سراندازان همی‌آیی <span class="border-b border-b-1 border-dashed border-teal pb-1">نگارین</span> جگرخواره</small>
-          </div>
+      <template v-if="search.paragraphs">
+        <div class="suggestion-header leading-normal border-b border-b-1 border-grey mb-1">
+          <span class="font-normal">متون</span>
         </div>
-      </a>
+        <NuxtLink v-for="paragraph in search.paragraphs" :key="paragraph.id" @click.native="navigate" :to="{ name: 'book-slug-page-id', params: { slug: paragraph.book[0].slug, id: paragraph.page[0].id }}" class="suggestion-link no-underline text-black">
+          <div class="suggestion-item leading-normal flex content-end pb-2">
+            <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1">{{ paragraph.collaborators[0].name }} &raquo; {{ paragraph.book[0].title }}</div>
+            <div class="suggestion-content w-2/3 transition px-3 py-1">
+              <p>{{ paragraph.page[0].title }}</p>
+              <small class="font-light">
+                <template v-if="paragraph.highlight[0].content && paragraph.highlight[0].content[0]"><span v-html="paragraph.highlight[0].content[0]" /></template>
+                <template v-else>{{ paragraph.content }}</template>
+              </small>
+            </div>
+          </div>
+        </NuxtLink>
+      </template>
     </span>
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
+import { directive as onClickaway } from 'vue-clickaway'
+
 export default {
   name: 'AutocompleteSearch',
 
-  data: () => ({
-    query: 'حافظ',
-    focused: true,
-    loading: false
-  }),
-
-  apollo: {
-    search: {
-      query: require('~/graphql/autocomplete.gql'),
-      variables: {
-        query: 'حافظ'
-      }
-    }
+  directives: {
+    onClickaway: onClickaway
   },
+
+  data: () => ({
+    query: '',
+    focused: false,
+    loading: false,
+    search: null,
+    list: true
+  }),
 
   methods: {
     focus() {
       this.focused = true
-      this.loading = true
     },
 
     unfocus() {
       this.focused = false
-      this.loading = false
+    },
+
+    away() {
+      if (this.focused) {
+        this.list = true
+      } else {
+        this.list = false
+      }
+    },
+
+    navigate() {
+      console.log('Are?')
+      this.list = false
+    },
+
+    update: _.debounce(async function(e) {
+      if (this.query === '') {
+        this.search = null
+        return
+      }
+
+      this.loading = true
+      await this.$apollo
+        .query({
+          query: require('~/graphql/autocomplete.gql'),
+          variables: { query: this.query }
+        })
+        .then(({ data }) => {
+          this.search = data.search
+          this.loading = false
+        })
+    }, 300),
+
+    get(obj, key) {
+      return _(obj).get(key)
+    },
+
+    truncate(str) {
+      return _.truncate(str, {
+        length: 100,
+        separator: /,? +/
+      })
     }
   }
 }
