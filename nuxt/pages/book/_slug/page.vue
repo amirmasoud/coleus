@@ -1,42 +1,52 @@
 <template>
   <div class="flex" v-if="book">
     <div class="w-1/4 mt-2 pl-2 sticky self-start" style="top: 72px;">
-      <no-ssr>
-        <div class="book-contents rounded overflow-hidden p-3 bg-white overflow-y-auto overflow-x-hidden h-screen-91" v-if="book">
-          <RecycleScroller
+      <div class="book-contents rounded overflow-hidden p-3 bg-white overflow-y-auto overflow-x-hidden h-screen-91" v-if="book">
+        <no-ssr>
+          <DynamicScroller
             :items="book.pages"
-            :item-height="1"
-            ref="scroller"
+            :min-item-height="48"
+            page-mode
+            :prerender="100"
+            :min-item-size="54"
           >
-            <div slot-scope="{ index, item }">
-              <strong v-if="item.is_header" class="block py-2 px-4 mb-1">{{ item.title }}</strong>
-              <NuxtLink
-                v-else
-                no-prefetch
-                class="no-underline text-black block py-2 px-4 border border-transparent rounded-sm mb-1 hover:bg-grey-lightest transition-delay-none transition-timing-linear transition-property-bg transition-fast"
-                :class="{ 'bg-grey-lightest font-bold border border-grey-light': item.id == $route.params.id }"
-                :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: item.id }}"
+            <template slot-scope="{ item, index, active }">
+              <DynamicScrollerItem
+                :item="item"
+                :active="active"
+                :size-dependencies="[ item.title ]"
+                :data-index="index"
               >
-                {{ item.title }}
-              </NuxtLink>
-            </div>
-          </RecycleScroller>
-        </div>
-      </no-ssr>
+                <strong v-if="item.is_header" class="block py-2 px-4 mb-1">{{ item.title }}</strong>
+                <NuxtLink
+                  v-else
+                  class="no-underline text-black block py-2 px-4 border border-transparent rounded-sm mb-1 hover:bg-grey-lightest transition-delay-none transition-timing-linear transition-property-bg transition-fast"
+                  :class="{ 'bg-grey-lightest font-bold border border-grey-light': item.id == $route.params.id }"
+                  :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: item.id }}"
+                  @click.native="scrollTo"
+                >
+                  {{ item.title }}
+                </NuxtLink>
+              </DynamicScrollerItem>
+            </template>
+          </DynamicScroller>
+        </no-ssr>
+      </div>
     </div>
 
     <div class="w-3/4 mt-2">
-      <NuxtChild />
+      <NuxtChild :key="$route.params.id" />
     </div>
   </div>
   <oval-loader v-else />
 </template>
 
 <script>
-import { RecycleScroller } from 'vue-virtual-scroller'
+import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 
 export default {
-  components: { RecycleScroller },
+  components: { DynamicScroller, DynamicScrollerItem },
 
   apollo: {
     book: {
@@ -45,6 +55,13 @@ export default {
       variables() {
         return { slug: this.$route.params.slug }
       }
+    }
+  },
+
+  methods: {
+    scrollTo() {
+      console.log(this.$refs.scroller)
+      // this.$refs.scroller.scrollToItem(1000)
     }
   }
 }

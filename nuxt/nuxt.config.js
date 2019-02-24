@@ -15,7 +15,7 @@ const polyfills = [
 ]
 
 module.exports = {
-  mode: 'spa',
+  mode: 'universal',
 
   debug: true,
 

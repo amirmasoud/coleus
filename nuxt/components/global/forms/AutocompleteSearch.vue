@@ -131,7 +131,6 @@ export default {
     },
 
     navigate() {
-      console.log('Are?')
       this.list = false
     },
 
