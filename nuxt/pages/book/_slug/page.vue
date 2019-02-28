@@ -23,7 +23,6 @@
                   class="no-underline text-black block py-2 px-4 border border-transparent rounded-sm mb-1 hover:bg-grey-lightest transition-delay-none transition-timing-linear transition-property-bg transition-fast"
                   :class="{ 'bg-grey-lightest font-bold border border-grey-light': item.id == $route.params.id }"
                   :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: item.id }}"
-                  @click.native="scrollTo"
                 >
                   {{ item.title }}
                 </NuxtLink>
@@ -35,7 +34,7 @@
     </div>
 
     <div class="w-3/4 mt-2">
-      <NuxtChild :key="$route.params.id" />
+      <NuxtChild keep-alive />
     </div>
   </div>
   <oval-loader v-else />
@@ -55,13 +54,6 @@ export default {
       variables() {
         return { slug: this.$route.params.slug }
       }
-    }
-  },
-
-  methods: {
-    scrollTo() {
-      console.log(this.$refs.scroller)
-      // this.$refs.scroller.scrollToItem(1000)
     }
   }
 }
