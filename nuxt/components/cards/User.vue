@@ -10,7 +10,7 @@
         />
       </no-ssr>
       <div class="px-4 py-2">
-        <div class="text-lg mb-1 py-1">
+        <div class="text-normal mb-1 py-1">
           {{ user.name }}
         </div>
       </div>

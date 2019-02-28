@@ -26,7 +26,7 @@ class SearchRepository extends Repository
                         'fragment_size' => 100,
                         'fields' => [
                             'content' => [
-                                'pre_tags' => '<span class="border-b border-b-1 border-dashed border-teal pb-1">',
+                                'pre_tags' => '<span class="bg-teal-lightest text-teal-dark">',
                                 'post_tags' => '</span>',
                             ]
                         ]
@@ -47,11 +47,11 @@ class SearchRepository extends Repository
                         'fragment_size' => 100,
                         'fields' => [
                             'title' => [
-                                'pre_tags' => '<span class="bg-teal-lightest text-teal-dark">',
+                                'pre_tags' => '<span class="border-b border-b-1 border-dashed border-teal pb-1">',
                                 'post_tags' => '</span>',
                             ],
                             'description' => [
-                                'pre_tags' => '<span class="border-b border-b-1 border-dashed border-teal pb-1">',
+                                'pre_tags' => '<span class="bg-teal-lightest text-teal-dark">',
                                 'post_tags' => '</span>',
                             ]
                         ]
@@ -72,15 +72,15 @@ class SearchRepository extends Repository
                         'fragment_size' => 100,
                         'fields' => [
                             'name' => [
-                                'pre_tags' => '<span class="bg-teal-lightest text-teal-dark">',
+                                'pre_tags' => '<span class="border-b border-b-1 border-dashed border-teal pb-1">',
                                 'post_tags' => '</span>',
                             ],
                             'username' => [
-                                'pre_tags' => '<span class="border-b border-b-1 border-dashed border-teal pb-1">',
+                                'pre_tags' => '<span class="bg-teal-lightest text-teal-dark">',
                                 'post_tags' => '</span>',
                             ],
                             'bio' => [
-                                'pre_tags' => '<span class="border-b border-b-1 border-dashed border-teal pb-1">',
+                                'pre_tags' => '<span class="bg-teal-lightest text-teal-dark">',
                                 'post_tags' => '</span>',
                             ]
                         ]

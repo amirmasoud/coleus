@@ -2,7 +2,7 @@
   <div dir="rlt" style="direction: rtl;">
     <navbar />
 
-    <div class="container mx-auto w-full h-full max-w-3xl px-2 xl:px-6 mt-16">
+    <div class="container mx-auto w-full h-full max-w-3xl px-2 xl:px-2 mt-16">
       <nuxt :key="$route.fullPath" />
     </div>
   </div>

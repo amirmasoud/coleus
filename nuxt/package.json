@@ -26,6 +26,7 @@
     "lodash": "^4.17.11",
     "nuxt": "^2.4.3",
     "object-to-formdata": "^1.5.2",
+    "snapsvg": "^0.5.1",
     "sweetalert2": "^7.19.3",
     "vee-validate": "^2.1.4",
     "vue": "^2.6.6",
