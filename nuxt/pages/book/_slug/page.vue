@@ -5,10 +5,10 @@
         <no-ssr>
           <DynamicScroller
             :items="book.pages"
-            :min-item-height="48"
-            page-mode
             :prerender="100"
             :min-item-size="54"
+            ref="scroller"
+            @visible="scrollTo"
           >
             <template slot-scope="{ item, index, active }">
               <DynamicScrollerItem
@@ -53,6 +53,14 @@ export default {
       prefetch: ({ route }) => ({ slug: route.params.slug }),
       variables() {
         return { slug: this.$route.params.slug }
+      }
+    }
+  },
+
+  methods: {
+    scrollTo() {
+      if (process.client) {
+        this.$refs.scroller.scrollToItem(684)
       }
     }
   }

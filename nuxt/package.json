@@ -34,7 +34,7 @@
     "vue-i18n": "^8.8.0",
     "vue-progressive-image": "^3.2.0",
     "vue-snotify": "^3.2.1",
-    "vue-virtual-scroller": "^1.0.0-rc.1"
+    "vue-virtual-scroller": "^1.0.0-rc.2"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^0.0.1",

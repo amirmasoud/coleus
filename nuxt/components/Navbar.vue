@@ -21,12 +21,12 @@
           </div>
           <div class="hidden lg:block lg:w-1/4">
             <div class="flex justify-end items-center text-grey">
-              <a class="block flex items-center no-underline text-white hover:text-grey-darker mr-6" href="https://github.com/tailwindcss/tailwindcss">
+              <!-- <a class="block flex items-center no-underline text-white hover:text-grey-darker mr-6" href="https://github.com/tailwindcss/tailwindcss">
                 {{ $t('login') }}
               </a>
               <a class="block flex items-center no-underline text-white hover:text-grey-darker mr-6" href="https://twitter.com/tailwindcss">
                 {{ $t('register') }}
-              </a>
+              </a> -->
             </div>
           </div>
         </div>

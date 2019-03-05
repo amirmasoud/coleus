@@ -2,16 +2,16 @@
   <div class="mb-5">
     <div class="reading-container rounded overflow-hidden border border-grey-light bg-white">
       <div class="px-6 py-4">
-        <template v-if="page">
+        <template v-if="page && !loading">
           <div class="font-bold text-xl mb-8 mt-4 px-4">{{ page.title }}</div>
           <div class="text-grey-darkest text-base leading-loose flex flex-wrap" v-html="page.content"></div>
         </template>
-        <oval-loader v-else />
+        <oval-loader v-else class="mb-4" />
       </div>
     </div>
     <div class="flex">
       <div class="w-1/2">
-        <div v-if="page && page.next">
+        <div v-if="page && !loading && page.next">
           <NuxtLink
             class="block text-right rounded overflow-hidden border border-grey-light bg-white px-8 py-4 mt-2 ml-1 no-underline text-black hover:shadow transition"
             :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: page.next }}"
@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="w-1/2">
-        <div v-if="page && page.prev">
+        <div v-if="page && !loading && page.prev">
           <NuxtLink
             class="block text-left rounded overflow-hidden border border-grey-light bg-white px-8 py-4 mt-2 mr-1 no-underline text-black hover:shadow transition"
             :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: page.prev }}"
@@ -46,6 +46,10 @@ export default {
     return { title: this.$t('read_book') }
   },
 
+  data: () => ({
+    loading: false
+  }),
+
   apollo: {
     page: {
       query: require('~/graphql/page.gql'),
@@ -58,7 +62,16 @@ export default {
           slug: this.$route.params.slug,
           id: this.$route.params.id
         }
+      },
+      watchLoading(isLoading, countModifier) {
+        this.loading = isLoading
       }
+    }
+  },
+
+  methods: {
+    loaded() {
+      // return process.client ? !this.loading : (this.page || false)
     }
   }
 }
