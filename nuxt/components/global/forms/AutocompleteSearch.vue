@@ -22,7 +22,7 @@
       v-model="query">
     <span
       v-if="search && (search.paragraphs || search.books || search.users)"
-      class="search-result w-full bg-white rounded border border-grey-light border p-4 absolute pin-l block my-2 z-50 overflow-y-scroll"
+      class="search-result xl:w-full lg:w-full w-autocomplete bg-white rounded border border-grey-light border p-4 absolute pin-l block my-2 z-50 overflow-y-scroll"
       role="listbox"
       style="top: 100%; right: auto; max-height: 93vh;"
       v-show="focused || list"
