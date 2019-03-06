@@ -16,8 +16,8 @@
           class="block text-right rounded overflow-hidden border border-grey-light bg-white lg:px-8 px-2 py-4 mt-2 h-full no-underline text-black hover:shadow transition"
           :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: page.next }}"
         >
-          <fa icon="angle-double-right" fixed-width /> {{ page.next_title }} <br>
-          <small class="font-light block mt-2 lg:pr-8 pr-2">
+          {{ page.next_title }} <br>
+          <small class="font-light block mt-2 text-grey-darkest">
             {{ $t('next') }}
           </small>
         </NuxtLink>
@@ -28,8 +28,8 @@
           class="block text-left rounded overflow-hidden border border-grey-light bg-white lg:px-8 px-2 py-4 mt-2 h-full no-underline text-black hover:shadow transition"
           :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: page.prev }}"
         >
-          {{ page.prev_title }} <fa icon="angle-double-left" fixed-width /> <br>
-          <small class="font-light block mt-2 lg:pl-8 pl-2">
+          {{ page.prev_title }} <br>
+          <small class="font-light block mt-2 text-grey-darkest">
             {{ $t('prev') }}
           </small>
         </NuxtLink>
