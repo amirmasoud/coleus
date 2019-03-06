@@ -1,6 +1,6 @@
 <template>
   <div class="flex bg-black fixed pin-t pin-x z-50 h-16 items-center">
-    <div class="w-full max-w-3xl relative mx-auto px-2">
+    <div class="w-full max-w-3xl relative mx-auto">
       <div class="flex items-center">
         <div class="lg:w-1/4 xl:w-1/5 mr-2 xl:mr-3">
           <div class="flex justify-start items-center">
@@ -10,14 +10,14 @@
           </div>
         </div>
         <div class="flex flex-grow items-center mx-2 lg:w-3/4 xl:w-4/5">
-          <!-- <div id="sidebar-open" class="flex px-6 items-center lg:hidden">
-            <svg class="fill-current w-4 h-4 cursor-pointer text-grey" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-          </div>
-          <div id="sidebar-close" class="hidden flex px-6 items-center lg:hidden">
-            <svg class="fill-current w-4 h-4 cursor-pointer text-grey" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg>
-          </div> -->
           <div class="w-full lg:px-6 lg:w-3/4 xl:px-12">
             <AutocompleteSearch />
+          </div>
+          <div @click.prevent="openMenu" v-show="!showMenu" id="sidebar-open" class="flex pr-4 pl-2 items-center lg:hidden">
+            <svg class="fill-current w-4 h-4 cursor-pointer text-grey" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+          </div>
+          <div @click.prevent="closeMenu" v-show="showMenu" id="sidebar-close" class="flex pr-4 pl-2 items-center lg:hidden">
+            <svg class="fill-current w-4 h-4 cursor-pointer text-grey" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg>
           </div>
           <div class="hidden lg:block lg:w-1/4">
             <div class="flex justify-end items-center text-grey">
@@ -34,3 +34,30 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  data: () => ({
+    showMenu: false
+  }),
+
+  created() {
+    this.$root.$on('close-menu-after-click', this.closeMenuAfterClick)
+  },
+
+  methods: {
+    openMenu() {
+      this.showMenu = true
+      this.$root.$emit('open-menu')
+    },
+
+    closeMenu() {
+      this.showMenu = false
+      this.$root.$emit('close-menu')
+    },
+
+    closeMenuAfterClick() {
+      this.showMenu = false
+    }
+  }
+}
+</script>

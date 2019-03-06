@@ -1,7 +1,7 @@
 <template>
-  <div class="mb-5">
+  <div class="mb-5 mx-2">
     <div class="reading-container rounded overflow-hidden border border-grey-light bg-white">
-      <div class="px-6 py-4">
+      <div class="px-1lg:px-6 py-4">
         <template v-if="page && !loading">
           <div class="font-bold text-xl mb-8 mt-4 px-4">{{ page.title }}</div>
           <div class="text-grey-darkest text-base leading-loose flex flex-wrap" v-html="page.content"></div>
@@ -10,31 +10,29 @@
       </div>
     </div>
     <div class="flex">
-      <div class="w-1/2">
-        <div v-if="page && !loading && page.next">
-          <NuxtLink
-            class="block text-right rounded overflow-hidden border border-grey-light bg-white px-8 py-4 mt-2 ml-1 no-underline text-black hover:shadow transition"
-            :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: page.next }}"
-          >
-            <fa icon="angle-double-right" fixed-width /> {{ page.next_title }} <br>
-            <small class="font-light block mt-2 pr-8">
-              {{ $t('next') }}
-            </small>
-          </NuxtLink>
-        </div>
+      <div v-if="page && !loading && page.next" class="flex-1">
+        <NuxtLink
+          :class="{'ml-1': page && !loading && page.prev}"
+          class="block text-right rounded overflow-hidden border border-grey-light bg-white lg:px-8 px-2 py-4 mt-2 h-full no-underline text-black hover:shadow transition"
+          :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: page.next }}"
+        >
+          <fa icon="angle-double-right" fixed-width /> {{ page.next_title }} <br>
+          <small class="font-light block mt-2 lg:pr-8 pr-2">
+            {{ $t('next') }}
+          </small>
+        </NuxtLink>
       </div>
-      <div class="w-1/2">
-        <div v-if="page && !loading && page.prev">
-          <NuxtLink
-            class="block text-left rounded overflow-hidden border border-grey-light bg-white px-8 py-4 mt-2 mr-1 no-underline text-black hover:shadow transition"
-            :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: page.prev }}"
-          >
-            {{ page.prev_title }} <fa icon="angle-double-left" fixed-width /> <br>
-            <small class="font-light block mt-2 pl-8">
-              {{ $t('prev') }}
-            </small>
-          </NuxtLink>
-        </div>
+      <div v-if="page && !loading && page.prev" class="flex-1">
+        <NuxtLink
+          :class="{'mr-1': page && !loading && page.next}"
+          class="block text-left rounded overflow-hidden border border-grey-light bg-white lg:px-8 px-2 py-4 mt-2 h-full no-underline text-black hover:shadow transition"
+          :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: page.prev }}"
+        >
+          {{ page.prev_title }} <fa icon="angle-double-left" fixed-width /> <br>
+          <small class="font-light block mt-2 lg:pl-8 pl-2">
+            {{ $t('prev') }}
+          </small>
+        </NuxtLink>
       </div>
     </div>
   </div>
