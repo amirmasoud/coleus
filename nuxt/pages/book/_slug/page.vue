@@ -8,7 +8,6 @@
             :prerender="100"
             :min-item-size="54"
             ref="scroller"
-            @visible="scrollTo"
           >
             <template slot-scope="{ item, index, active }">
               <DynamicScrollerItem
@@ -41,8 +40,8 @@
 </template>
 
 <script>
-import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
+import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
 
 export default {
   components: { DynamicScroller, DynamicScrollerItem },
@@ -53,14 +52,6 @@ export default {
       prefetch: ({ route }) => ({ slug: route.params.slug }),
       variables() {
         return { slug: this.$route.params.slug }
-      }
-    }
-  },
-
-  methods: {
-    scrollTo() {
-      if (process.client) {
-        this.$refs.scroller.scrollToItem(684)
       }
     }
   }
