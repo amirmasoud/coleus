@@ -1,6 +1,6 @@
 <template>
-  <div class="flex" v-if="book">
-    <div class="w-1/4 mt-2 pl-2 sticky self-start" style="top: 72px;">
+  <div class="flex flex-wrap" v-if="book">
+    <div class="w-full lg:w-1/4 mt-2 pl-2 sticky self-start" style="top: 72px;">
       <div class="book-contents rounded overflow-hidden p-3 bg-white overflow-y-auto overflow-x-hidden h-screen-91" v-if="book">
         <no-ssr>
           <DynamicScroller
@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <div class="w-3/4 mt-2">
+    <div class="w-full lg:w-3/4 mt-2">
       <NuxtChild keep-alive />
     </div>
   </div>
