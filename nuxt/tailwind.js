@@ -483,8 +483,7 @@ module.exports = {
     '1/8': '12.5%',
     '7/8': '87.5%',
     full: '100%',
-    screen: '100vw',
-    autocomplete: 'calc(100vw - 31px)'
+    screen: '100vw'
   },
 
   /*
