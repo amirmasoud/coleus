@@ -595,8 +595,8 @@ services:
         - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       ulimits:
         memlock:
-          soft: -1
-          hard: -1
+          soft: 65536
+          hard: 65536
       depends_on:
         - php-fpm
       networks:
