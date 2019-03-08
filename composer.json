@@ -6,7 +6,6 @@
     "type": "project",
     "require": {
         "php": "^7.3.0",
-        "algolia/algoliasearch-client-php": "^1.28",
         "backpack/MenuCRUD": "^1.0",
         "backpack/backupmanager": "^1.4",
         "backpack/crud": "^3.5",
