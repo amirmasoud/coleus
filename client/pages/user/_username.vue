@@ -2,19 +2,14 @@
   <div v-if="user">
     <div class="pt-2">
       <div class="flex justify-start">
-        <!-- User Image -->
         <user-small-image :user="user" />
-
-        <!-- User Name -->
         <div class="mr-2 float-right">
           <h4>{{ user.name }}</h4>
           <small>@{{ user.username }}</small>
         </div>
-
       </div>
     </div>
 
-    <!-- Books -->
     <div v-if="user.books && user.books.length" class="flex content-start flex-wrap mx-2">
       <div
         v-for="book in user.books"
@@ -24,11 +19,10 @@
         <book-card :book="book" />
       </div>
     </div>
-
     <book-nil v-else />
   </div>
 
-  <!-- <oval-loader v-else /> -->
+  <OvalLoader v-else />
 </template>
 
 <script>
@@ -55,11 +49,6 @@ export default {
   },
 
   methods: {
-    /**
-     * Refetch profile after toggling follow to reflect social status count.
-     *
-     * @return {void}
-     */
     async refetch() {
       // Let the child component know about process, so spinning icon will be
       // shown as long as parent process completed.

@@ -24,7 +24,8 @@ export default {
 
   props: {
     book: {
-      type: Object
+      type: Object,
+      default: () => {}
     }
   }
 }

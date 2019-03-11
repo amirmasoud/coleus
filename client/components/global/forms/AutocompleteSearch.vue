@@ -1,32 +1,33 @@
 <template>
-  <div :class="[focused ? 'w-2/3' : 'w-1/3']" class="mr-auto relative transition">
+  <div :class="[focused ? 'lg:w-2/3' : 'lg:w-1/3']" class="w-full mr-auto relative transition ">
     <div class="pointer-events-none absolute pin-y pin-r pr-3 flex items-center">
-      <img v-if="loading" class="w-4" src="/icons/loading.svg" />
-      <img v-else class="w-4" src="/icons/search.svg" />
+      <img v-if="loading" class="w-4" src="/icons/loading.svg">
+      <img v-else class="w-4" src="/icons/search.svg">
     </div>
     <input
-      class="h-8 transition outline-none border border-transparent rounded focus:bg-white focus:border-grey-light placeholder-grey-darkest bg-grey-lighter py-2 pr-4 pr-10 block w-full appearance-none leading-normal"
+      v-model="query"
+      class="h-8 transition outline-none border border-transparent rounded focus:bg-white focus:border-blue-light placeholder-grey-darkest bg-grey-lighter py-2 pr-4 pr-10 block w-full appearance-none leading-normal"
       type="text"
       placeholder="جستجو"
       @focus="focus"
       @blur="unfocus"
       @input="update"
-      v-model="query">
+    >
     <span
       v-if="search && (search.paragraphs || search.books || search.users)"
+      v-show="focused || list"
+      v-on-clickaway="away"
       class="search-result xl:w-full lg:w-full w-full bg-white rounded border border-grey-light border p-4 absolute pin-l block my-2 z-50 overflow-y-scroll"
       role="listbox"
       style="top: 100%; right: auto; max-height: 93vh;"
-      v-show="focused || list"
-      v-on-clickaway="away"
     >
       <template v-if="search.users">
         <div class="suggestion-header leading-normal border-b border-b-1 border-grey mb-1">
           <span class="font-normal">شاعران</span>
         </div>
-        <NuxtLink v-for="user in search.users" :key="user.id" @click.native="navigate" :to="{ name: 'user-username', params: { username: user.username }}" class="suggestion-link no-underline text-black">
+        <NuxtLink v-for="user in search.users" :key="user.id" class="suggestion-link no-underline text-black" :to="{ name: 'user-username', params: { username: user.username }}" @click.native="navigate">
           <div class="suggestion-item leading-normal flex content-end pb-2">
-            <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1">{{ user.name }}<br><span class="px-2"></span>
+            <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1">{{ user.name }}<br><span class="px-2" />
               <template v-if="get(user, 'highlight[0].username[0]')"><span v-html="get(user, 'highlight[0].username[0]')" /></template>
               <template v-else><small class="font-light">{{ user.username }}</small></template>@<!-- An @ sign is living here -->
             </div>
@@ -48,7 +49,7 @@
         <div class="suggestion-header leading-normal border-b border-b-1 border-grey mb-1">
           <span class="font-normal">کتاب‌ها</span>
         </div>
-        <NuxtLink v-for="book in search.books" :key="book.id" @click.native="navigate" :to="{ name: 'book-slug-page-id', params: { slug: book.slug, id: book.start }}" class="suggestion-link no-underline text-black">
+        <NuxtLink v-for="book in search.books" :key="book.id" class="suggestion-link no-underline text-black" :to="{ name: 'book-slug-page-id', params: { slug: book.slug, id: book.start }}" @click.native="navigate">
           <div class="suggestion-item leading-normal flex content-end pb-2">
             <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1">{{ book.collaborators[0].name }}</div>
             <div class="suggestion-content w-2/3 transition px-3 py-1">
@@ -69,13 +70,15 @@
         <div class="suggestion-header leading-normal border-b border-b-1 border-grey mb-1">
           <span class="font-normal">متون</span>
         </div>
-        <NuxtLink v-for="paragraph in search.paragraphs" :key="paragraph.id" @click.native="navigate" :to="{ name: 'book-slug-page-id', params: { slug: paragraph.book[0].slug, id: paragraph.page[0].id }}" class="suggestion-link no-underline text-black">
+        <NuxtLink v-for="paragraph in search.paragraphs" :key="paragraph.id" class="suggestion-link no-underline text-black" :to="{ name: 'book-slug-page-id', params: { slug: paragraph.book[0].slug, id: paragraph.page[0].id }}" @click.native="navigate">
           <div class="suggestion-item leading-normal flex content-end pb-2">
             <div class="suggestion-category font-light w-1/3 text-left border-l border-grey px-3 py-1">{{ paragraph.collaborators[0].name }} &raquo; {{ paragraph.book[0].title }}</div>
             <div class="suggestion-content w-2/3 transition px-3 py-1">
               <p>{{ paragraph.page[0].title }}</p>
               <small class="font-light">
-                <template v-if="paragraph.highlight[0].content && paragraph.highlight[0].content[0]"><span v-html="paragraph.highlight[0].content[0]" /></template>
+                <template v-if="paragraph.highlight[0].content && paragraph.highlight[0].content[0]">
+                  <span v-html="paragraph.highlight[0].content[0]" />
+                </template>
                 <template v-else>{{ paragraph.content }}</template>
               </small>
             </div>
