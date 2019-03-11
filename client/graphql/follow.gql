@@ -1,5 +1,0 @@
-mutation toggleFollow ($user: Int!) {
-  follow(user: $user) {
-    id
-  }
-}

@@ -51,18 +51,6 @@ class UserQuery extends Query
             if ($field === 'books') {
                 $user->with('books');
             }
-
-            if ($field === 'following_count') {
-                $user->withCount('followings');
-            }
-
-            if ($field === 'followers_count') {
-                $user->withCount('followers');
-            }
-
-            if ($field === 'books_count') {
-                $user->withCount('books');
-            }
         }
 
         $user = $user->firstOrFail();

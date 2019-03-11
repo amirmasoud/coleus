@@ -78,26 +78,10 @@ class UserType extends BaseType
                 'type' => Type::boolean(),
                 'description' => 'The user is sticky'
             ],
-            'followers_count' => [
-                'type' => Type::int(),
-                'description' => 'The user followers count'
-            ],
-            'following_count' => [
-                'type' => Type::int(),
-                'description' => 'The user following count'
-            ],
-            'books_count' => [
-                'type' => Type::int(),
-                'description' => 'The user books count'
-            ],
             'books' => [
                 'args' => \Facades\App\GraphQL\Type\BookType::fields(),
                 'type' => Type::listOf(GraphQL::type('Book')),
                 'description' => 'The user\'s books'
-            ],
-            'is_following' => [
-                'type' => Type::boolean(),
-                'description' => 'The user is following the profile'
             ],
             'highlight' => [
                 'type' => Type::listOf(GraphQL::type('UserHighlight')),
@@ -124,35 +108,5 @@ class UserType extends BaseType
     protected function resolveStickyField($root, $args)
     {
         return $root->sticks()->exists();
-    }
-
-    /**
-     * @param  $root
-     * @param  $args
-     * @return mixed
-     */
-    function resolveFollowingCountField($root, $args)
-    {
-        return $root->followings()->count();
-    }
-
-    /**
-     * @param  $root
-     * @param  $args
-     * @return mixed
-     */
-    function resolveFollowersCountField($root, $args)
-    {
-        return $root->followers()->count();
-    }
-
-    /**
-     * @param  $root
-     * @param  $args
-     * @return mixed
-     */
-    function resolveIsFollowingField($root, $args)
-    {
-        return auth()->check() ? auth()->user()->isFollowing($root) : false;
     }
 }

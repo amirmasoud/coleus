@@ -95,8 +95,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~/assets/css/tailwind.css',
-    '~/assets/css/dosearch.css'
+    '~/assets/css/tailwind.css'
   ],
 
   /*

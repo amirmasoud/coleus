@@ -7,10 +7,6 @@ query FetchUserByUsername($username: String) {
     xsmall,
     small,
     placeholder,
-    following_count,
-    followers_count,
-    is_following,
-    books_count,
     bio,
     books {
       id,

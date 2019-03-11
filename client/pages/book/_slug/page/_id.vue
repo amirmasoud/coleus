@@ -3,8 +3,10 @@
     <div class="reading-container rounded overflow-hidden border border-grey-light bg-white">
       <div class="px-1lg:px-6 py-4">
         <template v-if="page && !loading">
-          <div class="font-bold text-xl mb-8 mt-4 px-4">{{ page.title }}</div>
-          <div class="text-grey-darkest text-base leading-loose flex flex-wrap" v-html="page.content"></div>
+          <div class="font-bold text-xl mb-8 mt-4 px-4">
+            {{ page.title }}
+          </div>
+          <div class="text-grey-darkest text-base leading-loose flex flex-wrap" v-html="page.content" />
         </template>
         <oval-loader v-else class="mb-4" />
       </div>

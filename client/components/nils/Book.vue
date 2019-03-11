@@ -1,5 +1,7 @@
 <template>
-  <div class="text-center mt-2">{{ $t('no_book') }}</div>
+  <div class="text-center mt-2">
+    {{ $t('no_book') }}
+  </div>
 </template>
 
 <script>
