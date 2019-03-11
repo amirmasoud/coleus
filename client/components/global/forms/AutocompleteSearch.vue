@@ -1,8 +1,8 @@
 <template>
-  <div class="relative">
+  <div :class="[focused ? 'w-2/3' : 'w-1/3']" class="mr-auto relative transition">
     <div class="pointer-events-none absolute pin-y pin-r pr-3 flex items-center">
-      <img v-if="loading" class="w-4" :src="'./icons/loading.svg'" />
-      <img v-else class="w-4" :src="'./icons/search.svg'" />
+      <img v-if="loading" class="w-4" src="/icons/loading.svg" />
+      <img v-else class="w-4" src="/icons/search.svg" />
     </div>
     <input
       class="h-8 transition outline-none border border-transparent rounded focus:bg-white focus:border-grey-light placeholder-grey-darkest bg-grey-lighter py-2 pr-4 pr-10 block w-full appearance-none leading-normal"

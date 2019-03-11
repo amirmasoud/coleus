@@ -11,18 +11,8 @@
           <small>@{{ user.username }}</small>
         </div>
 
-        <!-- Follow/New Book Button -->
-        <!-- <toggle-book-follow-button
-          :loading="loadingUser"
-          :user="user"
-          :auth="auth"
-          @toggle-follow="refetch"
-        /> -->
       </div>
     </div>
-
-    <!-- Follows/Followers/Books Count -->
-    <social-status-bar :user="user" />
 
     <!-- Books -->
     <div v-if="user.books && user.books.length" class="flex content-start flex-wrap mx-2">
@@ -42,24 +32,17 @@
 </template>
 
 <script>
-// import { auth } from '~/mixins/auth'
-// import ToggleBookFollowButton from '~/components/buttons/ToggleBookFollow'
-import UserSmallImage from '~/components/images/UserSmall'
-import SocialStatusBar from '~/components/bars/SocialStatus'
-import BookCard from '~/components/cards/Book'
-import BookNil from '~/components/nils/Book'
 import profile from '~/graphql/profile'
+import BookNil from '~/components/nils/Book'
+import BookCard from '~/components/cards/Book'
+import UserSmallImage from '~/components/images/UserSmall'
 
 export default {
   components: {
-    // ToggleBookFollowButton,
     UserSmallImage,
-    SocialStatusBar,
     BookCard,
     BookNil
   },
-
-  // mixins: [auth],
 
   apollo: {
     user: {
