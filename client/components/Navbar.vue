@@ -1,82 +1,63 @@
 <template>
-  <b-navbar toggleable="md" type="dark" variant="dark" sticky>
-
-    <div class="container">
-      <b-navbar-brand :to="{ name: 'welcome' }">
-        <b-img class="logo logo-fa mr-2" fluid src="/images/logo-192x192.png" alt="Logo" />
-      </b-navbar-brand>
-        <template v-if="loading">
-          <div class="linear-background rounded-circle profile-photo ml-1"></div>
-        </template>
-        <template v-else>
-          <b-navbar-nav class="ml-auto" style="flex-direction: row;">
-            <b-dropdown left variant="link" no-caret v-if="auth">
-              <template slot="button-content">
-                <b-img :src="auth.thumbnail || auth.photo_url" class="rounded-circle profile-photo ml-1" />
-              </template>
-              <b-dropdown-item :to="{ name: 'profile', params: { 'username': auth.username } }">{{ $t('my_books') }}</b-dropdown-item>
-              <b-dropdown-item v-b-modal.modal-center-new-book>{{ $t('new_book') }}</b-dropdown-item>
-              <b-dropdown-item :to="{ name: 'settings.profile' }"><fa icon="cog" fixed-width/>{{ $t('settings') }}</b-dropdown-item>
-              <b-dropdown-divider></b-dropdown-divider>
-              <b-dropdown-item @click.prevent="logout" href="#"><fa icon="sign-out-alt" fixed-width/>{{ $t('logout') }}</b-dropdown-item>
-            </b-dropdown>
-            <template v-else>
-              <li class="nav-item">
-                <login></login>
-              </li>
-              <li class="nav-item">
-                <register></register>
-              </li>
-            </template>
-          </b-navbar-nav>
-        </template>
+  <div class="flex bg-black fixed pin-t pin-x z-50 h-16 items-center">
+    <div class="w-full max-w-3xl relative mx-auto">
+      <div class="flex items-center">
+        <div class="lg:w-1/4 xl:w-1/5 mr-2 xl:mr-3">
+          <div class="flex justify-start items-center">
+            <nuxt-link :to="{ name: 'index' }" class="flex lg:ml-4">
+              <img class="self-center" src="/images/favicon-32x32.png" alt="Logo">
+            </nuxt-link>
+          </div>
+        </div>
+        <div class="flex flex-grow items-center mx-2 lg:w-3/4 xl:w-4/5">
+          <div class="w-full lg:px-6 lg:w-3/4 xl:px-12">
+            <AutocompleteSearch />
+          </div>
+          <div @click.prevent="openMenu" v-show="!showMenu" id="sidebar-open" class="flex pr-4 pl-2 items-center lg:hidden">
+            <svg class="fill-current w-4 h-4 cursor-pointer text-grey" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+          </div>
+          <div @click.prevent="closeMenu" v-show="showMenu" id="sidebar-close" class="flex pr-4 pl-2 items-center lg:hidden">
+            <svg class="fill-current w-4 h-4 cursor-pointer text-grey" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg>
+          </div>
+          <div class="hidden lg:block lg:w-1/4">
+            <div class="flex justify-end items-center text-grey">
+              <!-- <a class="block flex items-center no-underline text-white hover:text-grey-darker mr-6" href="https://github.com/tailwindcss/tailwindcss">
+                {{ $t('login') }}
+              </a>
+              <a class="block flex items-center no-underline text-white hover:text-grey-darker mr-6" href="https://twitter.com/tailwindcss">
+                {{ $t('register') }}
+              </a> -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <new-book></new-book>
-
-  </b-navbar>
+  </div>
 </template>
-
 <script>
-import gql from 'graphql-tag'
-import { auth } from '~/mixins/auth'
-
 export default {
-  mixins: [auth],
+  data: () => ({
+    showMenu: false
+  }),
 
-  async mounted () {
-    this.$root.$on('refresh-navbar', this.attempLogin)
+  created() {
+    this.$root.$on('close-menu-after-click', this.closeMenuAfterClick)
   },
 
   methods: {
-    async logout () {
-      let logoutMessage = this.$t('successful_logout_header')
+    openMenu() {
+      this.showMenu = true
+      this.$root.$emit('open-menu')
+    },
 
-      await this.$apollo.mutate({
-        mutation: require('~/graphql/client/mutation/user'),
-        variables: { user: null },
-      })
-      await this.$apolloHelpers.onLogout()
+    closeMenu() {
+      this.showMenu = false
+      this.$root.$emit('close-menu')
+    },
 
-      this.$root.$emit('refresh-navbar')
-
-      // Redirect to login.
-      this.$router.push({ name: 'welcome' })
-
-      try {
-        this.$snotify.success(logoutMessage)
-      } catch (e) {
-        // console.warn(e)
-      }
+    closeMenuAfterClick() {
+      this.showMenu = false
     }
   }
 }
 </script>
-
-<style scoped>
-.profile-photo {
-  width: 2rem;
-  height: 2rem;
-  margin: -.375rem 0;
-}
-</style>

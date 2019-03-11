@@ -1,5 +1,0 @@
-mutation OAuthLogin($driver: String!) {
-  oauth(driver: $driver) {
-    url
-  }
-}

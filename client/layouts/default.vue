@@ -1,13 +1,11 @@
 <template>
-  <div class="main-layout rtl">
-    <navbar/>
+  <div dir="rlt" style="direction: rtl;">
+    <navbar />
 
-    <div class="container mt-2">
-      <nuxt/>
+    <div class="container mx-auto w-full h-full max-w-3xl mt-16">
+      <Nuxt />
+      <!-- <nuxt :key="$route.fullPath" /> -->
     </div>
-    <no-ssr>
-      <vue-snotify></vue-snotify>
-    </no-ssr>
   </div>
 </template>
 
@@ -15,9 +13,12 @@
 import Navbar from '~/components/Navbar'
 
 export default {
-  components: {
-    Navbar
+  components: { Navbar },
+
+  mounted() {
+    if (process.client && window) {
+      window.history.scrollRestoration = 'auto'
+    }
   }
 }
 </script>
-

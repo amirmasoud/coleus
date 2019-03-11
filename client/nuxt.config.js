@@ -1,3 +1,4 @@
+const pkg = require('./package')
 require('dotenv').config()
 
 const polyfills = [
@@ -14,10 +15,13 @@ const polyfills = [
 ]
 
 module.exports = {
-  // mode: 'spa',
+  mode: 'universal',
 
-  srcDir: __dirname,
+  debug: true,
 
+  /*
+  ** Global .env variables
+  */
   env: {
     appUrl: process.env.APP_URL,
     apiUrl: process.env.API_URL,
@@ -28,9 +32,12 @@ module.exports = {
     githubAuth: !!process.env.GITHUB_CLIENT_ID
   },
 
+  /*
+  ** Headers of the page
+  */
   head: {
-    title: process.env.APP_NAME,
-    titleTemplate: '%s → نگارین',
+    title: pkg.name || process.env.APP_NAME,
+    titleTemplate: '%s ← نگارین',
 
     meta: [
       { charset: 'utf-8' },
@@ -72,45 +79,81 @@ module.exports = {
 
     script: [
       { src: `https://cdn.polyfill.io/v2/polyfill.min.js?features=${polyfills.join(',')}` }
-    ]
+    ],
+
+    bodyAttrs: {
+      class: 'bg-white'
+    }
   },
 
+  /*
+  ** Customize the progress-bar color
+  */
   loading: { color: '#007bff' },
 
-  router: {
-    middleware: []
-  },
-
+  /*
+  ** Global CSS
+  */
   css: [
-    { src: '~assets/sass/app.scss', lang: 'scss' }
+    '~/assets/css/tailwind.css',
+    '~/assets/css/dosearch.css'
   ],
 
+  /*
+  ** Plugins to load before mounting the App
+  */
   plugins: [
     '~components/global',
     '~plugins/i18n',
-    '~plugins/axios',
     '~plugins/fontawesome',
-    // '~plugins/nuxt-client-init',
     { src: '~plugins/progressive', ssr: false },
     { src: '~plugins/snotify', ssr: false },
-    { src: '~plugins/vee-validate.js', ssr: true },
     { src: '~plugins/scroller.js', ssr: false }
   ],
 
+  /*
+  ** Nuxt.js modules
+  */
   modules: [
-    '@nuxtjs/router',
-    '~/modules/spa',
-    '@nuxtjs/apollo',
-    ['bootstrap-vue/nuxt', { css: false }],
+    '@nuxtjs/apollo'
   ],
 
+  /*
+  ** Build configuration
+  */
   build: {
-    extractCSS: true
+    /*
+    ** You can extend webpack config here
+    */
+    extend(config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    }
   },
 
+  /*
+  ** Apollo default config
+  */
   apollo: {
     clientConfigs: {
       default: '~/plugins/apollo-default-config.js',
     },
+  },
+
+  router: {
+    extendRoutes (routes, resolve) {
+      routes.push({
+        name: 'profile',
+        path: '/@:username',
+        component: resolve(__dirname, 'pages/user/_username.vue')
+      })
+    }
   }
 }

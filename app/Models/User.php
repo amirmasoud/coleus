@@ -2,25 +2,21 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\CrudTrait;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Model;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Overtrue\LaravelFollow\Traits\CanFollow;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Overtrue\LaravelFollow\Traits\CanBeFollowed;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
 
-class User extends Authenticatable implements JWTSubject, HasMedia
+class User extends Authenticatable implements HasMedia
 {
-    use Notifiable, HasRoles, HasMediaTrait, CanFollow, CanBeFollowed, CrudTrait;
+    use Notifiable, HasRoles, HasMediaTrait;
 
     /**
      * @var string

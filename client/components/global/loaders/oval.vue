@@ -1,9 +1,11 @@
 <template>
-  <div class="my-4 text-center"><img src="svg-loaders/oval.svg" /></div>
+  <div class="text-center flex justify-center pt-4">
+    <img class="block mx-auto" :src="'/svg-loaders/oval.svg'">
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'oval-loader'
+  name: 'OvalLoader'
 }
 </script>

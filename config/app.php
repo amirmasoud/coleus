@@ -84,8 +84,7 @@ return [
     'locale' => 'fa',
 
     'locales' => [
-        'fa' => 'فا',
-        // 'en' => 'EN',
+        'fa' => 'فا'
     ],
 
     /*
@@ -158,10 +157,7 @@ return [
         /*
          * Package Service Providers...
          */
-        \Torann\GeoIP\GeoIPServiceProvider::class,
         Folklore\GraphQL\ServiceProvider::class,
-        Overtrue\LaravelFollow\FollowServiceProvider::class,
-        Backpack\MenuCRUD\MenuCRUDServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -221,7 +217,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
         'GraphQL' => Folklore\GraphQL\Support\Facades\GraphQL::class,
 
     ],

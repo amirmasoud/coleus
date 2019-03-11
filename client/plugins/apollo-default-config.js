@@ -1,4 +1,4 @@
-export default function(context){
+export default function(context) {
   return {
     clientState: {
       defaults: {
@@ -9,13 +9,13 @@ export default function(context){
       resolvers: {
         Mutation: {
           setUser: (_, { user }, { cache }) => {
-            const data = { user };
-            cache.writeData({ data });
-            return data;
+            const data = { user }
+            cache.writeData({ data })
+            return data
           }
-        },
+        }
       }
     },
-    httpEndpoint: context.env.gqlUrl,
+    httpEndpoint: context.env.gqlUrl
   }
 }

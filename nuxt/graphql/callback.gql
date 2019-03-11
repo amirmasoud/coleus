@@ -1,5 +1,0 @@
-mutation OAuthCallback($driver: String!, $code: String!) {
-  callback(driver: $driver, code: $code) {
-    token
-  }
-}
