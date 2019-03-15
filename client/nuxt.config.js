@@ -82,14 +82,14 @@ module.exports = {
     ],
 
     bodyAttrs: {
-      class: 'bg-white'
+      class: 'bg-white font-sans'
     }
   },
 
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#007bff' },
+  loading: false,
 
   /*
   ** Global CSS
@@ -106,6 +106,7 @@ module.exports = {
     '~plugins/i18n',
     '~plugins/fontawesome',
     { src: '~plugins/progressive', ssr: false },
+    { src: '~plugins/shortkey', ssr: false },
     { src: '~plugins/snotify', ssr: false },
     { src: '~plugins/scroller.js', ssr: false }
   ],

@@ -5,14 +5,20 @@
       <img v-else class="w-4" src="/icons/search.svg">
     </div>
     <input
+      ref="search"
       v-model="query"
+      v-shortkey.once="['/']"
       class="h-8 transition outline-none border border-transparent rounded focus:bg-white focus:border-blue-light placeholder-grey-darkest bg-grey-lighter py-2 pr-4 pr-10 block w-full appearance-none leading-normal"
       type="text"
       placeholder="جستجو"
+      @shortkey="focusSearch()"
       @focus="focus"
       @blur="unfocus"
       @input="update"
     >
+    <div class="absolute pin-y pin-l pl-3 flex items-center">
+      <span class="bg-grey-light text-grey-darkest font-bold px-2 border-b border-grey-darkests rounded font-mono">/</span>
+    </div>
     <span
       v-if="search && (search.paragraphs || search.books || search.users)"
       v-show="focused || list"
@@ -156,6 +162,10 @@ export default {
         length: 100,
         separator: /,? +/
       })
+    },
+
+    focusSearch(e) {
+      this.$nextTick(() => this.$refs.search.focus())
     }
   }
 }

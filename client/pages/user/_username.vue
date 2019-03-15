@@ -15,6 +15,10 @@
         v-for="book in user.books"
         :key="book.id"
         class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/6 p-2"
+        data-aos="fade-in"
+        data-aos-duration="300"
+        data-aos-easing="ease-in-sine"
+        data-aos-once="true"
       >
         <book-card :book="book" />
       </div>
@@ -26,6 +30,8 @@
 </template>
 
 <script>
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import profile from '~/graphql/profile'
 import BookNil from '~/components/nils/Book'
 import BookCard from '~/components/cards/Book'
@@ -36,6 +42,12 @@ export default {
     UserSmallImage,
     BookCard,
     BookNil
+  },
+
+  created() {
+    if (process.client) {
+      AOS.init()
+    }
   },
 
   apollo: {
