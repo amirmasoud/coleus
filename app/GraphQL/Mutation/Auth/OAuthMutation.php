@@ -6,6 +6,7 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use GraphQL\Type\Definition\ResolveInfo;
+use App\Http\Repositories\Auth\OAuthRepository;
 
 class OAuthMutation extends Mutation
 {
@@ -32,7 +33,6 @@ class OAuthMutation extends Mutation
 
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
-        return (new \App\Http\Controllers\Auth\OAuthController())
-            ->redirectToProvider($args['driver']);
+        return (new OAuthRepository())->redirectToProvider($args['driver']);
     }
 }
