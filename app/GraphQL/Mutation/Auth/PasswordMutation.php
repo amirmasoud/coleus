@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use GraphQL\Type\Definition\ResolveInfo;
+use App\Http\Repositories\Auth\AuthRepository;
 
 class PasswordMutation extends Mutation
 {
@@ -38,7 +39,6 @@ class PasswordMutation extends Mutation
 
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
-        return (new \App\Http\Controllers\Settings\PasswordController())
-            ->update(new Request($args));
+        return (new AuthRepository())->updatePassword(new Request($args));
     }
 }

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Settings;
+namespace App\Repositories\Auth;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class PasswordController extends Controller
+class LoginRepository
 {
     /**
      * Update the user's password.
@@ -13,7 +12,7 @@ class PasswordController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function updatePassword(Request $request)
     {
         $this->validate($request, [
             'password' => 'required|confirmed|min:6',
