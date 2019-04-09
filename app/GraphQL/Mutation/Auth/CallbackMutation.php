@@ -2,10 +2,11 @@
 
 namespace App\GraphQL\Mutation\Auth;
 
+use GraphQL;
+use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Mutation;
 use GraphQL\Type\Definition\ResolveInfo;
-use GraphQL\Type\Definition\Type;
-use GraphQL;
+use App\Http\Repositories\Auth\OAuthRepository;
 
 class CallbackMutation extends Mutation
 {
@@ -37,7 +38,7 @@ class CallbackMutation extends Mutation
 
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
-        return (new \App\Http\Controllers\Auth\OAuthController())
+        return (new OAuthRepository())
             ->handleProviderCallback($args['driver'], $args['code']);
     }
 }

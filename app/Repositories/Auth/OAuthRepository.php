@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Repositories\Auth;
 
 use App\Models\User;
 use App\Models\OAuthProvider;
-use App\Http\Controllers\Controller;
 use App\Exceptions\EmailTakenException;
 use Laravel\Socialite\Facades\Socialite;
 use Facades\App\Repositories\UserRepository;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class OAuthController extends Controller
+class OAuthRepository
 {
     use AuthenticatesUsers;
 
@@ -63,7 +62,7 @@ class OAuthController extends Controller
 
     /**
      * @param  string $provider
-     * @param  \Laravel\Socialite\Contracts\User $sUser
+     * @param  \Laravel\Socialite\Contracts\User $user
      * @return \App\User|false
      */
     protected function findOrCreateUser($provider, $user)
@@ -90,22 +89,22 @@ class OAuthController extends Controller
 
     /**
      * @param  string $provider
-     * @param  \Laravel\Socialite\Contracts\User $sUser
+     * @param  \Laravel\Socialite\Contracts\User $user
      * @return \App\User
      */
-    protected function createUser($provider, $sUser)
+    protected function createUser($provider, $user)
     {
         $user = User::create([
-            'name' => $sUser->getName(),
-            'email' => $sUser->getEmail(),
+            'name' => $user->getName(),
+            'email' => $user->getEmail(),
             'username' => UserRepository::username(13)
         ]);
 
         $user->oauthProviders()->create([
             'provider' => $provider,
-            'provider_user_id' => $sUser->getId(),
-            'access_token' => $sUser->token,
-            'refresh_token' => $sUser->refreshToken,
+            'provider_user_id' => $user->getId(),
+            'access_token' => $user->token,
+            'refresh_token' => $user->refreshToken,
         ]);
 
         return $user;
