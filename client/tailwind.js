@@ -130,10 +130,30 @@ const colors = {
   'smoke-darkest': 'rgba(0, 0, 0, 0.9)',
   'smoke-darker': 'rgba(0, 0, 0, 0.75)',
   'smoke-dark': 'rgba(0, 0, 0, 0.6)',
-  'smoke': 'rgba(0, 0, 0, 0.5)',
+  smoke: 'rgba(0, 0, 0, 0.5)',
   'smoke-light': 'rgba(0, 0, 0, 0.4)',
   'smoke-lighter': 'rgba(0, 0, 0, 0.25)',
-  'smoke-lightest': 'rgba(0, 0, 0, 0.1)'
+  'smoke-lightest': 'rgba(0, 0, 0, 0.1)',
+
+  'floral-white': '#fcfaf3',
+  'cosmic-latte': '#fff7e5',
+  cornsilk: '#fff8dc',
+  champagne: '#f4e3c9',
+  bone: '#e0DCBF',
+  'sweet-brown': '#ae3737',
+  'burnt-umber': '#872b2b',
+  jet: '#333333',
+  'deep-space-sparkle': '#475f67',
+  'outer-space': '#3d5158',
+  alabster: '#f4ece3',
+  almond: '#ede0d1',
+  'anti-flash white': '#eff0f1',
+  'silver-chalice': 'rgba(173,173,173,0.3)',
+  'x11-grey': 'rgba(186,186,186,0.3)',
+  gainsboro: '#d6d9dc',
+  'smoky-black': 'rgba(12,13,14,0.05)',
+  'davys-grey': '#535a60',
+  'smoky-black-dark': '#0c0d0e'
 }
 
 module.exports = {
