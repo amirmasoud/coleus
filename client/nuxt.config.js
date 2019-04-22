@@ -45,15 +45,14 @@ module.exports = {
       { name: 'theme-color', content: '#343a40' },
 
       // Open Graph
-      { property: 'og:type', content: 'website'},
-      { property: 'og:site_name', content: 'نگارین'},
+      { property: 'og:type', content: 'website' },
+      { property: 'og:site_name', content: 'نگارین' },
       // { property: 'og:url', content: 'https://negar.in' + ___CURRENT_PATH___ },
 
-
       // Twitter
-      {name: 'twitter:card', content: 'summary'},
-      {name: 'twitter:site', content: '@negarinapp'},
-      {name: 'twitter:creator', content: '@negarinapp'},
+      { name: 'twitter:card', content: 'summary' },
+      { name: 'twitter:site', content: '@negarinapp' },
+      { name: 'twitter:creator', content: '@negarinapp' }
 
       // Sub pages
       // { itemprop: 'name', content: '', hid: 'name' },
@@ -78,11 +77,15 @@ module.exports = {
     ],
 
     script: [
-      { src: `https://cdn.polyfill.io/v2/polyfill.min.js?features=${polyfills.join(',')}` }
+      {
+        src: `https://cdn.polyfill.io/v2/polyfill.min.js?features=${polyfills.join(
+          ','
+        )}`
+      }
     ],
 
     bodyAttrs: {
-      class: 'bg-white font-sans'
+      class: 'bg-floral-white font-sans'
     }
   },
 
@@ -94,9 +97,7 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [
-    '~/assets/css/tailwind.css'
-  ],
+  css: ['~/assets/css/tailwind.css'],
 
   /*
   ** Plugins to load before mounting the App
@@ -114,9 +115,7 @@ module.exports = {
   /*
   ** Nuxt.js modules
   */
-  modules: [
-    '@nuxtjs/apollo'
-  ],
+  modules: ['@nuxtjs/apollo'],
 
   /*
   ** Build configuration
@@ -143,12 +142,12 @@ module.exports = {
   */
   apollo: {
     clientConfigs: {
-      default: '~/plugins/apollo-default-config.js',
-    },
+      default: '~/plugins/apollo-default-config.js'
+    }
   },
 
   router: {
-    extendRoutes (routes, resolve) {
+    extendRoutes(routes, resolve) {
       routes.push({
         name: 'profile',
         path: '/@:username',
