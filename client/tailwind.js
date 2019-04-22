@@ -153,7 +153,8 @@ const colors = {
   gainsboro: '#d6d9dc',
   'smoky-black': 'rgba(12,13,14,0.05)',
   'davys-grey': '#535a60',
-  'smoky-black-dark': '#0c0d0e'
+  'smoky-black-dark': '#0c0d0e',
+  platinum: '#e4e6e8'
 }
 
 module.exports = {
@@ -218,6 +219,7 @@ module.exports = {
 
   fonts: {
     sans: [
+      'IRANSans',
       'system-ui',
       'BlinkMacSystemFont',
       '-apple-system',
