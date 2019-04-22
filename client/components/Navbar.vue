@@ -1,5 +1,5 @@
 <template>
-  <div class="flex bg-black fixed pin-t pin-x z-50 h-16 items-center" @shortkey="general">
+  <div class="flex bg-black fixed pin-t pin-x z-50 h-16 items-center">
     <div class="w-full max-w-3xl relative mx-auto">
       <div class="flex items-center">
         <div class="lg:w-1/4 xl:w-1/5 mr-2 xl:mr-3">
