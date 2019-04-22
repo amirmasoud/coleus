@@ -1,39 +1,48 @@
 <template>
-  <div class="mb-5 mx-2">
+  <div class="mb-5 mx-6">
     <div>
       <div class="px-1lg:px-6 py-4">
         <template v-if="!loading">
-          <div class="font-bold pb-4 px-4">
-            {{ page.title }}
-          </div>
-          <div class="text-grey-darkest text-base leading-loose flex flex-wrap" v-html="page.content" />
+          <h1 class="text-2xl mb-2 pb-4 px-4 border-b">{{ page.title }}</h1>
+          <div
+            class="text-grey-darkest text-base leading-loose flex flex-wrap"
+            v-html="page.content"
+          />
         </template>
-        <oval-loader v-else class="mb-4" />
+        <oval-loader v-else class="mb-4"/>
       </div>
     </div>
     <div class="flex mt-4">
-      <div v-if="page && !loading && page.next" v-shortkey="['arrowright']" class="flex-1" @shortkey="next()">
+      <div
+        v-if="page && !loading && page.next"
+        v-shortkey="['arrowright']"
+        class="flex-1"
+        @shortkey="next()"
+      >
         <NuxtLink
           :class="{'ml-1': page && !loading && page.prev}"
-          class="block text-right rounded overflow-hidden border border-grey-light bg-white lg:px-8 px-2 py-4 mt-2 h-full no-underline text-black hover:shadow transition"
+          class="block text-right rounded overflow-hidden lg:px-8 px-2 py-4 mt-2 h-full no-underline border border-x11-grey hover:border-silver-chalice transition bg-alabster hover:bg-almond text-deep-space-sparkle hover:outer-space"
           :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: page.next }}"
         >
-          <strong>{{ page.next_title }}</strong> <br>
-          <small class="block mt-2 text-blue-light">
-            {{ $t('next') }}
-          </small>
+          <span>{{ page.next_title }}</span>
+          <br>
+          <small class="block mt-2 text-sweet-brown">{{ $t('next') }}</small>
         </NuxtLink>
       </div>
-      <div v-if="page && !loading && page.prev" v-shortkey="['arrowleft']" class="flex-1" @shortkey="prev()">
+      <div
+        v-if="page && !loading && page.prev"
+        v-shortkey="['arrowleft']"
+        class="flex-1"
+        @shortkey="prev()"
+      >
         <NuxtLink
           :class="{'mr-1': page && !loading && page.next}"
-          class="block text-left rounded overflow-hidden border border-grey-light bg-white lg:px-8 px-2 py-4 mt-2 h-full no-underline text-black hover:shadow transition"
+          class="block text-left rounded overflow-hidden lg:px-8 px-2 py-4 mt-2 h-full no-underline border border-x11-grey hover:border-silver-chalice transition bg-alabster hover:bg-almond text-deep-space-sparkle hover:outer-space"
           :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: page.prev }}"
         >
-          <strong>{{ page.prev_title }}</strong> <br>
-          <small class="block mt-2 text-blue-light">
-            {{ $t('prev') }}
-          </small>
+          <span>{{ page.prev_title }}</span>
+          <br>
+          <small class="block mt-2 text-sweet-brown">{{ $t('prev') }}</small>
         </NuxtLink>
       </div>
     </div>
