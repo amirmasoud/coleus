@@ -142,6 +142,7 @@ const colors = {
   bone: '#e0DCBF',
   'sweet-brown': '#ae3737',
   'burnt-umber': '#872b2b',
+  'bittersweet-shimmer': '#c85050',
   jet: '#333333',
   'deep-space-sparkle': '#475f67',
   'outer-space': '#3d5158',
