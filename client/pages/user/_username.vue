@@ -1,8 +1,8 @@
 <template>
   <div v-if="user">
-    <div class="pt-2">
+    <div class="py-2 mx-4 border-b border-platinum">
       <div class="flex justify-start">
-        <user-small-image :user="user" />
+        <user-small-image :user="user"/>
         <div class="mr-2 float-right">
           <h4>{{ user.name }}</h4>
           <small>@{{ user.username }}</small>
@@ -20,13 +20,13 @@
         data-aos-easing="ease-in-sine"
         data-aos-once="true"
       >
-        <book-card :book="book" />
+        <book-card :book="book"/>
       </div>
     </div>
-    <book-nil v-else />
+    <book-nil v-else/>
   </div>
 
-  <OvalLoader v-else />
+  <OvalLoader v-else/>
 </template>
 
 <script>

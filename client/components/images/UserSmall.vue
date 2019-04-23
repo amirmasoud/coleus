@@ -7,7 +7,7 @@
         :placeholder="user.placeholder"
         :fallback="user.photo_url"
         :aspect-ratio="1"
-        class="rounded float-right mr-4"
+        class="rounded float-right"
         style="width: 64px; height: 64px;"
       />
     </no-ssr>
