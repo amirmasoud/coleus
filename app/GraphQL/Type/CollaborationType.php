@@ -44,6 +44,10 @@ class CollaborationType extends BaseType
                 'type' => Type::boolean(),
                 'description' => 'The locked status of user'
             ],
+            'placeholder' => [
+                'type' => Type::string(),
+                'description' => 'The placeholder photo of user'
+            ],
             'photo_url' => [
                 'type' => Type::string(),
                 'description' => 'The Gravatar photo of user'
