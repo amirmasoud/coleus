@@ -159,7 +159,8 @@ const colors = {
   'new-york-pink': '#d47777',
   'vivid-auburn': '#912e2e',
   prune: '#742525',
-  'caput-mortuum': '#601f1f'
+  'caput-mortuum': '#601f1f',
+  'quick-silver': '#9fa6ad'
 }
 
 module.exports = {
@@ -710,7 +711,8 @@ module.exports = {
     '16': '4rem',
     '20': '5rem',
     '24': '6rem',
-    '32': '8rem'
+    '32': '8rem',
+    '1/4': 'calc(80rem / 4)'
   },
 
   /*
