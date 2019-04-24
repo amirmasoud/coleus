@@ -38,6 +38,12 @@ import BookCard from '~/components/cards/Book'
 import UserSmallImage from '~/components/images/UserSmall'
 
 export default {
+  head() {
+    return {
+      title: this.user ? this.user.name : ''
+    }
+  },
+
   components: {
     UserSmallImage,
     BookCard,
