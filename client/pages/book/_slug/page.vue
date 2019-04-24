@@ -2,7 +2,7 @@
   <div v-if="book" class="flex flex-wrap">
     <div
       :class="{'hidden': !showMenu }"
-      class="w-full lg:w-1/4 sticky self-start lg:block border-l border-gainsboro"
+      class="w-full max-w-full lg:w-1/4 lg:max-w-xs fixed self-start lg:block border-l border-gainsboro"
     >
       <div
         v-if="book"
@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <div :class="{'hidden': showMenu }" class="w-full lg:w-3/4 mt-2 lg:block">
+    <div :class="{'hidden': showMenu }" class="w-full ml-0 lg:w-3/4 lg:mr-1/4 mt-2 lg:block">
       <NuxtChild keep-alive/>
     </div>
   </div>
