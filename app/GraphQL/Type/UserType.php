@@ -87,6 +87,10 @@ class UserType extends BaseType
                 'type' => Type::listOf(GraphQL::type('UserHighlight')),
                 'description' => 'The user search highlight'
             ],
+            'itemid' => [
+                'type' => Type::string(),
+                'description' => 'The itemid of the user'
+            ],
         ];
     }
 
@@ -108,5 +112,15 @@ class UserType extends BaseType
     protected function resolveStickyField($root, $args)
     {
         return $root->sticks()->exists();
+    }
+
+    /**
+     * @param  $root
+     * @param  $args
+     * @return mixed
+     */
+    protected function resolveItemidField($root, $args)
+    {
+        return $root->attributes->get('itemid', '#');
     }
 }
