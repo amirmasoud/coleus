@@ -148,14 +148,18 @@ const colors = {
   'outer-space': '#3d5158',
   alabster: '#f4ece3',
   almond: '#ede0d1',
-  'anti-flash white': '#eff0f1',
+  'anti-flash-white': '#eff0f1',
   'silver-chalice': 'rgba(173,173,173,0.3)',
   'x11-grey': 'rgba(186,186,186,0.3)',
   gainsboro: '#d6d9dc',
   'smoky-black': 'rgba(12,13,14,0.05)',
   'davys-grey': '#535a60',
   'smoky-black-dark': '#0c0d0e',
-  platinum: '#e4e6e8'
+  platinum: '#e4e6e8',
+  'new-york-pink': '#d47777',
+  'vivid-auburn': '#912e2e',
+  prune: '#742525',
+  'caput-mortuum': '#601f1f'
 }
 
 module.exports = {
@@ -764,7 +768,13 @@ module.exports = {
     lg: '0 15px 30px 0 rgba(0,0,0,0.11), 0 5px 15px 0 rgba(0,0,0,0.08)',
     inner: 'inset 0 2px 4px 0 rgba(0,0,0,0.06)',
     outline: '0 0 0 3px rgba(52,144,220,0.5)',
-    none: 'none'
+    none: 'none',
+    btn: 'inset 0 1px 0 0 rgba(212,119,119,0.75), 0 0 0 0 rgba(174,55,55,0)',
+    'btn-hover':
+      'inset 0 1px 0 0 rgba(212,119,119,0.5), 0 0 0 0 rgba(174,55,55,0)',
+    'btn-active': 'inset 0 2px 8px 0 rgba(96,31,31,0.8)',
+    'btn-focus':
+      'inset 0 0 0 0 rgba(212,119,119,0.5), 0 0 0 4px rgba(174,55,55,0.15)'
   },
 
   /*
