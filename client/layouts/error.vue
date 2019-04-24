@@ -21,7 +21,12 @@
 
 <script>
 export default {
-  props: ['error'],
-  layout: 'default' // you can set a custom layout for the error page
+  head() {
+    return {
+      title: `خطای ${this.error.statusCode}`
+    }
+  },
+
+  props: ['error']
 }
 </script>
