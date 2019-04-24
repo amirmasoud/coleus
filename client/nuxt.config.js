@@ -86,6 +86,10 @@ module.exports = {
 
     bodyAttrs: {
       class: 'bg-floral-white font-sans'
+    },
+
+    htmlAttrs: {
+      lang: 'fa'
     }
   },
 
@@ -115,7 +119,7 @@ module.exports = {
   /*
   ** Nuxt.js modules
   */
-  modules: ['@nuxtjs/apollo'],
+  modules: ['@nuxtjs/apollo', '@nuxtjs/dotenv'],
 
   /*
   ** Build configuration
