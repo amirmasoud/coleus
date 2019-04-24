@@ -2,24 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Model;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Overtrue\LaravelFollow\Traits\CanFollow;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Overtrue\LaravelFollow\Traits\CanBeFollowed;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Spatie\SchemalessAttributes\SchemalessAttributes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
 
-class User extends Authenticatable implements JWTSubject, HasMedia
+class User extends Authenticatable implements HasMedia
 {
-    use Notifiable, HasRoles, HasMediaTrait, CanFollow, CanBeFollowed;
+    use Notifiable, HasRoles, HasMediaTrait;
 
     /**
      * @var string
@@ -51,6 +50,15 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      */
     protected $appends = [
         'photo_url', 'thumbnail', 'xsmall', 'small', 'medium'
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    public $casts = [
+        'attributes' => 'array',
     ];
 
     /**
@@ -121,7 +129,9 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      */
     public function getThumbnailAttribute($avatar): string
     {
-        return $this->getFirstMediaUrl('users/avatar', 'thumbnail');
+        return $this->getFirstMedia('users/avatar')
+            ? $this->getFirstMedia('users/avatar')->getFullUrl('thumbnail')
+            : '';
     }
 
     /**
@@ -132,7 +142,9 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      */
     public function getXSmallAttribute($avatar): string
     {
-        return $this->getFirstMediaUrl('users/avatar', 'xsmall');
+        return $this->getFirstMedia('users/avatar')
+            ? $this->getFirstMedia('users/avatar')->getFullUrl('xsmall')
+            : '';
     }
 
     /**
@@ -143,7 +155,9 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      */
     public function getSmallAttribute($avatar): string
     {
-        return $this->getFirstMediaUrl('users/avatar', 'small');
+        return $this->getFirstMedia('users/avatar')
+            ? $this->getFirstMedia('users/avatar')->getFullUrl('small')
+            : '';
     }
 
     /**
@@ -154,7 +168,9 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      */
     public function getMediumAttribute($avatar): string
     {
-        return $this->getFirstMediaUrl('users/avatar', 'medium');
+        return $this->getFirstMedia('users/avatar')
+            ? $this->getFirstMedia('users/avatar')->getFullUrl('medium')
+            : '';
     }
 
     /**
@@ -165,7 +181,9 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      */
     public function getPlaceholderAttribute($avatar): string
     {
-        return $this->getFirstMediaUrl('users/avatar', 'placeholder');
+        return $this->getFirstMedia('users/avatar')
+            ? $this->getFirstMedia('users/avatar')->getFullUrl('placeholder')
+            : '';
     }
 
     /**
@@ -264,5 +282,35 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     public function collaborationRoles()
     {
         return $this->hasManyThrough(CollaborationRole::class, \App\Pivots\Collaborate::class);
+    }
+
+    /**
+     * Get the e-mail address where password reset links are sent.
+     *
+     * @return string
+     */
+    public function getEmailForPasswordReset()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Get the user's attributes.
+     *
+     * @return \Spatie\SchemalessAttributes\SchemalessAttributes
+     */
+    public function getAttributesAttribute(): SchemalessAttributes
+    {
+        return SchemalessAttributes::createForModel($this, 'attributes');
+    }
+
+    /**
+     * Scope a query with users' attributes.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWithAttributes(): Builder
+    {
+        return SchemalessAttributes::scopeWithSchemalessAttributes('attributes');
     }
 }

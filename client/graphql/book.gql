@@ -1,0 +1,14 @@
+query Book($slug: String) {
+  book(slug: $slug) {
+    id
+    title
+    pages {
+      id
+      title
+      is_header
+    }
+    collaborators {
+      name
+    }
+  }
+}

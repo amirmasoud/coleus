@@ -52,7 +52,10 @@ return [
     |
     */
 
+    'fnt' => env('FRONT_URL', 'http://localhost:3000'),
     'url' => env('APP_URL', 'http://localhost'),
+    'api' => env('API_URL', 'http://localhost/api'),
+    'gql' => env('GQL_URL', 'http://localhost/graphql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -81,8 +84,7 @@ return [
     'locale' => 'fa',
 
     'locales' => [
-        'fa' => 'فا',
-        // 'en' => 'EN',
+        'fa' => 'فا'
     ],
 
     /*
@@ -96,7 +98,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'fa',
+    'fallback_locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -155,10 +157,7 @@ return [
         /*
          * Package Service Providers...
          */
-        \Torann\GeoIP\GeoIPServiceProvider::class,
-        Negarin\Admin\AdminServiceProvider::class,
         Folklore\GraphQL\ServiceProvider::class,
-        Overtrue\LaravelFollow\FollowServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -167,7 +166,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\TelescopeServiceProvider::class,
+        // App\Providers\TelescopeServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
     ],
@@ -218,7 +217,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
         'GraphQL' => Folklore\GraphQL\Support\Facades\GraphQL::class,
 
     ],

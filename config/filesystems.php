@@ -53,11 +53,14 @@ return [
             'root' => storage_path('dataset'),
         ],
 
-        'admin' => [
+        'storage' => [
             'driver' => 'local',
-            'root' => public_path('uploads'),
-            'visibility' => 'public',
-            'url' => env('APP_URL').'/uploads',
+            'root'   => storage_path(),
+        ],
+
+        'backups' => [
+            'driver' => 'local',
+            'root'   => storage_path('backups'),
         ],
 
         'public' => [

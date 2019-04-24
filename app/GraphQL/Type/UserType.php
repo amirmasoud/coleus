@@ -23,7 +23,7 @@ class UserType extends BaseType
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'The id of the user'
             ],
             'name' => [
@@ -78,22 +78,18 @@ class UserType extends BaseType
                 'type' => Type::boolean(),
                 'description' => 'The user is sticky'
             ],
-            'followers_count' => [
-                'type' => Type::int(),
-                'description' => 'The user followers count'
-            ],
-            'following_count' => [
-                'type' => Type::int(),
-                'description' => 'The user following count'
-            ],
-            'books_count' => [
-                'type' => Type::int(),
-                'description' => 'The user books count'
-            ],
             'books' => [
                 'args' => \Facades\App\GraphQL\Type\BookType::fields(),
                 'type' => Type::listOf(GraphQL::type('Book')),
                 'description' => 'The user\'s books'
+            ],
+            'highlight' => [
+                'type' => Type::listOf(GraphQL::type('UserHighlight')),
+                'description' => 'The user search highlight'
+            ],
+            'itemid' => [
+                'type' => Type::string(),
+                'description' => 'The itemid of the user'
             ],
         ];
     }
@@ -123,8 +119,8 @@ class UserType extends BaseType
      * @param  $args
      * @return mixed
      */
-    function resolveFollowingCountField($root, $args)
+    protected function resolveItemidField($root, $args)
     {
-        return $root->followings()->count();
+        return $root->attributes->get('itemid', '#');
     }
 }

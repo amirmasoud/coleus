@@ -18,11 +18,11 @@ return [
     //
     // or define each routes
     //
-    // 'routes' => [
-    //     'query' => 'query/{graphql_schema?}',
-    //     'mutation' => 'mutation/{graphql_schema?}',
-    //     'mutation' => 'graphiql'
-    // ]
+    'routes' => [
+        'query' => 'query/{graphql_schema?}',
+        'mutation' => 'mutation/{graphql_schema?}',
+        'mutation' => 'graphiql'
+    ],
     //
     // you can also disable routes by setting routes to null
     //
@@ -98,9 +98,23 @@ return [
                 'user' => 'App\GraphQL\Query\UserQuery',
                 'book' => 'App\GraphQL\Query\BookQuery',
                 'page' => 'App\GraphQL\Query\PageQuery',
+                'search' => 'App\GraphQL\Query\SearchQuery'
             ],
             'mutation' => [
-                'newBook' => 'App\GraphQL\Mutation\Books\NewBookMutation'
+                // Auht
+                'login' => 'App\GraphQL\Mutation\Auth\LoginMutation',
+                'register' => 'App\GraphQL\Mutation\Auth\RegisterMutation',
+                'oauth' => 'App\GraphQL\Mutation\Auth\OAuthMutation',
+                'callback' => 'App\GraphQL\Mutation\Auth\CallbackMutation',
+                'passwordEmail' => 'App\GraphQL\Mutation\Auth\RequestResetMutation',
+                'reset' => 'App\GraphQL\Mutation\Auth\ResetPasswordMutation',
+                'password' => 'App\GraphQL\Mutation\Auth\PasswordMutation',
+
+                // Book
+                'newBook' => 'App\GraphQL\Mutation\Books\NewBookMutation',
+
+                // User
+                'follow' => 'App\GraphQL\Mutation\Users\FollowMutation'
             ]
         ]
     ],
@@ -125,6 +139,15 @@ return [
         'Book' => 'App\GraphQL\Type\BookType',
         'Collaboration' => 'App\GraphQL\Type\CollaborationType',
         'Page' => 'App\GraphQL\Type\PageType',
+        'Token' => 'App\GraphQL\Type\TokenType',
+        'OAuth' => 'App\GraphQL\Type\OAuthType',
+        'Reset' => 'App\GraphQL\Type\Auth\ResetPasswordType',
+        'Status' => 'App\GraphQL\Type\Common\StatusType',
+        'Paragraph' => 'App\GraphQL\Type\ParagraphType',
+        'Search' => 'App\GraphQL\Type\Search\AutocompleteType',
+        'UserHighlight' => 'App\GraphQL\Type\Search\Highlight\UserType',
+        'BookHighlight' => 'App\GraphQL\Type\Search\Highlight\BookType',
+        'ParagraphHighlight' => 'App\GraphQL\Type\Search\Highlight\ParagraphType',
     ],
 
     // This callable will received every Error objects for each errors GraphQL catch.
@@ -136,7 +159,7 @@ return [
     //     'locations' => []
     // ]
     //
-    'error_formatter' => [\Folklore\GraphQL\GraphQL::class, 'formatError'],
+    'error_formatter' => [\App\GraphQL\Errors\Format::class, 'formatError'],
 
     // Options to limit the query complexity and depth. See the doc
     // @ https://github.com/webonyx/graphql-php#security

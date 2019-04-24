@@ -1,0 +1,11 @@
+query FetchUsers {
+  users(sticky: true) {
+    id
+    name
+    small
+    photo_url
+    placeholder
+    username
+    bio
+  }
+}

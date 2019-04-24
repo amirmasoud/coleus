@@ -72,24 +72,40 @@ class Page extends Model
 
     public function getNextAttribute()
     {
+        if (is_null($this->sort())) {
+            return null;
+        }
+
         $next = $this->sort()->getNextSibling();
         return $next ? $next->sortable_id : null;
     }
 
     public function getPrevAttribute()
     {
+        if (is_null($this->sort())) {
+            return null;
+        }
+
         $prev = $this->sort()->getPrevSibling();
         return $prev ? $prev->sortable_id : null;
     }
 
     public function getNextTitleAttribute()
     {
+        if (is_null($this->sort())) {
+            return null;
+        }
+
         $next = $this->sort()->getNextSibling();
         return $next ? $next->sortable()->first()->title : null;
     }
 
     public function getPrevTitleAttribute()
     {
+        if (is_null($this->sort())) {
+            return null;
+        }
+
         $prev = $this->sort()->getPrevSibling();
         return $prev ? $prev->sortable()->first()->title : null;
     }

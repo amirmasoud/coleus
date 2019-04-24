@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Query;
 
+use Cache;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
@@ -31,12 +32,19 @@ class PageQuery extends Query
     {
         $fields = $info->getFieldSelection(1);
 
-        $page = null;
+        if (isset($args['id'])) {
+            $key = 'page:' . md5(serialize($args + $fields));
+            if (Cache::has($key)) {
+                return Cache::get($key);
+            }
 
-        if(isset($args['id'])) {
             $page = PageRepository::findById($args['id']);
+
+            $page = $page->firstOrFail();
+            Cache::put($key, $page, 60);
+            return $page;
         }
 
-        return $page->firstOrFail();
+        return null;
     }
 }

@@ -17,10 +17,11 @@ class AddRolesCommandTest extends TestCase
     {
         $this->artisan('add:roles')
             ->expectsOutput('Adding default roles...')
-            ->expectsOutput('3 roles added/found: subscriber, writer and publisher.');
+            ->expectsOutput('4 roles added/found: subscriber, writer, publisher and admin.');
 
         $this->assertDatabaseHas('roles', ['name' => 'subscriber']);
         $this->assertDatabaseHas('roles', ['name' => 'writer']);
         $this->assertDatabaseHas('roles', ['name' => 'publisher']);
+        $this->assertDatabaseHas('roles', ['name' => 'admin']);
     }
 }
