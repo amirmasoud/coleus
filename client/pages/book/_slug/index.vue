@@ -24,10 +24,10 @@
       </div>
       <div class="w-full sm:w-2/3 md:w-2/3 lg:w-3/4 xl:w-5/6 pr-2">
         <div
-          :class="{'h-64 overflow-hidden': !expanded}"
+          :class="{'max-h-64 overflow-hidden': !expanded}"
           class="leading-loose"
         >{{ book.description }}</div>
-        <div class="flex items-stretch bg-anti-flash-white h-8 mx-4 mt-2">
+        <div class="flex items-stretch bg-anti-flash-white h-8 mt-2">
           <button
             class="self-auto flex-1 font-normal text-sm rounded text-sweet-brown text-center px-4 border-t-0 focus:outline-none focus:shadow-btn-focus"
             @click.prevent="toggle"
