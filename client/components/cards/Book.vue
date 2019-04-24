@@ -4,9 +4,10 @@
     class="no-underline text-deep-space-sparkle hover:outer-space"
   >
     <div
-      class="max-w-sm rounded overflow-hidden border border-x11-grey hover:border-silver-chalice transition bg-alabster hover:bg-almond"
+      itemtype="http://schema.org/Book"
+      class="max-w-md rounded overflow-hidden border border-x11-grey hover:border-silver-chalice transition bg-alabster hover:bg-almond"
     >
-      <img :src="book.cover" class="hidden">
+      <img itemprop="image" :src="book.cover" class="hidden">
       <no-ssr>
         <progressive-img
           :src="book.cover"
@@ -15,7 +16,7 @@
         />
       </no-ssr>
       <div class="px-4 py-2">
-        <div class="text-lg mb-1 py-1">{{ book.title }}</div>
+        <div itemprop="name" class="text-lg mb-1 py-1">{{ book.title }}</div>
       </div>
     </div>
   </NuxtLink>
