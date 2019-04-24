@@ -7,9 +7,11 @@ use Spatie\MediaLibrary\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Spatie\SchemalessAttributes\SchemalessAttributes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
@@ -48,6 +50,15 @@ class User extends Authenticatable implements HasMedia
      */
     protected $appends = [
         'photo_url', 'thumbnail', 'xsmall', 'small', 'medium'
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    public $casts = [
+        'attributes' => 'array',
     ];
 
     /**
@@ -281,5 +292,25 @@ class User extends Authenticatable implements HasMedia
     public function getEmailForPasswordReset()
     {
         return $this->email;
+    }
+
+    /**
+     * Get the user's attributes.
+     *
+     * @return \Spatie\SchemalessAttributes\SchemalessAttributes
+     */
+    public function getAttributesAttribute(): SchemalessAttributes
+    {
+        return SchemalessAttributes::createForModel($this, 'attributes');
+    }
+
+    /**
+     * Scope a query with users' attributes.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWithAttributes(): Builder
+    {
+        return SchemalessAttributes::scopeWithSchemalessAttributes('attributes');
     }
 }
