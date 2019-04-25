@@ -20,7 +20,7 @@
         data-aos-easing="ease-in-sine"
         data-aos-once="true"
       >
-        <book-card :book="book"/>
+        <book-card :book="book" link-to="detail" />
       </div>
     </div>
     <book-nil v-else/>

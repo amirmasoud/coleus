@@ -1,6 +1,6 @@
 <template>
   <NuxtLink
-    :to="{ name: 'book-slug-page-id', params: { slug: book.slug, id: book.start }}"
+    :to="link"
     class="no-underline text-deep-space-sparkle hover:outer-space"
   >
     <div
@@ -30,6 +30,25 @@ export default {
     book: {
       type: Object,
       default: () => {}
+    },
+
+    linkTo: {
+      type: String,
+      default: 'content' // detail
+    }
+  },
+
+  computed: {
+    link() {
+      return this.linkTo === 'detail'
+        ? {
+            name: 'book-slug',
+            params: { slug: this.book.slug }
+          }
+        : {
+            name: 'book-slug-page-id',
+            params: { slug: this.book.slug, id: this.book.start }
+          }
     }
   }
 }
