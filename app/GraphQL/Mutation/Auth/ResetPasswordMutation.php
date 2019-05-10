@@ -2,10 +2,9 @@
 
 namespace App\GraphQL\Mutation\Auth;
 
-use Folklore\GraphQL\Support\Mutation;
-use GraphQL\Type\Definition\ResolveInfo;
-use GraphQL\Type\Definition\Type;
 use GraphQL;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Mutation;
 
 class ResetPasswordMutation extends Mutation
 {
@@ -22,11 +21,11 @@ class ResetPasswordMutation extends Mutation
     public function args()
     {
         return [
-            
+
         ];
     }
 
-    public function resolve($root, $args, $context, ResolveInfo $info)
+    public function resolve($root, $args)
     {
         return [];
     }

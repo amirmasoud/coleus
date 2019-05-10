@@ -4,9 +4,9 @@ namespace App\GraphQL\Type\Common;
 
 use GraphQL;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Type as BaseType;
+use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class StatusType extends BaseType
+class StatusType extends GraphQLType
 {
     protected $attributes = [
         'name' => 'StatusType',

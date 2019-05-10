@@ -2,11 +2,11 @@
 
 namespace App\GraphQL\Type\Auth;
 
-use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Type as BaseType;
 use GraphQL;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class ResetPasswordType extends BaseType
+class ResetPasswordType extends GraphQLType
 {
     protected $attributes = [
         'name' => 'ResetPasswordType',

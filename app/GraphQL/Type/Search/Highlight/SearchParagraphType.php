@@ -2,14 +2,14 @@
 
 namespace App\GraphQL\Type\Search\Highlight;
 
-use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Type as BaseType;
 use GraphQL;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class ParagraphType extends BaseType
+class SearchParagraphType extends GraphQLType
 {
     protected $attributes = [
-        'name' => 'ParagraphType',
+        'name' => 'SearchParagraphType',
         'description' => 'A type'
     ];
 

@@ -3,10 +3,11 @@
 namespace App\GraphQL\Query;
 
 use Cache;
-use GraphQL;
+use Rebing\GraphQL\Support\Query;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Query;
 use GraphQL\Type\Definition\ResolveInfo;
+use Rebing\GraphQL\Support\SelectFields;
+use Rebing\GraphQL\Support\Facades\GraphQL;
 use Facades\App\Repositories\BookRepository;
 
 class BookQuery extends Query
@@ -28,7 +29,7 @@ class BookQuery extends Query
         ];
     }
 
-    public function resolve($root, $args, $context, ResolveInfo $info)
+    public function resolve($root, $args, SelectFields $fields, ResolveInfo $info)
     {
         $fields = $info->getFieldSelection(1);
 

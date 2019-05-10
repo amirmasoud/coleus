@@ -4,11 +4,10 @@ namespace App\GraphQL\Mutation\Books;
 
 use GraphQL;
 use App\Models\Book;
-use App\GraphQL\Type\Upload;
 use App\Models\CollaborationRole;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Mutation;
-use GraphQL\Type\Definition\ResolveInfo;
+use Rebing\GraphQL\Support\Mutation;
+use Rebing\GraphQL\Support\UploadType;
 
 class NewBookMutation extends Mutation
 {
@@ -27,23 +26,23 @@ class NewBookMutation extends Mutation
         return [
             'title' => [
                 'name' => 'title',
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'rules' => ['required']
             ],
             'description' => [
                 'name' => 'description',
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'rules' => ['required']
             ],
             'cover' => [
                 'name' => 'cover',
-                'type' => Type::nonNull(Upload::type()),
-                'rules' => ['image']
+                'type' => UploadType::getInstance(),
+                'rules' => ['required', 'image']
             ]
         ];
     }
 
-    public function resolve($root, $args, $context, ResolveInfo $info)
+    public function resolve($root, $args)
     {
         $book = Book::create($args);
 

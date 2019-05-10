@@ -4,9 +4,9 @@ namespace App\GraphQL\Type\Search;
 
 use GraphQL;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Type as BaseType;
+use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class AutoCompleteType extends BaseType
+class AutoCompleteType extends GraphQLType
 {
     protected $attributes = [
         'name' => 'AutoCompleteType',
