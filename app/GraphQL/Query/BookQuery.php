@@ -19,7 +19,7 @@ class BookQuery extends Query
 
     public function type()
     {
-        return Type::nonNull(GraphQL::type('Book'));
+        return GraphQL::type('Book');
     }
 
     public function args()
