@@ -5,10 +5,10 @@
       <img v-else class="w-4" src="/icons/search.svg">
     </div>
     <input
+      id="searchinput"
       ref="search"
       v-model="query"
       v-shortkey.once="['/']"
-      id="searchinput"
       class="h-8 transition border border-transparent rounded focus:bg-white hover:border-burnt-umber focus:border-burnt-umber focus:outline-none focus:shadow-outline focus:shadow-dark-input bg-grey-darkest py-2 pr-4 pr-10 block w-full appearance-none leading-normal"
       type="text"
       placeholder="جستجو"
@@ -47,9 +47,9 @@
             >
               {{ user.name }}
               <br>
-              <span class="px-2"/>
+              <span class="px-2" />
               <template v-if="get(user, 'highlight[0].username[0]')">
-                <span v-html="get(user, 'highlight[0].username[0]')"/>
+                <span v-html="get(user, 'highlight[0].username[0]')" />
               </template>
               <template v-else>
                 <small class="font-light">{{ user.username }}</small>
@@ -59,13 +59,13 @@
             <div class="suggestion-content w-2/3 transition px-3 py-1">
               <p>
                 <template v-if="get(user, 'highlight[0].name[0]')">
-                  <span v-html="get(user, 'highlight[0].name[0]')"/>
+                  <span v-html="get(user, 'highlight[0].name[0]')" />
                 </template>
                 <template v-else>{{ user.name }}</template>
               </p>
               <small class="font-light">
                 <template v-if="get(user, 'highlight[0].bio[0]')">
-                  <span v-html="get(user, 'highlight[0].bio[0]')"/>
+                  <span v-html="get(user, 'highlight[0].bio[0]')" />
                 </template>
                 <template v-else>{{ truncate(user.bio) }}</template>
               </small>
@@ -92,13 +92,13 @@
             <div class="suggestion-content w-2/3 transition px-3 py-1">
               <p>
                 <template v-if="book.highlight[0].title && book.highlight[0].title[0]">
-                  <span v-html="book.highlight[0].title[0]"/>
+                  <span v-html="book.highlight[0].title[0]" />
                 </template>
                 <template v-else>{{ book.title }}</template>
               </p>
               <small class="font-light">
                 <template v-if="book.highlight[0].description && book.highlight[0].description[0]">
-                  <span v-html="book.highlight[0].description[0]"/>
+                  <span v-html="book.highlight[0].description[0]" />
                 </template>
                 <template v-else>{{ book.description }}</template>
               </small>
@@ -128,7 +128,7 @@
                 <template
                   v-if="paragraph.highlight[0].content && paragraph.highlight[0].content[0]"
                 >
-                  <span v-html="paragraph.highlight[0].content[0]"/>
+                  <span v-html="paragraph.highlight[0].content[0]" />
                 </template>
                 <template v-else>{{ paragraph.content }}</template>
               </small>

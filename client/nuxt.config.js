@@ -107,6 +107,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~plugins/common.js',
     '~components/global',
     '~plugins/i18n',
     '~plugins/fontawesome',

@@ -2,7 +2,7 @@
   <div v-if="user">
     <div class="py-2 mx-4 border-b border-platinum">
       <div class="flex justify-start">
-        <user-small-image :user="user"/>
+        <user-small-image :user="user" />
         <div class="mr-2 float-right">
           <h4>{{ user.name }}</h4>
           <small>@{{ user.username }}</small>
@@ -14,24 +14,18 @@
       <div
         v-for="book in user.books"
         :key="book.id"
-        class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/6 p-2"
-        data-aos="fade-in"
-        data-aos-duration="300"
-        data-aos-easing="ease-in-sine"
-        data-aos-once="true"
+        class="w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5 pt-2 pr-2"
       >
-        <book-card :book="book" link-to="detail" />
+        <book-card class="p-2" :book="book" link-to="detail" />
       </div>
     </div>
-    <book-nil v-else/>
+    <book-nil v-else />
   </div>
 
-  <OvalLoader v-else/>
+  <OvalLoader v-else />
 </template>
 
 <script>
-import AOS from 'aos'
-import 'aos/dist/aos.css'
 import profile from '~/graphql/profile'
 import BookNil from '~/components/nils/Book'
 import BookCard from '~/components/cards/Book'
@@ -46,14 +40,8 @@ export default {
 
   components: {
     UserSmallImage,
-    BookCard,
-    BookNil
-  },
-
-  created() {
-    if (process.client) {
-      AOS.init()
-    }
+    BookNil,
+    BookCard
   },
 
   apollo: {

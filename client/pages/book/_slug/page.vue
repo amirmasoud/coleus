@@ -32,7 +32,9 @@
                 :class="{ 'font-bold border-l-4 border-sweet-brown text-smoky-black-dark bg-smoky-black': item.id == $route.params.id }"
                 :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: item.id }}"
                 @click.native="closeMenu"
-              >{{ item.title }}</NuxtLink>
+              >
+                {{ item.title }}
+              </NuxtLink>
             </DynamicScrollerItem>
           </template>
         </DynamicScroller>
@@ -40,10 +42,10 @@
     </div>
 
     <div :class="{'hidden': showMenu }" class="w-full ml-0 lg:w-3/4 lg:mr-1/4 mt-2 lg:block">
-      <NuxtChild keep-alive/>
+      <NuxtChild keep-alive />
     </div>
   </div>
-  <oval-loader v-else/>
+  <oval-loader v-else />
 </template>
 
 <script>

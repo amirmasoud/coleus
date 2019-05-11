@@ -162,7 +162,11 @@ const colors = {
   'caput-mortuum': '#601f1f',
   'quick-silver': '#9fa6ad',
   'spanish-gray': '#8f979f',
-  arsenic: '#3b4045'
+  arsenic: '#3b4045',
+  'eerie-black': '#1a1a1a',
+  'dark-liver': '#4d4d4d',
+  'manatee': '#9199a1',
+  'charleston-green': '#242729'
 }
 
 module.exports = {
@@ -520,7 +524,10 @@ module.exports = {
     '1/6': '16.66667%',
     '5/6': '83.33333%',
     '1/8': '12.5%',
+    '5/8': '62.5%',
     '7/8': '87.5%',
+    '1/10': '10%',
+    '9/10': '90%',
     full: '100%',
     screen: '100vw'
   },

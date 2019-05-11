@@ -3,13 +3,15 @@
     <div>
       <div class="px-1lg:px-6 py-4">
         <template v-if="!loading">
-          <h1 class="text-2xl mb-2 pb-4 px-4 border-b border-platinum">{{ page.title }}</h1>
+          <h1 class="text-2xl mb-2 pb-4 px-4 border-b border-platinum">
+            {{ page.title }}
+          </h1>
           <div
             class="text-grey-darkest text-base leading-loose flex flex-wrap"
             v-html="page.content"
           />
         </template>
-        <oval-loader v-else class="mb-4"/>
+        <oval-loader v-else class="mb-4" />
       </div>
     </div>
     <div class="flex mt-4">
