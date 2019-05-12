@@ -5,8 +5,7 @@ namespace App\GraphQL\Mutation\Auth;
 use GraphQL;
 use Illuminate\Http\Request;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Mutation;
-use GraphQL\Type\Definition\ResolveInfo;
+use Rebing\GraphQL\Support\Mutation;
 use Facades\App\Repositories\Auth\LoginRepository;
 
 class LoginMutation extends Mutation
@@ -37,7 +36,7 @@ class LoginMutation extends Mutation
         ];
     }
 
-    public function resolve($root, $args, $context, ResolveInfo $info)
+    public function resolve($root, $args)
     {
         return LoginRepository::login(new Request($args));
     }

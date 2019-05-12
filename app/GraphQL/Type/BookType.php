@@ -2,15 +2,17 @@
 
 namespace App\GraphQL\Type;
 
-use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Type as BaseType;
 use GraphQL;
+use App\Models\Book;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class BookType extends BaseType
+class BookType extends GraphQLType
 {
     protected $attributes = [
-        'name' => 'BookType',
-        'description' => 'A book type'
+        'name'        => 'BookType',
+        'description' => 'A book type',
+        'model'       => Book::class,
     ];
 
     public function fields()

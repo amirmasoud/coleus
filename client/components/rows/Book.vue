@@ -2,19 +2,24 @@
   <NuxtLink :to="link" class="no-underline text-deep-space-sparkle hover:outer-space">
     <div
       itemtype="http://schema.org/Book"
-      class="max-w-md rounded overflow-hidden border border-x11-grey hover:border-silver-chalice transition bg-alabster hover:bg-almond"
+      class="border-b border-platinum flex flex-wrap"
     >
       <img itemprop="image" :src="book.cover" class="hidden">
-      <no-ssr>
-        <progressive-img
-          :src="book.cover"
-          :placeholder="book.placeholder"
-          :aspect-ratio="1.6666666667"
-        />
-      </no-ssr>
-      <div class="px-4 py-2">
-        <div itemprop="name" class="text-lg mb-1 py-1">
-          {{ book.title }}
+      <div class="w-1/8">
+        <no-ssr>
+          <progressive-img
+            :src="book.cover"
+            :placeholder="book.placeholder"
+            :aspect-ratio="1.6666666667"
+            class="rounded"
+          />
+        </no-ssr>
+      </div>
+      <div class="w-7/8">
+        <div class="pr-4 text-eerie-black hover:text-dark-liver transition">
+          <div itemprop="name" class="font-normal mb-1 py-1">
+            {{ book.title }}
+          </div>
         </div>
       </div>
     </div>
@@ -23,7 +28,7 @@
 
 <script>
 export default {
-  name: 'BookCard',
+  name: 'BookRow',
 
   props: {
     book: {

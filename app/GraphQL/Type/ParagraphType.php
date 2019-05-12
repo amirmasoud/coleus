@@ -4,9 +4,9 @@ namespace App\GraphQL\Type;
 
 use GraphQL;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Type as BaseType;
+use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class ParagraphType extends BaseType
+class ParagraphType extends GraphQLType
 {
     protected $attributes = [
         'name' => 'ParagraphTypeType',

@@ -3,10 +3,11 @@
 namespace App\GraphQL\Query;
 
 use Cache;
-use GraphQL;
+use Rebing\GraphQL\Support\Query;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Query;
 use GraphQL\Type\Definition\ResolveInfo;
+use Rebing\GraphQL\Support\SelectFields;
+use Rebing\GraphQL\Support\Facades\GraphQL;
 use Facades\App\Repositories\UserRepository;
 
 class UsersQuery extends Query
@@ -26,7 +27,7 @@ class UsersQuery extends Query
      */
     public function type()
     {
-        return Type::listOf(GraphQL::type('User'));
+        return GraphQL::paginate('User');
     }
 
     /**
@@ -48,35 +49,22 @@ class UsersQuery extends Query
      * @param  \GraphQL\Type\Definition\ResolveInfo $info
      * @return mixed
      */
-    public function resolve($root, $args, $context, ResolveInfo $info)
+    public function resolve($root, $args, SelectFields $fields, ResolveInfo $info)
     {
-        $key = 'users:' . $args['sticky'] ? 'featured' : 'latest';
+        $fields = $info->getFieldSelection(5);
 
-        // Get users from list cache and return
-        // if (Redis::exists('users:' .  $key)) {
-        //     $users = collect(Redis::lrange('users:' .  $key, 0, -1));
-        //     return $users->map(function ($user) {
-        //         return json_decode($user);
-        //     })->first();
-        // }
-        // @todo: use LIST
-        if (Cache::has($key)) {
-            return Cache::get($key);
-        }
-
-        // Get users from DB
         if(isset($args['sticky'])) {
             $users = UserRepository::featuredAuthors();
         } else {
             $users = UserRepository::latest();
         }
 
-        // Put users in cache and return
-        // $users->map(function ($user) use ($key) {
-        //     Redis::rpush('users:' . $key, $user);
-        // });
-        $users = $users->get();
-        Cache::put($key, $users, 60);
-        return $users;
+        foreach ($fields['data'] as $field => $keys) {
+            if ($field === 'books') {
+                $users->with('books');
+            }
+        }
+
+        return $users->paginate();
     }
 }

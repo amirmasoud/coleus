@@ -1,6 +1,11 @@
 <?php
 
 
+use example\Mutation\ExampleMutation;
+use example\Query\ExampleQuery;
+use example\Type\ExampleRelationType;
+use example\Type\ExampleType;
+
 return [
 
     // The prefix for routes
@@ -16,17 +21,12 @@ return [
     //
     // 'routes' => 'path/to/query/{graphql_schema?}',
     //
-    // or define each routes
+    // or define each route
     //
-    'routes' => [
-        'query' => 'query/{graphql_schema?}',
-        'mutation' => 'mutation/{graphql_schema?}',
-        'mutation' => 'graphiql'
-    ],
-    //
-    // you can also disable routes by setting routes to null
-    //
-    // 'routes' => null,
+    // 'routes' => [
+    //     'query' => 'query/{graphql_schema?}',
+    //     'mutation' => 'mutation/{graphql_schema?}',
+    // ]
     //
     'routes' => '{graphql_schema?}',
 
@@ -37,59 +37,65 @@ return [
     // Example:
     //
     // 'controllers' => [
-    //     'query' => '\Folklore\GraphQL\GraphQLController@query',
-    //     'mutation' => '\Folklore\GraphQL\GraphQLController@mutation'
+    //     'query' => '\Rebing\GraphQL\GraphQLController@query',
+    //     'mutation' => '\Rebing\GraphQL\GraphQLController@mutation'
     // ]
     //
-    // 'controllers' => \Folklore\GraphQL\GraphQLController::class.'@query',
-    'controllers' => \App\Http\Controllers\UploadAwareGraphQLController::class.'@query',
-
-    // The name of the input that contain variables when you query the endpoint.
-    // Some library use "variables", you can change it here. "params" will stay
-    // the default for now but will be changed to "variables" in the next major
-    // release.
-    'variables_input_name' => 'variables',
+    'controllers' => \Rebing\GraphQL\GraphQLController::class . '@query',
 
     // Any middleware for the graphql route group
-    'middleware' => [
-        \App\Http\Middleware\UploadMiddleware::class
-    ],
+    'middleware' => [],
 
-    // Config for GraphiQL (https://github.com/graphql/graphiql).
-    // To disable GraphiQL, set this to null.
-    'graphiql' => [
-        'routes' => '/graphiql',
-        'middleware' => [],
-        'view' => 'graphql::graphiql'
-    ],
+    // Additional route group attributes
+    //
+    // Example:
+    //
+    // 'route_group_attributes' => ['guard' => 'api']
+    //
+    'route_group_attributes' => [],
 
     // The name of the default schema used when no argument is provided
     // to GraphQL::schema() or when the route is used without the graphql_schema
     // parameter.
-    'schema' => 'default',
+    'default_schema' => 'default',
 
-    // The schemas for query and/or mutation. It expects an array to provide
-    // both the 'query' fields and the 'mutation' fields. You can also
-    // provide directly an object GraphQL\Schema
+    // The schemas for query and/or mutation. It expects an array of schemas to provide
+    // both the 'query' fields and the 'mutation' fields.
+    //
+    // You can also provide a middleware that will only apply to the given schema
     //
     // Example:
     //
-    // 'schemas' => [
-    //     'default' => new Schema($config)
-    // ]
+    //  'schema' => 'default',
     //
-    // or
-    //
-    // 'schemas' => [
-    //     'default' => [
-    //         'query' => [
+    //  'schemas' => [
+    //      'default' => [
+    //          'query' => [
     //              'users' => 'App\GraphQL\Query\UsersQuery'
     //          ],
     //          'mutation' => [
     //
     //          ]
-    //     ]
-    // ]
+    //      ],
+    //      'user' => [
+    //          'query' => [
+    //              'profile' => 'App\GraphQL\Query\ProfileQuery'
+    //          ],
+    //          'mutation' => [
+    //
+    //          ],
+    //          'middleware' => ['auth'],
+    //      ],
+    //      'user/me' => [
+    //          'query' => [
+    //              'profile' => 'App\GraphQL\Query\MyProfileQuery'
+    //          ],
+    //          'mutation' => [
+    //
+    //          ],
+    //          'middleware' => ['auth'],
+    //      ],
+    //  ]
     //
     'schemas' => [
         'default' => [
@@ -115,8 +121,10 @@ return [
 
                 // User
                 'follow' => 'App\GraphQL\Mutation\Users\FollowMutation'
-            ]
-        ]
+            ],
+            'middleware' => [],
+            'method' => ['get', 'post'],
+        ],
     ],
 
     // The types available in the application. You can then access it from the
@@ -126,12 +134,6 @@ return [
     //
     // 'types' => [
     //     'user' => 'App\GraphQL\Type\UserType'
-    // ]
-    //
-    // or whitout specifying a key (it will use the ->name property of your type)
-    //
-    // 'types' => [
-    //     'App\GraphQL\Type\UserType'
     // ]
     //
     'types' => [
@@ -145,27 +147,57 @@ return [
         'Status' => 'App\GraphQL\Type\Common\StatusType',
         'Paragraph' => 'App\GraphQL\Type\ParagraphType',
         'Search' => 'App\GraphQL\Type\Search\AutocompleteType',
-        'UserHighlight' => 'App\GraphQL\Type\Search\Highlight\UserType',
-        'BookHighlight' => 'App\GraphQL\Type\Search\Highlight\BookType',
-        'ParagraphHighlight' => 'App\GraphQL\Type\Search\Highlight\ParagraphType',
+        'UserHighlight' => 'App\GraphQL\Type\Search\Highlight\SearchUserType',
+        'BookHighlight' => 'App\GraphQL\Type\Search\Highlight\SearchBookType',
+        'ParagraphHighlight' => 'App\GraphQL\Type\Search\Highlight\SearchParagraphType',
     ],
 
-    // This callable will received every Error objects for each errors GraphQL catch.
+    // This callable will be passed the Error object for each errors GraphQL catch.
     // The method should return an array representing the error.
-    //
     // Typically:
     // [
     //     'message' => '',
     //     'locations' => []
     // ]
-    //
-    'error_formatter' => [\App\GraphQL\Errors\Format::class, 'formatError'],
+    'error_formatter' => ['\Rebing\GraphQL\GraphQL', 'formatError'],
 
-    // Options to limit the query complexity and depth. See the doc
-    // @ https://github.com/webonyx/graphql-php#security
-    // for details. Disabled by default.
+    /**
+     * Custom Error Handling
+     *
+     * Expected handler signature is: function (array $errors, callable $formatter): array
+     *
+     * The default handler will pass exceptions to laravel Error Handling mechanism
+     */
+    'errors_handler' => ['\Rebing\GraphQL\GraphQL', 'handleErrors'],
+
+    // You can set the key, which will be used to retrieve the dynamic variables
+    'params_key'    => 'variables',
+
+    /*
+     * Options to limit the query complexity and depth. See the doc
+     * @ https://github.com/webonyx/graphql-php#security
+     * for details. Disabled by default.
+     */
     'security' => [
         'query_max_complexity' => null,
-        'query_max_depth' => null
-    ]
+        'query_max_depth' => null,
+        'disable_introspection' => false
+    ],
+
+    /*
+     * You can define your own pagination type.
+     * Reference \Rebing\GraphQL\Support\PaginationType::class
+     */
+    'pagination_type' => \Rebing\GraphQL\Support\PaginationType::class,
+
+    /*
+     * Config for GraphiQL (see (https://github.com/graphql/graphiql).
+     */
+    'graphiql' => [
+        'prefix' => '/graphiql/{graphql_schema?}',
+        'controller' => \Rebing\GraphQL\GraphQLController::class.'@graphiql',
+        'middleware' => [],
+        'view' => 'graphql::graphiql',
+        'display' => env('ENABLE_GRAPHIQL', true),
+    ],
 ];

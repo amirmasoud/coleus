@@ -160,7 +160,13 @@ const colors = {
   'vivid-auburn': '#912e2e',
   prune: '#742525',
   'caput-mortuum': '#601f1f',
-  'quick-silver': '#9fa6ad'
+  'quick-silver': '#9fa6ad',
+  'spanish-gray': '#8f979f',
+  arsenic: '#3b4045',
+  'eerie-black': '#1a1a1a',
+  'dark-liver': '#4d4d4d',
+  'manatee': '#9199a1',
+  'charleston-green': '#242729'
 }
 
 module.exports = {
@@ -518,7 +524,10 @@ module.exports = {
     '1/6': '16.66667%',
     '5/6': '83.33333%',
     '1/8': '12.5%',
+    '5/8': '62.5%',
     '7/8': '87.5%',
+    '1/10': '10%',
+    '9/10': '90%',
     full: '100%',
     screen: '100vw'
   },
@@ -776,7 +785,8 @@ module.exports = {
       'inset 0 1px 0 0 rgba(212,119,119,0.5), 0 0 0 0 rgba(174,55,55,0)',
     'btn-active': 'inset 0 2px 8px 0 rgba(96,31,31,0.8)',
     'btn-focus':
-      'inset 0 0 0 0 rgba(212,119,119,0.5), 0 0 0 4px rgba(174,55,55,0.15)'
+      'inset 0 0 0 0 rgba(212,119,119,0.5), 0 0 0 4px rgba(174,55,55,0.15)',
+    'dark-input': '0 0 0 3px rgba(220, 161, 52, 0.5)'
   },
 
   /*

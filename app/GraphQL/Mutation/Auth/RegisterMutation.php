@@ -5,8 +5,7 @@ namespace App\GraphQL\Mutation\Auth;
 use GraphQL;
 use Illuminate\Http\Request;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Mutation;
-use GraphQL\Type\Definition\ResolveInfo;
+use Rebing\GraphQL\Support\Mutation;
 use Facades\App\Repositories\Auth\RegisterRepository;
 
 class RegisterMutation extends Mutation
@@ -47,7 +46,7 @@ class RegisterMutation extends Mutation
         ];
     }
 
-    public function resolve($root, $args, $context, ResolveInfo $info)
+    public function resolve($root, $args)
     {
         return RegisterRepository::register(new Request($args));
     }

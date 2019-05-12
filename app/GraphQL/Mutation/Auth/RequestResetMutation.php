@@ -5,8 +5,7 @@ namespace App\GraphQL\Mutation\Auth;
 use GraphQL;
 use Illuminate\Http\Request;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Mutation;
-use GraphQL\Type\Definition\ResolveInfo;
+use Rebing\GraphQL\Support\Mutation;
 
 class RequestResetMutation extends Mutation
 {
@@ -31,7 +30,7 @@ class RequestResetMutation extends Mutation
         ];
     }
 
-    public function resolve($root, $args, $context, ResolveInfo $info)
+    public function resolve($root, $args)
     {
         return (new \App\Http\Controllers\Auth\ForgotPasswordController())
             ->sendResetLinkEmail(new Request($args));

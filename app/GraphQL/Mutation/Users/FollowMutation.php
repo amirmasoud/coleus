@@ -4,8 +4,7 @@ namespace App\GraphQL\Mutation\Users;
 
 use GraphQL;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Mutation;
-use GraphQL\Type\Definition\ResolveInfo;
+use Rebing\GraphQL\Support\Mutation;
 
 class FollowMutation extends Mutation
 {
@@ -30,7 +29,7 @@ class FollowMutation extends Mutation
         ];
     }
 
-    public function resolve($root, $args, $context, ResolveInfo $info)
+    public function resolve($root, $args)
     {
         if (auth()->check()) {
             auth()->user()->toggleFollow($args['user']);

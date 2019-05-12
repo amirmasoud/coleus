@@ -2,11 +2,11 @@
 
 namespace App\GraphQL\Type;
 
-use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Type as BaseType;
 use GraphQL;
+use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class TokenType extends BaseType
+class TokenType extends GraphQLType
 {
     protected $attributes = [
         'name' => 'TokenType',

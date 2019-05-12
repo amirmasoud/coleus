@@ -3,17 +3,19 @@
 namespace App\GraphQL\Type;
 
 use GraphQL;
+use App\Models\User;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Type as BaseType;
+use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class UserType extends BaseType
+class UserType extends GraphQLType
 {
     /**
      * @var array
      */
     protected $attributes = [
-        'name' => 'UserType',
-        'description' => 'A user'
+        'name'        => 'UserType',
+        'description' => 'A user',
+        'model'       => User::class,
     ];
 
     /**
