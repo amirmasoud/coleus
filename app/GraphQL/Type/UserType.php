@@ -2,17 +2,20 @@
 
 namespace App\GraphQL\Type;
 
+use GraphQL;
+use App\Models\User;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Type as BaseType;
+use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class UserType extends BaseType
+class UserType extends GraphQLType
 {
     /**
      * @var array
      */
     protected $attributes = [
-        'name' => 'UserType',
-        'description' => 'A user'
+        'name'        => 'UserType',
+        'description' => 'A user',
+        'model'       => User::class,
     ];
 
     /**
@@ -22,7 +25,7 @@ class UserType extends BaseType
     {
         return [
             'id' => [
-                'type' => Type::nonNull(Type::int()),
+                'type' => Type::int(),
                 'description' => 'The id of the user'
             ],
             'name' => [
@@ -69,10 +72,27 @@ class UserType extends BaseType
                 'type' => Type::string(),
                 'description' => 'The medium photo of user'
             ],
+            'placeholder' => [
+                'type' => Type::string(),
+                'description' => 'The placeholder photo of user'
+            ],
             'sticky' => [
                 'type' => Type::boolean(),
                 'description' => 'The user is sticky'
-            ]
+            ],
+            'books' => [
+                'args' => \Facades\App\GraphQL\Type\BookType::fields(),
+                'type' => Type::listOf(GraphQL::type('Book')),
+                'description' => 'The user\'s books'
+            ],
+            'highlight' => [
+                'type' => Type::listOf(GraphQL::type('UserHighlight')),
+                'description' => 'The user search highlight'
+            ],
+            'itemid' => [
+                'type' => Type::string(),
+                'description' => 'The itemid of the user'
+            ],
         ];
     }
 
@@ -94,5 +114,15 @@ class UserType extends BaseType
     protected function resolveStickyField($root, $args)
     {
         return $root->sticks()->exists();
+    }
+
+    /**
+     * @param  $root
+     * @param  $args
+     * @return mixed
+     */
+    protected function resolveItemidField($root, $args)
+    {
+        return $root->attributes->get('itemid', '#');
     }
 }

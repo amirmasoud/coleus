@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller
@@ -28,7 +29,7 @@ class ForgotPasswordController extends Controller
      */
     protected function sendResetLinkResponse($response)
     {
-        return ['status' => trans($response)];
+        return [ 'status' => true ];
     }
 
     /**
@@ -40,6 +41,9 @@ class ForgotPasswordController extends Controller
      */
     protected function sendResetLinkFailedResponse(Request $request, $response)
     {
-        return response()->json(['email' => trans($response)], 400);
+        throw ValidationException::withMessages([
+            'email' => trans($response),
+        ]);
+        // return [ 'status' => false ];
     }
 }

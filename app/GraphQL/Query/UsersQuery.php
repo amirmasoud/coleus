@@ -2,10 +2,12 @@
 
 namespace App\GraphQL\Query;
 
-use GraphQL;
+use Cache;
+use Rebing\GraphQL\Support\Query;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Query;
 use GraphQL\Type\Definition\ResolveInfo;
+use Rebing\GraphQL\Support\SelectFields;
+use Rebing\GraphQL\Support\Facades\GraphQL;
 use Facades\App\Repositories\UserRepository;
 
 class UsersQuery extends Query
@@ -15,7 +17,7 @@ class UsersQuery extends Query
      */
     protected $attributes = [
         'name' => 'UsersQuery',
-        'description' => 'A users collection'
+        'description' => 'List of users filtered by featured users and letest users.'
     ];
 
     /**
@@ -25,7 +27,7 @@ class UsersQuery extends Query
      */
     public function type()
     {
-        return Type::listOf(GraphQL::type('User'));
+        return GraphQL::paginate('User');
     }
 
     /**
@@ -47,12 +49,22 @@ class UsersQuery extends Query
      * @param  \GraphQL\Type\Definition\ResolveInfo $info
      * @return mixed
      */
-    public function resolve($root, $args, $context, ResolveInfo $info)
+    public function resolve($root, $args, SelectFields $fields, ResolveInfo $info)
     {
+        $fields = $info->getFieldSelection(5);
+
         if(isset($args['sticky'])) {
-            return UserRepository::featuredAuthors();
+            $users = UserRepository::featuredAuthors();
         } else {
-            return UserRepository::latest();
+            $users = UserRepository::latest();
         }
+
+        foreach ($fields['data'] as $field => $keys) {
+            if ($field === 'books') {
+                $users->with('books');
+            }
+        }
+
+        return $users->paginate();
     }
 }

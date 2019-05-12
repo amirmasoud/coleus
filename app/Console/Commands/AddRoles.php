@@ -42,6 +42,7 @@ class AddRoles extends Command
         Role::firstOrCreate(['name' => 'subscriber']);
         Role::firstOrCreate(['name' => 'writer']);
         Role::firstOrCreate(['name' => 'publisher']);
-        $this->info('3 roles added/found: subscriber, writer and publisher.');
+        Role::firstOrCreate(['name' => 'admin']);
+        $this->info('4 roles added/found: subscriber, writer, publisher and admin.');
     }
 }

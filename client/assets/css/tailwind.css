@@ -1,0 +1,101 @@
+@font-face {
+    font-family: IRANYekan;
+    src: url(../fonts/699085bd.eot);
+    src: url(../fonts/699085bd.eot?#iefix) format("embedded-opentype"),url(../fonts/a80f71ff.woff2) format("woff2"),url(../fonts/088dfe8a.woff) format("woff"),url(../fonts/2c83275a.ttf) format("truetype");
+    font-weight: 300;
+    font-style: normal
+}
+
+@font-face {
+    font-family: IRANYekan;
+    src: url(../fonts/5bea6c32.eot);
+    src: url(../fonts/5bea6c32.eot?#iefix) format("embedded-opentype"),url(../fonts/1fdcadec.woff2) format("woff2"),url(../fonts/56a1baa4.woff) format("woff"),url(../fonts/79533773.ttf) format("truetype");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: IRANYekan;
+    src: url(../fonts/7c912e00.eot);
+    src: url(../fonts/7c912e00.eot?#iefix) format("embedded-opentype"),url(../fonts/fe12f13a.woff2) format("woff2"),url(../fonts/2d7cc7cd.woff) format("woff"),url(../fonts/a7d41f91.ttf) format("truetype");
+    font-weight: 700;
+    font-style: normal
+}
+
+@font-face {
+    font-family: IRANYekanDigits;
+    src: url(../fonts/24659979.eot);
+    src: url(../fonts/24659979.eot?#iefix) format("embedded-opentype"),url(../fonts/9a3fc3d8.woff2) format("woff2"),url(../fonts/b7443b71.woff) format("woff"),url(../fonts/29a4348a.ttf) format("truetype");
+    font-weight: 300;
+    font-style: normal
+}
+
+@font-face {
+    font-family: IRANSans;
+    src: url(../fonts/a83daff6.ttf) format("truetype");
+    font-weight: 300;
+    font-style: normal
+}
+
+/**
+ * This injects Tailwind's base styles, which is a combination of
+ * Normalize.css and some additional base styles.
+ *
+ * You can see the styles here:
+ * https://github.com/tailwindcss/tailwindcss/blob/master/css/preflight.css
+ *
+ * If using `postcss-import`, use this import instead:
+ *
+ * @import "tailwindcss/preflight";
+ */
+@tailwind preflight;
+
+/**
+ * This injects any component classes registered by plugins.
+ *
+ * If using `postcss-import`, use this import instead:
+ *
+ * @import "tailwindcss/components";
+ */
+@tailwind components;
+
+/**
+ * Here you would add any of your custom component classes; stuff that you'd
+ * want loaded *before* the utilities so that the utilities could still
+ * override them.
+ *
+ * Example:
+ *
+ * .btn { ... }
+ * .form-input { ... }
+ *
+ * Or if using a preprocessor or `postcss-import`:
+ *
+ * @import "components/buttons";
+ * @import "components/forms";
+ */
+
+/**
+ * This injects all of Tailwind's utility classes, generated based on your
+ * config file.
+ *
+ * If using `postcss-import`, use this import instead:
+ *
+ * @import "tailwindcss/utilities";
+ */
+@tailwind utilities;
+
+/**
+ * Here you would add any custom utilities you need that don't come out of the
+ * box with Tailwind.
+ *
+ * Example :
+ *
+ * .bg-pattern-graph-paper { ... }
+ * .skew-45 { ... }
+ *
+ * Or if using a preprocessor or `postcss-import`:
+ *
+ * @import "utilities/background-patterns";
+ * @import "utilities/skew-transforms";
+ */
