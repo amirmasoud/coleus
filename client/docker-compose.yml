@@ -6,18 +6,6 @@ services:
     container_name: frontend-website
     restart: always
     ports:
-      - "80:80"
+      - "3000:3000"
     command:
       "yarn run build & yarn run start"
-
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    ports:
-      - "80:80"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-
-  whoami:
-    image: jwilder/whoami
-    environment:
-      - VIRTUAL_HOST=negar.in
