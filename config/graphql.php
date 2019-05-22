@@ -146,7 +146,7 @@ return [
         'Reset' => 'App\GraphQL\Type\Auth\ResetPasswordType',
         'Status' => 'App\GraphQL\Type\Common\StatusType',
         'Paragraph' => 'App\GraphQL\Type\ParagraphType',
-        'Search' => 'App\GraphQL\Type\Search\AutocompleteType',
+        'Search' => 'App\GraphQL\Type\Search\AutoCompleteType',
         'UserHighlight' => 'App\GraphQL\Type\Search\Highlight\SearchUserType',
         'BookHighlight' => 'App\GraphQL\Type\Search\Highlight\SearchBookType',
         'ParagraphHighlight' => 'App\GraphQL\Type\Search\Highlight\SearchParagraphType',
