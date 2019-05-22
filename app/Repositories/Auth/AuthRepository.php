@@ -4,7 +4,7 @@ namespace App\Repositories\Auth;
 
 use Illuminate\Http\Request;
 
-class LoginRepository
+class AuthRepository
 {
     /**
      * Update the user's password.
