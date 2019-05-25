@@ -1,14 +1,21 @@
 version: '2'
 
 services:
-  nginx-proxy:
-    image: jwilder/nginx-proxy
+  reverseproxy:
+    image: reverseproxy
     ports:
-      - "80:80"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - 8080:8080
+      - 8081:8081
+    restart: always
 
-  whoami:
-    image: jwilder/whoami
-    environment:
-      - VIRTUAL_HOST=gql.negar.in
+  negarin_gql:
+    depends_on:
+      - reverseproxy
+    image: nginx:alpine
+    restart: always
+
+  negarin_client:
+    depends_on:
+      - reverseproxy
+    image: httpd:alpine
+    restart: always
