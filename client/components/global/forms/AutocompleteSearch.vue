@@ -1,5 +1,5 @@
 <template>
-  <div :class="[focused ? 'lg:w-2/3' : 'lg:w-1/3']" class="w-full mr-auto relative transition">
+  <div class="w-full mr-2 relative transition">
     <div class="pointer-events-none absolute pin-y pin-r pr-3 flex items-center">
       <img v-if="loading" class="w-4" src="/icons/loading.svg">
       <img v-else class="w-4" src="/icons/search.svg">
@@ -19,7 +19,8 @@
     >
     <div class="absolute pin-y pin-l pl-3 flex items-center">
       <span
-        class="bg-black text-quick-silver font-bold px-2 pb-1 border-b border-grey-darkest rounded font-mono"
+        class="bg-black text-quick-silver font-bold px-2 border-b border-grey-darkest rounded font-mono"
+        style="padding-top: 3px;padding-bottom: 3px;"
       >/</span>
     </div>
     <span

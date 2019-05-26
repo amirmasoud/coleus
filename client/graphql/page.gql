@@ -7,5 +7,13 @@ query FetchPageById($id: Int) {
     prev
     next_title
     prev_title
+    book {
+      title
+      slug
+      collaborators {
+        name
+        username
+      }
+    }
   }
 }

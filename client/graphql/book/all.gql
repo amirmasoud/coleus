@@ -1,0 +1,11 @@
+query FetchBooks {
+  books {
+    data {
+      id
+      title
+      placeholder
+      cover
+      slug
+    }
+  }
+}

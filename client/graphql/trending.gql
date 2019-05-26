@@ -1,0 +1,19 @@
+query FetchTrending {
+  trending {
+    data {
+      id
+      title
+      book {
+        title
+        slug
+        collaborators {
+          name
+          username
+          thumbnail
+          photo_url
+          placeholder
+        }
+      }
+    }
+  }
+}

@@ -3,9 +3,12 @@
     <div>
       <div class="px-1lg:px-6 py-4">
         <template v-if="!loading">
-          <h1 class="text-2xl mb-2 pb-4 px-4 border-b border-platinum">
-            {{ page.title }}
-          </h1>
+          <div class="border-b border-platinum px-4 mb-4">
+            <p class="text-xs text-grey-darker mb-4"><NuxtLink :to="{ name: 'profile', params: { username: page.book.collaborators[0].username }}" class="text-grey-darker hover:text-dark-liver no-underline">{{ page.book.collaborators[0].name }}</NuxtLink> <span class="text-black">></span> <NuxtLink :to="{ name: 'book-slug', params: { slug: page.book.slug } }" class="text-grey-darker hover:text-dark-liver no-underline">{{ page.book.title }}</NuxtLink></p>
+            <h1 class="text-2xl mb-4">
+              {{ page.title }}
+            </h1>
+          </div>
           <div
             class="text-grey-darkest text-base leading-loose flex flex-wrap"
             v-html="page.content"
@@ -27,7 +30,7 @@
           :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: page.next }}"
         >
           <span>{{ page.next_title }}</span>
-          <br>
+          <br />
           <small class="block mt-2 text-sweet-brown">{{ $t('next') }}</small>
         </NuxtLink>
       </div>
@@ -43,7 +46,7 @@
           :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: page.prev }}"
         >
           <span>{{ page.prev_title }}</span>
-          <br>
+          <br />
           <small class="block mt-2 text-sweet-brown">{{ $t('prev') }}</small>
         </NuxtLink>
       </div>

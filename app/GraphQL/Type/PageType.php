@@ -47,7 +47,11 @@ class PageType extends GraphQLType
             'prev_title' => [
                 'type' => Type::string(),
                 'description' => 'Previous sibling title of the page'
-            ]
+            ],
+            'book' => [
+                'type' => GraphQL::type('Book'),
+                'description' => 'Book that this page belongs to'
+            ],
         ];
     }
 }

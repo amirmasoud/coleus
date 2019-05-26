@@ -103,7 +103,9 @@ return [
                 'users' => 'App\GraphQL\Query\UsersQuery',
                 'user' => 'App\GraphQL\Query\UserQuery',
                 'book' => 'App\GraphQL\Query\BookQuery',
+                'books' => 'App\GraphQL\Query\BooksQuery',
                 'page' => 'App\GraphQL\Query\PageQuery',
+                'trending' => 'App\GraphQL\Query\TrendingQuery',
                 'search' => 'App\GraphQL\Query\SearchQuery'
             ],
             'mutation' => [

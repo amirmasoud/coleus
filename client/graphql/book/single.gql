@@ -7,6 +7,11 @@ query Book($slug: String) {
     cover
     slug
     start
+    pages {
+      id
+      title
+      is_header
+    }
     collaborators {
       name
       username
