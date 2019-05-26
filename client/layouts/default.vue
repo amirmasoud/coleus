@@ -81,7 +81,7 @@
         <a class="mx-1 no-underline text-smoky-black-dark hover:text-black" href="#">اینستاگرام</a>
       </p>
       <p class="mt-24 text-xs text-center pb-6" style="color: rgba(12,13,14,0.5);">
-        <span id="svnrev">rev&nbsp;2019.5.26.316</span>
+        <span id="svnrev">rev&nbsp;2019.5.26.318</span>
       </p>
     </footer>
   </div>
