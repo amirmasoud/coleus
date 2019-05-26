@@ -65,6 +65,6 @@ class UsersQuery extends Query
             }
         }
 
-        return $users->paginate();
+        return $users->paginate(100);
     }
 }

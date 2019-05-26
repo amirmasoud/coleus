@@ -30,6 +30,6 @@ class BooksQuery extends Query
 
     public function resolve($root, $args, SelectFields $fields, ResolveInfo $info)
     {
-        return Book::paginate();
+        return Book::paginate(100);
     }
 }
