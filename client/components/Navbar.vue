@@ -30,11 +30,11 @@
             </div>
           </span>
         </div>
-        <div class="w-1/4 lg:ml-4">
+        <div class="w-1/4 lg:ml-4" style="margin-right: -4px;">
+          <!-- <div class="bg-grey-light w-8 h-8 rounded-full inline-block float-left mr-3"></div>
           <div class="bg-grey-light w-8 h-8 rounded-full inline-block float-left mr-3"></div>
           <div class="bg-grey-light w-8 h-8 rounded-full inline-block float-left mr-3"></div>
-          <div class="bg-grey-light w-8 h-8 rounded-full inline-block float-left mr-3"></div>
-          <div class="bg-grey-light w-8 h-8 rounded-full inline-block float-left mr-3"></div>
+          <div class="bg-grey-light w-8 h-8 rounded-full inline-block float-left mr-3"></div> -->
         </div>
       </div>
     </div>

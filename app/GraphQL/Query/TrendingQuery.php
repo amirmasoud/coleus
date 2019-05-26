@@ -31,9 +31,9 @@ class TrendingQuery extends Query
 
     public function resolve($root, $args, SelectFields $fields, ResolveInfo $info)
     {
-        // if (Cache::has('trending')) {
-        //     return Cache::get('trending');
-        // }
+        if (Cache::has('trending')) {
+            return Cache::get('trending');
+        }
 
         $trending = Page::where('content', '!=', ':empty')
             ->inRandomOrder()
