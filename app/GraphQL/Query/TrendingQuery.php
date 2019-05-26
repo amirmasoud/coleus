@@ -37,7 +37,7 @@ class TrendingQuery extends Query
 
         $trending = Page::where('content', '!=', ':empty')
             ->inRandomOrder()
-            ->take(10)
+            ->take(11)
             ->paginate();
 
         Cache::put('trending', $trending, 60 * 60); // 1 hour
