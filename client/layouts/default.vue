@@ -24,12 +24,12 @@
                 </NuxtLink>
               </li>
               <li class="">
-                <NuxtLink :to="{ name: 'users' }" :class="{'bg-smoky-black border-l-4 border-sweet-brown font-bold': $route.name === 'users' || $route.name === 'profile' || $route.name.startsWith('user-')}" class="block px-2 py-2 text-smoky-black-dark hover:font-bold text-sm no-underline">
+                <NuxtLink :to="{ name: 'users' }" :class="{'bg-smoky-black border-l-4 border-sweet-brown font-bold': $route.name === 'users' || $route.name === 'profile' || ($route.name ? $route.name.startsWith('user-') : false)}" class="block px-2 py-2 text-smoky-black-dark hover:font-bold text-sm no-underline">
                   شاعران
                 </NuxtLink>
               </li>
               <li class="">
-                <NuxtLink :to="{ name: 'books' }" :class="{'bg-smoky-black border-l-4 border-sweet-brown font-bold': $route.name === 'books' || $route.name.startsWith('book-')}" class="block px-2 py-2 text-smoky-black-dark hover:font-bold text-sm no-underline">
+                <NuxtLink :to="{ name: 'books' }" :class="{'bg-smoky-black border-l-4 border-sweet-brown font-bold': $route.name === 'books' || ($route.name ? $route.name.startsWith('book-') : false)}" class="block px-2 py-2 text-smoky-black-dark hover:font-bold text-sm no-underline">
                   کتاب‌ها
                 </NuxtLink>
               </li>
@@ -39,7 +39,7 @@
         <div class="md:w-5/8 border-l border-r border-gainsboro">
           <Nuxt />
         </div>
-        <div class="md:w-1/4 p-4 h-screen">
+        <div class="md:w-1/4 p-4 min-h-screen">
           <div id="hot-network-questions">
               <h4 class="font-normal font-bold mt-2 mb-6">
                   <a href="#" class="no-underline text-charleston-green">
@@ -73,11 +73,11 @@
       </div>
     </div>
 
-    <footer class="bg-champagne">
+    <footer class="bg-champagne footer-footer border-t border-dashed shadow-inner border-brown">
       <p class="text-center pt-8 text-xs">
         <a class="mx-1 no-underline text-smoky-black-dark hover:text-black" href="#">فیسبوک</a>
-        <a class="mx-1 no-underline text-smoky-black-dark hover:text-black" href="#">توییتر</a>
-        <a class="mx-1 no-underline text-smoky-black-dark hover:text-black" href="#">تلگرام</a>
+        <a class="mx-1 no-underline text-smoky-black-dark hover:text-black" href="https://twitter.com/negarinapp">توییتر</a>
+        <a class="mx-1 no-underline text-smoky-black-dark hover:text-black" href="https://t.me/negarin_telegram">تلگرام</a>
         <a class="mx-1 no-underline text-smoky-black-dark hover:text-black" href="#">اینستاگرام</a>
       </p>
       <p class="mt-24 text-xs text-center pb-6" style="color: rgba(12,13,14,0.5);">
