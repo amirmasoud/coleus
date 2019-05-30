@@ -114,7 +114,8 @@ module.exports = {
     { src: '~plugins/progressive', ssr: false },
     { src: '~plugins/shortkey', ssr: false },
     { src: '~plugins/snotify', ssr: false },
-    { src: '~plugins/scroller.js', ssr: false }
+    { src: '~plugins/scroller.js', ssr: false },
+    { src: '~plugins/ga.js', ssr: false }
   ],
 
   /*
