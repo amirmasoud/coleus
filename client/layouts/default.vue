@@ -4,10 +4,10 @@
 
     <div class="container mx-auto w-full h-full max-w-3xl mt-16">
       <div class="flex flex-wrap">
-        <div class="md:w-1/8 pt-4">
+        <div class="w-full mb-6 border-b border-brown border-dashed cool-background">
           <nav role="navigation">
-            <ol class="list-reset">
-              <li v-if="$route.name === 'book-slug-page-id'" class="mb-4 pb-4 border-b border-gainsboro" v-shortkey="['esc']" @shortkey="closeMenu()">
+            <ol class="list-reset flex">
+              <!-- <li v-if="$route.name === 'book-slug-page-id'" class="mb-4 pb-4 border-b border-gainsboro" v-shortkey="['esc']" @shortkey="closeMenu()">
                 <span class="flex items-center px-2 py-2 mr text-smoky-black-dark hover:font-bold text-sm cursor-pointer" @click.prevent="openMenu" v-show="!showMenu">
                   <svg class="fill-current w-4 h-4 text-grey ml-2" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
                   باز کردن فهرست
@@ -16,20 +16,20 @@
                   <svg class="fill-current w-4 h-4 text-grey ml-2" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" /></svg>
                   بستن فهرست
                 </span>
-              </li>
+              </li> -->
 
-              <li>
-                <NuxtLink :to="{ name: 'index' }" :class="{'bg-smoky-black border-l-4 border-sweet-brown font-bold': $route.name === 'index'}" class="block px-2 py-2 text-smoky-black-dark text-sm no-underline">
+              <li class="flex-1 text-center">
+                <NuxtLink :to="{ name: 'index' }" :class="{'bg-smoky-black font-bold': $route.name === 'index'}" class="block px-2 py-2 text-smoky-black-dark text-sm no-underline">
                   خانه
                 </NuxtLink>
               </li>
-              <li class="">
-                <NuxtLink :to="{ name: 'users' }" :class="{'bg-smoky-black border-l-4 border-sweet-brown font-bold': $route.name === 'users' || $route.name === 'profile' || ($route.name ? $route.name.startsWith('user-') : false)}" class="block px-2 py-2 text-smoky-black-dark hover:font-bold text-sm no-underline">
+              <li class="flex-1 text-center">
+                <NuxtLink :to="{ name: 'users' }" :class="{'bg-smoky-black font-bold': $route.name === 'users' || $route.name === 'profile' || ($route.name ? $route.name.startsWith('user-') : false)}" class="block px-2 py-2 text-smoky-black-dark hover:font-bold text-sm no-underline">
                   شاعران
                 </NuxtLink>
               </li>
-              <li class="">
-                <NuxtLink :to="{ name: 'books' }" :class="{'bg-smoky-black border-l-4 border-sweet-brown font-bold': $route.name === 'books' || ($route.name ? $route.name.startsWith('book-') : false)}" class="block px-2 py-2 text-smoky-black-dark hover:font-bold text-sm no-underline">
+              <li class="flex-1 text-center">
+                <NuxtLink :to="{ name: 'books' }" :class="{'bg-smoky-black font-bold': $route.name === 'books' || ($route.name ? $route.name.startsWith('book-') : false)}" class="block px-2 py-2 text-smoky-black-dark hover:font-bold text-sm no-underline">
                   کتاب‌ها
                 </NuxtLink>
               </li>
