@@ -48,6 +48,6 @@ class RegisterMutation extends Mutation
 
     public function resolve($root, $args)
     {
-        return RegisterRepository::register(new Request($args));
+        return RegisterRepository::create($args);
     }
 }

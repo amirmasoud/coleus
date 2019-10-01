@@ -42,11 +42,10 @@ class RegisterRepository
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array $data
      * @return User
      * @throws \Exception
      */
-    protected function create(array $data)
+    public function create(array $data)
     {
         $user = User::create([
             'name' => $data['name'],

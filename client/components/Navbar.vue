@@ -4,6 +4,7 @@
       <div class="flex items-center">
         <div class="xl:w-1/8 lg:w-1/4">
           <div class="flex justify-start items-center">
+            {{auth}}
             <NuxtLink :to="{ name: 'index' }" class="flex lg:mr-4">
               <img class="self-center" src="/images/favicon-32x32.png" alt="Logo">
             </NuxtLink>
@@ -30,11 +31,13 @@
             </div>
           </span>
         </div>
-        <div class="w-1/4 lg:ml-4" style="margin-right: -4px;">
-          <!-- <div class="bg-grey-light w-8 h-8 rounded-full inline-block float-left mr-3"></div>
-          <div class="bg-grey-light w-8 h-8 rounded-full inline-block float-left mr-3"></div>
-          <div class="bg-grey-light w-8 h-8 rounded-full inline-block float-left mr-3"></div>
-          <div class="bg-grey-light w-8 h-8 rounded-full inline-block float-left mr-3"></div> -->
+        <div class="w-1/4 lg:ml-4 flex justify-end" style="margin-right: -4px;">
+          <NuxtLink :to="{ name: 'login' }" class="no-underline">
+            <button class="text-white text-sm py-2 px-2 mr-3">ورود</button>
+          </NuxtLink>
+          <NuxtLink :to="{ name: 'register' }" class="no-underline">
+            <button class="mr-3 active:bg-prune active:shadow-btn-active active:border-caput-mortuum bg-sweet-brown border border-burnt-umber py-2 px-2 text-white font-normal text-sm rounded shadow-btn hover:bg-vivid-auburn hover:shadow-btn-hover focus:outline-none focus:shadow-outline focus:shadow-btn-focus no-underline">ثبت‌نام</button>
+          </NuxtLink>
         </div>
       </div>
     </div>
@@ -43,11 +46,17 @@
 <script>
 export default {
   data: () => ({
-    showMenu: false
+    showMenu: false,
+
+    auth: null,
+    protected: false,
+    fresh: true,
+    loading: true
   }),
 
   created() {
     this.$root.$on('close-menu-after-click', this.closeMenuAfterClick)
+    this.attempLogin()
   },
 
   methods: {
@@ -63,6 +72,27 @@ export default {
 
     closeMenuAfterClick() {
       this.showMenu = false
+    },
+
+    async attempLogin() {
+      this.$apollo.skipAllQueries = true
+
+      await this.$apollo
+        .query({
+          query: require('~/graphql/client/query/user'),
+          prefetch: false
+        })
+        .then(({ data }) => {
+          this.auth = data.user
+          this.$root.$emit('auth-ready')
+          this.$apollo.skipAllQueries = false
+        })
+        .catch(error => {
+          console.log(error)
+          this.auth = null
+
+          this.$apollo.skipAllQueries = false
+        })
     }
   }
 }

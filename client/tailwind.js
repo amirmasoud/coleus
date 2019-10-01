@@ -166,7 +166,12 @@ const colors = {
   'eerie-black': '#1a1a1a',
   'dark-liver': '#4d4d4d',
   'manatee': '#9199a1',
-  'charleston-green': '#242729'
+  'charleston-green': '#242729',
+
+  'logo-primary': '#8be3cd',
+  'logo-secondary': '#fd6b5d',
+
+  'brown': '#5e4e38',
 }
 
 module.exports = {
