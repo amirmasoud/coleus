@@ -16,6 +16,8 @@ services:
   backend:
     build:
       context: ../backend
+      args:
+        FPM_VERSION: ${FPM_VERSION}
       dockerfile: ../deploy/backend/Dockerfile
     container_name: negarin-backend
     restart: unless-stopped
