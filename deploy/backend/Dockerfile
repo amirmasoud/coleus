@@ -1,58 +1,59 @@
-FROM php:${FPM_VERSION}
+FROM php:7.3-fpm-alpine3.8
 
-# Copy composer.lock and composer.json
-COPY composer.lock composer.json /var/www/backend/
+RUN rm -f /etc/apk/repositories &&\
+    echo "http://dl-cdn.alpinelinux.org/alpine/v3.8/main" >> /etc/apk/repositories && \
+    echo "http://dl-cdn.alpinelinux.org/alpine/v3.8/community" >> /etc/apk/repositories
 
-# Set working directory
+RUN apk add --no-cache --virtual .build-deps  \
+    zlib-dev \
+    libjpeg-turbo-dev \
+    libpng-dev \
+    libxml2-dev \
+    bzip2-dev \
+    postgresql-dev
+
+
+RUN apk add --update --no-cache \
+    jpegoptim \
+    pngquant \
+    optipng \
+    supervisor \
+    nano \
+    icu-dev \
+    freetype-dev \
+    libzip-dev
+
+RUN docker-php-ext-configure \
+    opcache --enable-opcache &&\
+    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ &&\
+    docker-php-ext-install \
+    opcache \
+    pdo_pgsql \
+    pgsql \
+    pdo \
+    sockets \
+    json \
+    intl \
+    gd \
+    xml \
+    zip \
+    bz2 \
+    pcntl \
+    bcmath
+
+RUN echo '*  *  *  *  * /usr/local/bin/php  /var/www/backend/artisan schedule:run >> /dev/null 2>&1' > /etc/crontabs/root && mkdir /etc/supervisor.d
+
+RUN apk del -f .build-deps
+
 WORKDIR /var/www/backend
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    postgresql-client \
-    libpq-dev \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
-    unzip \
-    git \
-    curl
+COPY . /var/www/backend
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN chown -R www-data:www-data \
+    /var/www/backend/storage \
+    /var/www/backend/bootstrap/cache && \
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    composer install --no-dev --no-scripts --no-interaction --ignore-platform-reqs
 
-# Install extensions
-RUN docker-php-ext-install pdo pdo_pgsql mbstring zip exif pcntl
-RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
-RUN docker-php-ext-install gd
-
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Add user for laravel application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
-
-# Copy existing application directory contents
-# COPY . /var/www/backend
-
-# Copy existing application directory permissions
-COPY --chown=www:www . /var/www/backend
-
-RUN chown root:root /var/www && \
-    chmod 755 /var/www/ && \
-    chown -R www:www /var/www/backend && \
-    chmod -R 774 /var/www/backend
-
-# Change current user to www
-USER www
-
-RUN composer install --no-dev --no-interaction --ignore-platform-reqs
-
-# Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]

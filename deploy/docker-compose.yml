@@ -25,7 +25,8 @@ services:
     working_dir: /var/www/backend
     volumes:
       - ../backend:/var/www/backend
-      - ../deploy/backend/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - ../deploy/backend/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ../deploy/backend/php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
     networks:
       - backend-network
 
@@ -42,7 +43,7 @@ services:
       - backend-network
 
   nginx:
-    image: nginx:1.17.7-alpine
+    image: nginx:${NGINX_VERSION}
     container_name: negarin-nginx
     ports:
       - "80:80"
@@ -63,9 +64,6 @@ services:
       - frontend-network
 
 networks:
-  # default:
-  #   external:
-  #     name: proxy-nginx
   backend-network:
     driver: bridge
   frontend-network:
