@@ -94,6 +94,27 @@ services:
     networks:
       - backend-network
 
+  minio:
+    image: minio/minio
+    container_name: negarin-minio
+    hostname: minio
+    restart: unless-stopped
+    volumes:
+      - ../storage:/data
+    ports:
+      - "9001:9000"
+    environment:
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+    command: server /data
+    networks:
+      - backend-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9001/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
 networks:
   backend-network:
     driver: bridge
@@ -103,3 +124,4 @@ networks:
 volumes:
   dbdata:
   redis-data:
+  storage:
