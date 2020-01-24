@@ -27,6 +27,9 @@ if [ $1 = "backend" ]; then
 elif [ $1 = "artisan" ]; then
     eval "./artisan.sh \"${@:2}\""
     exit 1
+elif [ $1 = "tinker" ]; then
+    eval "./tinker.sh"
+    exit;
 elif [ $1 = "composer" ]; then
     eval "./composer.sh \"${@:2}\""
     exit 1
