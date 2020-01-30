@@ -1,55 +1,56 @@
 <template>
   <div>
-    <nuxt />
+    <nui-header v-model="action" />
+    <main class="lg:block relative pt-16 lg:pt-24" :class="{'hidden': action}">
+      <nuxt />
+    </main>
+    <nui-footer class="pb-16 lg:pb-0 lg:block" :class="{'hidden': action}" />
   </div>
 </template>
 
-<style>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
+<script>
+import nuiHeader from '@/components/partials/Header'
+import nuiFooter from '@/components/partials/Footer'
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
+export default {
+  components: {
+    nuiHeader,
+    nuiFooter
+  },
+  data () {
+    return {
+      action: ''
+    }
+  },
+  watch: {
+    $route () {
+      this.action = ''
+    }
+  },
+  head () {
+    let canonical = `https://nuxtjs.org${this.$route.path}`
+    if (this.$store.state.locale !== 'en') {
+      canonical = `https://${this.$store.state.locale}.nuxtjs.org${this.$route.path}`
+    }
+    const link = [
+      { rel: 'canonical', href: canonical },
+      { rel: 'alternate', hreflang: 'en', href: `https://nuxtjs.org${this.$route.path}` },
+      { rel: 'alternate', hreflang: 'zh', href: `https://zh.nuxtjs.org${this.$route.path}` },
+      { rel: 'alternate', hreflang: 'ru', href: `https://ru.nuxtjs.org${this.$route.path}` },
+      { rel: 'alternate', hreflang: 'ja', href: `https://ja.nuxtjs.org${this.$route.path}` },
+      { rel: 'alternate', hreflang: 'ko', href: `https://ko.nuxtjs.org${this.$route.path}` },
+      { rel: 'alternate', hreflang: 'fr', href: `https://fr.nuxtjs.org${this.$route.path}` },
+      { rel: 'alternate', hreflang: 'id', href: `https://id.nuxtjs.org${this.$route.path}` }
+    ]
+    link.forEach((l) => {
+      if (l.href.slice(-1) !== '/') {
+        l.href = l.href + '/'
+      }
+    })
+    return {
+      htmlAttrs: { lang: this.$store.state.locale },
+      link
+    }
+  }
 }
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
-</style>
+</script>

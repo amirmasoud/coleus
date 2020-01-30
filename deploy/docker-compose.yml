@@ -5,6 +5,8 @@ services:
     build:
       context: ../frontend
       dockerfile: ../deploy/frontend/Dockerfile
+      args:
+        - NODE_VERSION=${NODE_VERSION}
     container_name: negarin-frontend
     restart: unless-stopped
     ports:

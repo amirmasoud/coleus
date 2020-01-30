@@ -1,4 +1,5 @@
-FROM node:12.14.0-alpine
+ARG NODE_VERSION
+FROM node:${NODE_VERSION}
 
 COPY . /var/www/frontend
 

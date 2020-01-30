@@ -1,71 +1,59 @@
-module.exports = {
-  mode: 'universal',
-  /*
-   ** Headers of the page
-   */
+const locale = process.env.NUXT_LOCALE || 'en'
+
+export default {
+  // modern: 'client',
   head: {
-    title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      {
-        hid: 'description',
-        name: 'description',
-        content: process.env.npm_package_description || ''
-      }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    bodyAttrs: {
-      class: 'bg-gray-100 text-gray-800'
-    }
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'preconnect', href: 'https://www.google-analytics.com' }
+    ]
   },
-
-
-  /*
-   ** Customize the progress-bar color
-   */
-  loading: { color: '#fff' },
-  /*
-   ** Global CSS
-   */
-  css: [],
-  /*
-   ** Plugins to load before mounting the App
-   */
-  plugins: [],
-  /*
-   ** Nuxt.js dev-modules
-   */
   buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
-    // '@nuxtjs/eslint-module',
-    // Doc: https://github.com/nuxt-community/stylelint-module
-    // '@nuxtjs/stylelint-module',
-    // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/eslint-module',
+    ['~/modules/docs/', { port: 3001 }],
+    '~/modules/crawler/',
+    '~/modules/static/',
+    '~/modules/components/',
+    // https://github.com/nuxt-community/netlify-files-module
+    '@nuxtjs/netlify-files',
+    // https://github.com/nuxt-community/style-resources-module
+    '@nuxtjs/style-resources',
+    // https://github.com/Developmint/nuxt-svg-loader/
+    'nuxt-svg-loader',
+    // https://github.com/Atinux/nuxt-tailwindcss/
+    '@nuxtjs/tailwindcss',
+    // https://pwa.nuxtjs.org
+    '@nuxtjs/pwa'
   ],
-  /*
-   ** Nuxt.js modules
-   */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
-    '@nuxtjs/pwa',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    // https://http.nuxtjs.or
+    '@nuxt/http'
   ],
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
-  axios: {},
-  /*
-   ** Build configuration
-   */
-  build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {}
+  http: {
+    proxy: true
+  },
+  plugins: [
+    '~/plugins/init.js',
+    '~/plugins/intersection-observer.client.js',
+    '~/plugins/ga.client.js',
+    '~/plugins/adblock.client.js',
+    '~/plugins/newsletter.client.js'
+  ],
+  env: {
+    DOC_SEARCH_API_KEY: process.env.DOC_SEARCH_API_KEY || 'ff80fbf046ce827f64f06e16f82f1401',
+    NUXT_API: process.env.NUXT_API || 'https://api.nuxtjs.com',
+    LOCALE: locale
+  },
+  manifest: {
+    lang: locale
+  },
+  loading: { color: '#41B883' },
+  generate: {
+    fallback: true,
+    interval: 100
   }
 }

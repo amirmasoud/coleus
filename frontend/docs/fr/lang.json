@@ -1,0 +1,46 @@
+{
+  "iso": "fr",
+  "docVersion": "2.8.X",
+  "links": {
+    "download": "Téléchargement",
+    "live_edit": "Éditer en ligne"
+  },
+  "text": {
+    "an_error_occurred": "Une erreur s'est produite",
+    "api_page_not_found": "La page API est introuvable",
+    "please_define_title": "Merci de définir un titre",
+    "please_define_description": "Merci de définir une description",
+    "search": "Rechercher",
+    "version": "Version"
+  },
+  "homepage": {
+    "meta": {
+      "title": "Nuxt.js - Le Framework Vue.js",
+      "description": "Nuxt.js fournit toutes les configurations nécessaires pour rendre vos développements d'application Vue.js agréable. Nuxt.js peut créer des Applications Universelles, Monopages ou Statiques Générées."
+    },
+    "welcome": {
+      "get_started": "Commencer",
+      "github_stars": "24K+ github stars"
+    },
+    "why": {
+      "try_nuxtjs_online": "Essayez NuxtJS Online"
+    },
+    "sponsors": {
+      "become_a_sponsor": "Devenir sponsor"
+    },
+    "newsletter_form": {
+      "email": "Email",
+      "subscribing": "S'abonner...",
+      "subscribe": "S'abonner",
+      "subscribed_messages": {
+        "pre": "Un email pour confirmer que votre abonnement a été envoyé à",
+        "post": "💚"
+      }
+    }
+  },
+  "guide": {
+    "release_notes": "Notes de versions (en)",
+    "contribute": "Vous avez vu une erreur ou vous souhaitez contribuer à la documentation ?",
+    "edit_on_github": "Éditez cette page sur GitHub !"
+  }
+}

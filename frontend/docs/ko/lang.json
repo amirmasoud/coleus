@@ -1,0 +1,46 @@
+{
+  "iso": "ko",
+  "docVersion": "0.10.7",
+  "links": {
+    "download": "다운로드",
+    "live_edit": "라이브 수정"
+  },
+  "text": {
+    "an_error_occurred": "에러가 발생했습니다.",
+    "api_page_not_found": "API 페이지를 찾을 수 없습니다.",
+    "please_define_title": "front matter에 title을 정의해주세요.",
+    "please_define_description": "front matter에 description을 정의해주세요.",
+    "search": "검색",
+    "version": "버전"
+  },
+  "homepage": {
+    "meta": {
+      "title": "Nuxt.js - 범용 Vue.js 어플리케이션",
+      "description": "Nuxt.js은 서버 사이드 렌더링, 코드 분리, 핫 리로딩, 정적 생성기 등과 함께 Vue.js 어플리케이션을 만들기 위한 최소한의 프레임워크입니다!"
+    },
+    "welcome": {
+      "get_started": "시작하기",
+      "github_stars": "24K+ github stars"
+    },
+    "why": {
+      "try_nuxtjs_online": "Try NuxtJS Online"
+    },
+    "sponsors": {
+      "become_a_sponsor": "스폰서되기"
+    },
+    "newsletter_form": {
+      "email": "Email",
+      "subscribing": "Subscribing...",
+      "subscribe": "Subscribe",
+      "subscribed_messages": {
+        "pre": "An email to confirm your subscription has been sent to",
+        "post": "💚"
+      }
+    }
+  },
+  "guide": {
+    "release_notes": "릴리즈 노트",
+    "contribute": "잘못된 부분이 있거나 이 문서에 기여하고 싶으신가요?",
+    "edit_on_github": "GitHub에서 이 페이지를 수정해주세요!"
+  }
+}
