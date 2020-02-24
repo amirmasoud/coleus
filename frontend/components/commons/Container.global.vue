@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'NuiContainer'
+  name: 'NegContainer'
 }
 </script>

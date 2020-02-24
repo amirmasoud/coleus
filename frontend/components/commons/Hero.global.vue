@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'NuiHero'
+  name: 'NegHero'
 }
 </script>

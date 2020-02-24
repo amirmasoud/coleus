@@ -1,5 +1,5 @@
 <template>
-  <nui-container class="pt-16">
+  <neg-container class="pt-16">
     <div class="flex flex-wrap justify-between">
       <div class="lg:w-6/12 lg:text-left text-center p-4 sm:p-0">
         <h1 class="text-3xl xl:text-4xl text-nuxt-gray font-medium leading-normal mb-6 lg:pt-4">
@@ -19,10 +19,10 @@
           <h2 class="text-2xl font-medium mb-2">Technical support</h2>
           <h3 class="text-nuxt-lightgreen font-medium text-2xl mb-4">$250 <span class="text-sm">/hr</span></h3>
           <p class="mb-6">Get project audits, app deployments, custom development and technical support from the NuxtJS core team.</p>
-          <nui-button href="https://otechie.com/nuxt" rel="noopener" target="_blank" class="sm:mr-4 py-3 px-6 text-base">
-            <nui-svg-comments slot="icon" class="h-5 -mb-1 mr-1" />
+          <neg-button href="https://otechie.com/nuxt" rel="noopener" target="_blank" class="sm:mr-4 py-3 px-6 text-base">
+            <neg-svg-comments slot="icon" class="h-5 -mb-1 mr-1" />
             Start chat
-          </nui-button>
+          </neg-button>
         </div>
       </section>
     </div>
@@ -43,30 +43,30 @@
       NuxtJS and the maintainers of thousands of other packages are working with Tidelift to deliver one enterprise subscription that covers all of the open source you use.<br>
       If you want the flexibility of open source and the confidence of commerical-grade software, this is for you.
     </p>
-    <nui-button href="https://tidelift.com/subscription/pkg/npm-nuxt?utm_source=nuxt&utm_medium=referral&utm_campaign=enterprise" rel="noopener" target="_blank" class="sm:mr-4 py-3 px-6 text-base">
-      <nui-svg-play slot="icon" class="h-5 -mb-1 mr-1" />
+    <neg-button href="https://tidelift.com/subscription/pkg/npm-nuxt?utm_source=nuxt&utm_medium=referral&utm_campaign=enterprise" rel="noopener" target="_blank" class="sm:mr-4 py-3 px-6 text-base">
+      <neg-svg-play slot="icon" class="h-5 -mb-1 mr-1" />
       Learn more
-    </nui-button>
-    <nui-button href="https://tidelift.com/subscription/request-a-demo?utm_source=nuxt&utm_medium=referral&utm_campaign=enterprise" rel="noopener" target="_blank" class="sm:mr-4 py-3 px-6 text-base">
-      <nui-svg-ticket slot="icon" class="h-5 -mb-1 mr-1" />
+    </neg-button>
+    <neg-button href="https://tidelift.com/subscription/request-a-demo?utm_source=nuxt&utm_medium=referral&utm_campaign=enterprise" rel="noopener" target="_blank" class="sm:mr-4 py-3 px-6 text-base">
+      <neg-svg-ticket slot="icon" class="h-5 -mb-1 mr-1" />
       Request a demo
-    </nui-button>
-  </nui-container>
+    </neg-button>
+  </neg-container>
 </template>
 
 <script>
-import nuiSvgPlay from '@/components/svg/AngleDoubleRight.vue'
-import nuiSvgTicket from '@/components/svg/InboxIn.vue'
-import nuiSvgComments from '@/components/svg/Comments.vue'
+import negSvgPlay from '@/components/svg/AngleDoubleRight.vue'
+import negSvgTicket from '@/components/svg/InboxIn.vue'
+import negSvgComments from '@/components/svg/Comments.vue'
 import technicalSupport from '@/components/svg/streamline/technical-support.vue'
 import iSupport from '@/components/svg/fogg/support'
 
 export default {
   components: {
     iSupport,
-    nuiSvgPlay,
-    nuiSvgComments,
-    nuiSvgTicket,
+    negSvgPlay,
+    negSvgComments,
+    negSvgTicket,
     technicalSupport
   },
   head: {

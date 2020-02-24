@@ -1,5 +1,5 @@
 <template>
-  <nui-container class="pt-16">
+  <neg-container class="pt-16">
     <div class="flex flex-wrap justify-between mb-8">
       <div class="lg:w-6/12 lg:text-left text-center p-4 sm:p-0">
         <h1 class="text-3xl xl:text-4xl text-nuxt-gray font-medium leading-normal mb-6 lg:pt-4">
@@ -75,7 +75,7 @@
     <p class="text-center mt-8">
       You can also download our <a href="/favicon.ico" target="_blank" rel="noopener">favicon</a> or our  <a href="/logos/nuxt-logos.sketch" target="_blank" rel="noopener">Sketch file</a>.
     </p>
-  </nui-container>
+  </neg-container>
 </template>
 
 <script>

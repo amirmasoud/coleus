@@ -1,4 +1,5 @@
-FROM php:7.4.1-fpm-alpine3.11
+ARG FPM_VERSION
+FROM php:${FPM_VERSION}
 
 RUN rm -f /etc/apk/repositories &&\
     echo "http://dl-cdn.alpinelinux.org/alpine/v3.11/main" >> /etc/apk/repositories && \

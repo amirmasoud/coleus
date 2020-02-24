@@ -5,7 +5,7 @@ COPY . /var/www/frontend
 
 WORKDIR /var/www/frontend
 
-RUN yarn install --frozen-lockfile --production && \
+RUN yarn install --frozen-lockfile && \
     yarn cache clean && \
     yarn build
 

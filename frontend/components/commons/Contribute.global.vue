@@ -13,18 +13,12 @@
         </a>
       </div>
       <p v-if="docLink" class="text-gray-700 pt-1 mb-3">{{ $store.state.lang.guide.contribute }} <a :href="docLink" target="_blank" rel="noopener">{{ $store.state.lang.guide.edit_on_github }}</a></p>
-      <carbon-ads-text :key="$route.path" />
     </div>
   </div>
 </template>
 
 <script>
-import CarbonAdsText from '@/components/partials/ads/CarbonText'
-
 export default {
-  components: {
-    CarbonAdsText
-  },
   props: {
     docLink: {
       type: String,

@@ -1,5 +1,5 @@
 <template>
-  <div class="nui-media">
+  <div class="neg-media">
     <iframe
       v-if="isIntersecting && src"
       :src="src"
@@ -17,7 +17,7 @@
 import intersectingMixin from '@/mixins/intersecting.js'
 
 export default {
-  name: 'NuiMedia',
+  name: 'NegMedia',
   mixins: [intersectingMixin],
   props: {
     src: {
@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.nui-media {
+.neg-media {
   width: 100%;
   height: 0;
   padding-bottom: 56.25%;

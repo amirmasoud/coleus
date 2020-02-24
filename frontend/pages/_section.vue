@@ -1,22 +1,22 @@
 <template>
-  <!-- <nui-container class="mb-12 bg-gray-100 lg:bg-transparent rounded">
+  <!-- <neg-container class="mb-12 bg-gray-100 lg:bg-transparent rounded">
     <section class="lg:bg-gray-100 rounded py-6 sm:p-6"> -->
-  <nui-container>
+  <neg-container>
     <div class="lg:flex">
-      <nui-aside class="hidden lg:block"/>
+      <neg-aside class="hidden lg:block"/>
       <div class="min-h-screen w-full lg:static lg:max-h-full lg:overflow-visible lg:w-3/4">
         <nuxt-child />
       </div>
     </div>
-  </nui-container>
+  </neg-container>
 </template>
 
 <script>
-import nuiAside from '@/components/partials/Aside'
+import negAside from '@/components/partials/Aside'
 
 export default {
   components: {
-    nuiAside
+    negAside
   },
   validate ({ store, params }) {
     return store.state.menu[params.section] !== undefined

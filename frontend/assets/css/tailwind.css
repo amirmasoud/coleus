@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700');
-
 /* purgecss start ignore */
 @import 'tailwindcss/base';
 /* purgecss end ignore */
+
 @import 'tailwindcss/components';
 
 /* purgecss start ignore */
@@ -28,3 +27,17 @@
   }
 }
 /* purgecss end ignore */
+
+@font-face {
+  font-family: NotoSans;
+  src: url(../fonts/NotoSans/NotoSans-Regular.ttf) format("truetype");
+  font-weight: 400;
+  font-style: normal
+}
+
+@font-face {
+  font-family: NotoSansArabic;
+  src: url(../fonts/NotoSansArabic/NotoSansArabic-Thin.ttf) format("truetype");
+  font-weight: 400;
+  font-style: normal
+}

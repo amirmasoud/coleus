@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: 'NuiButton',
+  name: 'NegButton',
   props: {
     to: {
       type: [String, Object],

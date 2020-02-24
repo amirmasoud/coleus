@@ -1,5 +1,5 @@
 <template>
-  <nui-container class="pt-16">
+  <neg-container class="pt-16">
     <div class="flex flex-wrap justify-between mb-8">
       <div class="lg:w-6/12 lg:text-left text-center p-4 sm:p-0">
         <h1 class="text-3xl xl:text-4xl text-nuxt-gray font-medium leading-normal mb-6 lg:pt-4">
@@ -22,15 +22,15 @@
             </h4>
             <p class="mb-3 text-gray-600">{{ theme.description }}</p>
             <p v-if="theme.discount" class="text-sm italic text-nuxt-lightgreen" v-html="theme.discount" />
-            <nui-button :href="theme.link" rel="noopener sponsored" target="_blank" class="sm:mr-4 p-3 mt-3 text-sm text-left">
-              <!-- <nui-svg-shopping slot="icon" class="h-4 -mb-1 mr-1" /> -->
+            <neg-button :href="theme.link" rel="noopener sponsored" target="_blank" class="sm:mr-4 p-3 mt-3 text-sm text-left">
+              <!-- <neg-svg-shopping slot="icon" class="h-4 -mb-1 mr-1" /> -->
               GET IT for {{ theme.price }}
-            </nui-button>
+            </neg-button>
           </div>
         </div>
       </div>
     </section>
-  </nui-container>
+  </neg-container>
 </template>
 
 <script>

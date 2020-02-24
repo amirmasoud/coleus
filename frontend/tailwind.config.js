@@ -5,7 +5,8 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: [
-          'Quicksand',
+          'NotoSansArabic',
+          'NotoSans',
           ...defaultTheme.fontFamily.sans
         ]
       },

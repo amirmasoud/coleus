@@ -1,5 +1,5 @@
 <template>
-  <nui-container class="px-4 mt-16">
+  <neg-container class="px-4 mt-16">
     <section class="bg-gray-100 py-8 px-3 -mx-4 lg:mx-0 text-center rounded-t-lg">
       <h2 class="text-3xl text-nuxt-gray mb-2" v-html="headerWordings.attrs.title" />
       <p class="mb-6 text-gray-700" v-html="headerWordings.body" />
@@ -15,7 +15,7 @@
         <p v-if="error" class="text-red-600 py-1">{{ error }}</p>
       </client-only>
     </section>
-  </nui-container>
+  </neg-container>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <nui-container class="py-12">
+  <neg-container class="py-12">
     <section>
       <h1 class="text-3xl uppercase text-center pb-8">
         Nuxt<span class="text-nuxt-lightgreen">JS</span> targets
@@ -35,7 +35,7 @@
         </div>
       </div>
     </section>
-  </nui-container>
+  </neg-container>
 </template>
 
 <script>

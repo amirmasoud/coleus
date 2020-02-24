@@ -7,7 +7,7 @@
 
 body {
   @apply font-sans font-medium text-nuxt-gray;
-  & .nui-select {
+  & .neg-select {
     @apply text-nuxt-gray bg-gray-200;
   }
   & .footer {

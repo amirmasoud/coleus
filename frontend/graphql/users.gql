@@ -1,0 +1,18 @@
+query FetchUsers {
+  users(sticky: true) {
+    data {
+        id
+        name
+        xsmall
+        small
+        photo_url
+        placeholder
+        username
+        bio
+        books {
+            title
+            slug
+        }
+    }
+  }
+}

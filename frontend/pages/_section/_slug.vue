@@ -4,7 +4,7 @@
       <div v-if="page.langFallback" class="p-4 mb-6 bg-orange-200 rounded">
         ⚠️ You are looking at the english version of the page. Help us translate it <a :href="docLink" class="text-orange-600">here</a>.
       </div>
-      <nui-article v-if="section === 'examples'">
+      <neg-article v-if="section === 'examples'">
         <h1>{{ page.attrs.title }}</h1>
         <p class="mb-6">{{ page.attrs.description }}</p>
         <code-sandbox v-if="codeSandBoxLink" :src="codeSandBoxLink" style="margin-bottom: 20px;"/>
@@ -17,29 +17,22 @@
           </a>
         </div>
         <contribute :doc-link="docLink" :contributors="contributors" />
-      </nui-article>
-      <nui-article v-else>
+      </neg-article>
+      <neg-article v-else>
         <h1>{{ page.attrs.title }}</h1>
         <responsive-video v-if="page.attrs.youtube" :src="page.attrs.youtube" />
         <html-parser :content="page.body" />
         <contribute :doc-link="docLink" :contributors="contributors" />
-      </nui-article>
+      </neg-article>
     </div>
-    <nui-affix class="opacity-transition" :class="{ 'opacity-25': $store.state.focusMode }">
-      <nui-ads :key="$route.params.slug" class="mx-auto" />
-    </nui-affix>
   </div>
 </template>
 
 <script>
-import nuiAds from '@/components/partials/Ads'
-import nuiAffix from '@/components/partials/Affix'
 const CodeSandbox = () => import('@/components/commons/CodeSandbox.vue' /* webpackChunkName: "components/CodeSandbox" */)
 
 export default {
   components: {
-    nuiAds,
-    nuiAffix,
     CodeSandbox
   },
   async asyncData ({ $docs, params, store, error, app }) {

@@ -1,0 +1,19 @@
+query FetchPageById($id: Int) {
+  page(id: $id) {
+    id
+    title
+    content
+    next
+    prev
+    next_title
+    prev_title
+    book {
+      title
+      slug
+      collaborators {
+        name
+        username
+      }
+    }
+  }
+}

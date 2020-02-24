@@ -1,5 +1,5 @@
 <template>
-  <nui-container class="pb-12">
+  <neg-container class="pb-12">
     <section class="bg-gray-100 rounded p-6">
       <h1 class="text-3xl uppercase text-center pb-8 pt-10">
         Nuxt<span class="text-nuxt-lightgreen">JS</span> features
@@ -57,7 +57,7 @@
         </div>
       </div>
     </section>
-  </nui-container>
+  </neg-container>
 </template>
 
 <style lang="scss">

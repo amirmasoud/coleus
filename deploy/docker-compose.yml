@@ -25,7 +25,6 @@ services:
     restart: unless-stopped
     ports:
       - "9000:9000"
-    tty: true
     working_dir: /var/www/backend
     depends_on:
       - database
@@ -41,7 +40,6 @@ services:
     image: postgres:${PGSQL_VERSION}
     container_name: negarin-database
     restart: unless-stopped
-    tty: true
     ports:
       - "5432:5432"
     volumes:
@@ -53,7 +51,7 @@ services:
     image: hasura/graphql-engine:v1.0.0-beta.6
     container_name: negarin-graphql-engine
     ports:
-      - "8080:8080"
+      - "8180:8180"
     depends_on:
       - "database"
     restart: unless-stopped
@@ -71,7 +69,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    tty: true
     restart: unless-stopped
     volumes:
       - ./nginx/certs/:/etc/ssl/certs/
@@ -119,12 +116,15 @@ services:
     restart: unless-stopped
     volumes:
       - ../storage:/data
+      - minio:/root/.minio
     ports:
       - "9001:9000"
     environment:
       - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
       - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
-    command: server /data
+      - MINIO_DOMAIN=${MINIO_PUBLIC_URL}
+      - MINIO_BROWSER=${MINIO_BROWSER}
+    command: [ "server", "/data"]
     networks:
       - backend-network
     healthcheck:
@@ -132,6 +132,23 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+
+  rabbitmq:
+    image: rabbitmq:3.8.2-management-alpine
+    container_name: negarin_rabbitmq
+    volumes:
+      - ./rabbitmq/etc/:/etc/rabbitmq/
+      - ./rabbitmq/data/:/var/lib/rabbitmq/
+      - ./rabbitmq/logs/:/var/log/rabbitmq/
+    environment:
+      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - backend-network
 
 networks:
   backend-network:
@@ -143,3 +160,4 @@ volumes:
   data:
   redis-data:
   storage:
+  minio:

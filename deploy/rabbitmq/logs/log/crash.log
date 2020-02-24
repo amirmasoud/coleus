@@ -1,0 +1,58 @@
+2020-02-04 15:27:01 =ERROR REPORT====
+** Generic server aten_detector terminating 
+** Last message in was poll
+** When Server state == {state,#Ref<0.3017400890.3166175233.115903>,1000,0.99,#{},#{}}
+** Reason for termination ==
+** {{timeout,{gen_server,call,[aten_sink,get_failure_probabilities]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,215}]},{aten_detector,handle_info,2,[{file,"src/aten_detector.erl"},{line,97}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,637}]},{gen_server,handle_msg,6,[{file,"gen_server.erl"},{line,711}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,249}]}]}
+2020-02-04 15:27:02 =CRASH REPORT====
+  crasher:
+    initial call: aten_detector:init/1
+    pid: <0.252.0>
+    registered_name: aten_detector
+    exception exit: {{timeout,{gen_server,call,[aten_sink,get_failure_probabilities]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,215}]},{aten_detector,handle_info,2,[{file,"src/aten_detector.erl"},{line,97}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,637}]},{gen_server,handle_msg,6,[{file,"gen_server.erl"},{line,711}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,249}]}]}
+    ancestors: [aten_sup,<0.248.0>]
+    message_queue_len: 2
+    messages: [poll,{#Ref<0.3017400890.3166175233.115917>,#{}}]
+    links: [<0.249.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 3769967
+  neighbours:
+2020-02-04 15:27:02 =SUPERVISOR REPORT====
+     Supervisor: {local,aten_sup}
+     Context:    child_terminated
+     Reason:     {timeout,{gen_server,call,[aten_sink,get_failure_probabilities]}}
+     Offender:   [{pid,<0.252.0>},{id,aten_detector},{mfargs,{aten_detector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2020-02-04 15:40:30 =ERROR REPORT====
+** Generic server aten_detector terminating 
+** Last message in was poll
+** When Server state == {state,#Ref<0.3017400890.3166175233.119054>,1000,0.99,#{},#{}}
+** Reason for termination ==
+** {{timeout,{gen_server,call,[aten_sink,get_failure_probabilities]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,215}]},{aten_detector,handle_info,2,[{file,"src/aten_detector.erl"},{line,97}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,637}]},{gen_server,handle_msg,6,[{file,"gen_server.erl"},{line,711}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,249}]}]}
+2020-02-04 15:40:31 =CRASH REPORT====
+  crasher:
+    initial call: aten_detector:init/1
+    pid: <0.1046.2>
+    registered_name: aten_detector
+    exception exit: {{timeout,{gen_server,call,[aten_sink,get_failure_probabilities]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,215}]},{aten_detector,handle_info,2,[{file,"src/aten_detector.erl"},{line,97}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,637}]},{gen_server,handle_msg,6,[{file,"gen_server.erl"},{line,711}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,249}]}]}
+    ancestors: [aten_sup,<0.248.0>]
+    message_queue_len: 2
+    messages: [poll,{#Ref<0.3017400890.3166175233.119077>,#{}}]
+    links: [<0.249.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 43930
+  neighbours:
+2020-02-04 15:40:31 =SUPERVISOR REPORT====
+     Supervisor: {local,aten_sup}
+     Context:    child_terminated
+     Reason:     {timeout,{gen_server,call,[aten_sink,get_failure_probabilities]}}
+     Offender:   [{pid,<0.1046.2>},{id,aten_detector},{mfargs,{aten_detector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+

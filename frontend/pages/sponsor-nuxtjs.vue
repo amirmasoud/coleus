@@ -1,5 +1,5 @@
 <template>
-  <nui-container class="pt-16">
+  <neg-container class="pt-16">
     <div class="flex flex-wrap justify-between mb-8">
       <div class="lg:w-6/12 lg:text-left text-center p-4 sm:p-0">
         <h1 class="text-3xl xl:text-4xl text-nuxt-gray font-medium leading-normal mb-6 lg:pt-4">
@@ -26,16 +26,16 @@
             <img src="/img/wallet/paypal.png" alt="Paypal" class="h-6 block">
           </a>
           <a href="#btc" class="flex items-center my-2 bg-gray-200 hover:bg-gray-300 rounded-full p-2 pr-6 font-bold mx-2" :class="{ 'bg-gray-300': onetime.current === 'btc' }" @click.prevent="onetime.current = 'btc'">
-            <nui-svg-btc class="mr-3" /> BTC
+            <neg-svg-btc class="mr-3" /> BTC
           </a>
           <a href="#bch" class="flex items-center my-2 bg-gray-200 hover:bg-gray-300 rounded-full p-2 pr-6 font-bold mx-2" :class="{ 'bg-gray-300': onetime.current === 'bch' }" @click.prevent="onetime.current = 'bch'">
-            <nui-svg-bch class="mr-3" /> BCH
+            <neg-svg-bch class="mr-3" /> BCH
           </a>
           <a href="#eth" class="flex items-center my-2 bg-gray-200 hover:bg-gray-300 rounded-full p-2 pr-6 font-bold mx-2" :class="{ 'bg-gray-300': onetime.current === 'eth' }" @click.prevent="onetime.current = 'eth'">
-            <nui-svg-eth class="mr-3" /> ETH
+            <neg-svg-eth class="mr-3" /> ETH
           </a>
           <a href="#ltc" class="flex items-center my-2 bg-gray-200 hover:bg-gray-300 rounded-full p-2 pr-6 font-bold mx-2" :class="{ 'bg-gray-300': onetime.current === 'ltc' }" @click.prevent="onetime.current = 'ltc'">
-            <nui-svg-ltc class="mr-3" /> LTC
+            <neg-svg-ltc class="mr-3" /> LTC
           </a>
         </div>
       </div>
@@ -73,31 +73,31 @@
         </a>
       </div>
       <div class="text-center">
-        <nui-button href="https://opencollective.com/nuxtjs" class="mr-4 py-3 px-6 text-base">
-          <nui-svg-play slot="icon" class="h-5 -mt-1 mr-1" />
+        <neg-button href="https://opencollective.com/nuxtjs" class="mr-4 py-3 px-6 text-base">
+          <neg-svg-play slot="icon" class="h-5 -mt-1 mr-1" />
           Become a sponsor
-        </nui-button>
+        </neg-button>
       </div>
     </section>
-  </nui-container>
+  </neg-container>
 </template>
 
 <script>
-import nuiSvgPlay from '@/components/svg/OpenCollective.vue'
-import nuiSvgBtc from '@/components/svg/wallet/btc.vue'
-import nuiSvgBch from '@/components/svg/wallet/bch.vue'
-import nuiSvgEth from '@/components/svg/wallet/eth.vue'
-import nuiSvgLtc from '@/components/svg/wallet/ltc.vue'
+import negSvgPlay from '@/components/svg/OpenCollective.vue'
+import negSvgBtc from '@/components/svg/wallet/btc.vue'
+import negSvgBch from '@/components/svg/wallet/bch.vue'
+import negSvgEth from '@/components/svg/wallet/eth.vue'
+import negSvgLtc from '@/components/svg/wallet/ltc.vue'
 import iSponsor from '@/components/svg/fogg/sponsor'
 
 export default {
   components: {
     iSponsor,
-    nuiSvgPlay,
-    nuiSvgBtc,
-    nuiSvgBch,
-    nuiSvgEth,
-    nuiSvgLtc
+    negSvgPlay,
+    negSvgBtc,
+    negSvgBch,
+    negSvgEth,
+    negSvgLtc
   },
   data () {
     return {
