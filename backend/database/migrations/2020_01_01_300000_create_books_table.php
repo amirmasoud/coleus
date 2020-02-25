@@ -30,7 +30,7 @@ class CreateBooksTable extends Migration
             $table->string('website')->nullable();
             $table->string('status')->default('draft');
             $table->boolean('sticky')->default(false);
-            $table->bigInteger('order')->nullable();
+            $table->unsignedInteger('order')->default(0);
             $table->timestamps();
         });
     }

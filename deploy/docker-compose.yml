@@ -48,7 +48,7 @@ services:
       - backend-network
 
   graphql-engine:
-    image: hasura/graphql-engine:v1.0.0-beta.6
+    image: hasura/graphql-engine:v1.1.0
     container_name: negarin-graphql-engine
     ports:
       - "8180:8180"
@@ -138,7 +138,7 @@ services:
     container_name: negarin_rabbitmq
     volumes:
       - ./rabbitmq/etc/:/etc/rabbitmq/
-      - ./rabbitmq/data/:/var/lib/rabbitmq/
+      - ./rabbitmq/data/:/var/lib/rabbitmq/mnesia/
       - ./rabbitmq/logs/:/var/log/rabbitmq/
     environment:
       RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
@@ -147,6 +147,19 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+    networks:
+      - backend-network
+
+  image-conversion:
+    build:
+      context: ../image-conversion
+      dockerfile: ../deploy/image-conversion/Dockerfile
+      args:
+        - NODE_VERSION=${NODE_VERSION}
+    container_name: negarin-image-conversion
+    volumes:
+      - ../image-conversion/server.js:/var/www/image-conversion/server.js
+    restart: unless-stopped
     networks:
       - backend-network
 

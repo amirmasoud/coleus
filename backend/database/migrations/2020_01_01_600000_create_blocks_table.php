@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSectionsTable extends Migration
+class CreateBlocksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateSectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sections', function (Blueprint $table) {
+        Schema::create('blocks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('slug');
             $table->unsignedInteger('book_id');
             $table->foreign('book_id')->references('id')->on('books');
+            $table->unsignedInteger('order')->default(0);
+            $table->text('content')->nullable();
             $table->string('status')->default('draft');
+            $table->string('type')->default('paragraph');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class CreateSectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sections');
+        Schema::dropIfExists('blocks');
     }
 }

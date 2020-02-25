@@ -1,0 +1,17 @@
+{
+  "name": "neg-conversion",
+  "version": "1.0.0",
+  "description": "Negarin Image Conversion",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Amirmasoud Sheydaei",
+  "license": "MIT",
+  "dependencies": {
+    "amqplib": "^0.5.5",
+    "express": "^4.17.1",
+    "image-conversion": "^1.1.9",
+    "request": "^2.88.2"
+  }
+}

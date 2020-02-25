@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->text('bio')->nullable();
             $table->string('status')->default('draft');
             $table->boolean('sticky')->default(false);
+            $table->unsignedInteger('order')->default(0);
             $table->timestamps();
         });
     }
