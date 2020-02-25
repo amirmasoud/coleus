@@ -1,2 +1,4 @@
 /nginx/log/*.log
 /database/data/
+/rabbitmq/data/
+/rabbitmq/logs/
