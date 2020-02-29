@@ -150,6 +150,14 @@ services:
     networks:
       - backend-network
 
+  image-proxy:
+    image: willnorris/imageproxy
+    container_name: negarin_image
+    ports:
+      - 8080:8080
+    networks:
+      - backend-network
+
   image-conversion:
     build:
       context: ../image-conversion
