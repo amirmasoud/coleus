@@ -124,6 +124,7 @@ services:
       - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
       - MINIO_DOMAIN=${MINIO_PUBLIC_URL}
       - MINIO_BROWSER=${MINIO_BROWSER}
+      - MINIO_REGION=us-east-1
     command: [ "server", "/data"]
     networks:
       - backend-network
@@ -136,6 +137,7 @@ services:
   rabbitmq:
     image: rabbitmq:3.8.2-management-alpine
     container_name: negarin_rabbitmq
+    restart: unless-stopped
     volumes:
       - ./rabbitmq/etc/:/etc/rabbitmq/
       - ./rabbitmq/data/:/var/lib/rabbitmq/mnesia/
@@ -150,24 +152,30 @@ services:
     networks:
       - backend-network
 
-  image-proxy:
-    image: willnorris/imageproxy
+  imaginary:
+    image: darthsim/imgproxy:latest
     container_name: negarin_image
-    ports:
-      - 8080:8080
-    networks:
-      - backend-network
-
-  image-conversion:
-    build:
-      context: ../image-conversion
-      dockerfile: ../deploy/image-conversion/Dockerfile
-      args:
-        - NODE_VERSION=${NODE_VERSION}
-    container_name: negarin-image-conversion
-    volumes:
-      - ../image-conversion/server.js:/var/www/image-conversion/server.js
     restart: unless-stopped
+    environment:
+      IMGPROXY_KEY: ${IMGPROXY_KEY}
+      IMGPROXY_SALT: ${IMGPROXY_SALT}
+      IMGPROXY_SIGNATURE_SIZE: ${IMGPROXY_SIGNATURE_SIZE}
+      IMGPROXY_QUALITY: ${IMGPROXY_QUALITY}
+      IMGPROXY_GZIP_COMPRESSION: ${IMGPROXY_GZIP_COMPRESSION}
+      IMGPROXY_JPEG_PROGRESSIVE: ${IMGPROXY_JPEG_PROGRESSIVE}
+      IMGPROXY_SENTRY_DSN: ${IMGPROXY_SENTRY_DSN}
+      IMGPROXY_SENTRY_ENVIRONMENT: ${IMGPROXY_SENTRY_ENVIRONMENT}
+      IMGPROXY_SENTRY_RELEASE: ${IMGPROXY_SENTRY_RELEASE}
+      IMGPROXY_USE_S3: ${IMGPROXY_USE_S3}
+      IMGPROXY_LOCAL_FILESYSTEM_ROOT: /opt
+      IMGPROXY_S3_ENDPOINT: http://minio:9000
+      AWS_ACCESS_KEY_ID: ${MINIO_ACCESS_KEY}
+      AWS_SECRET_ACCESS_KEY: ${MINIO_SECRET_KEY}
+      AWS_REGION: us-east-1
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../storage:/opt
     networks:
       - backend-network
 
