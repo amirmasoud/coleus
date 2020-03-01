@@ -8,7 +8,7 @@
       </div>
       <div v-for="(group, groupKey) in sponsors" :key="groupKey" class="text-center pb-8">
         <h2 class="uppercase text pb-8">
-          <span class="pb-2 border-b-2 border-nuxt-lightgreen">{{ groupKey }}</span>
+          <span class="pb-2 border-b-2 border-negarin-lightgreen">{{ groupKey }}</span>
         </h2>
         <a
           v-for="(sponsor, i) in group"

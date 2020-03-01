@@ -23,7 +23,7 @@
   fill:#fff;
 }
 .cls-2,.cls-4,.cls-5,.cls-7 {
-  @apply stroke-nuxt-gray;
+  @apply stroke-negarin-gray;
   /* stroke:#4550e5; */
   stroke-linejoin: round;
 }
@@ -35,11 +35,11 @@
 }
 .cls-5 {
   /* fill:#d6daff; */
-  @apply fill-nuxt-green;
+  @apply fill-negarin-green;
 }
 .cls-6 {
   /* fill:#d6daff; */
-  @apply fill-nuxt-lightgreen;
+  @apply fill-negarin-lightgreen;
 }
 @keyframes cloudLeft {
   0% {

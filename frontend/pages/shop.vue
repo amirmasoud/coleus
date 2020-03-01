@@ -2,8 +2,8 @@
   <neg-container class="pt-16">
     <div ref="shop" class="flex flex-wrap justify-between mb-8">
       <div class="lg:w-6/12 lg:text-left text-center p-4 sm:p-0">
-        <h1 class="text-3xl xl:text-4xl text-nuxt-gray font-medium leading-normal mb-6 lg:pt-4">
-          The NUXT<span class="text-nuxt-lightgreen">JS</span> Shop<br>
+        <h1 class="text-3xl xl:text-4xl text-negarin-gray font-medium leading-normal mb-6 lg:pt-4">
+          The NUXT<span class="text-negarin-lightgreen">JS</span> Shop<br>
         </h1>
         <h3 class="xl:text-lg text-gray-600 font-medium leading-relaxed mb-6">
           You want to support the NuxtJS project and show your love to the rest of the community?<br/> Here our products with the best quality ever!
@@ -20,10 +20,10 @@
               {{ product.name }}
             </h4>
             <p class="mb-4 text-gray-600 leading-relaxed">{{ product.description }}</p>
-            <button class="inline-block bg-nuxt-lightgreen text-white font-medium text-sm px-4 py-2 shadow uppercase rounded hover:bg-nuxt-green hover:shadow-md sm:mr-4 p-3 mt-3 text-sm text-left">
+            <button class="inline-block bg-negarin-lightgreen text-white font-medium text-sm px-4 py-2 shadow uppercase rounded hover:bg-negarin-green hover:shadow-md sm:mr-4 p-3 mt-3 text-sm text-left">
               Coming soon
             </button>
-            <!-- <button class="snipcart-add-item inline-block bg-nuxt-lightgreen text-white font-medium text-sm px-4 py-2 shadow uppercase rounded hover:bg-nuxt-green hover:shadow-md sm:mr-4 p-3 mt-3 text-sm text-left" :data-item-id="i + 1" :data-item-name="product.name" :data-item-description="product.description" :data-item-image="'/shop/' + product.img + '.png'" :data-item-price="product.price" :data-item-url="{ name: 'shop' }">
+            <!-- <button class="snipcart-add-item inline-block bg-negarin-lightgreen text-white font-medium text-sm px-4 py-2 shadow uppercase rounded hover:bg-negarin-green hover:shadow-md sm:mr-4 p-3 mt-3 text-sm text-left" :data-item-id="i + 1" :data-item-name="product.name" :data-item-description="product.description" :data-item-image="'/shop/' + product.img + '.png'" :data-item-price="product.price" :data-item-url="{ name: 'shop' }">
             </button> -->
           </div>
         </div>

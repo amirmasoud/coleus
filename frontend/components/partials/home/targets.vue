@@ -2,7 +2,7 @@
   <neg-container class="py-12">
     <section>
       <h1 class="text-3xl uppercase text-center pb-8">
-        Nuxt<span class="text-nuxt-lightgreen">JS</span> targets
+        Nuxt<span class="text-negarin-lightgreen">JS</span> targets
       </h1>
       <div class="flex items-end lg:items-center justify-between">
         <div class="Home__Modes__Section">

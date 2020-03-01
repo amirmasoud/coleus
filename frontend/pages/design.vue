@@ -2,8 +2,8 @@
   <neg-container class="pt-16">
     <div class="flex flex-wrap justify-between mb-8">
       <div class="lg:w-6/12 lg:text-left text-center p-4 sm:p-0">
-        <h1 class="text-3xl xl:text-4xl text-nuxt-gray font-medium leading-normal mb-6 lg:pt-4">
-          Nuxt<span class="text-nuxt-lightgreen">JS</span> Design
+        <h1 class="text-3xl xl:text-4xl text-negarin-gray font-medium leading-normal mb-6 lg:pt-4">
+          Nuxt<span class="text-negarin-lightgreen">JS</span> Design
         </h1>
         <h3 class="xl:text-lg text-gray-600 font-medium leading-relaxed mb-6">
           NuxtJS is an MIT licensed open source project and completely free to use.<br>
@@ -15,65 +15,65 @@
     <div class="flex flex-wrap -mx-4">
       <div class="w-full lg:w-1/2 p-4">
         <section class="bg-gray-100 rounded p-6">
-          <h2 class="text-2xl text-nuxt-gray font-medium leading-normal mb-6">
+          <h2 class="text-2xl text-negarin-gray font-medium leading-normal mb-6">
             Light theme
           </h2>
           <figure class="rounded hover:bg-gray-200">
-            <img src="/logos/nuxt.svg" alt="nuxt-logo">
-            <figcaption><a href="/logos/nuxt.svg" target="_blank" rel="noopener">nuxt.svg</a> / <a href="/logos/nuxt-square.svg" target="_blank" rel="noopener">nuxt-square.svg</a></figcaption>
+            <img src="/logos/nuxt.svg" alt="negarin-logo">
+            <figcaption><a href="/logos/nuxt.svg" target="_blank" rel="noopener">nuxt.svg</a> / <a href="/logos/negarin-square.svg" target="_blank" rel="noopener">negarin-square.svg</a></figcaption>
           </figure>
           <figure class="rounded hover:bg-gray-200 mt-6">
-            <img src="/logos/nuxt-icon.png" srcset="/logos/nuxt-icon@2x.png 2x" alt="nuxt-logo">
-            <figcaption><a href="/logos/nuxt-icon.png" target="_blank" rel="noopener">nuxt-icon.png</a></figcaption>
+            <img src="/logos/negarin-icon.png" srcset="/logos/negarin-icon@2x.png 2x" alt="negarin-logo">
+            <figcaption><a href="/logos/negarin-icon.png" target="_blank" rel="noopener">negarin-icon.png</a></figcaption>
             <span class="dimensions">512 x 512</span>
           </figure>
           <figure class="rounded hover:bg-gray-200 mt-6">
-            <img src="/logos/nuxt-emoji.png" srcset="/logos/nuxt-emoji@2x.png 2x" alt="nuxt-logo">
-            <figcaption><a href="/logos/nuxt-emoji.png" target="_blank" rel="noopener">nuxt-emoji.png</a></figcaption>
+            <img src="/logos/negarin-emoji.png" srcset="/logos/negarin-emoji@2x.png 2x" alt="negarin-logo">
+            <figcaption><a href="/logos/negarin-emoji.png" target="_blank" rel="noopener">negarin-emoji.png</a></figcaption>
             <span class="dimensions">128 x 128</span>
           </figure>
           <figure class="rounded hover:bg-gray-200 mt-6">
-            <img src="/logos/nuxtjs-typo.svg" alt="nuxt-logo">
+            <img src="/logos/nuxtjs-typo.svg" alt="negarin-logo">
             <figcaption><a href="/logos/nuxtjs-typo.svg" target="_blank" rel="noopener">nuxtjs-typo.svg</a></figcaption>
           </figure>
           <figure class="rounded hover:bg-gray-200 mt-6">
-            <img src="/logos/built-with-nuxt.svg" alt="built-with-nuxt-logo">
+            <img src="/logos/built-with-nuxt.svg" alt="built-with-negarin-logo">
             <figcaption><a href="/logos/built-with-nuxt.svg" target="_blank" rel="noopener">built-with-nuxt.svg</a></figcaption>
           </figure>
         </section>
       </div>
       <div class="w-full lg:w-1/2 p-4">
-        <section class="bg-nuxt-gray rounded p-6">
+        <section class="bg-negarin-gray rounded p-6">
           <h2 class="text-2xl text-white font-medium leading-normal mb-6">
             Dark theme
           </h2>
           <figure class="rounded hover:bg-gray-800">
-            <img src="/logos/nuxt-white.svg" alt="nuxt-logo">
-            <figcaption><a href="/logos/nuxt-white.svg" target="_blank" rel="noopener">nuxt-white.svg</a> / <a href="/logos/nuxt-square-white.svg" target="_blank" rel="noopener">nuxt-square-white.svg</a></figcaption>
+            <img src="/logos/negarin-white.svg" alt="negarin-logo">
+            <figcaption><a href="/logos/negarin-white.svg" target="_blank" rel="noopener">negarin-white.svg</a> / <a href="/logos/negarin-square-white.svg" target="_blank" rel="noopener">negarin-square-white.svg</a></figcaption>
           </figure>
           <figure class="rounded hover:bg-gray-800 mt-6">
-            <img src="/logos/nuxt-icon-white.png" srcset="/logos/nuxt-icon-white@2x.png 2x" alt="nuxt-logo">
-            <figcaption><a href="/logos/nuxt-icon-white.png" target="_blank" rel="noopener">nuxt-icon-white.png</a></figcaption>
+            <img src="/logos/negarin-icon-white.png" srcset="/logos/negarin-icon-white@2x.png 2x" alt="negarin-logo">
+            <figcaption><a href="/logos/negarin-icon-white.png" target="_blank" rel="noopener">negarin-icon-white.png</a></figcaption>
             <span class="dimensions">512 x 512</span>
           </figure>
           <figure class="rounded hover:bg-gray-800 mt-6">
-            <img src="/logos/nuxt-emoji-white.png" srcset="/logos/nuxt-emoji-white@2x.png 2x" alt="nuxt-logo">
-            <figcaption><a href="/logos/nuxt-emoji-white.png" target="_blank" rel="noopener">nuxt-emoji-white.png</a></figcaption>
+            <img src="/logos/negarin-emoji-white.png" srcset="/logos/negarin-emoji-white@2x.png 2x" alt="negarin-logo">
+            <figcaption><a href="/logos/negarin-emoji-white.png" target="_blank" rel="noopener">negarin-emoji-white.png</a></figcaption>
             <span class="dimensions">128 x 128</span>
           </figure>
           <figure class="rounded hover:bg-gray-800 mt-6">
-            <img src="/logos/nuxtjs-typo-white.svg" alt="nuxt-logo">
+            <img src="/logos/nuxtjs-typo-white.svg" alt="negarin-logo">
             <figcaption><a href="/logos/nuxtjs-typo-white.svg" target="_blank" rel="noopener">nuxtjs-typo-white.svg</a></figcaption>
           </figure>
           <figure class="rounded hover:bg-gray-800 mt-6">
-            <img src="/logos/built-with-nuxt-white.svg" alt="built-with-nuxt-logo">
-            <figcaption><a href="/logos/built-with-nuxt-white.svg" target="_blank" rel="noopener">built-with-nuxt-white.svg</a></figcaption>
+            <img src="/logos/built-with-negarin-white.svg" alt="built-with-negarin-logo">
+            <figcaption><a href="/logos/built-with-negarin-white.svg" target="_blank" rel="noopener">built-with-negarin-white.svg</a></figcaption>
           </figure>
         </section>
       </div>
     </div>
     <p class="text-center mt-8">
-      You can also download our <a href="/favicon.ico" target="_blank" rel="noopener">favicon</a> or our  <a href="/logos/nuxt-logos.sketch" target="_blank" rel="noopener">Sketch file</a>.
+      You can also download our <a href="/favicon.ico" target="_blank" rel="noopener">favicon</a> or our  <a href="/logos/negarin-logos.sketch" target="_blank" rel="noopener">Sketch file</a>.
     </p>
   </neg-container>
 </template>
@@ -119,7 +119,7 @@ figure {
   }
 }
 a {
-  @apply text-nuxt-lightgreen font-normal;
+  @apply text-negarin-lightgreen font-normal;
   &:hover {
     @apply underline;
   }

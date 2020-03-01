@@ -1,5 +1,5 @@
 <template>
-  <nuxt-ads v-if="$store.state.adBlocked" />
+  <negarin-ads v-if="$store.state.adBlocked" />
   <carbon-ads v-else-if="displayCarbon" />
   <code-fund-ads v-else :fallback.sync="displayCarbon" />
 </template>

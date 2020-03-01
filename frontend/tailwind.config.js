@@ -11,24 +11,24 @@ module.exports = {
         ]
       },
       colors: {
-        nuxt: {
+        negarin: {
           gray: '#2F495E',
           lightgreen: '#00C58E',
           green: '#108775'
         }
       },
       fill: theme => ({
-        'nuxt-gray': theme('colors.nuxt.gray'),
-        'nuxt-lightgreen': theme('colors.nuxt.lightgreen'),
-        'nuxt-green': theme('colors.nuxt.green')
+        'negarin-gray': theme('colors.negarin.gray'),
+        'negarin-lightgreen': theme('colors.negarin.lightgreen'),
+        'negarin-green': theme('colors.negarin.green')
       }),
       stroke: theme => ({
-        'nuxt-gray': theme('colors.nuxt.gray'),
-        'nuxt-lightgreen': theme('colors.nuxt.lightgreen'),
-        'nuxt-green': theme('colors.nuxt.green')
+        'negarin-gray': theme('colors.negarin.gray'),
+        'negarin-lightgreen': theme('colors.negarin.lightgreen'),
+        'negarin-green': theme('colors.negarin.green')
       }),
       boxShadow: {
-        nuxt: '0 0 8px 0 rgba(10, 31, 68, 0.08)'
+        negarin: '0 0 8px 0 rgba(10, 31, 68, 0.08)'
       },
       inset: {
         24: '6rem'

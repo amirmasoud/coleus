@@ -9,12 +9,12 @@
           </h3>
           <ul>
             <li v-for="(link, i) in l" :key="i" class="py-2">
-              <a v-if="link.href" :href="link.href" target="_blank" rel="noopener noreferrer" class="hover:text-nuxt-lightgreen">
+              <a v-if="link.href" :href="link.href" target="_blank" rel="noopener noreferrer" class="hover:text-negarin-lightgreen">
                 {{ link.key }}
               </a>
-              <nuxt-link v-else :to="link.to" class="hover:text-nuxt-lightgreen">
+              <negarin-link v-else :to="link.to" class="hover:text-negarin-lightgreen">
                 {{ link.key }}
-              </nuxt-link>
+              </negarin-link>
             </li>
           </ul>
         </nav>

@@ -6,15 +6,15 @@
 @import './light/algolia.css';
 
 body {
-  @apply font-sans font-medium text-nuxt-gray;
+  @apply font-sans font-medium text-negarin-gray;
   & .neg-select {
-    @apply text-nuxt-gray bg-gray-200;
+    @apply text-negarin-gray bg-gray-200;
   }
   & .footer {
     @apply bg-white;
   }
-  & .nuxt-link-exact-active {
-    @apply text-nuxt-lightgreen;
+  & .negarin-link-exact-active {
+    @apply text-negarin-lightgreen;
   }
   & .opacity-transition {
     transition: opacity 0.5s ease-out;

@@ -1,13 +1,13 @@
 <template>
   <div class="pt-4">
     <div class="clearfix">
-      <span v-if="prevLink">← <nuxt-link :to="baseLink + prevLink.to">{{ prevLink.name }}</nuxt-link></span>
-      <span v-if="nextLink" class="inline-block float-right"><nuxt-link :to="baseLink + nextLink.to">{{ nextLink.name }}</nuxt-link> →</span>
+      <span v-if="prevLink">← <negarin-link :to="baseLink + prevLink.to">{{ prevLink.name }}</negarin-link></span>
+      <span v-if="nextLink" class="inline-block float-right"><negarin-link :to="baseLink + nextLink.to">{{ nextLink.name }}</negarin-link> →</span>
     </div>
     <div class="pt-3 mt-6 border-t border-gray-300">
       <h3 v-if="contributors.length" class="my-2">Contributors</h3>
       <div v-if="contributors.length">
-        <a v-for="contributor of contributors" :key="contributor.author" :href="`https://github.com/${contributor.author}`" rel="noopener" target="_blank" class="text-nuxt-gray rounded overflow-hidden rounded-md inline-flex mb-2 mr-2 border hover:bg-gray-200">
+        <a v-for="contributor of contributors" :key="contributor.author" :href="`https://github.com/${contributor.author}`" rel="noopener" target="_blank" class="text-negarin-gray rounded overflow-hidden rounded-md inline-flex mb-2 mr-2 border hover:bg-gray-200">
           <img :alt="contributor.author" :src="`https://github.com/${contributor.author}.png?size=32`" class="h-8">
           <span class="inline-block px-2 leading-loose">{{ contributor.author }}</span>
         </a>

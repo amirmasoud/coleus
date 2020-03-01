@@ -73,7 +73,7 @@ export default {
 
 <style lang="scss">
 .neg-search-input {
-  @apply bg-gray-200 text-nuxt-gray font-medium px-4 pl-10 rounded-full h-10 outline-none w-full;
+  @apply bg-gray-200 text-negarin-gray font-medium px-4 pl-10 rounded-full h-10 outline-none w-full;
   ::placeholder {
     @apply text-gray-600;
   }

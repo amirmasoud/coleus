@@ -2,11 +2,11 @@
   <neg-container class="pt-16">
     <div class="flex flex-wrap justify-between">
       <div class="lg:w-6/12 lg:text-left text-center p-4 sm:p-0">
-        <h1 class="text-3xl xl:text-4xl text-nuxt-gray font-medium leading-normal mb-6 lg:pt-4">
-          NUXT<span class="text-nuxt-lightgreen">JS</span> Consulting <span class="text-nuxt-green">&</span> Support<br>
+        <h1 class="text-3xl xl:text-4xl text-negarin-gray font-medium leading-normal mb-6 lg:pt-4">
+          NUXT<span class="text-negarin-lightgreen">JS</span> Consulting <span class="text-negarin-green">&</span> Support<br>
         </h1>
         <h3 class="xl:text-lg text-gray-600 font-medium leading-relaxed mb-6">
-          Our <nuxt-link to="/team" class="text-nuxt-green underline">core team</nuxt-link> now offers official consulting services for your NuxtJS applications.<br>
+          Our <negarin-link to="/team" class="text-negarin-green underline">core team</negarin-link> now offers official consulting services for your NuxtJS applications.<br>
           We offer different services depending of your needs, from technical support to custom development. Expect a reply within one business day, we can sign custom NDA and you can get a full refund if you are not satisfied with our service.
         </h3>
       </div>
@@ -17,7 +17,7 @@
         <div class="bg-gray-100 hover:bg-gray-200 p-8 rounded w-full relative">
           <technical-support class="float-right mb-4"/>
           <h2 class="text-2xl font-medium mb-2">Technical support</h2>
-          <h3 class="text-nuxt-lightgreen font-medium text-2xl mb-4">$250 <span class="text-sm">/hr</span></h3>
+          <h3 class="text-negarin-lightgreen font-medium text-2xl mb-4">$250 <span class="text-sm">/hr</span></h3>
           <p class="mb-6">Get project audits, app deployments, custom development and technical support from the NuxtJS core team.</p>
           <neg-button href="https://otechie.com/nuxt" rel="noopener" target="_blank" class="sm:mr-4 py-3 px-6 text-base">
             <neg-svg-comments slot="icon" class="h-5 -mb-1 mr-1" />
@@ -31,8 +31,8 @@
       <a href="https://otechie.com" rel="noopener" target="_blank" class="flex"><img src="/img/partners/otechie.svg" alt="Otechie Logo" class="inline-block h-4 px-2"></a>
       <span class="flex">to offer these services so we can focus on helping you as fast as possible.</span>
     </section>
-    <h2 class="text-3xl xl:text-4xl text-nuxt-gray font-medium leading-normal mb-6">
-      Nuxt<span class="text-nuxt-lightgreen">JS</span> for enterprise
+    <h2 class="text-3xl xl:text-4xl text-negarin-gray font-medium leading-normal mb-6">
+      Nuxt<span class="text-negarin-lightgreen">JS</span> for enterprise
     </h2>
     <h3 class="xl:text-lg text-gray-600 font-medium leading-relaxed mb-6 flex flex-wrap items-center">
       <span class="flex">Available as part of the</span>
@@ -80,14 +80,14 @@ export default {
 
 <style scoped>
 .btn {
-  @apply inline-block border rounded border-nuxt-lightgreen text-nuxt-lightgreen py-2 px-4;
+  @apply inline-block border rounded border-negarin-lightgreen text-negarin-lightgreen py-2 px-4;
   &:hover {
-    @apply text-white bg-nuxt-lightgreen;
+    @apply text-white bg-negarin-lightgreen;
   }
   &.btn-gray {
-    @apply border-nuxt-gray text-nuxt-gray;
+    @apply border-negarin-gray text-negarin-gray;
     &:hover {
-      @apply bg-nuxt-gray text-white;
+      @apply bg-negarin-gray text-white;
     }
   }
 }
