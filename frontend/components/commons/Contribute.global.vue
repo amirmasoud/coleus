@@ -1,8 +1,8 @@
 <template>
   <div class="pt-4">
     <div class="clearfix">
-      <span v-if="prevLink">← <negarin-link :to="baseLink + prevLink.to">{{ prevLink.name }}</negarin-link></span>
-      <span v-if="nextLink" class="inline-block float-right"><negarin-link :to="baseLink + nextLink.to">{{ nextLink.name }}</negarin-link> →</span>
+      <span v-if="prevLink">← <nuxt-link :to="baseLink + prevLink.to">{{ prevLink.name }}</nuxt-link></span>
+      <span v-if="nextLink" class="inline-block float-right"><nuxt-link :to="baseLink + nextLink.to">{{ nextLink.name }}</nuxt-link> →</span>
     </div>
     <div class="pt-3 mt-6 border-t border-gray-300">
       <h3 v-if="contributors.length" class="my-2">Contributors</h3>

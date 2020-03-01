@@ -1,11 +1,35 @@
 <template>
   <div>
+    <neg-container>
+      <div class="flex flex-wrap flex-row-reverse mb-4">
+        <a v-for="user in users" :key="user.username" href="#" class="w-1/4 group">
+          <div class="p-2">
+            <div
+              class="flex flex-row-reverse p-4 border border-gray-200 shadow-sm rounded-md group-hover:shadow-lg transition-shadow duration-500 ease-in-out"
+            >
+              <img
+                class="w-12 h-12 rounded-full"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQkxOinM7SAHWOSHAgdseO42g348Gw9brsK1SDQjkaKmQE-sIKo"
+              />
+              <div class="w-full flex flex-col mr-4 text-right">
+                <h1 class="font-semibold">{{ user.name }}</h1>
+                <div class="flex justify-between font-light" dir="rtl">
+                  <div>
+                    <span class="font-medium">{{ user.books_aggregate.aggregate.count }}</span> کتاب
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </neg-container>
     <!-- <home-welcome /> -->
     <!-- <home-why /> -->
     <!-- <home-companies /> -->
     <!-- <home-modes /> -->
     <!-- <home-targets/>
-    <home-features/> -->
+    <home-features/>-->
     <!-- <home-sponsors /> -->
   </div>
 </template>
@@ -21,40 +45,61 @@ import homeModes from '@/components/partials/home/modes'
 
 export default {
   components: {
-    homeWelcome,
-    homeWhy,
-    homeCompanies,
+    // homeWelcome,
+    // homeWhy,
+    // homeCompanies,
     // homeFeatures,
     // homeTargets,
-    homeSponsors,
-    homeModes
+    // homeSponsors,
+    // homeModes
   },
-  head () {
+  head() {
     return {
       title: this.$store.state.lang.homepage.meta.title,
       meta: [
-        { name: 'description', hid: 'description', content: this.$store.state.lang.homepage.meta.description },
+        {
+          name: 'description',
+          hid: 'description',
+          content: this.$store.state.lang.homepage.meta.description
+        },
         // Open Graph
-        { name: 'og:title', content: this.$store.state.lang.homepage.meta.title },
-        { name: 'og:description', content: this.$store.state.lang.homepage.meta.description },
+        {
+          name: 'og:title',
+          content: this.$store.state.lang.homepage.meta.title
+        },
+        {
+          name: 'og:description',
+          content: this.$store.state.lang.homepage.meta.description
+        },
         { name: 'og:type', content: 'website' },
         { name: 'og:url', content: 'https://nuxtjs.org' },
         { name: 'og:image', content: 'https://nuxtjs.org/meta_640.png' },
         // Twitter Card
         { name: 'twitter:card', content: 'summary' },
         { name: 'twitter:site', content: '@nuxt_js' },
-        { name: 'twitter:title', content: this.$store.state.lang.homepage.meta.title },
-        { name: 'twitter:description', content: this.$store.state.lang.homepage.meta.description },
+        {
+          name: 'twitter:title',
+          content: this.$store.state.lang.homepage.meta.title
+        },
+        {
+          name: 'twitter:description',
+          content: this.$store.state.lang.homepage.meta.description
+        },
         { name: 'twitter:image', content: 'https://nuxtjs.org/meta_640.png' },
         { name: 'twitter:image:alt', content: 'NuxtJS Logo' }
       ]
     }
-  // },
-  // async asyncData () {
-  //   let sponsors = await fetch('https://opencollective.com/nuxtjs/members/organizations.json').then(res => res.json())
-  //   return {
-  //     sponsors
-  //   }
+    // },
+    // async asyncData () {
+    //   let sponsors = await fetch('https://opencollective.com/nuxtjs/members/organizations.json').then(res => res.json())
+    //   return {
+    //     sponsors
+    //   }
+  },
+  apollo: {
+    users: {
+      query: require('~/graphql/users.gql')
+    }
   }
 }
 </script>

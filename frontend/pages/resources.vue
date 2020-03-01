@@ -12,18 +12,18 @@
       <i-themes class="w-2/3 mx-auto lg:mx-0 lg:w-5/12 lg:-mt-8"/>
     </div>
     <section class="flex flex-wrap -mx-4">
-      <negarin-link :to="{ name: 'themes' }" class="block w-full lg:w-1/2 p-4">
+      <nuxt-link :to="{ name: 'themes' }" class="block w-full lg:w-1/2 p-4">
         <div class="block bg-gray-100 hover:bg-gray-200 rounded p-8 text-center">
           <h2 class="text-2xl text-negarin-gray font-medium uppercase mb-8">Themes</h2>
           <i-theming class="inline-block w-auto h-40 sm:h-56 xl:h-64"></i-theming>
         </div>
-      </negarin-link>
-      <negarin-link :to="{ name: 'video-courses' }" class="w-full lg:w-1/2 p-4">
+      </nuxt-link>
+      <nuxt-link :to="{ name: 'video-courses' }" class="w-full lg:w-1/2 p-4">
         <div class="block bg-gray-100 hover:bg-gray-200 rounded p-8 text-center">
           <h2 class="text-2xl text-negarin-gray font-medium uppercase mb-8">Video Courses</h2>
           <i-videos class="inline-block w-auto h-40 sm:h-56 xl:h-64"></i-videos>
         </div>
-      </negarin-link>
+      </nuxt-link>
     </section>
   </neg-container>
 </template>

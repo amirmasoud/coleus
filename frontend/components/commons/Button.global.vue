@@ -1,10 +1,10 @@
 <template>
-  <negarin-link v-if="to" :to="to" class="inline-block font-medium text-sm px-4 py-2 shadow uppercase rounded hover:shadow-md" :class="classes">
+  <nuxt-link v-if="to" :to="to" class="inline-block font-medium text-sm px-4 py-2 shadow uppercase rounded hover:shadow-md" :class="classes">
     <div class="inline-block fill-current stroke-current mr-1">
       <slot name="icon" />
     </div>
     <slot />
-  </negarin-link>
+  </nuxt-link>
   <a v-else :href="href" target="_blank" rel="noopener" class="inline-block font-medium text-sm px-4 py-2 shadow uppercase rounded hover:shadow-md" :class="classes">
     <div class="inline-block fill-current stroke-current mr-1">
       <slot name="icon" />

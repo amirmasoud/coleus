@@ -12,9 +12,9 @@
               <a v-if="link.href" :href="link.href" target="_blank" rel="noopener noreferrer" class="hover:text-negarin-lightgreen">
                 {{ link.key }}
               </a>
-              <negarin-link v-else :to="link.to" class="hover:text-negarin-lightgreen">
+              <nuxt-link v-else :to="link.to" class="hover:text-negarin-lightgreen">
                 {{ link.key }}
-              </negarin-link>
+              </nuxt-link>
             </li>
           </ul>
         </nav>

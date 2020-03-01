@@ -36,7 +36,10 @@ module.exports = {
     }
   },
   variants: {
-    textColor: ['responsive', 'hover', 'focus', 'group-hover']
+    textColor: ['responsive', 'hover', 'focus', 'group-hover'],
+    boxShadow: ['responsive', 'group-hover']
   },
-  plugins: []
+  plugins: [
+    require('tailwindcss-dir')(),
+  ]
 }

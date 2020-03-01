@@ -16,9 +16,9 @@
           </h3>
           <ul :key="`list-${index}`" class="pb-8">
             <li v-for="link in group.links" :key="link.to" class="py-2">
-              <negarin-link class="text-gray-700 hover:text-negarin-lightgreen" :class="{'text-negarin-lightgreen': path === menu + link.to}" :to="menu + link.to" exact>
+              <nuxt-link class="text-gray-700 hover:text-negarin-lightgreen" :class="{'text-negarin-lightgreen': path === menu + link.to}" :to="menu + link.to" exact>
                 {{ link.name }}
-              </negarin-link>
+              </nuxt-link>
               <ul v-if="path === menu + link.to && link.contents" class="pl-2 py-1">
                 <li v-for="(content, i) in link.contents" :key="content.to" class="py-1 text-sm">
                   <a :href="menu + link.to + content.to" class="text-gray-600" :class="{'text-negarin-lightgreen': current === i}" @click.prevent="scrollTo(content.to)">

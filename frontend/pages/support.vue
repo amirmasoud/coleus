@@ -6,7 +6,7 @@
           NUXT<span class="text-negarin-lightgreen">JS</span> Consulting <span class="text-negarin-green">&</span> Support<br>
         </h1>
         <h3 class="xl:text-lg text-gray-600 font-medium leading-relaxed mb-6">
-          Our <negarin-link to="/team" class="text-negarin-green underline">core team</negarin-link> now offers official consulting services for your NuxtJS applications.<br>
+          Our <nuxt-link to="/team" class="text-negarin-green underline">core team</nuxt-link> now offers official consulting services for your NuxtJS applications.<br>
           We offer different services depending of your needs, from technical support to custom development. Expect a reply within one business day, we can sign custom NDA and you can get a full refund if you are not satisfied with our service.
         </h3>
       </div>

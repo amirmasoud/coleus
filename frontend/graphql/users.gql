@@ -1,18 +1,12 @@
 query FetchUsers {
-  users(sticky: true) {
-    data {
-        id
-        name
-        xsmall
-        small
-        photo_url
-        placeholder
-        username
-        bio
-        books {
-            title
-            slug
-        }
+  # (where: {sticky: {_eq: true}})
+  users {
+    name
+    username
+    books_aggregate {
+      aggregate {
+        count
+      }
     }
   }
 }
