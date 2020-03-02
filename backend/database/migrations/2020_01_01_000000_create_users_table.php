@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('photo_url')->nullable();
             $table->string('website')->nullable();
             $table->text('bio')->nullable();
-            $table->string('status')->default('draft');
+            $table->string('status')->default('open');
             $table->boolean('sticky')->default(false);
             $table->unsignedInteger('order')->default(0);
             $table->timestamps();
