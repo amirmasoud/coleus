@@ -1,34 +1,37 @@
 version: "3"
 
 services:
-  frontend:
-    build:
-      context: ../frontend
-      dockerfile: ../deploy/frontend/Dockerfile
-      args:
-        - NODE_VERSION=${NODE_VERSION}
-    container_name: negarin-frontend
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    working_dir: /var/www/frontend
-    networks:
-      - frontend-network
+  # frontend:
+  #   image: frontend:1.0.0
+  #   build:
+  #     context: ../frontend
+  #     dockerfile: ../deploy/frontend/Dockerfile
+  #     args:
+  #       - NODE_VERSION=${NODE_VERSION}
+  #   container_name: negarin-frontend
+  #   restart: unless-stopped
+  #   ports:
+  #     - 3000:3000
+  #   working_dir: /var/www/frontend
+  #   networks:
+  #     - frontend-network
 
   backend:
+    image: backend:${BACKEND_TAG}
     build:
       context: ../backend
       args:
         FPM_VERSION: ${FPM_VERSION}
+        BACKEND_PORT: ${BACKEND_PORT}
       dockerfile: ../deploy/backend/Dockerfile
     container_name: negarin-backend
     restart: unless-stopped
     ports:
-      - "9000:9000"
+      - ${BACKEND_PORT}:${BACKEND_PORT}
     working_dir: /var/www/backend
     depends_on:
       - database
-      - redis
+      - cache
     volumes:
       - ../backend:/var/www/backend
       - ../deploy/backend/php/php.ini:/usr/local/etc/php/conf.d/php.ini
@@ -47,13 +50,13 @@ services:
     networks:
       - backend-network
 
-  graphql-engine:
+  graphql:
     image: hasura/graphql-engine:v1.1.0
-    container_name: negarin-graphql-engine
+    container_name: negarin-graphql
     ports:
-      - "8180:8180"
+      - 8180:8180
     depends_on:
-      - "database"
+      - database
     restart: unless-stopped
     environment:
       HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:@database:5432/negarin
@@ -63,62 +66,57 @@ services:
     networks:
       - backend-network
 
-  nginx:
+  proxy:
     image: nginx:${NGINX_VERSION}
-    container_name: negarin-nginx
+    container_name: negarin-proxy
     ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
     restart: unless-stopped
     volumes:
       - ./nginx/certs/:/etc/ssl/certs/
       - ./nginx/conf.d/:/etc/nginx/conf.d/
-      - ../backend:/var/www/backend
-      - ../frontend:/var/www/frontend
       - ./nginx/log/:/var/log/nginx/
     depends_on:
-      - frontend
+      # - frontend
       - backend
     networks:
       - backend-network
-      - frontend-network
+      # - frontend-network
 
-  redis:
+  cache:
     image: redis:${REDIS_VERSION}
-    container_name: negarin-redis
+    container_name: negarin-cache
     command: ["redis-server"]
-    hostname: redis
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - 6379:6379
     volumes:
       - redis-data:/data
     networks:
       - backend-network
 
-  elasticsearch:
+  search:
     image: elasticsearch:7.5.2
-    container_name: negarin-elasticsearch
-    hostname: elasticsearch
+    container_name: negarin-search
     restart: unless-stopped
     environment:
       - discovery.type=single-node
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - 9200:9200
+      - 9300:9300
     networks:
       - backend-network
 
-  minio:
+  storage:
     image: minio/minio
-    container_name: negarin-minio
-    hostname: minio
+    container_name: negarin-storage
     restart: unless-stopped
     volumes:
       - ../storage:/data
       - minio:/root/.minio
     ports:
-      - "9001:9000"
+      - 9001:9000
     environment:
       - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
       - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
@@ -134,9 +132,9 @@ services:
       timeout: 20s
       retries: 3
 
-  rabbitmq:
+  broker:
     image: rabbitmq:3.8.2-management-alpine
-    container_name: negarin_rabbitmq
+    container_name: negarin-broker
     restart: unless-stopped
     volumes:
       - ./rabbitmq/etc/:/etc/rabbitmq/
@@ -152,9 +150,9 @@ services:
     networks:
       - backend-network
 
-  imaginary:
+  image:
     image: darthsim/imgproxy:latest
-    container_name: negarin_image
+    container_name: negarin-image
     restart: unless-stopped
     environment:
       IMGPROXY_KEY: ${IMGPROXY_KEY}
@@ -173,7 +171,7 @@ services:
       AWS_SECRET_ACCESS_KEY: ${MINIO_SECRET_KEY}
       AWS_REGION: us-east-1
     ports:
-      - "8080:8080"
+      - 8080:8080
     volumes:
       - ../storage:/opt
     networks:
@@ -182,8 +180,8 @@ services:
 networks:
   backend-network:
     driver: bridge
-  frontend-network:
-    driver: bridge
+  # frontend-network:
+  #   driver: bridge
 
 volumes:
   data:

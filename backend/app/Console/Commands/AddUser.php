@@ -38,7 +38,7 @@ class AddUser extends Command
      *
      * @return void
      */
-    public function image()
+    public function image($path)
     {
         $key = 'f4740b81b9581903dff7cad6b95d4ce87538296893fff3766d3680e111b3bec0c8ec6cbd51496cb393cc9f7af95d90276b9a7803ddf5d0833060070394294d44';
         $salt = '3d2088cbd7254ab2ae4488db2d51bb3bd55feda242773c318a0c6117f7c2f91a4cf9802f8ff27f9bac0acf79f14c4bd6e58d9c88cf9fc9f9e4bc61bb247bfd66';
@@ -58,17 +58,17 @@ class AddUser extends Command
         $height = 32;
         $gravity = 'no';
         $enlarge = 1;
-        $extension = 'jpeg';
+        $extension = 'jpg';
         $filename = uniqid('', true);
 
-        $url = 's3://public/10/download.jpeg';
+        $url = 's3://' . $path;
         $encodedUrl = rtrim(strtr(base64_encode($url), '+/', '-_'), '=');
 
         $path = "/filename:{$filename}/resize:{$resize}/width:{$width}/height:{$height}/gravity:{$gravity}/enlarge:{$enlarge}/{$encodedUrl}.{$extension}";
 
         $signature = rtrim(strtr(base64_encode(hash_hmac('sha256', $saltBin . $path, $keyBin, true)), '+/', '-_'), '=');
 
-        print(sprintf("/%s%s", $signature, $path));
+        return sprintf("/%s%s", $signature, $path);
     }
 
     /**
@@ -92,6 +92,7 @@ class AddUser extends Command
                 Storage::put('profile_images/' . uniqid('', true) . '.jpg', Storage::disk('dataset')->get('ganjoor/users/assets/images/' . $user->username . '.jpg'));
             } else {
                 if (Storage::missing('profile_images/default.jpg')) {
+                    dd($this->image('public/profile_images/default.jpg'));
                     Storage::put('profile_images/default.jpg', Storage::disk('dataset')->get('ganjoor/users/assets/images/default.jpg'));
                 }
             }

@@ -26,5 +26,6 @@ RUN chown -R www-data:www-data \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     composer install --no-dev --no-scripts --no-interaction --ignore-platform-reqs
 
-EXPOSE 9000
+ARG BACKEND_PORT
+EXPOSE ${BACKEND_PORT}
 CMD ["php-fpm"]
