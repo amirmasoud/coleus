@@ -8,8 +8,8 @@
               class="flex flex-row-reverse p-4 border border-gray-200 shadow-sm rounded-md group-hover:shadow-lg transition-shadow duration-500 ease-in-out"
             >
               <img
-                class="w-12 h-12 rounded-full"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQkxOinM7SAHWOSHAgdseO42g348Gw9brsK1SDQjkaKmQE-sIKo"
+                class="w-12 h-12 shadow rounded-full"
+                :src="user.xsmall"
               />
               <div class="w-full flex flex-col mr-4 text-right">
                 <h1 class="font-semibold">{{ user.name }}</h1>

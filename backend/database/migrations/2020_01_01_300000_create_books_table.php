@@ -26,7 +26,6 @@ class CreateBooksTable extends Migration
             $table->string('xsmall')->nullable();
             $table->string('small')->nullable();
             $table->string('medium')->nullable();
-            $table->string('photo_url')->nullable();
             $table->string('website')->nullable();
             $table->string('status')->default('draft');
             $table->boolean('sticky')->default(false);

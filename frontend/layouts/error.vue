@@ -1,12 +1,12 @@
 <template>
   <div class="relative">
     <neg-container v-if="error.statusCode === 404" class="pt-20">
-      <div class="flex flex-wrap items-center justify-between">
-        <h1 class="w-full text-3xl xl:text-4xl text-nuxt-gray text-center font-medium leading-normal -mb-6 z-10">
-          {{ error.message }}
+      <div class="flex flex-wrap items-center justify-between" dir="rtl">
+        <h1 class="w-full text-3xl xl:text-4xl text-nuxt-gray text-center font-medium leading-normal mb-24 z-10">
+          صفحه یافت نشد.
         </h1>
         <div class="w-full lg:w-2/3 mx-auto">
-          <lost-image/>
+          <!-- <lost-image/> -->
         </div>
       </div>
     </neg-container>

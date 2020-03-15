@@ -3,6 +3,12 @@ query FetchUsers {
   users {
     name
     username
+    original
+    medium
+    small
+    xsmall
+    placeholder
+    thumbnail
     books_aggregate {
       aggregate {
         count
