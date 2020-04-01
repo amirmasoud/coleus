@@ -2,15 +2,18 @@
   <div>
     <neg-container>
       <div class="flex flex-wrap flex-row-reverse mb-4">
-        <a v-for="user in users" :key="user.username" href="#" class="w-1/4 group">
+        <nuxt-link
+          class="w-1/4 group"
+          v-for="user in users"
+          :key="user.username"
+          :to="{ name: 'profile', params: { profile: user.username }}"
+          no-prefetch
+        >
           <div class="p-2">
             <div
               class="flex flex-row-reverse p-4 border border-gray-200 shadow-sm rounded-md group-hover:shadow-lg transition-shadow duration-500 ease-in-out"
             >
-              <img
-                class="w-12 h-12 shadow rounded-full"
-                :src="user.xsmall"
-              />
+              <img class="w-12 h-12 shadow rounded-full" :src="user.xsmall" />
               <div class="w-full flex flex-col mr-4 text-right">
                 <h1 class="font-semibold">{{ user.name }}</h1>
                 <div class="flex justify-between font-light" dir="rtl">
@@ -21,7 +24,7 @@
               </div>
             </div>
           </div>
-        </a>
+        </nuxt-link>
       </div>
     </neg-container>
     <!-- <home-welcome /> -->

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\User;
+use App\Book;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -118,13 +119,54 @@ class ImportData extends Command
 
         $users = json_decode(Storage::disk('dataset')->get('ganjoor/users/all.json'));
         foreach ($users as $user) {
-            // $this->insertUser($user);
+            $user = $this->insertUser($user);
+
             $books = Storage::disk('dataset')->directories('ganjoor/books/' . $user->username);
             foreach ($books as $book) {
-                dd($book);
+                $info = json_decode(Storage::disk('dataset')->get($book . '/info.json'));
+                $uniqid = uniqid('', true);
+                $original = '';
+                if (Storage::disk('dataset')->exists($book . '/cover.jpg')) {
+                    Storage::put('book_cover/' . $uniqid . '.jpg', Storage::disk('dataset')->get($book . '/cover.jpg'));
+                } else {
+                    if (Storage::missing('book_cover/default.jpg')) {
+                        Storage::put('book_cover/default.jpg', Storage::disk('dataset')->get('ganjoor/books/default.jpg'));
+                    }
+                    $uniqid = 'default';
+                }
+
+                // 2560x1600
+                $original = Storage::url('public/profile_picture/' . $uniqid . '.jpg');
+
+                // 1280x800
+                $medium = $this->image('public/profile_picture/' . $uniqid . '.jpg', 1280, 800);
+
+                // 640x400
+                $small = $this->image('public/profile_picture/' . $uniqid . '.jpg', 640, 400);
+
+                // 160x100
+                $xsmall = $this->image('public/profile_picture/' . $uniqid . '.jpg', 160, 100);
+
+                // 40x25
+                $thumbnail = $this->image('public/profile_picture/' . $uniqid . '.jpg', 40, 25);
+
+                // 8*5
+                $placeholder = $this->image('public/profile_picture/' . $uniqid . '.jpg', 8, 5);
+
+                $book = $user->books()->create([
+                    'title' => $info->title,
+                    'slug' => $info->slug,
+                    'description' => $info->description,
+                    'original' => $original,
+                    'medium' => $medium,
+                    'placeholder' => $placeholder,
+                    'small' => $small,
+                    'thumbnail' => $thumbnail,
+                    'xsmall' => $xsmall,
+                ]);
+
             }
-            // $books = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '.json'));
-            dd($books);
+            dd($book);
         }
     }
 }

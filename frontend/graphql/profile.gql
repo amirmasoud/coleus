@@ -1,21 +1,30 @@
 query FetchUserByUsername($username: String) {
-  user(username: $username) {
-    id,
-    name,
-    username,
-    photo_url,
-    xsmall,
-    small,
-    placeholder,
-    bio,
-    books {
-      id,
-      title,
-      description,
-      cover,
-      placeholder,
-      slug,
-      start
+  users(where: {username: {_eq: $username}}) {
+    username
+    medium
+    name
+    original
+    photo_url
+    placeholder
+    small
+    status
+    sticky
+    thumbnail
+    website
+    xsmall
+    books(order_by: {order: desc}) {
+      medium
+      order
+      original
+      placeholder
+      slug
+      small
+      status
+      sticky
+      thumbnail
+      title
+      website
+      xsmall
     }
   }
 }
