@@ -1,4 +1,5 @@
-FROM php:7.4.1-fpm-alpine3.11
+ARG FPM_VERSION
+FROM php:${FPM_VERSION}
 
 RUN rm -f /etc/apk/repositories &&\
     echo "http://dl-cdn.alpinelinux.org/alpine/v3.11/main" >> /etc/apk/repositories && \
@@ -22,8 +23,8 @@ COPY . /var/www/backend
 RUN chown -R www-data:www-data \
     /var/www/backend/storage \
     /var/www/backend/bootstrap/cache && \
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    composer install --no-scripts --no-interaction --ignore-platform-reqs
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-EXPOSE 9000
+ARG BACKEND_PORT
+EXPOSE ${BACKEND_PORT}
 CMD ["php-fpm"]
