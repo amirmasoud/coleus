@@ -34,8 +34,8 @@ services:
       - cache
     volumes:
       - ../../backend:/var/www/backend
-      - ../deploy/prod/backend/php/php.ini:/usr/local/etc/php/conf.d/php.ini
-      - ../deploy/prod/backend/php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+      - ./backend/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./backend/php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
     networks:
       - backend-network
 
@@ -61,8 +61,6 @@ services:
     environment:
       HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:@database:5432/coleus
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
-      ## uncomment next line to set an admin secret
-      # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
     networks:
       - backend-network
 
@@ -96,24 +94,24 @@ services:
     networks:
       - backend-network
 
-  search:
-    image: elasticsearch:7.5.2
-    container_name: coleus-search
-    restart: unless-stopped
-    environment:
-      - discovery.type=single-node
-    ports:
-      - 9200:9200
-      - 9300:9300
-    networks:
-      - backend-network
+  # search:
+  #   image: elasticsearch:7.5.2
+  #   container_name: coleus-search
+  #   restart: unless-stopped
+  #   environment:
+  #     - discovery.type=single-node
+  #   ports:
+  #     - 9200:9200
+  #     - 9300:9300
+  #   networks:
+  #     - backend-network
 
   storage:
     image: minio/minio
     container_name: coleus-storage
     restart: unless-stopped
     volumes:
-      - ../storage:/data
+      - ../../storage:/data
       - minio:/root/.minio
     ports:
       - 9001:9000
@@ -132,23 +130,23 @@ services:
       timeout: 20s
       retries: 3
 
-  broker:
-    image: rabbitmq:3.8.2-management-alpine
-    container_name: coleus-broker
-    restart: unless-stopped
-    volumes:
-      - ./rabbitmq/etc/:/etc/rabbitmq/
-      - ./rabbitmq/data/:/var/lib/rabbitmq/mnesia/
-      - ./rabbitmq/logs/:/var/log/rabbitmq/
-    environment:
-      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
-    ports:
-      - 5672:5672
-      - 15672:15672
-    networks:
-      - backend-network
+  # broker:
+  #   image: rabbitmq:3.8.2-management-alpine
+  #   container_name: coleus-broker
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./rabbitmq/etc/:/etc/rabbitmq/
+  #     - ./rabbitmq/data/:/var/lib/rabbitmq/mnesia/
+  #     - ./rabbitmq/logs/:/var/log/rabbitmq/
+  #   environment:
+  #     RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
+  #     RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+  #     RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+  #   ports:
+  #     - 5672:5672
+  #     - 15672:15672
+  #   networks:
+  #     - backend-network
 
   image:
     image: darthsim/imgproxy:latest
@@ -173,7 +171,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ../storage:/opt
+      - ../../storage:/opt
     networks:
       - backend-network
 
