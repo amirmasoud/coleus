@@ -9,10 +9,10 @@
         <p class="mb-6">{{ page.attrs.description }}</p>
         <code-sandbox v-if="codeSandBoxLink" :src="codeSandBoxLink" style="margin-bottom: 20px;"/>
         <div>
-          <a :href="liveEditLink" class="inline-block bg-negarin-lightgreen text-white font-medium text-sm px-4 py-2 shadow uppercase no-underline rounded hover:bg-negarin-green hover:shadow-md sm:mr-4 py-3 px-6 text-base" target="_blank" rel="noopener">
+          <a :href="liveEditLink" class="inline-block bg-coleus-lightgreen text-white font-medium text-sm px-4 py-2 shadow uppercase no-underline rounded hover:bg-coleus-green hover:shadow-md sm:mr-4 py-3 px-6 text-base" target="_blank" rel="noopener">
             {{ $store.state.lang.links.live_edit }}
           </a>
-          <a :href="downloadLink" class="inline-block bg-negarin-lightgreen text-white font-medium text-sm px-4 py-2 shadow uppercase no-underline rounded hover:bg-negarin-green hover:shadow-md sm:mr-4 py-3 px-6 text-base" target="_blank" rel="noopener">
+          <a :href="downloadLink" class="inline-block bg-coleus-lightgreen text-white font-medium text-sm px-4 py-2 shadow uppercase no-underline rounded hover:bg-coleus-green hover:shadow-md sm:mr-4 py-3 px-6 text-base" target="_blank" rel="noopener">
             {{ $store.state.lang.links.download }}
           </a>
         </div>

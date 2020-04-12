@@ -2,8 +2,8 @@
   <neg-container class="pt-16">
     <div class="flex flex-wrap justify-between mb-8">
       <div class="lg:w-6/12 lg:text-left text-center p-4 sm:p-0">
-        <h1 class="text-3xl xl:text-4xl text-negarin-gray font-medium leading-normal mb-6 lg:pt-4">
-          NUXT<span class="text-negarin-lightgreen">JS</span> Video Courses<br>
+        <h1 class="text-3xl xl:text-4xl text-coleus-gray font-medium leading-normal mb-6 lg:pt-4">
+          NUXT<span class="text-coleus-lightgreen">JS</span> Video Courses<br>
         </h1>
         <h3 class="xl:text-lg text-gray-600 font-medium leading-relaxed mb-8">
           With the video courses below created by our partner VueSchool you can discover and learn more about the Nuxt.js Framework.
@@ -53,7 +53,7 @@ export default {
           title: 'Nuxt.js Fundamentals',
           description: 'Learn the fundamentals of Nuxt.js in this course that we created together with the founders of Nuxt. The course covers what you need to know from scaffolding to deploying your first Nuxt.js application.',
           link: 'https://vueschool.io/courses/nuxtjs-fundamentals?friend=nuxt&utm_source=Nuxtjs.org&utm_medium=Link&utm_content=Courses&utm_campaign=nuxtjs-fundamentals',
-          img: 'negarin-fundamentals'
+          img: 'coleus-fundamentals'
         },
         {
           title: 'Async Data with Nuxt.js',

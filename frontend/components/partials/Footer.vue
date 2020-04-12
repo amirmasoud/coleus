@@ -9,10 +9,10 @@
           </h3>
           <ul>
             <li v-for="(link, i) in l" :key="i" class="py-2">
-              <a v-if="link.href" :href="link.href" target="_blank" rel="noopener noreferrer" class="hover:text-negarin-lightgreen">
+              <a v-if="link.href" :href="link.href" target="_blank" rel="noopener noreferrer" class="hover:text-coleus-lightgreen">
                 {{ link.key }}
               </a>
-              <nuxt-link v-else :to="link.to" class="hover:text-negarin-lightgreen">
+              <nuxt-link v-else :to="link.to" class="hover:text-coleus-lightgreen">
                 {{ link.key }}
               </nuxt-link>
             </li>

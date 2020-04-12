@@ -5,20 +5,20 @@
       <template v-if="action === ''">
         <neg-container class="flex items-center lg:py-6">
           <!-- Left Action -->
-          <a href="#" class="block md:hidden flex p-2 -m-2 items-center justify-center text-negarin-gray hover:text-negarin-lightgreen z-10 lg:hidden" @click.prevent="$emit('change', 'search')">
+          <a href="#" class="block md:hidden flex p-2 -m-2 items-center justify-center text-coleus-gray hover:text-coleus-lightgreen z-10 lg:hidden" @click.prevent="$emit('change', 'search')">
             <neg-search-icon class="block h-5 fill-current" />
           </a>
           <neg-search class="hidden md:inline-block align-middle"/>
           <!-- Center Navigation -->
           <ul class="hidden lg:flex lg:pt-1 xl:pt-0 text-center mx-auto">
             <li v-for="link in links" :key="link.icon" class="header_nav_link xl:px-4 lg:py-0 lg:px-2 py-2">
-              <nuxt-link class="block p-2 font-medium uppercase hover:no-underline hover:text-negarin-lightgreen" :to="{ name: 'section-slug', params: { section: link.icon } }">
+              <nuxt-link class="block p-2 font-medium uppercase hover:no-underline hover:text-coleus-lightgreen" :to="{ name: 'section-slug', params: { section: link.icon } }">
                 {{ $store.state.lang.links[link.text] || link.text }}
               </nuxt-link>
             </li>
           </ul>
           <!-- Right Logo -->
-          <a class="inline-block text-negarin-gray h-7 lg:h-10 z-10 mr-6 ml-auto" href="/" @click.prevent="$router.push('/')" @click.right.stop.prevent="$router.push('/design')">
+          <a class="inline-block text-coleus-gray h-7 lg:h-10 z-10 mr-6 ml-auto" href="/" @click.prevent="$router.push('/')" @click.right.stop.prevent="$router.push('/design')">
             <h1 class="m-0 h-0 w-0 overflow-hidden">نگارین</h1>
             <neg-logo class="h-6 lg:h-8" />
           </a>
@@ -31,11 +31,11 @@
         <!-- Left Title -->
         <neg-search v-if="action === 'search'" class="w-full pr-4"/>
         <div v-else class="flex items-end">
-          <component :is="'neg-' + action + '-icon'" class="block h-6 text-negarin-lightgreen fill-current" />
-          <span class="block text-lg font-medium uppercase text-negarin-gray pl-4 h-6">{{ $store.state.lang.links[action] || action }}</span>
+          <component :is="'neg-' + action + '-icon'" class="block h-6 text-coleus-lightgreen fill-current" />
+          <span class="block text-lg font-medium uppercase text-coleus-gray pl-4 h-6">{{ $store.state.lang.links[action] || action }}</span>
         </div>
         <!-- Right Action -->
-        <a href="#" class="block flex p-2 -m-2 items-center justify-center text-negarin-gray hover:text-negarin-lightgreen z-10 lg:hidden" :class="action === 'search' ? 'pt-3' : ''" @click.prevent="$emit('change', '')">
+        <a href="#" class="block flex p-2 -m-2 items-center justify-center text-coleus-gray hover:text-coleus-lightgreen z-10 lg:hidden" :class="action === 'search' ? 'pt-3' : ''" @click.prevent="$emit('change', '')">
           <neg-times-icon class="block h-5 fill-current"/>
         </a>
       </neg-container>
@@ -43,8 +43,8 @@
     <!-- Mobile Main Navigation -->
     <nav class="header_mobile_nav block lg:hidden">
       <div class="flex justify-between">
-        <nuxt-link v-for="link in links" :key="link.icon" class="block md:flex md:justify-center w-full p-2 md:p-4 text-negarin-gray hover:no-underline hover:text-negarin-lightgreen text-center visited:text-negarin-gray" :to="{ name: 'section-slug', params: { section: link.icon } }" @click.prevent.native="$emit('change', action === link.icon ? '' : ($route.params.section !== link.icon ? '' : link.icon))">
-          <component :is="'neg-' + link.icon + '-icon'" class="inline-block h-5 fill-current mb-1" :class="{'text-negarin-lightgreen': action === link.icon}"/>
+        <nuxt-link v-for="link in links" :key="link.icon" class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-coleus-lightgreen text-center visited:text-coleus-gray" :to="{ name: 'section-slug', params: { section: link.icon } }" @click.prevent.native="$emit('change', action === link.icon ? '' : ($route.params.section !== link.icon ? '' : link.icon))">
+          <component :is="'neg-' + link.icon + '-icon'" class="inline-block h-5 fill-current mb-1" :class="{'text-coleus-lightgreen': action === link.icon}"/>
           <span class="block text-xs md:text-base md:pl-3 font-medium text-gray">{{ link.text }}</span>
         </nuxt-link>
       </div>
@@ -58,7 +58,7 @@
           </h3>
           <ul :key="`list-${index}`" class="pb-6">
             <li v-for="l in group.links" :key="l.to" class="py-2">
-              <nuxt-link class="block text-gray-700 hover:text-negarin-lightgreen" :class="{'text-negarin-lightgreen': path === locale + l.to}" :to="locale + l.to" exact>
+              <nuxt-link class="block text-gray-700 hover:text-coleus-lightgreen" :class="{'text-coleus-lightgreen': path === locale + l.to}" :to="locale + l.to" exact>
                 {{ l.name }}
               </nuxt-link>
             </li>
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import negLogo from '@/components/svg/Negarin'
+import negLogo from '@/components/svg/coleus'
 import negGlobe from '@/components/svg/Globe'
 import negBooksIcon from '@/components/svg/Books'
 import negUsersIcon from '@/components/svg/Users'
@@ -134,7 +134,7 @@ export default {
   @apply fixed bg-white top-0 left-0 right-0 z-30;
 }
 .header_nav_link a.nuxt-link-active {
-    @apply text-negarin-lightgreen;
+    @apply text-coleus-lightgreen;
 }
 .header_mobile_nav {
   @apply fixed bg-white border-t border-gray-300 left-0 bottom-0 right-0 z-30;

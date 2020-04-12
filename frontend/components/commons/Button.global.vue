@@ -33,9 +33,9 @@ export default {
   computed: {
     classes () {
       if (this.variant === 'gray') {
-        return 'bg-gray-200 text-negarin-gray hover:bg-gray-300'
+        return 'bg-gray-200 text-coleus-gray hover:bg-gray-300'
       }
-      return 'bg-negarin-lightgreen text-white hover:bg-negarin-green'
+      return 'bg-coleus-lightgreen text-white hover:bg-coleus-green'
     }
   }
 }

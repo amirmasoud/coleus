@@ -14,19 +14,19 @@ body {
       @apply bg-gray-100 text-red-500 p-1 not-italic rounded text-sm;
     }
     & a {
-      @apply text-negarin-lightgreen;
+      @apply text-coleus-lightgreen;
       &:hover {
         @apply underline;
       }
       & code {
-        @apply text-negarin-lightgreen;
+        @apply text-coleus-lightgreen;
         &:hover {
-          @apply text-negarin-green;
+          @apply text-coleus-green;
         }
       }
     }
     & pre {
-      @apply rounded p-2 my-2 overflow-auto bg-negarin-gray;
+      @apply rounded p-2 my-2 overflow-auto bg-coleus-gray;
       /* background-color: #2E3440; nord.css */
       /* background-color: #002451; tomorrow-night-blue.css */
       & code {
@@ -34,7 +34,7 @@ body {
       }
     }
     & b, & strong {
-      @apply font-bold text-negarin-gray;
+      @apply font-bold text-coleus-gray;
     }
     & .Alert {
       @apply px-4 py-2 rounded my-4 bg-blue-100;

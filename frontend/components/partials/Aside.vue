@@ -8,7 +8,7 @@
       </a>
       <nav class="pt-8 lg:overflow-y-auto lg:block lg:pl-0 lg:pr-8 sticky?lg:h-(screen-24)" :class="{ hidden: !showNav }">
         <p class="uppercase font-bold pb-6">
-          {{ $store.state.lang.text.version }} <span class="text-negarin-lightgreen">{{ $store.state.docVersion }}</span>
+          {{ $store.state.lang.text.version }} <span class="text-coleus-lightgreen">{{ $store.state.docVersion }}</span>
         </p>
         <template v-for="(group, index) in list">
           <h3 :key="`title-${index}`" class="uppercase text-gray-500 pb-2">
@@ -16,12 +16,12 @@
           </h3>
           <ul :key="`list-${index}`" class="pb-8">
             <li v-for="link in group.links" :key="link.to" class="py-2">
-              <nuxt-link class="text-gray-700 hover:text-negarin-lightgreen" :class="{'text-negarin-lightgreen': path === menu + link.to}" :to="menu + link.to" exact>
+              <nuxt-link class="text-gray-700 hover:text-coleus-lightgreen" :class="{'text-coleus-lightgreen': path === menu + link.to}" :to="menu + link.to" exact>
                 {{ link.name }}
               </nuxt-link>
               <ul v-if="path === menu + link.to && link.contents" class="pl-2 py-1">
                 <li v-for="(content, i) in link.contents" :key="content.to" class="py-1 text-sm">
-                  <a :href="menu + link.to + content.to" class="text-gray-600" :class="{'text-negarin-lightgreen': current === i}" @click.prevent="scrollTo(content.to)">
+                  <a :href="menu + link.to + content.to" class="text-gray-600" :class="{'text-coleus-lightgreen': current === i}" @click.prevent="scrollTo(content.to)">
                     {{ content.name }}
                   </a>
                 </li>

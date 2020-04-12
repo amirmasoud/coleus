@@ -2,8 +2,8 @@
   <neg-container class="pt-16">
     <div class="flex flex-wrap justify-between mb-8">
       <div class="lg:w-6/12 lg:text-left text-center p-4 sm:p-0">
-        <h1 class="text-3xl xl:text-4xl text-negarin-gray font-medium leading-normal mb-6 lg:pt-4">
-          NUXT<span class="text-negarin-lightgreen">JS</span> Themes<br>
+        <h1 class="text-3xl xl:text-4xl text-coleus-gray font-medium leading-normal mb-6 lg:pt-4">
+          NUXT<span class="text-coleus-lightgreen">JS</span> Themes<br>
         </h1>
         <h3 class="xl:text-lg text-gray-600 font-medium leading-relaxed mb-6">
           With the themes below built by our partners from Creative Tim and Theme Forest you can see how a real world application is built, with Nuxt.js stack behind.
@@ -18,10 +18,10 @@
           <div class="w-full p-6">
             <h4 class="block w-full font-medium text-xl pb-2">
               {{ theme.title }}
-              <!-- <span class="float-right text-negarin-lightgreen">{{ theme.price }}</span> -->
+              <!-- <span class="float-right text-coleus-lightgreen">{{ theme.price }}</span> -->
             </h4>
             <p class="mb-3 text-gray-600">{{ theme.description }}</p>
-            <p v-if="theme.discount" class="text-sm italic text-negarin-lightgreen" v-html="theme.discount" />
+            <p v-if="theme.discount" class="text-sm italic text-coleus-lightgreen" v-html="theme.discount" />
             <neg-button :href="theme.link" rel="noopener sponsored" target="_blank" class="sm:mr-4 p-3 mt-3 text-sm text-left">
               <!-- <neg-svg-shopping slot="icon" class="h-4 -mb-1 mr-1" /> -->
               GET IT for {{ theme.price }}
@@ -47,30 +47,30 @@ export default {
           title: 'Nuxt Argon Dashboard PRO',
           description: 'Premium Bootstrap 4 + NuxtJS Admin Template',
           price: '99$',
-          link: 'https://www.creative-tim.com/product/negarin-argon-dashboard-pro?partner=120213',
-          img: 'negarin-argon-dashboard-pro',
-          discount: '-30% discount code: <b class="whitespace-no-wrap">30negarin-exclusive</b>'
+          link: 'https://www.creative-tim.com/product/coleus-argon-dashboard-pro?partner=120213',
+          img: 'coleus-argon-dashboard-pro',
+          discount: '-30% discount code: <b class="whitespace-no-wrap">30coleus-exclusive</b>'
         },
         {
           title: 'Nuxt Now UI Kit',
           description: 'Premium Bootstrap Nuxt.js UI Kit',
           price: '89$',
-          link: 'https://www.creative-tim.com/product/negarin-now-ui-kit-pro?partner=120213',
-          img: 'negarin-now-ui-kit'
+          link: 'https://www.creative-tim.com/product/coleus-now-ui-kit-pro?partner=120213',
+          img: 'coleus-now-ui-kit'
         },
         {
           title: 'Nuxt Black Dashboard PRO',
           description: 'Premium Bootstrap 4 Nuxt.js Admin Template',
           price: '79$',
-          link: 'https://www.creative-tim.com/product/negarin-black-dashboard-pro?partner=120213',
-          img: 'negarin-black-dashboard-pro'
+          link: 'https://www.creative-tim.com/product/coleus-black-dashboard-pro?partner=120213',
+          img: 'coleus-black-dashboard-pro'
         },
         {
           title: 'Nuxt Scutum Dashboard',
           description: 'Professional Material Design UIkit Admin Template',
           price: '26$',
           link: 'https://1.envato.market/scutum-nuxt',
-          img: 'negarin-scutum-dashboard'
+          img: 'coleus-scutum-dashboard'
         }
       ]
     }

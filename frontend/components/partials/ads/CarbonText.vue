@@ -37,13 +37,13 @@ export default {
 <style>
 #bsa-native {
   & .native-box {
-    @apply flex p-2 border rounded text-negarin-gray bg-gray-100 items-center mb-4;
+    @apply flex p-2 border rounded text-coleus-gray bg-gray-100 items-center mb-4;
   }
   & a {
     @apply no-underline;
   }
   & .native-sponsor {
-    @apply bg-negarin-green text-white rounded uppercase py-1 px-3 font-medium text-xs mr-2;
+    @apply bg-coleus-green text-white rounded uppercase py-1 px-3 font-medium text-xs mr-2;
   }
   & .native-text {
     @apply font-normal text-base;

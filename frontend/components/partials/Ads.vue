@@ -1,5 +1,5 @@
 <template>
-  <negarin-ads v-if="$store.state.adBlocked" />
+  <coleus-ads v-if="$store.state.adBlocked" />
   <carbon-ads v-else-if="displayCarbon" />
   <code-fund-ads v-else :fallback.sync="displayCarbon" />
 </template>

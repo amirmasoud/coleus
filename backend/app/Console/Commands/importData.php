@@ -67,7 +67,7 @@ class ImportData extends Command
 
         $signature = rtrim(strtr(base64_encode(hash_hmac('sha256', $saltBin . $path, $keyBin, true)), '+/', '-_'), '=');
 
-        return 'https://image.negarin.test' . sprintf("/%s%s", $signature, $path);
+        return 'https://image.coleus.test' . sprintf("/%s%s", $signature, $path);
     }
 
     public function insertUser($user)

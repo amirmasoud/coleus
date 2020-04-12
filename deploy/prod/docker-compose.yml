@@ -8,7 +8,7 @@ services:
   #     dockerfile: ../deploy/frontend/Dockerfile
   #     args:
   #       - NODE_VERSION=${NODE_VERSION}
-  #   container_name: negarin-frontend
+  #   container_name: coleus-frontend
   #   restart: unless-stopped
   #   ports:
   #     - 3000:3000
@@ -24,7 +24,7 @@ services:
         FPM_VERSION: ${FPM_VERSION}
         BACKEND_PORT: ${BACKEND_PORT}
       dockerfile: ../deploy/prod/backend/Dockerfile
-    container_name: negarin-backend
+    container_name: coleus-backend
     restart: unless-stopped
     ports:
       - ${BACKEND_PORT}:${BACKEND_PORT}
@@ -41,7 +41,7 @@ services:
 
   database:
     image: postgres:${PGSQL_VERSION}
-    container_name: negarin-database
+    container_name: coleus-database
     restart: unless-stopped
     ports:
       - "5432:5432"
@@ -52,14 +52,14 @@ services:
 
   graphql:
     image: hasura/graphql-engine:v1.1.0
-    container_name: negarin-graphql
+    container_name: coleus-graphql
     ports:
       - 8180:8180
     depends_on:
       - database
     restart: unless-stopped
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:@database:5432/negarin
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:@database:5432/coleus
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
       ## uncomment next line to set an admin secret
       # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
@@ -68,7 +68,7 @@ services:
 
   proxy:
     image: nginx:${NGINX_VERSION}
-    container_name: negarin-proxy
+    container_name: coleus-proxy
     ports:
       - 80:80
       - 443:443
@@ -86,7 +86,7 @@ services:
 
   cache:
     image: redis:${REDIS_VERSION}
-    container_name: negarin-cache
+    container_name: coleus-cache
     command: ["redis-server"]
     restart: unless-stopped
     ports:
@@ -98,7 +98,7 @@ services:
 
   search:
     image: elasticsearch:7.5.2
-    container_name: negarin-search
+    container_name: coleus-search
     restart: unless-stopped
     environment:
       - discovery.type=single-node
@@ -110,7 +110,7 @@ services:
 
   storage:
     image: minio/minio
-    container_name: negarin-storage
+    container_name: coleus-storage
     restart: unless-stopped
     volumes:
       - ../storage:/data
@@ -134,7 +134,7 @@ services:
 
   broker:
     image: rabbitmq:3.8.2-management-alpine
-    container_name: negarin-broker
+    container_name: coleus-broker
     restart: unless-stopped
     volumes:
       - ./rabbitmq/etc/:/etc/rabbitmq/
@@ -152,7 +152,7 @@ services:
 
   image:
     image: darthsim/imgproxy:latest
-    container_name: negarin-image
+    container_name: coleus-image
     restart: unless-stopped
     environment:
       IMGPROXY_KEY: ${IMGPROXY_KEY}

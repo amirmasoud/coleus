@@ -3,15 +3,15 @@ body[data-theme='dark'] {
     @apply text-white bg-gray-800;
   }
   .header {
-    @apply bg-negarin-gray;
+    @apply bg-coleus-gray;
     &_nav {
-      @apply bg-negarin-gray;
+      @apply bg-coleus-gray;
       &_link {
         @apply text-white;
       }
     }
   }
   .footer {
-    @apply bg-negarin-gray;
+    @apply bg-coleus-gray;
   }
 }

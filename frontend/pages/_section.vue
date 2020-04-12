@@ -5,7 +5,7 @@
     <div class="lg:flex">
       <neg-aside class="hidden lg:block"/>
       <div class="min-h-screen w-full lg:static lg:max-h-full lg:overflow-visible lg:w-3/4">
-        <negarin-child />
+        <coleus-child />
       </div>
     </div>
   </neg-container>

@@ -7,7 +7,7 @@
         <img src="/img/blackfriday/vueschool_logo.svg" width="160px" alt="VueSchool" class="hidden lg:inline-block md:max-w-full">
         <img src="/img/blackfriday/title.png" width="180px" alt="BLACK FRIDAY SALE" class="max-w-2xs md:max-w-full pulse">
         <img src="/img/blackfriday/40off.png" width="113px" alt="40% off" class="w-24 md:w-28 tada">
-        <div class="hidden rounded-full bg-negarin-lightgreen text-white text-sm font-medium py-2 px-4 lg:inline-block md:py-3 md:px-5">
+        <div class="hidden rounded-full bg-coleus-lightgreen text-white text-sm font-medium py-2 px-4 lg:inline-block md:py-3 md:px-5">
           ENROLL NOW
         </div>
       </a>

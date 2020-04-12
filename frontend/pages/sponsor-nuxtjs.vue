@@ -2,8 +2,8 @@
   <neg-container class="pt-16">
     <div class="flex flex-wrap justify-between mb-8">
       <div class="lg:w-6/12 lg:text-left text-center p-4 sm:p-0">
-        <h1 class="text-3xl xl:text-4xl text-negarin-gray font-medium leading-normal mb-6 lg:pt-4">
-          Sponsor NUXT<span class="text-negarin-lightgreen">JS</span> Development<br>
+        <h1 class="text-3xl xl:text-4xl text-coleus-gray font-medium leading-normal mb-6 lg:pt-4">
+          Sponsor NUXT<span class="text-coleus-lightgreen">JS</span> Development<br>
         </h1>
         <h3 class="xl:text-lg text-gray-600 font-medium leading-relaxed mb-6">
           NuxtJS is an MIT licensed open source project and completely free to use.<br>
@@ -59,7 +59,7 @@
       </p>
       <div v-for="(group, groupKey) in sponsors" :key="groupKey" class="text-center pb-8">
         <h2 class="uppercase text-xl pb-8">
-          <span class="pb-2 border-b-2 border-negarin-lightgreen text-gray-700">{{ groupKey }} SPONSORS</span>
+          <span class="pb-2 border-b-2 border-coleus-lightgreen text-gray-700">{{ groupKey }} SPONSORS</span>
         </h2>
         <a
           v-for="(sponsor, i) in group"

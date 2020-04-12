@@ -4,7 +4,7 @@
       <Blocked alt="Support NuxtJS" width="125" height="125" class="block mr-4" />
     </div>
     <div>
-      <p class="sm:text-sm m-0 text-negarin-green font-bold">
+      <p class="sm:text-sm m-0 text-coleus-green font-bold">
         NuxtJS needs you!
       </p>
       <p class="sm:text-xs p-0 m-0 text-gray-600 leading-normal">
