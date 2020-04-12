@@ -1,5 +1,5 @@
 <template>
-  <neg-container class="mb-12 bg-gray-100 lg:bg-transparent rounded">
+  <coleus-container class="mb-12 bg-gray-100 lg:bg-transparent rounded">
     <section class="lg:bg-gray-100 rounded py-6 sm:p-6">
       <h1 class="text-3xl uppercase text-center pt-10 pb-8" v-html="wordings.why.body" />
       <div class="flex flex-col lg:flex-row items-start justify-between">
@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="text-center">
-        <neg-button href="https://template.nuxtjs.org" class="mr-4 py-3 px-6 text-base">
+        <coleus-button href="https://template.nuxtjs.org" class="mr-4 py-3 px-6 text-base">
           <svg slot="icon" aria-label="CodeSandbox" class="inline-block h-5 -mt-1 mr-1" viewBox="0 0 1024 1024" style="vertical-align:middle">
             <g fill="currentColor">
               <path d="M719 851V639.85L902 533.8v211.47L719 851M302.08 643.44l-179.91-104.3v208.6l179.91 104.83V643.44M511.98 275.8l182.96-106.17L512.06 63 328.44 169.99l183.54 105.8"/>
@@ -37,10 +37,10 @@
             </g>
           </svg>
           {{ buttonWording }}
-        </neg-button>
+        </coleus-button>
       </div>
     </section>
-  </neg-container>
+  </coleus-container>
 </template>
 
 <script>

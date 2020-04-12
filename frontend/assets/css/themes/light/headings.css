@@ -17,19 +17,19 @@ body {
       }
     }
     & h1 {
-      @apply text-colues-gray relative text-3xl table mb-8;
+      @apply text-coleus-gray relative text-3xl table mb-8;
       &::after {
         content: " ";
         width: 80%;
-        @apply block border-2 border-colues-lightgreen mt-2 mb-1 rounded;
+        @apply block border-2 border-coleus-lightgreen mt-2 mb-1 rounded;
       }
     }
     & h2 {
-      @apply text-colues-gray relative text-2xl table my-8;
+      @apply text-coleus-gray relative text-2xl table my-8;
       &::after {
         content: " ";
         width: 80%;
-        @apply block border-2 border-colues-green mt-2 mb-1 rounded;
+        @apply block border-2 border-coleus-green mt-2 mb-1 rounded;
       }
       & code {
         @apply text-xl;
@@ -39,7 +39,7 @@ body {
       }
     }
     & h3 {
-      @apply text-colues-gray relative text-xl table my-8;
+      @apply text-coleus-gray relative text-xl table my-8;
       &::after {
         content: " ";
         width: 80%;

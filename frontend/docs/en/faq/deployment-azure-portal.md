@@ -45,7 +45,7 @@ this the logs will tell you that Vue cannot find any routes.
         <!-- All other URLs are mapped to the node.js site entry point -->
         <rule name="DynamicContent">
           <conditions>
-            <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="True"/>
+            <add input="{REQUEST_FILENAME}" matchType="IsFile" coleusate="True"/>
           </conditions>
           <action type="Rewrite" url="server"/>
         </rule>

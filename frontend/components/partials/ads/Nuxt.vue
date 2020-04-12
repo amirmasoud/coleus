@@ -1,5 +1,5 @@
 <template>
-  <div class="neg-support-nuxt">
+  <div class="coleus-support-nuxt">
     <div class="pr-4 sm:pr-0">
       <Blocked alt="Support NuxtJS" width="125" height="125" class="block mr-4" />
     </div>
@@ -23,11 +23,11 @@ export default {
 </script>
 
 <style lang="scss">
-.neg-support-nuxt {
+.coleus-support-nuxt {
   @apply bg-gray-200 p-4 flex flex-row w-full items-center mt-4;
 }
 @screen sm {
-  .neg-support-nuxt {
+  .coleus-support-nuxt {
     @apply bg-white flex-col w-40 mt-0;
   }
 }

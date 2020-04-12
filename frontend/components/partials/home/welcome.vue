@@ -1,18 +1,18 @@
 <template>
-  <neg-container>
+  <coleus-container>
     <div class="flex justify-between py-16 sm:py-24">
       <div class="lg:w-1/2 xl:w-6/12 text-center lg:text-left p-4 sm:p-0">
         <h1 class="text-3xl xl:text-4xl text-coleus-gray font-medium leading-normal mb-6" v-html="wordings.welcome.attrs.title" />
         <h3 class="xl:text-lg text-gray-600 font-medium leading-relaxed mb-6" v-html="wordings.welcome.body" />
         <div class="flex flex-col sm:block py-4">
-          <neg-button :to="{ name: 'section-slug', params: { section: 'guide', slug: 'installation'} }" class="sm:mr-4 py-3 px-6 text-base mb-4">
-            <neg-svg-meteor slot="icon" class="h-5 -mb-1 mr-1" />
+          <coleus-button :to="{ name: 'section-slug', params: { section: 'guide', slug: 'installation'} }" class="sm:mr-4 py-3 px-6 text-base mb-4">
+            <coleus-svg-meteor slot="icon" class="h-5 -mb-1 mr-1" />
             {{ buttonWordings.get_started }}
-          </neg-button>
-          <neg-button href="https://github.com/nuxt/nuxt.js" variant="gray" class="sm:mr-4 py-3 px-6 text-base">
-            <neg-svg-gh slot="icon" class="h-6 -mt-1 mr-1" />
+          </coleus-button>
+          <coleus-button href="https://github.com/nuxt/nuxt.js" variant="gray" class="sm:mr-4 py-3 px-6 text-base">
+            <coleus-svg-gh slot="icon" class="h-6 -mt-1 mr-1" />
             {{ buttonWordings.github_stars }}
-          </neg-button>
+          </coleus-button>
         </div>
       </div>
       <!-- <div class="hidden lg:block lg:w-5/12 bg-coleus-gray rounded-lg">
@@ -23,21 +23,21 @@
         </div>
       </div> -->
       <figure class="hidden lg:block lg:w-5/12">
-        <neg-media src="https://player.vimeo.com/video/311756540" />
+        <coleus-media src="https://player.vimeo.com/video/311756540" />
         <p class="font-medium py-2 text-xs xl:text-sm text-center text-gray-600" v-html="wordings.welcome_figure.body" />
       </figure>
     </div>
-  </neg-container>
+  </coleus-container>
 </template>
 
 <script>
-import negSvgMeteor from '@/components/svg/Meteor.vue'
-import negSvgGh from '@/components/svg/Github.vue'
+import coleusSvgMeteor from '@/components/svg/Meteor.vue'
+import coleusSvgGh from '@/components/svg/Github.vue'
 
 export default {
   components: {
-    negSvgMeteor,
-    negSvgGh
+    coleusSvgMeteor,
+    coleusSvgGh
   },
   data () {
     return {

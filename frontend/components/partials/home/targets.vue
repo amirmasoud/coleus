@@ -1,5 +1,5 @@
 <template>
-  <neg-container class="py-12">
+  <coleus-container class="py-12">
     <section>
       <h1 class="text-3xl uppercase text-center pb-8">
         Nuxt<span class="text-coleus-lightgreen">JS</span> targets
@@ -35,7 +35,7 @@
         </div>
       </div>
     </section>
-  </neg-container>
+  </coleus-container>
 </template>
 
 <script>

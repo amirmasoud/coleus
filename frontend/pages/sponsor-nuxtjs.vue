@@ -1,5 +1,5 @@
 <template>
-  <neg-container class="pt-16">
+  <coleus-container class="pt-16">
     <div class="flex flex-wrap justify-between mb-8">
       <div class="lg:w-6/12 lg:text-left text-center p-4 sm:p-0">
         <h1 class="text-3xl xl:text-4xl text-coleus-gray font-medium leading-normal mb-6 lg:pt-4">
@@ -26,16 +26,16 @@
             <img src="/img/wallet/paypal.png" alt="Paypal" class="h-6 block">
           </a>
           <a href="#btc" class="flex items-center my-2 bg-gray-200 hover:bg-gray-300 rounded-full p-2 pr-6 font-bold mx-2" :class="{ 'bg-gray-300': onetime.current === 'btc' }" @click.prevent="onetime.current = 'btc'">
-            <neg-svg-btc class="mr-3" /> BTC
+            <coleus-svg-btc class="mr-3" /> BTC
           </a>
           <a href="#bch" class="flex items-center my-2 bg-gray-200 hover:bg-gray-300 rounded-full p-2 pr-6 font-bold mx-2" :class="{ 'bg-gray-300': onetime.current === 'bch' }" @click.prevent="onetime.current = 'bch'">
-            <neg-svg-bch class="mr-3" /> BCH
+            <coleus-svg-bch class="mr-3" /> BCH
           </a>
           <a href="#eth" class="flex items-center my-2 bg-gray-200 hover:bg-gray-300 rounded-full p-2 pr-6 font-bold mx-2" :class="{ 'bg-gray-300': onetime.current === 'eth' }" @click.prevent="onetime.current = 'eth'">
-            <neg-svg-eth class="mr-3" /> ETH
+            <coleus-svg-eth class="mr-3" /> ETH
           </a>
           <a href="#ltc" class="flex items-center my-2 bg-gray-200 hover:bg-gray-300 rounded-full p-2 pr-6 font-bold mx-2" :class="{ 'bg-gray-300': onetime.current === 'ltc' }" @click.prevent="onetime.current = 'ltc'">
-            <neg-svg-ltc class="mr-3" /> LTC
+            <coleus-svg-ltc class="mr-3" /> LTC
           </a>
         </div>
       </div>
@@ -73,31 +73,31 @@
         </a>
       </div>
       <div class="text-center">
-        <neg-button href="https://opencollective.com/nuxtjs" class="mr-4 py-3 px-6 text-base">
-          <neg-svg-play slot="icon" class="h-5 -mt-1 mr-1" />
+        <coleus-button href="https://opencollective.com/nuxtjs" class="mr-4 py-3 px-6 text-base">
+          <coleus-svg-play slot="icon" class="h-5 -mt-1 mr-1" />
           Become a sponsor
-        </neg-button>
+        </coleus-button>
       </div>
     </section>
-  </neg-container>
+  </coleus-container>
 </template>
 
 <script>
-import negSvgPlay from '@/components/svg/OpenCollective.vue'
-import negSvgBtc from '@/components/svg/wallet/btc.vue'
-import negSvgBch from '@/components/svg/wallet/bch.vue'
-import negSvgEth from '@/components/svg/wallet/eth.vue'
-import negSvgLtc from '@/components/svg/wallet/ltc.vue'
+import coleusSvgPlay from '@/components/svg/OpenCollective.vue'
+import coleusSvgBtc from '@/components/svg/wallet/btc.vue'
+import coleusSvgBch from '@/components/svg/wallet/bch.vue'
+import coleusSvgEth from '@/components/svg/wallet/eth.vue'
+import coleusSvgLtc from '@/components/svg/wallet/ltc.vue'
 import iSponsor from '@/components/svg/fogg/sponsor'
 
 export default {
   components: {
     iSponsor,
-    negSvgPlay,
-    negSvgBtc,
-    negSvgBch,
-    negSvgEth,
-    negSvgLtc
+    coleusSvgPlay,
+    coleusSvgBtc,
+    coleusSvgBch,
+    coleusSvgEth,
+    coleusSvgLtc
   },
   data () {
     return {

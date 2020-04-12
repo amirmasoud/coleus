@@ -3,12 +3,12 @@
     <!-- Common Header -->
     <header class="header border-b border-gray-300 lg:border-0" :class="action === 'search' ? 'py-4' : 'py-6 lg:py-0'">
       <template v-if="action === ''">
-        <neg-container class="flex items-center lg:py-6">
+        <coleus-container class="flex items-center lg:py-6">
           <!-- Left Action -->
           <a href="#" class="block md:hidden flex p-2 -m-2 items-center justify-center text-coleus-gray hover:text-coleus-lightgreen z-10 lg:hidden" @click.prevent="$emit('change', 'search')">
-            <neg-search-icon class="block h-5 fill-current" />
+            <coleus-search-icon class="block h-5 fill-current" />
           </a>
-          <neg-search class="hidden md:inline-block align-middle"/>
+          <coleus-search class="hidden md:inline-block align-middle"/>
           <!-- Center Navigation -->
           <ul class="hidden lg:flex lg:pt-1 xl:pt-0 text-center mx-auto">
             <li v-for="link in links" :key="link.icon" class="header_nav_link xl:px-4 lg:py-0 lg:px-2 py-2">
@@ -20,38 +20,38 @@
           <!-- Right Logo -->
           <a class="inline-block text-coleus-gray h-7 lg:h-10 z-10 mr-6 ml-auto" href="/" @click.prevent="$router.push('/')" @click.right.stop.prevent="$router.push('/design')">
             <h1 class="m-0 h-0 w-0 overflow-hidden">نگارین</h1>
-            <neg-logo class="h-6 lg:h-8" />
+            <coleus-logo class="h-6 lg:h-8" />
           </a>
-        </neg-container>
-        <neg-container class="hidden lg:block">
+        </coleus-container>
+        <coleus-container class="hidden lg:block">
           <hr class="border-b border-t-0 border-gray-300 h-0"/>
-        </neg-container>
+        </coleus-container>
       </template>
-      <neg-container v-else class="flex justify-between lg:hidden">
+      <coleus-container v-else class="flex justify-between lg:hidden">
         <!-- Left Title -->
-        <neg-search v-if="action === 'search'" class="w-full pr-4"/>
+        <coleus-search v-if="action === 'search'" class="w-full pr-4"/>
         <div v-else class="flex items-end">
-          <component :is="'neg-' + action + '-icon'" class="block h-6 text-coleus-lightgreen fill-current" />
+          <component :is="'coleus-' + action + '-icon'" class="block h-6 text-coleus-lightgreen fill-current" />
           <span class="block text-lg font-medium uppercase text-coleus-gray pl-4 h-6">{{ $store.state.lang.links[action] || action }}</span>
         </div>
         <!-- Right Action -->
         <a href="#" class="block flex p-2 -m-2 items-center justify-center text-coleus-gray hover:text-coleus-lightgreen z-10 lg:hidden" :class="action === 'search' ? 'pt-3' : ''" @click.prevent="$emit('change', '')">
-          <neg-times-icon class="block h-5 fill-current"/>
+          <coleus-times-icon class="block h-5 fill-current"/>
         </a>
-      </neg-container>
+      </coleus-container>
     </header>
     <!-- Mobile Main Navigation -->
     <nav class="header_mobile_nav block lg:hidden">
       <div class="flex justify-between">
         <nuxt-link v-for="link in links" :key="link.icon" class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-coleus-lightgreen text-center visited:text-coleus-gray" :to="{ name: 'section-slug', params: { section: link.icon } }" @click.prevent.native="$emit('change', action === link.icon ? '' : ($route.params.section !== link.icon ? '' : link.icon))">
-          <component :is="'neg-' + link.icon + '-icon'" class="inline-block h-5 fill-current mb-1" :class="{'text-coleus-lightgreen': action === link.icon}"/>
+          <component :is="'coleus-' + link.icon + '-icon'" class="inline-block h-5 fill-current mb-1" :class="{'text-coleus-lightgreen': action === link.icon}"/>
           <span class="block text-xs md:text-base md:pl-3 font-medium text-gray">{{ link.text }}</span>
         </nuxt-link>
       </div>
     </nav>
     <!-- Mobile Aside Navigation -->
     <div class="header_mobile_aside block lg:hidden" :class="{'header_mobile_aside--open': sublinks.length}">
-      <neg-container>
+      <coleus-container>
         <transition-group v-for="(group, index) in sublinks" :key="index" tag="div" name="list" class="header_mobile_aside_group">
           <h3 :key="`title-${index}`" class="uppercase text-gray-500 pb-2">
             {{ group.title }}
@@ -64,30 +64,30 @@
             </li>
           </ul>
         </transition-group>
-      </neg-container>
+      </coleus-container>
     </div>
   </div>
 </template>
 
 <script>
-import negLogo from '@/components/svg/coleus'
-import negGlobe from '@/components/svg/Globe'
-import negBooksIcon from '@/components/svg/Books'
-import negUsersIcon from '@/components/svg/Users'
-import negSearchIcon from '@/components/svg/Search'
-import negSearch from '@/components/partials/Search'
-import negArrowLeft from '@/components/svg/ArrowLeft'
+import coleusLogo from '@/components/svg/coleus'
+import coleusGlobe from '@/components/svg/Globe'
+import coleusBooksIcon from '@/components/svg/Books'
+import coleusUsersIcon from '@/components/svg/Users'
+import coleusSearchIcon from '@/components/svg/Search'
+import coleusSearch from '@/components/partials/Search'
+import coleusArrowLeft from '@/components/svg/ArrowLeft'
 import localeManager from '@/mixins/localeManager'
 
 export default {
   components: {
-    negUsersIcon,
-    negBooksIcon,
-    negLogo,
-    negSearchIcon,
-    negSearch,
-    negArrowLeft,
-    negGlobe
+    coleusUsersIcon,
+    coleusBooksIcon,
+    coleusLogo,
+    coleusSearchIcon,
+    coleusSearch,
+    coleusArrowLeft,
+    coleusGlobe
   },
   mixins: [
     localeManager

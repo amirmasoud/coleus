@@ -1,5 +1,5 @@
 <template>
-  <neg-container class="pt-16">
+  <coleus-container class="pt-16">
     <div class="flex flex-wrap justify-between mb-8">
       <div class="lg:w-6/12 lg:text-left text-center p-4 sm:p-0">
         <h1 class="text-3xl xl:text-4xl text-coleus-gray font-medium leading-normal mb-6 lg:pt-4">
@@ -22,15 +22,15 @@
             </h4>
             <p class="mb-3 text-gray-600">{{ theme.description }}</p>
             <p v-if="theme.discount" class="text-sm italic text-coleus-lightgreen" v-html="theme.discount" />
-            <neg-button :href="theme.link" rel="noopener sponsored" target="_blank" class="sm:mr-4 p-3 mt-3 text-sm text-left">
-              <!-- <neg-svg-shopping slot="icon" class="h-4 -mb-1 mr-1" /> -->
+            <coleus-button :href="theme.link" rel="noopener sponsored" target="_blank" class="sm:mr-4 p-3 mt-3 text-sm text-left">
+              <!-- <coleus-svg-shopping slot="icon" class="h-4 -mb-1 mr-1" /> -->
               GET IT for {{ theme.price }}
-            </neg-button>
+            </coleus-button>
           </div>
         </div>
       </div>
     </section>
-  </neg-container>
+  </coleus-container>
 </template>
 
 <script>

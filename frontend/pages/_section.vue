@@ -1,22 +1,22 @@
 <template>
-  <!-- <neg-container class="mb-12 bg-gray-100 lg:bg-transparent rounded">
+  <!-- <coleus-container class="mb-12 bg-gray-100 lg:bg-transparent rounded">
     <section class="lg:bg-gray-100 rounded py-6 sm:p-6"> -->
-  <neg-container>
+  <coleus-container>
     <div class="lg:flex">
-      <neg-aside class="hidden lg:block"/>
+      <coleus-aside class="hidden lg:block"/>
       <div class="min-h-screen w-full lg:static lg:max-h-full lg:overflow-visible lg:w-3/4">
         <coleus-child />
       </div>
     </div>
-  </neg-container>
+  </coleus-container>
 </template>
 
 <script>
-import negAside from '@/components/partials/Aside'
+import coleusAside from '@/components/partials/Aside'
 
 export default {
   components: {
-    negAside
+    coleusAside
   },
   validate ({ store, params }) {
     return store.state.menu[params.section] !== undefined

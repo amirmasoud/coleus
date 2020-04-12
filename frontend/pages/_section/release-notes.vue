@@ -1,7 +1,7 @@
 <template>
   <div class="-mx-4 lg:mx-0 flex flex-col-reverse lg:flex-row">
     <div class="lg:min-h-screen w-full py-8 px-4 lg:static lg:overflow-visible lg:max-h-full lg:w-3/4" @mouseover="$store.dispatch('focusMode')" @mouseleave="$store.dispatch('clearFocusMode')">
-      <neg-article>
+      <coleus-article>
         <h1>{{ $store.state.lang.guide.release_notes }}</h1>
         <div v-for="release in releases" :key="release.name">
           <div class="group flex items-center justify-between cursor-pointer" @click="showRelease(release.name)">
@@ -16,7 +16,7 @@
           <html-parser v-show="show === release.name" class="bg-gray-100 px-4 pb-4 break-words" :content="release.body" />
         </div>
         <contribute/>
-      </neg-article>
+      </coleus-article>
     </div>
   </div>
 </template>

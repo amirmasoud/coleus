@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'NegArticle'
+  name: 'ColeusArticle'
 }
 </script>

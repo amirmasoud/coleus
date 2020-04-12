@@ -9,9 +9,9 @@
           <a v-for="sponsor in sponsors" :key="sponsor.name" :href="sponsor.link" class="block lg:inline-block my-4" rel="noopener sponsored">
             <img :src="sponsor.img" :alt="sponsor.name" class="h-16">
           </a>
-          <neg-button :to="{ name: 'sponsor-nuxtjs' }" class="justify-center mb-4">
+          <coleus-button :to="{ name: 'sponsor-nuxtjs' }" class="justify-center mb-4">
             Support Us
-          </neg-button>
+          </coleus-button>
         </div>
         <div class="-m-4 lg:m-0">
           <slot />

@@ -1,5 +1,5 @@
 <template>
-  <neg-container class="pb-12">
+  <coleus-container class="pb-12">
     <section class="bg-gray-100 rounded p-6">
       <h1 class="text-3xl uppercase text-center pb-8 pt-10">
         Nuxt<span class="text-coleus-lightgreen">JS</span> features
@@ -57,7 +57,7 @@
         </div>
       </div>
     </section>
-  </neg-container>
+  </coleus-container>
 </template>
 
 <style lang="scss">

@@ -1,5 +1,5 @@
 <template>
-  <neg-container class="py-24 md:mb-8">
+  <coleus-container class="py-24 md:mb-8">
     <section>
       <h1 class="text-3xl uppercase text-center pb-8" v-html="$store.state.homepage.companies.attrs.title" />
       <div class="flex flex-col lg:flex-row items-center justify-between">
@@ -24,7 +24,7 @@
         </div>
       </div>
     </section>
-  </neg-container>
+  </coleus-container>
 </template>
 
 <script>

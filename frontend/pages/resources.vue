@@ -1,5 +1,5 @@
 <template>
-  <neg-container class="pt-16">
+  <coleus-container class="pt-16">
     <div class="flex flex-wrap justify-between mb-8">
       <div class="lg:w-6/12 lg:text-left text-center p-4 sm:p-0">
         <h1 class="text-3xl xl:text-4xl text-coleus-gray font-medium leading-normal mb-6 lg:pt-4">
@@ -25,7 +25,7 @@
         </div>
       </nuxt-link>
     </section>
-  </neg-container>
+  </coleus-container>
 </template>
 
 <script>

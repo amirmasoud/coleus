@@ -1,8 +1,8 @@
 <template>
-  <div class="neg-select inline-block rounded-full">
+  <div class="coleus-select inline-block rounded-full">
     <div class="flex items-center content-center px-4">
       <template v-if="options.length > 1">
-        <neg-caret-down class="-mr-4" />
+        <coleus-caret-down class="-mr-4" />
         <select v-model="selected" class="bg-transparent cursor-pointer font-medium h-10 appearance-none focus:outline-none pl-6 pr-8 z-10">
           <option v-for="(option, i) in options" :key="i" :value="i">
             {{ getOptionDescription(option) }}
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import negCaretDown from '@/components/svg/CaretDown'
+import coleusCaretDown from '@/components/svg/CaretDown'
 
 const Modes = Object.freeze({
   SLIM: 'slim',
@@ -28,9 +28,9 @@ const Modes = Object.freeze({
 })
 
 export default {
-  name: 'NegSelect',
+  name: 'ColeusSelect',
   components: {
-    negCaretDown
+    coleusCaretDown
   },
   props: {
     value: {

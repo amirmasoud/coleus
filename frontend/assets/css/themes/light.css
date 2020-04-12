@@ -7,7 +7,7 @@
 
 body {
   @apply font-sans font-medium text-coleus-gray;
-  & .neg-select {
+  & .coleus-select {
     @apply text-coleus-gray bg-gray-200;
   }
   & .footer {

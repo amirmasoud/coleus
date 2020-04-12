@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: 'NegButton',
+  name: 'ColeusButton',
   props: {
     to: {
       type: [String, Object],

@@ -1,5 +1,5 @@
 <template>
-  <neg-container class="py-12 text-center">
+  <coleus-container class="py-12 text-center">
     <section class="px-4">
       <h1 class="text-3xl uppercase mb-2 sm:mb-0" v-html="wordings.attrs.title" />
       <i-sponsoring id="sponsor-img" class="inline-block float-right lg:ml-4" />
@@ -22,22 +22,22 @@
         </a>
       </div>
       <div class="text-center">
-        <neg-button :to="{ name: 'sponsor-nuxtjs' }" class="mr-4 py-3 px-6 text-base">
-          <neg-svg-go slot="icon" class="h-5 -mt-1 mr-1" />
+        <coleus-button :to="{ name: 'sponsor-nuxtjs' }" class="mr-4 py-3 px-6 text-base">
+          <coleus-svg-go slot="icon" class="h-5 -mt-1 mr-1" />
           {{ buttonWording }}
-        </neg-button>
+        </coleus-button>
       </div>
     </section>
-  </neg-container>
+  </coleus-container>
 </template>
 
 <script>
-import negSvgGo from '@/components/svg/OpenCollective.vue'
+import coleusSvgGo from '@/components/svg/OpenCollective.vue'
 import iSponsoring from '@/components/svg/streamline/sponsoring.vue'
 
 export default {
   components: {
-    negSvgGo,
+    coleusSvgGo,
     iSponsoring
   },
   data () {

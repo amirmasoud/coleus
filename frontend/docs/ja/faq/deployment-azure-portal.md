@@ -43,7 +43,7 @@ Azure Portal の場合、`web.config` ファイルが必要です。ファイル
         <!-- 他のすべての URL は node.js サイトエントリポイントにマッピングされます -->
         <rule name="DynamicContent">
           <conditions>
-            <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="True"/>
+            <add input="{REQUEST_FILENAME}" matchType="IsFile" coleusate="True"/>
           </conditions>
           <action type="Rewrite" url="server"/>
         </rule>

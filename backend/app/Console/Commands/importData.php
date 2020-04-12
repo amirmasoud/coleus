@@ -119,6 +119,7 @@ class ImportData extends Command
 
         $users = json_decode(Storage::disk('dataset')->get('ganjoor/users/all.json'));
         foreach ($users as $user) {
+            // if (in_array($user->username, ['molana', 'hafez', 'iqbal', ]))
             $user = $this->insertUser($user);
 
             $books = Storage::disk('dataset')->directories('ganjoor/books/' . $user->username);
@@ -164,9 +165,7 @@ class ImportData extends Command
                     'thumbnail' => $thumbnail,
                     'xsmall' => $xsmall,
                 ]);
-
             }
-            dd($book);
         }
     }
 }

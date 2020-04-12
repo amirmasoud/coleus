@@ -1,5 +1,5 @@
 <template>
-  <neg-container class="pt-16">
+  <coleus-container class="pt-16">
     <div class="flex flex-wrap justify-between mb-8">
       <div class="lg:w-6/12 lg:text-left text-center p-4 sm:p-0">
         <h1 class="text-3xl xl:text-4xl text-coleus-gray font-medium leading-normal mb-6 lg:pt-4">
@@ -8,10 +8,10 @@
         <h3 class="xl:text-lg text-gray-600 font-medium leading-relaxed mb-8">
           With the video courses below created by our partner VueSchool you can discover and learn more about the Nuxt.js Framework.
         </h3>
-        <neg-button href="https://vueschool.io/?friend=nuxt&utm_source=Nuxtjs.org&utm_medium=Link&utm_content=HomeHero&utm_content=V1" rel="noopener sponsored" target="_blank" class="sm:mr-4 py-3 px-6 text-base mb-4">
-          <neg-svg-meteor slot="icon" class="h-5 -mb-1 mr-1" />
+        <coleus-button href="https://vueschool.io/?friend=nuxt&utm_source=Nuxtjs.org&utm_medium=Link&utm_content=HomeHero&utm_content=V1" rel="noopener sponsored" target="_blank" class="sm:mr-4 py-3 px-6 text-base mb-4">
+          <coleus-svg-meteor slot="icon" class="h-5 -mb-1 mr-1" />
           Discover vueschool
-        </neg-button>
+        </coleus-button>
       </div>
       <i-themes class="w-2/3 mx-auto lg:mx-0 lg:w-5/12 lg:-mt-8"/>
     </div>
@@ -23,28 +23,28 @@
               {{ course.title }}
             </h4>
             <p class="mb-3 text-gray-600">{{ course.description }}</p>
-            <neg-button :href="course.link" rel="noopener sponsored" target="_blank" class="sm:mr-4 p-3 mt-3 text-sm text-left">
-              <neg-svg-play slot="icon" class="h-4 -mb-1 mr-1" />
+            <coleus-button :href="course.link" rel="noopener sponsored" target="_blank" class="sm:mr-4 p-3 mt-3 text-sm text-left">
+              <coleus-svg-play slot="icon" class="h-4 -mb-1 mr-1" />
               START COURSE
-            </neg-button>
+            </coleus-button>
           </div>
           <img :src="'/courses/' + course.img + '.png'" :srcset="'/courses/' + course.img + '-2x.png 2x'" :alt="course.title" class="block w-auto rounded">
         </div>
       </div>
     </section>
-  </neg-container>
+  </coleus-container>
 </template>
 
 <script>
 import iThemes from '@/components/svg/fogg/themes'
-import negSvgPlay from '@/components/svg/PlayCircle'
-import negSvgMeteor from '@/components/svg/Meteor.vue'
+import coleusSvgPlay from '@/components/svg/PlayCircle'
+import coleusSvgMeteor from '@/components/svg/Meteor.vue'
 
 export default {
   components: {
     iThemes,
-    negSvgPlay,
-    negSvgMeteor
+    coleusSvgPlay,
+    coleusSvgMeteor
   },
   data () {
     return {

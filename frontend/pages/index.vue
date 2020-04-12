@@ -1,6 +1,6 @@
 <template>
   <div>
-    <neg-container>
+    <coleus-container>
       <div class="flex flex-wrap flex-row-reverse mb-4">
         <nuxt-link
           class="w-1/4 group"
@@ -26,7 +26,7 @@
           </div>
         </nuxt-link>
       </div>
-    </neg-container>
+    </coleus-container>
     <!-- <home-welcome /> -->
     <!-- <home-why /> -->
     <!-- <home-companies /> -->

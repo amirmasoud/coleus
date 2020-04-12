@@ -1,5 +1,5 @@
 <template>
-  <neg-container class="pb-12 bg-gray-100 lg:bg-transparent rounded">
+  <coleus-container class="pb-12 bg-gray-100 lg:bg-transparent rounded">
     <section class="lg:bg-gray-100 rounded py-6 sm:p-6">
       <h1 class="text-3xl uppercase text-center pt-10" v-html="wordings.modes.attrs.title" />
       <div class="flex flex-wrap">
@@ -25,7 +25,7 @@
         <p class="leading-loose text-left sm:text-justify" v-html="wordings.modes_single_page_app.body" />
       </div>
     </section>
-  </neg-container>
+  </coleus-container>
 </template>
 
 <script>

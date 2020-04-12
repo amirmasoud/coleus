@@ -1,10 +1,10 @@
 <template>
   <div>
-    <neg-search-icon class="block absolute text-gray-600 z-10 h-4 mt-3 ml-3 fill-current" />
+    <coleus-search-icon class="block absolute text-gray-600 z-10 h-4 mt-3 ml-3 fill-current" />
     <input
       id="algolia"
       v-model="q"
-      class="neg-search-input"
+      class="coleus-search-input"
       type="text"
       name="search"
       placeholder="جستجو"
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import negSearchIcon from '@/components/svg/Search'
+import coleusSearchIcon from '@/components/svg/Search'
 
 let scriptInjected = false
 const callbacks = []
@@ -23,7 +23,7 @@ const scriptLoaded = () => callbacks.forEach(cb => cb())
 
 export default {
   components: {
-    negSearchIcon
+    coleusSearchIcon
   },
   data () {
     return {
@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style lang="scss">
-.neg-search-input {
+.coleus-search-input {
   @apply bg-gray-200 text-coleus-gray font-medium px-4 pl-10 rounded-full h-10 outline-none w-full;
   ::placeholder {
     @apply text-gray-600;

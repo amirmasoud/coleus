@@ -1,5 +1,5 @@
 <template>
-  <svg width="123" height="100" xmlns="http://www.w3.org/2000/svg" class="neg-svg neg-svg-puzzle">
+  <svg width="123" height="100" xmlns="http://www.w3.org/2000/svg" class="coleus-svg coleus-svg-puzzle">
     <g fill="none" fill-rule="evenodd">
       <rect
         fill="#00C58E"
