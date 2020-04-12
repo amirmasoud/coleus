@@ -4,7 +4,7 @@ NC='\033[0m'        # No Color
 BGreen='\033[1;32m' # Green
 
 if [ -z "$1" ]; then
-    printf "${BGreen}backedn${NC}  → backend command\n"
+    printf "${BGreen}backend${NC}  → backend command\n"
     printf "${BGreen}artisan${NC}  → Laravel artisan command\n"
     printf "${BGreen}composer${NC} → composer command\n"
     printf "\n"
