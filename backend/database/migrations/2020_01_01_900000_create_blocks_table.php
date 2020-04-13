@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class CreatePagesTable extends Migration
+class CreateBlocksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedInteger('section_id');
-            $table->foreign('section_id')->references('id')->on('sections');
+        Schema::create('blocks', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('page_id');
+            $table->foreign('page_id')->references('id')->on('pages');
             $table->unsignedInteger('order')->default(0);
-            $table->text('title')->nullable();
             $table->text('content')->nullable();
             $table->string('status')->default('draft');
+            $table->string('type')->default('paragraph');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('blocks');
     }
 }

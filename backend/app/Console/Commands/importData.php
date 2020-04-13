@@ -180,16 +180,80 @@ class ImportData extends Command
                 ]);
 
                 $sections = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/' . $book->slug . '/sections.json'));
+                usort($sections, function ($a, $b) {
+                    return $a->order > $b->order;
+                });
                 foreach ($sections as $section) {
-                    $section = $book->sections()->create([
+                    $sectionModel = $book->sections()->create([
                         'title' => $section->title,
                         'order' => $section->order,
                         'status' => 'published'
                     ]);
 
                     $pages = (Storage::disk('dataset')->directories('ganjoor/books/' . $user->username . '/' . $book->slug . '/' . $section->path));
+                    sort($pages, SORT_NATURAL);
+                    $pageOrder = 0;
                     foreach ($pages as $page) {
-                        json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/' . $book->slug . '/sections.json'));
+
+                        $file = json_decode(Storage::disk('dataset')->get($page . '/output.json'));
+                        $title = '';
+                        $content = '';
+                        $customCount = 1;
+                        foreach ($file->text as $key => $part) {
+                            if (!$key) { // First item
+                                if (!property_exists($section, 'page_title') && property_exists($part, 'm1') && !property_exists($section, 'page_header')) { // First m2
+                                    $title = $part->m1;
+                                } else { // Custom title
+                                    if (property_exists($section, 'page_header') && @isset(property_exists($section, 'page_header')[$pageOrder])) {
+                                        $title = property_exists($section, 'page_header')[$pageOrder];
+                                    } else {
+                                        if (property_exists($section, 'page_count_lang') && $section->page_count_lang == 'fa') {
+                                            $str = $customCount;
+                                            $western_persian = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+                                            $eastern_persian = array('٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩');
+
+                                            $str = str_replace($western_persian, $eastern_persian, $str);
+                                            $customCount++;
+                                        }
+                                        $title = property_exists($section, 'page_count')
+                                            ? $section->page_title . ' ' . (property_exists($section, 'page_count_lang') ? $str : $customCount++)
+                                            : $section->page_title;
+                                        dd($customCount);
+                                    }
+
+                                    if (property_exists($section, 'page_append') && property_exists($part, 'm1')) {
+                                        $title .= ': ' . $part->m1;
+                                    }
+                                }
+                            }
+
+                            if (property_exists($part, 'm1') && property_exists($part, 'm2')) {
+                                $content .= '<p "coleus-m-1/2">' . $part->m1 . '</p>';
+                                $content .= '<p "coleus-m-1/2">' . $part->m2 . '</p>';
+                            }
+
+                            if (property_exists($part, 't1') && property_exists($part, 't2')) {
+                                $content .= '<p "coleus-t-1/2">' . $part->t1 . '</p>';
+                                $content .= '<p "coleus-t-1/2">' . $part->t2 . '</p>';
+                            }
+
+                            if (property_exists($part, 'p')) {
+                                $content .= '<p "coleus-t-full">' . $part->p . '</p>';
+                            }
+                        }
+
+                        $pageModel = $sectionModel->pages()->create([
+                            'title' => $title,
+                            'order' => $pageOrder,
+                            'status' => 'published'
+                        ]);
+                        $pageOrder++;
+
+                        $pageModel->blocks()->create([
+                            'order' => 0,
+                            'content' => $content,
+                            'status' => 'published'
+                        ]);
                     }
                 }
             }
