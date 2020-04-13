@@ -38,10 +38,10 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the books for the user.
+     * The books that belong to the user.
      */
     public function books()
     {
-        return $this->hasMany('App\Book');
+        return $this->belongsToMany('App\Book');
     }
 }

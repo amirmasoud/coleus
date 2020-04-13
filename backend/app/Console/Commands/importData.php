@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\User;
 use App\Book;
+use App\Section;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -16,8 +17,8 @@ class ImportData extends Command
      * @var string
      */
     protected $signature = 'import:data
-                            {path : The path to dataset}
-                            {book : The book ID to content add to}
+                            {path? : The path to dataset}
+                            {book? : The book ID to content add to}
                             {parent? : The parent of the content}
                             {--T|title= : The title of the content}
                             {--R|refresh : Refresh book\'s content before import}
@@ -126,21 +127,21 @@ class ImportData extends Command
         // Reset
         User::truncate();
         Storage::deleteDirectory('profile_picture');
+        Book::truncate();
+        Storage::deleteDirectory('book_cover');
+        Section::truncate();
 
         $users = json_decode(Storage::disk('dataset')->get('ganjoor/users/all.json'));
         foreach ($users as $user) {
-            if (! in_array($user->username, ['molana', 'hafez', 'iqbal', 'sadi', 'roodaki', 'ferdosi', 'nezami', 'babataher', 'naserkhosro'])) {
-                continue;
-            }
             $user = $this->insertUser($user);
 
-            $books = Storage::disk('dataset')->directories('ganjoor/books/' . $user->username);
+            $books = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/books.json'));
+
             foreach ($books as $book) {
-                $info = json_decode(Storage::disk('dataset')->get($book . '/info.json'));
                 $uniqid = uniqid('', true);
-                $original = '';
-                if (Storage::disk('dataset')->exists($book . '/cover.jpg')) {
-                    Storage::put('book_cover/' . $uniqid . '.jpg', Storage::disk('dataset')->get($book . '/cover.jpg'));
+                $cover = 'ganjoor/books/' . $user->username . '/' . $book->slug . '/' . $book->slug . '.jpg';
+                if (Storage::disk('dataset')->exists($cover)) {
+                    Storage::put('book_cover/' . $uniqid . '.jpg', Storage::disk('dataset')->get($cover));
                 } else {
                     if (Storage::missing('book_cover/default.jpg')) {
                         Storage::put('book_cover/default.jpg', Storage::disk('dataset')->get('ganjoor/books/default.jpg'));
@@ -149,27 +150,27 @@ class ImportData extends Command
                 }
 
                 // 2560x1600
-                $original = Storage::url('public/profile_picture/' . $uniqid . '.jpg');
+                $original = Storage::url('public/book_cover/' . $uniqid . '.jpg');
 
                 // 1280x800
-                $medium = $this->image('public/profile_picture/' . $uniqid . '.jpg', 1280, 800);
+                $medium = $this->image('public/book_cover/' . $uniqid . '.jpg', 800, 1200);
 
                 // 640x400
-                $small = $this->image('public/profile_picture/' . $uniqid . '.jpg', 640, 400);
+                $small = $this->image('public/book_cover/' . $uniqid . '.jpg', 400, 640);
 
                 // 160x100
-                $xsmall = $this->image('public/profile_picture/' . $uniqid . '.jpg', 160, 100);
+                $xsmall = $this->image('public/book_cover/' . $uniqid . '.jpg', 100, 160);
 
                 // 40x25
-                $thumbnail = $this->image('public/profile_picture/' . $uniqid . '.jpg', 40, 25);
+                $thumbnail = $this->image('public/book_cover/' . $uniqid . '.jpg', 25, 40);
 
                 // 8*5
-                $placeholder = $this->image('public/profile_picture/' . $uniqid . '.jpg', 8, 5);
+                $placeholder = $this->image('public/book_cover/' . $uniqid . '.jpg', 5, 8);
 
                 $book = $user->books()->create([
-                    'title' => $info->title,
-                    'slug' => $info->slug,
-                    'description' => $info->description,
+                    'title' => $book->title,
+                    'slug' => $book->slug,
+                    'description' => $book->description ?? '',
                     'original' => $original,
                     'medium' => $medium,
                     'placeholder' => $placeholder,
@@ -177,6 +178,20 @@ class ImportData extends Command
                     'thumbnail' => $thumbnail,
                     'xsmall' => $xsmall,
                 ]);
+
+                $sections = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/' . $book->slug . '/sections.json'));
+                foreach ($sections as $section) {
+                    $section = $book->sections()->create([
+                        'title' => $section->title,
+                        'order' => $section->order,
+                        'status' => 'published'
+                    ]);
+
+                    $pages = (Storage::disk('dataset')->directories('ganjoor/books/' . $user->username . '/' . $book->slug . '/' . $section->path));
+                    foreach ($pages as $page) {
+                        json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/' . $book->slug . '/sections.json'));
+                    }
+                }
             }
         }
     }

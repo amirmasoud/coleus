@@ -18,8 +18,6 @@ class CreateBooksTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->text('description');
-            $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->string('original')->nullable();
             $table->string('placeholder')->nullable();
             $table->string('thumbnail')->nullable();

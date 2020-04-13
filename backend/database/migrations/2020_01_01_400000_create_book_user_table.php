@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserBookTable extends Migration
+class CreateBookUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserBookTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_book', function (Blueprint $table) {
+        Schema::create('book_user', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
@@ -31,6 +31,6 @@ class CreateUserBookTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_book');
+        Schema::dropIfExists('book_user');
     }
 }

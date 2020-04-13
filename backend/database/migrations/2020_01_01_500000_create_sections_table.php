@@ -18,7 +18,7 @@ class CreateSectionsTable extends Migration
             $table->unsignedInteger('book_id');
             $table->foreign('book_id')->references('id')->on('books');
             $table->unsignedInteger('order')->default(0);
-            $table->text('content')->nullable();
+            $table->text('title')->nullable();
             $table->string('status')->default('draft');
             $table->timestamps();
         });
