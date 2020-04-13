@@ -15,14 +15,24 @@ class ImportData extends Command
      *
      * @var string
      */
-    protected $signature = 'import:data';
+    protected $signature = 'import:data
+                            {path : The path to dataset}
+                            {book : The book ID to content add to}
+                            {parent? : The parent of the content}
+                            {--T|title= : The title of the content}
+                            {--R|refresh : Refresh book\'s content before import}
+                            {--C|count : Count title on indexing}
+                            {--P|persian : Persian numbers}
+                            {--H|header=* : Subheader titles}
+                            {--A|append : Append m1 to titles}
+                            {--D|delimiter= : Delimiter for append and title, default is ": "}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'import author and books';
 
     /**
      * Create a new command instance.
@@ -119,7 +129,9 @@ class ImportData extends Command
 
         $users = json_decode(Storage::disk('dataset')->get('ganjoor/users/all.json'));
         foreach ($users as $user) {
-            // if (in_array($user->username, ['molana', 'hafez', 'iqbal', ]))
+            if (! in_array($user->username, ['molana', 'hafez', 'iqbal', 'sadi', 'roodaki', 'ferdosi', 'nezami', 'babataher', 'naserkhosro'])) {
+                continue;
+            }
             $user = $this->insertUser($user);
 
             $books = Storage::disk('dataset')->directories('ganjoor/books/' . $user->username);

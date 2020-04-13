@@ -15,8 +15,8 @@ class CreateBlocksTable extends Migration
     {
         Schema::create('blocks', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('book_id');
-            $table->foreign('book_id')->references('id')->on('books');
+            $table->unsignedInteger('section_id');
+            $table->foreign('section_id')->references('id')->on('sections');
             $table->unsignedInteger('order')->default(0);
             $table->text('content')->nullable();
             $table->string('status')->default('draft');
