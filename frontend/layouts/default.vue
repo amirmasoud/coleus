@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div dir="rtl">
     <coleus-header v-model="action" />
-    <main class="lg:block relative pt-16 lg:pt-24" :class="{'hidden': action}">
+    <main class="lg:block relative pt-20 lg:pt-24" :class="{'hidden': action}">
       <nuxt />
     </main>
     <coleus-footer class="pb-16 lg:pb-0 lg:block" :class="{'hidden': action}" />

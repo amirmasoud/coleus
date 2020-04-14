@@ -71,7 +71,8 @@ export default {
     '~/plugins/intersection-observer.client.js',
     '~/plugins/ga.client.js',
     '~/plugins/adblock.client.js',
-    '~/plugins/newsletter.client.js'
+    '~/plugins/newsletter.client.js',
+    // '~/plugins/progressive.js'
   ],
   env: {
     DOC_SEARCH_API_KEY: process.env.DOC_SEARCH_API_KEY || 'ff80fbf046ce827f64f06e16f82f1401',

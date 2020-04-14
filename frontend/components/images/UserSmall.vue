@@ -1,16 +1,17 @@
 <template>
   <span>
-    <img :src="user.small" class="hidden">
-    <no-ssr>
+    <!-- <img :src="user.small" class="hidden"> -->
+    <img :src="user.small" class="w-12 h-12 shadow rounded-full float-right" />
+    <!-- <no-ssr>
       <progressive-img
         :src="user.xsmall"
         :placeholder="user.placeholder"
-        :fallback="user.photo_url"
+        :fallback="user.medium"
         :aspect-ratio="1"
         class="rounded float-right"
         style="width: 64px; height: 64px;"
       />
-    </no-ssr>
+    </no-ssr>-->
   </span>
 </template>
 

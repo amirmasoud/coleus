@@ -1,24 +1,22 @@
 query Book($slug: String) {
-  book(slug: $slug) {
+  books(where: {slug: {_ilike: $slug}}) {
     id
     title
     description
-    placeholder
-    cover
-    slug
-    start
-    pages {
+    medium
+    pages(order_by: {order: asc}, where: {parent_id: {_is_null: true}}) {
       id
       title
-      is_header
+      pages(limit: 10) {
+        id
+        title
+      }
     }
-    collaborators {
-      name
-      username
-      small
-      xsmall
-      placeholder
-      photo_url
+    book_users {
+      user {
+        name
+        medium
+      }
     }
   }
 }
