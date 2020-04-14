@@ -178,6 +178,7 @@ class ImportData extends Command
                     'thumbnail' => $thumbnail,
                     'xsmall' => $xsmall,
                 ]);
+                $this->info('Inserting ' . $book->slug);
 
                 $pages = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/' . $book->slug . '/pages.json'));
                 usort($pages, function ($a, $b) {
@@ -195,10 +196,9 @@ class ImportData extends Command
                     $pageOrder = 0;
                     $customCount = 1;
                     foreach ($pages as $subpage) {
-
                         $file = json_decode(Storage::disk('dataset')->get($subpage . '/output.json'));
                         $title = '';
-                        $content = '';
+
                         foreach ($file->text as $key => $part) {
                             if (!$key) { // First item
                                 if (!property_exists($page, 'page_title') && property_exists($part, 'm1') && !property_exists($page, 'page_header')) { // First m2
@@ -218,43 +218,61 @@ class ImportData extends Command
                                         $title = property_exists($page, 'page_count')
                                             ? $page->page_title . ' ' . (property_exists($page, 'page_count_lang') ? $str : $customCount++)
                                             : $page->page_title;
-                                        // dd($customCount);
                                     }
 
                                     if (property_exists($page, 'page_append') && property_exists($part, 'm1')) {
                                         $title .= ': ' . $part->m1;
                                     }
                                 }
+
+                                $subPageModel = $pageModel->children()->create([
+                                    'title' => $title,
+                                    'order' => $pageOrder,
+                                    'status' => 'published',
+                                    'book_id' => $book->id
+                                ]);
+                                $pageOrder++;
                             }
 
                             if (property_exists($part, 'm1') && property_exists($part, 'm2')) {
-                                $content .= '<p "coleus-m-1/2">' . $part->m1 . '</p>';
-                                $content .= '<p "coleus-m-1/2">' . $part->m2 . '</p>';
+                                $subPageModel->blocks()->create([
+                                    'order' => $key,
+                                    'content' => $part->m1,
+                                    'status' => 'published',
+                                    'type' => 'm-1/2'
+                                ]);
+                                $subPageModel->blocks()->create([
+                                    'order' => $key,
+                                    'content' => $part->m2,
+                                    'status' => 'published',
+                                    'type' => 'm-1/2'
+                                ]);
                             }
 
                             if (property_exists($part, 't1') && property_exists($part, 't2')) {
-                                $content .= '<p "coleus-t-1/2">' . $part->t1 . '</p>';
-                                $content .= '<p "coleus-t-1/2">' . $part->t2 . '</p>';
+                                $subPageModel->blocks()->create([
+                                    'order' => $key,
+                                    'content' => $part->t1,
+                                    'status' => 'published',
+                                    'type' => 't-1/2'
+                                ]);
+                                $subPageModel->blocks()->create([
+                                    'order' => $key,
+                                    'content' => $part->t2,
+                                    'status' => 'published',
+                                    'type' => 't-1/2'
+                                ]);
                             }
 
                             if (property_exists($part, 'p')) {
-                                $content .= '<p "coleus-t-full">' . $part->p . '</p>';
+                                $subPageModel->blocks()->create([
+                                    'order' => $key,
+                                    'content' => $part->p,
+                                    'status' => 'published',
+                                    'type' => 'p-full'
+                                ]);
                             }
                         }
-
-                        $subPageModel = $pageModel->children()->create([
-                            'title' => $title,
-                            'order' => $pageOrder,
-                            'status' => 'published',
-                            'book_id' => $book->id
-                        ]);
-                        $pageOrder++;
-
-                        $subPageModel->blocks()->create([
-                            'order' => 0,
-                            'content' => $content,
-                            'status' => 'published'
-                        ]);
                     }
                 }
             }
