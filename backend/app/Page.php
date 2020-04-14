@@ -12,7 +12,7 @@ class Page extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'order', 'status'
+        'title', 'order', 'status', 'book_id'
     ];
 
     /**
@@ -21,5 +21,15 @@ class Page extends Model
     public function blocks()
     {
         return $this->hasMany('App\Block');
+    }
+
+    public function children()
+    {
+        return $this->hasMany('App\Page', 'parent_id', 'id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Page', 'parent_id', 'id');
     }
 }

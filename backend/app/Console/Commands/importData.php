@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\User;
 use App\Book;
-use App\Section;
+use App\Page;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -129,7 +129,7 @@ class ImportData extends Command
         Storage::deleteDirectory('profile_picture');
         Book::truncate();
         Storage::deleteDirectory('book_cover');
-        Section::truncate();
+        Page::truncate();
 
         $users = json_decode(Storage::disk('dataset')->get('ganjoor/users/all.json'));
         foreach ($users as $user) {
@@ -179,35 +179,35 @@ class ImportData extends Command
                     'xsmall' => $xsmall,
                 ]);
 
-                $sections = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/' . $book->slug . '/sections.json'));
-                usort($sections, function ($a, $b) {
+                $pages = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/' . $book->slug . '/pages.json'));
+                usort($pages, function ($a, $b) {
                     return $a->order > $b->order;
                 });
-                foreach ($sections as $section) {
-                    $sectionModel = $book->sections()->create([
-                        'title' => $section->title,
-                        'order' => $section->order,
+                foreach ($pages as $page) {
+                    $pageModel = $book->pages()->create([
+                        'title' => $page->title,
+                        'order' => $page->order,
                         'status' => 'published'
                     ]);
 
-                    $pages = (Storage::disk('dataset')->directories('ganjoor/books/' . $user->username . '/' . $book->slug . '/' . $section->path));
+                    $pages = (Storage::disk('dataset')->directories('ganjoor/books/' . $user->username . '/' . $book->slug . '/' . $page->path));
                     sort($pages, SORT_NATURAL);
                     $pageOrder = 0;
-                    foreach ($pages as $page) {
+                    $customCount = 1;
+                    foreach ($pages as $subpage) {
 
-                        $file = json_decode(Storage::disk('dataset')->get($page . '/output.json'));
+                        $file = json_decode(Storage::disk('dataset')->get($subpage . '/output.json'));
                         $title = '';
                         $content = '';
-                        $customCount = 1;
                         foreach ($file->text as $key => $part) {
                             if (!$key) { // First item
-                                if (!property_exists($section, 'page_title') && property_exists($part, 'm1') && !property_exists($section, 'page_header')) { // First m2
+                                if (!property_exists($page, 'page_title') && property_exists($part, 'm1') && !property_exists($page, 'page_header')) { // First m2
                                     $title = $part->m1;
                                 } else { // Custom title
-                                    if (property_exists($section, 'page_header') && @isset(property_exists($section, 'page_header')[$pageOrder])) {
-                                        $title = property_exists($section, 'page_header')[$pageOrder];
+                                    if (property_exists($page, 'page_header') && @isset(property_exists($page, 'page_header')[$pageOrder])) {
+                                        $title = property_exists($page, 'page_header')[$pageOrder];
                                     } else {
-                                        if (property_exists($section, 'page_count_lang') && $section->page_count_lang == 'fa') {
+                                        if (property_exists($page, 'page_count_lang') && $page->page_count_lang == 'fa') {
                                             $str = $customCount;
                                             $western_persian = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
                                             $eastern_persian = array('٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩');
@@ -215,13 +215,13 @@ class ImportData extends Command
                                             $str = str_replace($western_persian, $eastern_persian, $str);
                                             $customCount++;
                                         }
-                                        $title = property_exists($section, 'page_count')
-                                            ? $section->page_title . ' ' . (property_exists($section, 'page_count_lang') ? $str : $customCount++)
-                                            : $section->page_title;
-                                        dd($customCount);
+                                        $title = property_exists($page, 'page_count')
+                                            ? $page->page_title . ' ' . (property_exists($page, 'page_count_lang') ? $str : $customCount++)
+                                            : $page->page_title;
+                                        // dd($customCount);
                                     }
 
-                                    if (property_exists($section, 'page_append') && property_exists($part, 'm1')) {
+                                    if (property_exists($page, 'page_append') && property_exists($part, 'm1')) {
                                         $title .= ': ' . $part->m1;
                                     }
                                 }
@@ -242,14 +242,15 @@ class ImportData extends Command
                             }
                         }
 
-                        $pageModel = $sectionModel->pages()->create([
+                        $subPageModel = $pageModel->children()->create([
                             'title' => $title,
                             'order' => $pageOrder,
-                            'status' => 'published'
+                            'status' => 'published',
+                            'book_id' => $book->id
                         ]);
                         $pageOrder++;
 
-                        $pageModel->blocks()->create([
+                        $subPageModel->blocks()->create([
                             'order' => 0,
                             'content' => $content,
                             'status' => 'published'

@@ -16,11 +16,11 @@ class Book extends Model
     ];
 
     /**
-     * Get the sections for the user.
+     * Get the pages for the book.
      */
-    public function sections()
+    public function pages()
     {
-        return $this->hasMany('App\Section');
+        return $this->hasMany('App\Page');
     }
 
     /**
