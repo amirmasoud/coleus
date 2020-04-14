@@ -9,7 +9,7 @@ query FetchUsers {
     xsmall
     placeholder
     thumbnail
-    books_aggregate {
+    book_users_aggregate {
       aggregate {
         count
       }

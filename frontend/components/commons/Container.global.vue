@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'NegContainer'
+  name: 'ColeusContainer'
 }
 </script>

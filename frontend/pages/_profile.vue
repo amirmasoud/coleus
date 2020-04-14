@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{user}}
+    {{users[0]}}
   </div>
   <!-- <div v-if="user">
     <div class="py-2 mx-4 border-b border-platinum">
@@ -37,7 +37,7 @@ import UserSmallImage from '~/components/images/UserSmall'
 export default {
   head() {
     return {
-      title: this.user ? this.user.name : ''
+      title: this.users ? this.users[0].name : ''
     }
   },
 
@@ -48,7 +48,7 @@ export default {
   },
 
   apollo: {
-    user: {
+    users: {
       query: profile,
       prefetch: ({ route }) => ({ username: route.params.profile }),
       variables() {
@@ -58,15 +58,15 @@ export default {
   },
 
   methods: {
-    async refetch() {
-      // Let the child component know about process, so spinning icon will be
-      // shown as long as parent process completed.
-      this.loadingUser = true
+    // async refetch() {
+    //   // Let the child component know about process, so spinning icon will be
+    //   // shown as long as parent process completed.
+    //   this.loadingUser = true
 
-      await this.$apollo.queries.user.refetch()
+    //   await this.$apollo.queries.user.refetch()
 
-      this.loadingUser = false
-    }
+    //   this.loadingUser = false
+    // }
   }
 }
 </script>

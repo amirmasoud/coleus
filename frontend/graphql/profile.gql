@@ -1,5 +1,5 @@
 query FetchUserByUsername($username: String) {
-  users(where: {username: {_eq: $username}}) {
+  users(where: {username: {_ilike: $username}}) {
     username
     medium
     name
@@ -12,19 +12,21 @@ query FetchUserByUsername($username: String) {
     thumbnail
     website
     xsmall
-    books(order_by: {order: desc}) {
-      medium
-      order
-      original
-      placeholder
-      slug
-      small
-      status
-      sticky
-      thumbnail
-      title
-      website
-      xsmall
+    book_users {
+      book {
+        medium
+        order
+        original
+        placeholder
+        slug
+        small
+        status
+        sticky
+        thumbnail
+        title
+        website
+        xsmall
+      }
     }
   }
 }

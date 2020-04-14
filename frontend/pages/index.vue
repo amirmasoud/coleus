@@ -18,7 +18,7 @@
                 <h1 class="font-semibold">{{ user.name }}</h1>
                 <div class="flex justify-between font-light" dir="rtl">
                   <div>
-                    <span class="font-medium">{{ user.books_aggregate.aggregate.count }}</span> کتاب
+                    <span class="font-medium">{{ user.book_users_aggregate.aggregate.count }}</span> کتاب
                   </div>
                 </div>
               </div>
