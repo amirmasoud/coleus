@@ -4,11 +4,11 @@
     class="opacity-transition block bg-gray-100 mt-8 -mx-4 lg:bg-transparent lg:mt-0 lg:mx-0 lg:inset-0 z-90 lg:mb-0 lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-1/4 lg:block"
   >
     <div
-      class="h-full overflow-y-auto scrolling-touch text-center lg:text-left lg:h-auto lg:block lg:relative lg:sticky lg:top-24"
+      class="h-full overflow-y-auto scrolling-touch text-center lg:text-right lg:h-auto lg:block lg:relative lg:sticky lg:top-24"
     >
       <a
         v-if="breadcrumb"
-        class="block text-left p-4 lg:hidden"
+        class="block text-right p-4 lg:hidden"
         href="#nav"
         @click.prevent="showNav = !showNav"
       >
@@ -18,9 +18,35 @@
         {{ breadcrumb.title }}
       </a>
       <nav
-        class="pt-8 lg:overflow-y-auto lg:block lg:pl-0 lg:pr-8 sticky?lg:h-(screen-24)"
+        class="pt-8 lg:overflow-y-auto lg:block lg:pl-0 lg:pl-8 sticky?lg:h-(screen-24)"
         :class="{ hidden: !showNav }"
       >
+        <div v-if="books && books.length">
+          <template v-for="(page, index) in books[0].pages">
+            <h3 :key="`title-${index}`" class="uppercase text-gray-500 pb-2">{{ page.title }}</h3>
+            <ul :key="`list-${index}`" class="pb-8">
+              <li v-for="subpage in page.pages" :key="subpage.id" class="py-2">
+                <!-- path === menu + link.to -->
+                <nuxt-link
+                  class="text-gray-700 hover:text-coleus-lightgreen"
+                  :class="{'text-coleus-lightgreen': false}"
+                  :to="{ name: 'username-book-page', params: { username: $route.params.username, book: $route.params.book, page: subpage.id } }"
+                  exact
+                >{{ subpage.title }}</nuxt-link>
+                <!-- <ul v-if="path === menu + link.to && link.contents" class="pl-2 py-1">
+                  <li v-for="(content, i) in link.contents" :key="content.to" class="py-1 text-sm">
+                    <a
+                      :href="menu + link.to + content.to"
+                      class="text-gray-600"
+                      :class="{'text-coleus-lightgreen': current === i}"
+                      @click.prevent="scrollTo(content.to)"
+                    >{{ content.name }}</a>
+                  </li>
+                </ul>-->
+              </li>
+            </ul>
+          </template>
+        </div>
         <template v-for="(group, index) in list">
           <h3 :key="`title-${index}`" class="uppercase text-gray-500 pb-2">{{ group.title }}</h3>
           <ul :key="`list-${index}`" class="pb-8">
@@ -62,6 +88,15 @@ export default {
   data() {
     return { current: 0, setInter: null, showNav: false }
   },
+  apollo: {
+    books: {
+      query: require('~/graphql/aside.gql'),
+      prefetch: ({ route }) => ({ book: route.params.book }),
+      variables() {
+        return { book: this.$route.params.book }
+      }
+    }
+  },
   computed: {
     list() {
       // this.$store.state.menu[this.$route.params.section] ||
@@ -83,16 +118,24 @@ export default {
     },
     breadcrumb() {
       let breadcrumb = null
-      this.list.forEach((group) => {
-        group.links.forEach((link) => {
-          //           (this.$route.params.slug &&
-          //   link.to === '/' + this.$route.params.slug) ||
-          // (!this.$route.params.slug && (link.to === '' || link.to === '/'))
-          if (true) {
-            breadcrumb = { group: group.title, title: link.name }
-          }
+      if (this.books && this.books.length) {
+        this.books[0].pages.forEach((group) => {
+          group.pages.forEach((link) => {
+            breadcrumb = { group: group.title, title: link.title }
+          })
         })
-      })
+      }
+      // this.list.forEach((group) => {
+      //   group.links.forEach((link) => {
+      //     //           (this.$route.params.slug &&
+      //     //   link.to === '/' + this.$route.params.slug) ||
+      //     // (!this.$route.params.slug && (link.to === '' || link.to === '/'))
+      //     if (true) {
+      //       breadcrumb = { group: group.title, title: link.name }
+      //     }
+      //   })
+      // })
+      console.log(breadcrumb)
       return breadcrumb
     },
     contents() {

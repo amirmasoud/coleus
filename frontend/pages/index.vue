@@ -1,7 +1,7 @@
 <template>
   <div>
     <coleus-container>
-      <div class="flex flex-wrap flex-row-reverse mb-4">
+      <div class="flex flex-wrap flex-row mb-4">
         <nuxt-link
           class="w-full md:w-1/4 group"
           v-for="user in users"
@@ -27,13 +27,6 @@
         </nuxt-link>
       </div>
     </coleus-container>
-    <!-- <home-welcome /> -->
-    <!-- <home-why /> -->
-    <!-- <home-companies /> -->
-    <!-- <home-modes /> -->
-    <!-- <home-targets/>
-    <home-features/>-->
-    <!-- <home-sponsors /> -->
   </div>
 </template>
 
