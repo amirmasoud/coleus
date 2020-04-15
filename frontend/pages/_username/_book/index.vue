@@ -42,14 +42,11 @@
             <div v-for="page in book.pages" :key="page.id">
               <strong class="block py-2 px-4 mb-1">{{ page.title }}</strong>
               <div v-for="subpage in page.pages" :key="subpage.id">
-                <p>{{ subpage.title }}</p>
+                <NuxtLink
+                  class="no-underline py-2 px-2"
+                  :to="{ name: 'username-book-page', params: { page: subpage.id }}"
+                >{{ subpage.title }}</NuxtLink>
               </div>
-              <!-- <NuxtLink
-                v-else
-                class="no-underline text-davys-grey block py-2 px-2 hover:text-smoky-black-dark"
-                :class="{ 'font-bold border-l-4 border-sweet-brown text-smoky-black-dark bg-smoky-black': item.id == $route.params.id }"
-                :to="{ name: 'book-slug-page-id', params: { slug: $route.params.slug, id: item.id }}"
-              >{{ item.title }}</NuxtLink>-->
             </div>
           </div>
         </div>
