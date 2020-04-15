@@ -3,6 +3,7 @@ query Pages($page: bigint) {
     id
     title
     blocks(order_by: {order: asc}) {
+      id
       content
       type
     }

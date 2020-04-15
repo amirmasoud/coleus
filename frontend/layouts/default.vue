@@ -17,27 +17,55 @@ export default {
     coleusHeader,
     coleusFooter
   },
-  data () {
+  data() {
     return {
       action: ''
     }
   },
   watch: {
-    $route () {
+    $route() {
       this.action = ''
     }
   },
-  head () {
+  head() {
     let canonical = `https://coleus.app${this.$route.path}`
     const link = [
       { rel: 'canonical', href: canonical },
-      { rel: 'alternate', hreflang: 'en', href: `https://coleus.app${this.$route.path}` },
-      { rel: 'alternate', hreflang: 'zh', href: `https://zh.coleus.app${this.$route.path}` },
-      { rel: 'alternate', hreflang: 'ru', href: `https://ru.coleus.app${this.$route.path}` },
-      { rel: 'alternate', hreflang: 'ja', href: `https://ja.coleus.app${this.$route.path}` },
-      { rel: 'alternate', hreflang: 'ko', href: `https://ko.coleus.app${this.$route.path}` },
-      { rel: 'alternate', hreflang: 'fr', href: `https://fr.coleus.app${this.$route.path}` },
-      { rel: 'alternate', hreflang: 'id', href: `https://id.coleus.app${this.$route.path}` }
+      {
+        rel: 'alternate',
+        hreflang: 'en',
+        href: `https://coleus.app${this.$route.path}`
+      },
+      {
+        rel: 'alternate',
+        hreflang: 'zh',
+        href: `https://zh.coleus.app${this.$route.path}`
+      },
+      {
+        rel: 'alternate',
+        hreflang: 'ru',
+        href: `https://ru.coleus.app${this.$route.path}`
+      },
+      {
+        rel: 'alternate',
+        hreflang: 'ja',
+        href: `https://ja.coleus.app${this.$route.path}`
+      },
+      {
+        rel: 'alternate',
+        hreflang: 'ko',
+        href: `https://ko.coleus.app${this.$route.path}`
+      },
+      {
+        rel: 'alternate',
+        hreflang: 'fr',
+        href: `https://fr.coleus.app${this.$route.path}`
+      },
+      {
+        rel: 'alternate',
+        hreflang: 'id',
+        href: `https://id.coleus.app${this.$route.path}`
+      }
     ]
     link.forEach((l) => {
       if (l.href.slice(-1) !== '/') {
