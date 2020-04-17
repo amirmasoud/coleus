@@ -4,7 +4,7 @@
     <main class="lg:block relative pt-24 lg:pt-24" :class="{'hidden': action}">
       <nuxt />
     </main>
-    <coleus-footer class="pb-16 lg:pb-0 lg:block" :class="{'hidden': action}" />
+    <!-- <coleus-footer class="pb-16 lg:pb-0 lg:block" :class="{'hidden': action}" /> -->
   </div>
 </template>
 

@@ -8,17 +8,18 @@
       <template v-if="action === ''">
         <coleus-container class="flex items-center lg:py-6">
           <!-- Right Logo -->
-          <a
-            class="inline-block text-coleus-gray h-7 lg:h-10 z-10 ml-6 ml-auto"
-            href="/"
-            @click.prevent="$router.push('/')"
-            @click.right.stop.prevent="$router.push('/design')"
-          >
+          <nuxt-link :to="{ name: 'index' }">
             <h1 class="m-0 h-0 w-0 overflow-hidden"></h1>
             <coleus-logo class="h-6 lg:h-8" />
-          </a>
+          </nuxt-link>
           <!-- Center Navigation -->
           <ul class="hidden lg:flex lg:pt-1 xl:pt-0 text-center mx-auto">
+            <li class="header_nav_link xl:px-4 lg:py-0 lg:px-2 py-2">
+              <nuxt-link
+                class="block p-2 font-medium uppercase hover:no-underline hover:text-coleus-lightgreen"
+                :to="{ name: 'index' }"
+              >شاعران</nuxt-link>
+            </li>
             <li class="header_nav_link xl:px-4 lg:py-0 lg:px-2 py-2">
               <nuxt-link
                 class="block p-2 font-medium uppercase hover:no-underline hover:text-coleus-lightgreen"
@@ -54,7 +55,7 @@
         <!-- Right Action -->
         <a
           href="#"
-          class="block flex p-2 -m-2 items-center justify-center text-coleus-gray hover:text-coleus-lightgreen z-10 lg:hidden"
+          class="absolute flex p-2 -m-2 items-center justify-center text-coleus-gray hover:text-coleus-lightgreen z-10 lg:hidden"
           :class="action === 'search' ? 'pt-3' : ''"
           @click.prevent="$emit('change', '')"
         >
@@ -75,6 +76,17 @@
             :class="{'text-coleus-lightgreen': action === 'books'}"
           />
           <span class="block text-xs md:text-base md:pl-3 font-medium text-gray">کتاب‌ها</span>
+        </nuxt-link>
+        <nuxt-link
+          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-coleus-lightgreen text-center visited:text-coleus-gray"
+          :to="{ name: 'index' }"
+        >
+          <component
+            :is="'coleus-users-icon'"
+            class="inline-block h-5 fill-current mb-1"
+            :class="{'text-coleus-lightgreen': action === 'users'}"
+          />
+          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray">شاعران</span>
         </nuxt-link>
       </div>
     </nav>

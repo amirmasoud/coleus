@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <coleus-search-icon class="block absolute text-gray-600 z-10 h-4 mt-3 ml-3 fill-current" />
+  <div class="relative">
     <input
       id="algolia"
       v-model="q"
@@ -10,6 +9,7 @@
       placeholder="جستجو"
       dir="rtl"
     >
+    <coleus-search-icon class="block absolute text-gray-600 z-10 h-4 mt-3 ml-3 left-0 top-0 fill-current" />
   </div>
 </template>
 
@@ -55,13 +55,13 @@ export default {
   },
   methods: {
     addInstantSearch () {
-      window.docsearch({
-        apiKey: process.env.DOC_SEARCH_API_KEY,
-        indexName: 'nuxtjs',
-        inputSelector: '#algolia',
-        algoliaOptions: { facetFilters: [`tags:${this.$store.state.locale}`] },
-        debug: true // Set debug to true if you want to inspect the dropdown
-      })
+      // window.docsearch({
+      //   apiKey: process.env.DOC_SEARCH_API_KEY,
+      //   indexName: 'nuxtjs',
+      //   inputSelector: '#algolia',
+      //   algoliaOptions: { facetFilters: [`tags:${this.$store.state.locale}`] },
+      //   debug: true // Set debug to true if you want to inspect the dropdown
+      // })
     },
     reset () {
       // todo call API
