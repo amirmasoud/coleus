@@ -19,15 +19,11 @@
           </a>
           <!-- Center Navigation -->
           <ul class="hidden lg:flex lg:pt-1 xl:pt-0 text-center mx-auto">
-            <li
-              v-for="link in links"
-              :key="link.icon"
-              class="header_nav_link xl:px-4 lg:py-0 lg:px-2 py-2"
-            >
+            <li class="header_nav_link xl:px-4 lg:py-0 lg:px-2 py-2">
               <nuxt-link
                 class="block p-2 font-medium uppercase hover:no-underline hover:text-coleus-lightgreen"
-                :to="{ name: 'section-slug', params: { section: link.icon } }"
-              >{{ $store.state.lang.links[link.text] || link.text }}</nuxt-link>
+                :to="{ name: 'books' }"
+              >کتاب‌ها</nuxt-link>
             </li>
           </ul>
           <!-- Left Action -->
@@ -52,9 +48,8 @@
             :is="'coleus-' + action + '-icon'"
             class="block h-6 text-coleus-lightgreen fill-current"
           />
-          <span
-            class="block text-lg font-medium uppercase text-coleus-gray pl-4 h-6"
-          >{{ $store.state.lang.links[action] || action }}</span>
+          <span class="block text-lg font-medium uppercase text-coleus-gray pl-4 h-6">{{ action }}</span>
+          <!-- $store.state.lang.links[action] -->
         </div>
         <!-- Right Action -->
         <a
@@ -71,18 +66,15 @@
     <nav class="header_mobile_nav block lg:hidden">
       <div class="flex justify-between">
         <nuxt-link
-          v-for="link in links"
-          :key="link.icon"
           class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-coleus-lightgreen text-center visited:text-coleus-gray"
-          :to="{ name: 'section-slug', params: { section: link.icon } }"
-          @click.prevent.native="$emit('change', action === link.icon ? '' : ($route.params.section !== link.icon ? '' : link.icon))"
+          :to="{ name: 'books' }"
         >
           <component
-            :is="'coleus-' + link.icon + '-icon'"
+            :is="'coleus-books-icon'"
             class="inline-block h-5 fill-current mb-1"
-            :class="{'text-coleus-lightgreen': action === link.icon}"
+            :class="{'text-coleus-lightgreen': action === 'books'}"
           />
-          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray">{{ link.text }}</span>
+          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray">کتاب‌ها</span>
         </nuxt-link>
       </div>
     </nav>
@@ -124,7 +116,6 @@ import coleusUsersIcon from '@/components/svg/Users'
 import coleusSearchIcon from '@/components/svg/Search'
 import coleusSearch from '@/components/partials/Search'
 import coleusArrowLeft from '@/components/svg/ArrowLeft'
-import localeManager from '@/mixins/localeManager'
 
 export default {
   components: {
@@ -136,7 +127,6 @@ export default {
     coleusArrowLeft,
     coleusGlobe
   },
-  mixins: [localeManager],
   model: {
     prop: 'action',
     event: 'change'
@@ -171,7 +161,8 @@ export default {
       return '/' + this.action
     },
     sublinks() {
-      return this.$store.state.menu[this.action] || []
+      return []
+      // return this.$store.state.menu[this.action] || []
     }
   },
   methods: {

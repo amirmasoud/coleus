@@ -1,0 +1,9 @@
+query Books {
+  books {
+    id
+    order
+    slug
+    medium
+    title
+  }
+}

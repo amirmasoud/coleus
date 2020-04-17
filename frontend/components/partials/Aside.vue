@@ -112,7 +112,7 @@ export default {
       //   })
       // })
       return breadcrumb
-    },
+    }
     // contents() {
     //   const c = []
     //   this.list.forEach((group) => {

@@ -35,24 +35,18 @@
 </template>
 
 <script>
-import NewsletterForm from './NewsletterForm'
 import coleusSun from '@/components/svg/Sun'
 import coleusMoon from '@/components/svg/Moon'
 import coleusGlobe from '@/components/svg/Globe'
 import coleusLogo from '@/components/svg/Mountains'
-import localeManager from '@/mixins/localeManager'
 
 export default {
   components: {
-    NewsletterForm,
     coleusSun,
     coleusMoon,
     coleusGlobe,
     coleusLogo
   },
-  mixins: [
-    localeManager
-  ],
   data () {
     return {
       themes: [
@@ -81,7 +75,7 @@ export default {
   computed: {
     currentTheme: {
       get () {
-        return this.themes.map(l => l.value).indexOf(this.$store.state.theme)
+        // return this.themes.map(l => l.value).indexOf(this.$store.state.theme)
       },
       set (value) {
         this.$store.commit('setTheme', this.themes[value].value)

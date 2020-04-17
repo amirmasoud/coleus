@@ -1,77 +1,33 @@
 {
-  "name": "nuxtjs.org",
-  "version": "1.1.0",
-  "description": "Nuxt.js official website",
-  "main": "index.js",
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.28",
-    "@fortawesome/free-solid-svg-icons": "^5.13.0",
-    "@fortawesome/vue-fontawesome": "^0.1.9",
-    "@nuxt/http": "^0.4.0",
-    "@nuxtjs/apollo": "^4.0.0-rc19",
-    "@nuxtjs/pwa": "^3.0.0-beta.20",
-    "@nuxtjs/tailwindcss": "1.4.0",
-    "@snackbar/core": "^1.7.0",
-    "aos": "^3.0.0-beta.6",
-    "degit": "^2.8.0",
-    "front-matter": "^3.1.0",
-    "fs-extra": "^9.0.0",
-    "get-port": "^5.1.1",
-    "glob": "^7.1.6",
-    "graphql-tag": "^2.10.3",
-    "highlight.js": "^9.18.1",
-    "intersection-observer": "^0.7.0",
-    "lodash": "^4.17.15",
-    "marked": "^0.8.2",
-    "micro": "^9.3.4",
-    "mousetrap": "^1.6.5",
-    "node-fetch": "^2.6.0",
-    "normalize.css": "^8.0.1",
-    "nuxt": "^2.12.2",
-    "nuxt-svg-loader": "^1.2.0",
-    "octicons": "^8.5.0",
-    "v-lazy-image": "^1.4.0",
-    "vue-clickaway": "^2.2.2",
-    "vue-progressive-image": "^3.2.0"
-  },
-  "devDependencies": {
-    "@nuxtjs/dotenv": "^1.4.1",
-    "@nuxtjs/eslint-config": "^2.0.2",
-    "@nuxtjs/eslint-module": "^1.1.0",
-    "@nuxtjs/google-analytics": "^2.2.3",
-    "@nuxtjs/netlify-files": "^1.0.0",
-    "@nuxtjs/proxy": "^1.3.3",
-    "@nuxtjs/style-resources": "^1.0.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.8.0",
-    "globby": "^11.0.0",
-    "node-sass": "^4.13.1",
-    "sass-loader": "^8.0.2",
-    "tailwindcss-dir": "^4.0.0"
-  },
+  "name": "coleus-frontend",
+  "version": "1.0.0",
+  "description": "Coleus frontend application",
+  "author": "Amirmasoud Sheydaei",
+  "private": true,
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "build:check": "nuxt build --analyze",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --ignore-pattern modules/ --ignore-pattern plugins/ga.js .",
-    "precommit": "npm run lint"
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nuxt/nuxtjs.org.git"
+  "dependencies": {
+    "@nuxtjs/apollo": "^4.0.0-rc19",
+    "@nuxtjs/dotenv": "^1.4.0",
+    "@nuxtjs/pwa": "^3.0.0-0",
+    "graphql-tag": "^2.10.3",
+    "mousetrap": "^1.6.5",
+    "nuxt": "^2.0.0"
   },
-  "keywords": [
-    "nuxt.js",
-    "vuejs",
-    "nextjs",
-    "js"
-  ],
-  "author": "alexchopin",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nuxt/nuxtjs.org/issues"
-  },
-  "homepage": "https://github.com/nuxt/nuxtjs.org#readme"
+  "devDependencies": {
+    "@nuxtjs/eslint-config": "^2.0.2",
+    "@nuxtjs/eslint-module": "^1.1.0",
+    "@nuxtjs/global-components": "^0.6.1",
+    "@nuxtjs/google-analytics": "^2.2.3",
+    "@nuxtjs/tailwindcss": "^1.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2"
+  }
 }

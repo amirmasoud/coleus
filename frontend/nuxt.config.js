@@ -1,95 +1,71 @@
-require('dotenv').config()
-
-const locale = process.env.NUXT_LOCALE || 'en'
-const polyfills = [
-  'Promise',
-  'Object.assign',
-  'Object.values',
-  'Array.prototype.find',
-  'Array.prototype.findIndex',
-  'Array.prototype.includes',
-  'String.prototype.includes',
-  'String.prototype.startsWith',
-  'String.prototype.endsWith',
-  'IntersectionObserver'
-]
 
 export default {
-  // modern: 'client',
-
+  mode: 'universal',
   /*
-  ** Global .env variables
+  ** Headers of the page
   */
-  env: {
-    appUrl: process.env.APP_URL,
-    apiUrl: process.env.API_URL,
-    gqlUrl: process.env.GQL_URL,
-    appName: process.env.APP_NAME || 'نگارین',
-    appLocale: process.env.APP_LOCALE || 'fa',
-    googleAuth: !!process.env.GOOGLE_CLIENT_ID,
-    githubAuth: !!process.env.GITHUB_CLIENT_ID
-  },
   head: {
+    title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'preconnect', href: 'https://www.google-analytics.com' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-  buildModules: [
-    '@nuxtjs/eslint-module',
-    ['~/modules/docs/', { port: 3001 }],
-    '~/modules/crawler/',
-    '~/modules/static/',
-    '~/modules/components/',
-    // https://github.com/nuxt-community/netlify-files-module
-    '@nuxtjs/netlify-files',
-    // https://github.com/nuxt-community/style-resources-module
-    '@nuxtjs/style-resources',
-    // https://github.com/Developmint/nuxt-svg-loader/
-    'nuxt-svg-loader',
-    // https://github.com/Atinux/nuxt-tailwindcss/
-    '@nuxtjs/tailwindcss',
-    // https://pwa.nuxtjs.org
-    '@nuxtjs/pwa'
+  /*
+  ** Customize the progress-bar color
+  */
+  loading: { color: '#fff' },
+  /*
+  ** Global CSS
+  */
+  css: [
   ],
-  modules: [
-    // https://http.nuxtjs.or
-    '@nuxt/http',
-    '@nuxtjs/apollo',
-    '@nuxtjs/dotenv'
-  ],
-  http: {
-    proxy: true
-  },
+  /*
+  ** Plugins to load before mounting the App
+  */
   plugins: [
-    '~/plugins/init.js',
-    '~components/global',
-    '~/plugins/intersection-observer.client.js',
-    '~/plugins/ga.client.js',
-    '~/plugins/adblock.client.js',
-    '~/plugins/newsletter.client.js',
-    // '~/plugins/progressive.js'
   ],
-  env: {
-    DOC_SEARCH_API_KEY: process.env.DOC_SEARCH_API_KEY || 'ff80fbf046ce827f64f06e16f82f1401',
-    NUXT_API: process.env.NUXT_API || 'https://api.nuxtjs.com',
-    LOCALE: locale
-  },
-  manifest: {
-    lang: locale
-  },
-  loading: { color: '#41B883' },
-  generate: {
-    fallback: true,
-    interval: 100
+  /*
+  ** Nuxt.js dev-modules
+  */
+  buildModules: [
+    // Doc: https://github.com/nuxt-community/eslint-module
+    '@nuxtjs/eslint-module',
+    // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
+    '@nuxtjs/tailwindcss',
+    // Doc: https://github.com/nuxt-community/analytics-module
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-12301-2'
+    }],
+    // Doc: https://github.com/nuxt-community/global-components
+    '@nuxtjs/global-components'
+  ],
+  /*
+  ** Nuxt.js modules
+  */
+  modules: [
+    '@nuxtjs/pwa',
+    // Doc: https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv',
+    '@nuxtjs/apollo',
+  ],
+  /*
+  ** Build configuration
+  */
+  build: {
+    /*
+    ** You can extend webpack config here
+    */
+    extend(config, ctx) {
+    }
   },
   apollo: {
     clientConfigs: {
       default: '~/plugins/apollo-default-config.js'
     }
-  },
+  }
 }

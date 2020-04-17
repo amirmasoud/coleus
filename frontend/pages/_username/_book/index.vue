@@ -2,7 +2,7 @@
   <div v-if="books && books.length">
     <div class="py-2 mx-4 border-b border-platinum">
       <div class="flex justify-start">
-        <user-small-image :user="books[0].book_users[0].user" />
+        <img :src="user.small" class="w-12 h-12 shadow rounded-full float-right" />
         <div class="mr-2 float-right">
           <h4>{{ books[0].book_users[0].user.name }}</h4>
           <small>{{ books[0].book_users[0].user.username }}</small>
@@ -56,8 +56,7 @@
 </template>
 
 <script>
-import BookCard from '~/components/cards/Book'
-import UserSmallImage from '~/components/images/UserSmall'
+import BookCard from '~/components/partials/cards/Book'
 
 export default {
   head() {
@@ -67,7 +66,6 @@ export default {
   },
 
   components: {
-    UserSmallImage,
     BookCard
   },
 
