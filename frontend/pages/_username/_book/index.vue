@@ -2,7 +2,7 @@
   <div v-if="books && books.length">
     <div class="py-2 mx-4 border-b border-platinum">
       <div class="flex justify-start">
-        <img :src="user.small" class="w-12 h-12 shadow rounded-full float-right" />
+        <img :src="books[0].book_users[0].user.small" class="w-12 h-12 shadow rounded-full float-right" />
         <div class="mr-2 float-right">
           <h4>{{ books[0].book_users[0].user.name }}</h4>
           <small>{{ books[0].book_users[0].user.username }}</small>
