@@ -1,7 +1,7 @@
 <template>
   <div
     itemtype="http://schema.org/Book"
-    class="max-w-md shadow-md bg-white rounded overflow-hidden border border-gray-300"
+    class="max-w-md shadow-md bg-white rounded-br-none rounded-bl-none rounded-tr rounded-tl overflow-hidden border border-gray-300"
   >
     <no-ssr>
       <progressive-img
@@ -9,7 +9,7 @@
         :src="book.medium"
         :placeholder="book.thumbnail"
         :blur="30"
-        aspect-ratio="1.5"
+        :aspect-ratio="1.5"
       />
     </no-ssr>
     <div class="px-4">

@@ -15,6 +15,39 @@
     }
 }
 
+.rounded-sm .progressive-image-main {
+    @apply rounded-sm;
+}
+
+.rounded .progressive-image-main {
+    @apply rounded;
+}
+
+.rounded-md .progressive-image-main {
+    @apply rounded;
+}
+
+.rounded-lg .progressive-image-main {
+    @apply rounded-lg;
+}
+
+.rounded-full .progressive-image-main {
+    @apply rounded-full;
+}
+
+.rounded-tr .progressive-image-main {
+    @apply rounded-tr;
+}
+.rounded-tl .progressive-image-main {
+    @apply rounded-tl;
+}
+.rounded-br-none .progressive-image-main {
+    @apply rounded-br-none;
+}
+.rounded-bl-none .progressive-image-main {
+    @apply rounded-bl-none;
+}
+
 /* purgecss end ignore */
 
 /* NotoSans */

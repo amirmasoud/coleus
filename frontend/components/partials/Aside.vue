@@ -1,7 +1,7 @@
 <template>
   <aside
     :class="{ 'opacity-25': false }"
-    class="opacity-transition block bg-gray-100 mt-8 -mx-4 lg:bg-transparent lg:mt-0 lg:mx-0 lg:inset-0 z-90 lg:mb-0 lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-1/4 lg:block"
+    class="opacity-transition block bg-white mt-8 -mx-4 lg:bg-transparent lg:mt-0 lg:mx-0 lg:inset-0 z-90 lg:mb-0 lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-1/4 lg:block"
   >
     <div
       class="h-full overflow-y-auto scrolling-touch text-center lg:text-right lg:h-auto lg:block lg:relative lg:sticky lg:top-24"
@@ -33,12 +33,15 @@
                 class="py-2"
               >
                 <a
-                  class="text-gray-700 hover:text-coleus-lightgreen cursor-pointer"
-                  :class="{'text-coleus-lightgreen': false}"
+                  class="text-gray-700 hover:text-indigo-400 cursor-pointer"
+                  :class="{'text-indigo-500': isCurrentPage(subpage.id) && !loading, 'text-indigo-400': isCurrentPage(subpage.id) && loading}"
                   @click.prevent="fetchContent($route.params.username, $route.params.book, subpage.id)"
                 >
                   {{ subpage.title }}
-                  <coleus-spinner v-if="currentPage == subpage.id && loading" class="w-6 -mr-8 -mt-8 absolute" />
+                  <coleus-spinner
+                    v-if="isCurrentPage(subpage.id) && loading"
+                    class="w-6 -mr-8 -mt-8 sticky"
+                  />
                 </a>
               </li>
             </ul>
@@ -151,11 +154,18 @@ export default {
   //   })
   // },
   methods: {
+    isCurrentPage(id) {
+      return (
+        (this.currentPage == 0
+          ? parseInt(this.$route.params.page)
+          : this.currentPage) == id
+      )
+    },
     addHashToLocation(params) {
       history.pushState({}, null, params)
     },
     fetchContent(username, book, page) {
-      this.currentPage = page
+      this.currentPage = parseInt(page)
       this.addHashToLocation(`/${username}/${book}/${page}`)
       this.$root.$emit('content-changed', page)
     },
