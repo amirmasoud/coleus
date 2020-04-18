@@ -2,7 +2,6 @@
   <div class="relative">
     <input
       id="algolia"
-      v-model="q"
       class="coleus-search-input"
       type="text"
       name="search"

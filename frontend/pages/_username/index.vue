@@ -2,34 +2,25 @@
   <coleus-container>
     <div v-if="users && users.length">
       <div v-for="user in users" :key="user.id">
-        <div class="py-2">
-          <div class="mb-8 p-2 rounded-full">
-            <div class="flex flex-wrap mb-24 items-center w-full rounded-lg bg-indigo-600 p-4">
-              <div class="w-1/5 relative">
-                <no-ssr>
-                  <progressive-img
-                    class="-mb-40 shadow rounded-full border border-gray-300"
-                    :src="user.medium"
-                    :placeholder="user.thumbnail"
-                    :blur="30"
-                    :aspect-ratio="1"
-                  />
-                </no-ssr>
-              </div>
-              <div class="w-4/5 relative">
-                <div class="absolute mt-16 mr-4">
-                  <h1 class="font-semibold text-5xl">{{ user.name }}</h1>
-                  <div class="flex justify-between font-light" dir="rtl">
-                    <div class="text-gray-500">{{ user.username }}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="lg:py-2">
+          <img src="/cover.jpg" class="cover-profile object-cover h-16 sm:h-32 w-full -mb-8 sm:-mb-16 sm:rounded-lg shadow" />
+          <div class="mx-auto w-20 sm:w-32 -mb-4">
+            <no-ssr>
+              <progressive-img
+                class="shadow-lg rounded-full border-4 border-white"
+                :src="user.medium"
+                :placeholder="user.thumbnail"
+                :blur="30"
+                :aspect-ratio="1"
+              />
+            </no-ssr>
           </div>
+          <h1 class="font-semibold text-center mt-4 text-2xl sm:text-3xl lg:text-4xl">{{ user.name }}</h1>
+          <div class="text-gray-500 text-center font-thin text-sm">{{ user.username }}</div>
         </div>
         <div
           v-if="user.book_users && user.book_users.length"
-          class="flex content-start flex-wrap mx-2"
+          class="flex content-start flex-wrap"
         >
           <div
             v-for="{book} in user.book_users"
@@ -78,3 +69,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.cover-profile {
+  filter: blur(2px);
+}
+</style>
