@@ -6,12 +6,11 @@ query FetchUserByUsername($username: String) {
     original
     photo_url
     placeholder
-    small
     status
     sticky
     thumbnail
     website
-    xsmall
+    small
     book_users {
       book {
         medium
@@ -26,6 +25,9 @@ query FetchUserByUsername($username: String) {
         title
         website
         xsmall
+        pages(where: {parent_id: {_is_null: false}}, order_by: {order: asc}, limit: 1) {
+          id
+        }
       }
     }
   }

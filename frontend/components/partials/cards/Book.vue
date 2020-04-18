@@ -1,8 +1,20 @@
 <template>
-  <div itemtype="http://schema.org/Book" class="max-w-md rounded overflow-hidden border">
-    <img itemprop="image" :src="book.medium" />
-    <div class="px-4 py-2">
-      <div itemprop="name" class="text-lg mb-1 py-1">{{ book.title }}</div>
+  <div
+    itemtype="http://schema.org/Book"
+    class="max-w-md shadow-md bg-white rounded overflow-hidden border border-gray-300"
+  >
+    <no-ssr>
+      <progressive-img
+        itemprop="image"
+        :src="book.medium"
+        :placeholder="book.thumbnail"
+        :blur="30"
+        aspect-ratio="1.5"
+      />
+    </no-ssr>
+    <div class="px-4">
+      <div v-if="$route.name == 'books'" class="text-gray-400 text-sm">{{ book.book_users[0].user.name }}</div>
+      <div itemprop="name" class="text-lg mb-1 pb-3 pt-1">{{ book.title }}</div>
     </div>
   </div>
 </template>

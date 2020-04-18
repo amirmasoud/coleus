@@ -4,6 +4,7 @@ query Book($slug: String) {
     title
     description
     medium
+    thumbnail
     pages(order_by: {order: asc}, where: {parent_id: {_is_null: true}}) {
       id
       title

@@ -11,7 +11,7 @@
     </div>
     <template v-else>
       <div class="container">
-        <coleus-spinner class="mx-auto my-4" />
+        <coleus-spinner class="mx-auto my-4 bg-white rounded-full p-1 shadow" />
       </div>
     </template>
   </coleus-container>

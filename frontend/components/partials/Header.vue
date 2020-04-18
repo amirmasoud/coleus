@@ -2,7 +2,7 @@
   <div class="absolute">
     <!-- Common Header -->
     <header
-      class="header border-b border-gray-300 lg:border-0"
+      class="header lg:border-0"
       :class="action === 'search' ? 'py-4' : 'py-6 lg:py-0'"
     >
       <template v-if="action === ''">
@@ -38,7 +38,6 @@
           <coleus-search class="hidden md:inline-block align-middle" />
         </coleus-container>
         <coleus-container class="hidden lg:block">
-          <hr class="border-b border-t-0 border-gray-300 h-0" />
         </coleus-container>
       </template>
       <coleus-container v-else class="flex justify-between lg:hidden">
@@ -188,10 +187,10 @@ export default {
 
 <style>
 .header {
-  @apply fixed bg-white top-0 left-0 right-0 z-30;
+  @apply fixed bg-gray-100 top-0 left-0 right-0 z-30;
 }
 .header_nav_link a.nuxt-link-active {
-  @apply text-coleus-lightgreen;
+  @apply text-indigo-500;
 }
 .header_mobile_nav {
   @apply fixed bg-white border-t border-gray-300 left-0 bottom-0 right-0 z-30;

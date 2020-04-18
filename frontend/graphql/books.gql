@@ -5,9 +5,11 @@ query Books {
     slug
     medium
     title
+    thumbnail
     book_users {
       user {
         username
+        name
       }
     }
   }
