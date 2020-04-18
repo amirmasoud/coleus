@@ -2,25 +2,27 @@
   <coleus-container>
     <div v-if="users && users.length">
       <div v-for="user in users" :key="user.id">
-        <div class="py-2 mx-4">
-          <div
-            class="max-w-xs mb-8 bg-white border border-gray-300 flex flex-wrap items-center p-2 border border-gray-200 shadow-md rounded-full group-hover:shadow-lg transition-shadow duration-500 ease-in-out"
-          >
-            <div class="w-1/4 max-h-12 -mb-2">
-              <no-ssr>
-                <progressive-img
-                  class="shadow rounded-full border border-gray-300"
-                  :src="user.small"
-                  :placeholder="user.thumbnail"
-                  :blur="30"
-                  :aspect-ratio="1"
-                />
-              </no-ssr>
-            </div>
-            <div class="w-3/4 flex flex-col text-right pr-4">
-              <h1 class="font-semibold">{{ user.name }}</h1>
-              <div class="flex justify-between font-light" dir="rtl">
-                <div class="text-gray-400">{{ user.username }}</div>
+        <div class="py-2">
+          <div class="mb-8 p-2 rounded-full">
+            <div class="flex flex-wrap mb-24 items-center w-full rounded-lg bg-indigo-600 p-4">
+              <div class="w-1/5 relative">
+                <no-ssr>
+                  <progressive-img
+                    class="-mb-40 shadow rounded-full border border-gray-300"
+                    :src="user.medium"
+                    :placeholder="user.thumbnail"
+                    :blur="30"
+                    :aspect-ratio="1"
+                  />
+                </no-ssr>
+              </div>
+              <div class="w-4/5 relative">
+                <div class="absolute mt-16 mr-4">
+                  <h1 class="font-semibold text-5xl">{{ user.name }}</h1>
+                  <div class="flex justify-between font-light" dir="rtl">
+                    <div class="text-gray-500">{{ user.username }}</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

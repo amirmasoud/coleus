@@ -1,7 +1,7 @@
 <template>
   <coleus-container>
     <div class="lg:flex">
-      <coleus-aside class="hidden lg:block" :loading="$apollo.loading" />
+      <coleus-aside class="hidden lg:block bg-white" :loading="$apollo.loading" />
       <div class="min-h-screen w-full lg:static lg:max-h-full lg:overflow-visible lg:w-3/4">
         <div class="-mx-4 lg:mx-0 flex flex-col-reverse lg:flex-row">
           <div

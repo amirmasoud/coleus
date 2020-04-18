@@ -27,9 +27,12 @@ export default {
 
 <style lang="scss">
 .coleus-search-input {
-  @apply bg-gray-200 border border-gray-300 text-coleus-gray font-medium px-4 pl-10 rounded-full h-10 outline-none w-full;
+  @apply bg-gray-200 text-coleus-gray font-medium px-4 pl-10 rounded-full h-10 outline-none w-full transition duration-300 ease-in-out;
   ::placeholder {
     @apply text-gray-600;
+  }
+  &:focus {
+    @apply bg-white shadow transition duration-300 ease-in-out;
   }
 }
 </style>

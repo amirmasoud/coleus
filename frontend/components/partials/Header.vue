@@ -16,21 +16,23 @@
           <ul class="hidden lg:flex lg:pt-1 xl:pt-0 text-center mx-auto">
             <li class="header_nav_link xl:px-4 lg:py-0 lg:px-2 py-2">
               <nuxt-link
-                class="block p-2 font-medium uppercase hover:no-underline hover:text-coleus-lightgreen"
+                class="block p-2 font-medium uppercase hover:no-underline hover:text-indigo-500"
                 :to="{ name: 'index' }"
+                exact
               >شاعران</nuxt-link>
             </li>
             <li class="header_nav_link xl:px-4 lg:py-0 lg:px-2 py-2">
               <nuxt-link
-                class="block p-2 font-medium uppercase hover:no-underline hover:text-coleus-lightgreen"
+                class="block p-2 font-medium uppercase hover:no-underline hover:text-indigo-500"
                 :to="{ name: 'books' }"
+                exact
               >کتاب‌ها</nuxt-link>
             </li>
           </ul>
           <!-- Left Action -->
           <a
             href="#"
-            class="block md:hidden flex p-2 -m-2 items-center justify-center text-coleus-gray hover:text-coleus-lightgreen z-10 lg:hidden"
+            class="block md:hidden flex p-2 -m-2 items-center justify-center text-coleus-gray hover:text-indigo-500 z-10 lg:hidden"
             @click.prevent="$emit('change', 'search')"
           >
             <coleus-search-icon class="block h-5 fill-current" />
@@ -46,7 +48,7 @@
         <div v-else class="flex items-end">
           <component
             :is="'coleus-' + action + '-icon'"
-            class="block h-6 text-coleus-lightgreen fill-current"
+            class="block h-6 text-indigo-500 fill-current"
           />
           <span class="block text-lg font-medium uppercase text-coleus-gray pl-4 h-6">{{ action }}</span>
           <!-- $store.state.lang.links[action] -->
@@ -54,7 +56,7 @@
         <!-- Right Action -->
         <a
           href="#"
-          class="absolute flex p-2 -m-2 items-center justify-center text-coleus-gray hover:text-coleus-lightgreen z-10 lg:hidden"
+          class="absolute flex p-2 -m-2 items-center justify-center text-coleus-gray hover:text-indigo-500 z-10 lg:hidden"
           :class="action === 'search' ? 'pt-3' : ''"
           @click.prevent="$emit('change', '')"
         >
@@ -66,24 +68,24 @@
     <nav class="header_mobile_nav block lg:hidden">
       <div class="flex justify-between">
         <nuxt-link
-          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-coleus-lightgreen text-center visited:text-coleus-gray"
+          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
           :to="{ name: 'books' }"
         >
           <component
             :is="'coleus-books-icon'"
             class="inline-block h-5 fill-current mb-1"
-            :class="{'text-coleus-lightgreen': action === 'books'}"
+            :class="{'text-indigo-500': action === 'books'}"
           />
           <span class="block text-xs md:text-base md:pl-3 font-medium text-gray">کتاب‌ها</span>
         </nuxt-link>
         <nuxt-link
-          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-coleus-lightgreen text-center visited:text-coleus-gray"
+          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
           :to="{ name: 'index' }"
         >
           <component
             :is="'coleus-users-icon'"
             class="inline-block h-5 fill-current mb-1"
-            :class="{'text-coleus-lightgreen': action === 'users'}"
+            :class="{'text-indigo-500': action === 'users'}"
           />
           <span class="block text-xs md:text-base md:pl-3 font-medium text-gray">شاعران</span>
         </nuxt-link>
@@ -106,8 +108,8 @@
           <ul :key="`list-${index}`" class="pb-6">
             <li v-for="l in group.links" :key="l.to" class="py-2">
               <nuxt-link
-                class="block text-gray-700 hover:text-coleus-lightgreen"
-                :class="{'text-coleus-lightgreen': path === locale + l.to}"
+                class="block text-gray-700 hover:text-indigo-500"
+                :class="{'text-indigo-500': path === locale + l.to}"
                 :to="locale + l.to"
                 exact
               >{{ l.name }}</nuxt-link>
@@ -190,7 +192,7 @@ export default {
   @apply fixed bg-gray-100 top-0 left-0 right-0 z-30;
 }
 .header_nav_link a.nuxt-link-active {
-  @apply text-indigo-500;
+  @apply text-gray-100 bg-indigo-500 rounded-full;
 }
 .header_mobile_nav {
   @apply fixed bg-white border-t border-gray-300 left-0 bottom-0 right-0 z-30;
