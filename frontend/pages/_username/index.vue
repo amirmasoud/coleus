@@ -30,7 +30,7 @@
             class="p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
           >
             <nuxt-link
-              :to="{name: 'username-book-page', params: { username: user.username, book: book.slug, page: book.pages[0].id }}"
+              :to="{name: 'username-book-parent-page', params: { username: user.username, book: book.slug, parent: book.pages[0].parent_id, page: book.pages[0].id }}"
             >
               <book-card :book="book" class="mx-auto" />
             </nuxt-link>

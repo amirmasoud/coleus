@@ -3,10 +3,6 @@ query Pages($book: String) {
     pages(order_by: {order: asc}, where: {parent_id: {_is_null: true}}) {
       id
       title
-      pages(limit: 10) {
-        id
-        title
-      }
     }
   }
 }

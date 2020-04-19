@@ -1,0 +1,9 @@
+query Child($parent: Int) {
+  pages(
+    where: { parent_id: { _eq: $parent } }
+    order_by: { order: asc }
+    limit: 1
+  ) {
+    id
+  }
+}

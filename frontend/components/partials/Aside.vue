@@ -23,10 +23,18 @@
               :key="`title-${index}`"
               :id="`page-${page.id}`"
               class="uppercase text-gray-500 pb-2"
-            >{{ page.title }}</h3>
-            <ul :key="`list-${index}`" class="pb-8">
+            >
+              <a
+                :href="`/${$route.params.username}/${$route.params.book}/${page.id}`"
+                @click.prevent="fetchChildren(page.id)"
+              >
+                <component class="float-right mt-2 ml-1" :is="isOpen(page)"></component>
+                {{ page.title }}
+              </a>
+            </h3>
+            <ul v-if="showChildren(page.id)" :key="`list-${index}`" class="pb-8 md:pr-4">
               <li
-                v-for="subpage in page.pages"
+                v-for="subpage in pages"
                 :key="subpage.id"
                 :id="`page-${subpage.id}`"
                 @click.prevent="scrollTo(subpage.id)"
@@ -35,13 +43,11 @@
                 <a
                   class="text-gray-700 hover:text-indigo-400 cursor-pointer"
                   :class="{'text-indigo-500': isCurrentPage(subpage.id) && !loading, 'text-indigo-400': isCurrentPage(subpage.id) && loading}"
-                  @click.prevent="fetchContent($route.params.username, $route.params.book, subpage.id)"
+                  @click.prevent="fetchContent(subpage.id)"
+                  :href="`/${$route.params.username}/${$route.params.book}/${parent}/${subpage.id}`"
                 >
                   {{ subpage.title }}
-                  <coleus-spinner
-                    v-if="isCurrentPage(subpage.id) && loading"
-                    class="w-6 -mr-8 -mt-8 sticky"
-                  />
+                  <coleus-aside-spinner v-if="isCurrentPage(subpage.id) && loading" />
                 </a>
               </li>
             </ul>
@@ -55,7 +61,11 @@
 <script>
 import throttle from 'lodash/throttle'
 import coleusCaretDown from '@/components/svg/CaretDown'
+import coleusCaretLeft from '@/components/svg/CaretLeft'
 import coleusTimes from '@/components/svg/Times'
+import coleusAsideSpinner from '@/components/partials/AsideSpinner'
+
+const pageSize = 10
 
 export default {
   props: {
@@ -63,13 +73,18 @@ export default {
   },
   components: {
     coleusCaretDown,
-    coleusTimes
+    coleusCaretLeft,
+    coleusTimes,
+    coleusAsideSpinner
   },
   data: () => ({
     current: 0,
     setInter: null,
     showNav: false,
-    currentPage: 0
+    currentPage: 0,
+    offset: 0,
+    parent: null,
+    parentLoading: false
   }),
   apollo: {
     books: {
@@ -78,27 +93,42 @@ export default {
       variables() {
         return { book: this.$route.params.book }
       }
+    },
+    pages: {
+      debounce: 300,
+      query: require('~/graphql/children.gql'),
+      prefetch: ({ route }) => ({
+        parent: parseInt(route.params.parent),
+        offset: 0
+      }),
+      variables() {
+        return { parent: this.parent, offset: this.offset }
+      },
+      result({ data, loading, error }) {
+        if (process.client) {
+          this.addHashToLocation(
+            `/${this.$route.params.username}/${this.$route.params.book}/${this.parent}/${data.pages[0].id}`
+          )
+        }
+
+        if (data) {
+          this.parentLoading = false
+          return data.pages
+        }
+      }
     }
   },
+  watch: {
+    parent: (newParent) => ({
+      if(newParent) {
+        this.parentLoading = true
+      }
+    })
+  },
+  mounted() {
+    this.parent = this.$route.params.parent
+  },
   computed: {
-    // list() {
-    //   // this.$store.state.menu[this.$route.params.section] ||
-    //   return [
-    //     { title: 'title', links: [{ to: '/', name: 'name' }] },
-    //     { title: 'title', links: [{ to: '/', name: 'name' }] }
-    //   ]
-    // },
-    // visible() {
-    //   return this.$store.state.visibleAffix
-    // },
-    // path() {
-    //   return this.$route.path.slice(-1) === '/'
-    //     ? this.$route.path.slice(0, -1)
-    //     : this.$route.path
-    // },
-    // menu() {
-    //   return '/' + this.$route.params.section
-    // },
     breadcrumb() {
       let breadcrumb = null
       if (this.books && this.books.length) {
@@ -108,56 +138,30 @@ export default {
           })
         })
       }
-      // this.list.forEach((group) => {
-      //   group.links.forEach((link) => {
-      //     //           (this.$route.params.slug &&
-      //     //   link.to === '/' + this.$route.params.slug) ||
-      //     // (!this.$route.params.slug && (link.to === '' || link.to === '/'))
-      //     if (true) {
-      //       breadcrumb = { group: group.title, title: link.name }
-      //     }
-      //   })
-      // })
       return breadcrumb
     }
-    // contents() {
-    //   const c = []
-    //   this.list.forEach((group) => {
-    //     if (Array.isArray(group.links) && !c.length) {
-    //       const l = group.links.find((link) => {
-    //         return this.path === this.menu + link.to
-    //       })
-    //       if (l && l.contents) {
-    //         l.contents.forEach((content) => {
-    //           const el = document.getElementById(content.to.slice(1))
-    //           if (el) {
-    //             c.push(el.offsetTop)
-    //           }
-    //         })
-    //       }
-    //     }
-    //   })
-    //   return c
-    // }
   },
-
-  // mounted() {
-  //   this.$nextTick(() => {
-  //     window.addEventListener(
-  //       'scroll',
-  //       throttle(() => this.scrolled(), 100)
-  //     )
-  //     if (this.$route.hash.length) {
-  //       this.scrollTo(this.$route.hash)
-  //     }
-  //     this.scrolled()
-  //   })
-  // },
   methods: {
+    showChildren(pageId) {
+      return pageId == parseInt(this.parent)
+    },
+    fetchChildren(newParent) {
+      this.parent = newParent
+      this.pages = []
+    },
+    isOpen(page) {
+      if (this.parentLoading && page.id == parseInt(this.parent)) {
+        return 'coleus-aside-spinner'
+      } else if (!this.parentLoading && page.id == parseInt(this.parent)) {
+        return 'coleus-caret-down'
+      } else {
+        return 'coleus-caret-left'
+      }
+    },
     scrollToTop() {
       const c = document.documentElement.scrollTop || document.body.scrollTop
       if (c > 0) {
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       }
     },
     isCurrentPage(id) {
@@ -170,65 +174,16 @@ export default {
     addHashToLocation(params) {
       history.pushState({}, null, params)
     },
-    fetchContent(username, book, page) {
+    fetchContent(page) {
       this.currentPage = parseInt(page)
-      this.addHashToLocation(`/${username}/${book}/${page}`)
+      this.addHashToLocation(
+        `/${this.$route.params.username}/${this.$route.params.book}/${this.parent}/${page}`
+      )
       this.$root.$emit('content-changed', page)
       this.scrollToTop()
     },
-    toggle() {
-      // this.$store.commit('toggle', 'visibleAffix')
-    },
-    // scrolled() {
-    //   const h =
-    //     window.innerHeight ||
-    //     document.documentElement.clientHeight ||
-    //     document.body.clientHeight
-    //   const doc = document.documentElement
-    //   const top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0)
-    //   const el = this.contents.find((pos) => {
-    //     return pos > top + h / 2
-    //   })
-    //   this.current = (el ? this.contents.indexOf(el) : this.contents.length) - 1
-    // },
-    scrollTo(id) {
-      // console.log(`#page-${id}`)
-      // document.querySelector(`#page-${id}`).scrollIntoView()
-    }
-    // scrollTo(id) {
-    //   if (this._scrolling) {
-    //     return
-    //   }
-    //   this._scrolling = true
-    //   if (this.$store.state.visibleAffix) {
-    //     this.toggle()
-    //   }
-    //   if (id !== this.$route.hash) {
-    //     this.$router.push(this.$route.fullPath.split('#')[0] + id)
-    //   }
-    //   this.$nextTick(() => {
-    //     const el = document.getElementById(id.slice(1))
-    //     if (!el) {
-    //       this._scrolling = false
-    //       return
-    //     }
-    //     const to = el.offsetTop - (window.outerWidth < 1024 ? 90 : 120)
-    //     const doc = document.documentElement
-    //     let top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0)
-    //     const diff = (to > top ? to - top : top - to) / 25
-    //     let i = 0
-    //     window.clearInterval(this.setInter)
-    //     this.setInter = window.setInterval(() => {
-    //       top = to > top ? top + diff : top - diff
-    //       window.scrollTo(0, top)
-    //       i++
-    //       if (i === 25) {
-    //         this._scrolling = false
-    //         window.clearInterval(this.setInter)
-    //       }
-    //     }, 10)
-    //   })
-    // }
+    toggle() {},
+    scrollTo(id) {}
   }
 }
 </script>

@@ -1,5 +1,5 @@
 query FetchUserByUsername($username: String) {
-  users(where: {username: {_ilike: $username}}) {
+  users(where: { username: { _ilike: $username } }) {
     username
     medium
     name
@@ -25,8 +25,13 @@ query FetchUserByUsername($username: String) {
         title
         website
         medium
-        pages(where: {parent_id: {_is_null: false}}, order_by: {order: asc}, limit: 1) {
+        pages(
+          where: { parent_id: { _is_null: false } }
+          order_by: { order: asc }
+          limit: 1
+        ) {
           id
+          parent_id
         }
       }
     }
