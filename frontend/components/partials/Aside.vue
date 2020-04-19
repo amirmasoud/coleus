@@ -154,6 +154,12 @@ export default {
   //   })
   // },
   methods: {
+    scrollToTop() {
+      const c = document.documentElement.scrollTop || document.body.scrollTop
+      if (c > 0) {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      }
+    },
     isCurrentPage(id) {
       return (
         (this.currentPage == 0
@@ -168,6 +174,7 @@ export default {
       this.currentPage = parseInt(page)
       this.addHashToLocation(`/${username}/${book}/${page}`)
       this.$root.$emit('content-changed', page)
+      this.scrollToTop()
     },
     toggle() {
       // this.$store.commit('toggle', 'visibleAffix')
