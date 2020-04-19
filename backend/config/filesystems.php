@@ -88,7 +88,7 @@ return [
         'cache' => [
             'store' => 'redis',
             'expire' => 600,
-            'prefix' => 'negarin',
+            'prefix' => 'coleus',
         ],
 
     ],

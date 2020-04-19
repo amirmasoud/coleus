@@ -1,81 +1,37 @@
 <template>
-  <div>
-    <neg-search-icon class="block absolute text-gray-600 z-10 h-4 mt-3 ml-3 fill-current" />
+  <div class="relative">
     <input
       id="algolia"
-      v-model="q"
-      class="neg-search-input"
+      class="coleus-search-input"
       type="text"
       name="search"
       placeholder="جستجو"
       dir="rtl"
-    >
+    />
+    <coleus-search-icon
+      class="block absolute text-gray-600 z-10 h-4 mt-3 ml-3 left-0 top-0 fill-current"
+    />
   </div>
 </template>
 
 <script>
-import negSearchIcon from '@/components/svg/Search'
-
-let scriptInjected = false
-const callbacks = []
-const onScriptLoaded = cb => callbacks.push(cb)
-const scriptLoaded = () => callbacks.forEach(cb => cb())
+import coleusSearchIcon from '@/components/svg/Search'
 
 export default {
   components: {
-    negSearchIcon
-  },
-  data () {
-    return {
-      q: ''
-    }
-  },
-  mounted () {
-    const mousetrap = require('mousetrap')
-    mousetrap.bind('/', function (e) {
-      e.preventDefault()
-      document.getElementById('algolia').focus()
-    })
-
-    onScriptLoaded(() => this.addInstantSearch())
-    if (scriptInjected) { return }
-    // Load JS
-    const script = document.createElement('script')
-    script.setAttribute('type', 'text/javascript')
-    script.setAttribute('src', '//cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js')
-    document.getElementsByTagName('body')[0].appendChild(script)
-    script.onload = scriptLoaded
-    // Load CSS
-    const link = document.createElement('link')
-    link.setAttribute('rel', 'stylesheet')
-    link.setAttribute('type', 'text/css')
-    link.setAttribute('href', 'https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css')
-    document.getElementsByTagName('body')[0].appendChild(link)
-    scriptInjected = true
-  },
-  methods: {
-    addInstantSearch () {
-      window.docsearch({
-        apiKey: process.env.DOC_SEARCH_API_KEY,
-        indexName: 'nuxtjs',
-        inputSelector: '#algolia',
-        algoliaOptions: { facetFilters: [`tags:${this.$store.state.locale}`] },
-        debug: true // Set debug to true if you want to inspect the dropdown
-      })
-    },
-    reset () {
-      // todo call API
-      this.q = ''
-    }
+    coleusSearchIcon
   }
 }
 </script>
 
 <style lang="scss">
-.neg-search-input {
-  @apply bg-gray-200 text-negarin-gray font-medium px-4 pl-10 rounded-full h-10 outline-none w-full;
+.coleus-search-input {
+  @apply bg-gray-200 text-coleus-gray font-medium px-4 pl-10 rounded-full h-10 outline-none w-full transition duration-300 ease-in-out;
   ::placeholder {
     @apply text-gray-600;
+  }
+  &:focus {
+    @apply bg-white shadow transition duration-300 ease-in-out;
   }
 }
 </style>

@@ -1,157 +1,181 @@
 /* purgecss start ignore */
+
 @import 'tailwindcss/base';
-/* purgecss end ignore */
-
 @import 'tailwindcss/components';
-
-/* purgecss start ignore */
-@import './themes/light.css';
 /* purgecss end ignore */
-/* purgecss start ignore */
-@import '@snackbar/core/dist/snackbar.css';
-/* purgecss end ignore */
-
-/* @import './themes/dark.scss'; */
-/* @import 'highlight.js/styles/nord.css'; */
-/* @import 'highlight.js/styles/tomorrow-night-blue.css'; */
-/* @import 'highlight.js/styles/ocean.css'; */
 
 @import 'tailwindcss/utilities';
-
 /* purgecss start ignore */
+
 @supports (position: sticky) {
-  @media (min-width: 1024px) {
-    .sticky\?lg\:h-\(screen-24\) {
-      height: calc(100vh - 6rem);
+    @media (min-width: 1024px) {
+        .sticky\?lg\:h-\(screen-24\) {
+            height: calc(100vh - 6rem);
+        }
     }
-  }
 }
+
+.rounded-sm .progressive-image-main {
+    @apply rounded-sm;
+}
+
+.rounded .progressive-image-main {
+    @apply rounded;
+}
+
+.rounded-md .progressive-image-main {
+    @apply rounded;
+}
+
+.rounded-lg .progressive-image-main {
+    @apply rounded-lg;
+}
+
+.rounded-full .progressive-image-main {
+    @apply rounded-full;
+}
+
+.rounded-tr .progressive-image-main {
+    @apply rounded-tr;
+}
+.rounded-tl .progressive-image-main {
+    @apply rounded-tl;
+}
+.rounded-br-none .progressive-image-main {
+    @apply rounded-br-none;
+}
+.rounded-bl-none .progressive-image-main {
+    @apply rounded-bl-none;
+}
+
 /* purgecss end ignore */
 
 /* NotoSans */
+
 @font-face {
-  font-family: NotoSans;
-  src: url(../fonts/NotoSans/NotoSans-Thin.ttf) format("truetype");
-  font-weight: 100;
-  font-style: normal
+    font-family: NotoSans;
+    src: url(../fonts/NotoSans/NotoSans-Thin.ttf) format("truetype");
+    font-weight: 100;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSans;
-  src: url(../fonts/NotoSans/NotoSans-ExtraLight.ttf) format("truetype");
-  font-weight: 200;
-  font-style: normal
+    font-family: NotoSans;
+    src: url(../fonts/NotoSans/NotoSans-ExtraLight.ttf) format("truetype");
+    font-weight: 200;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSans;
-  src: url(../fonts/NotoSans/NotoSans-Light.ttf) format("truetype");
-  font-weight: 300;
-  font-style: normal
+    font-family: NotoSans;
+    src: url(../fonts/NotoSans/NotoSans-Light.ttf) format("truetype");
+    font-weight: 300;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSans;
-  src: url(../fonts/NotoSans/NotoSans-Regular.ttf) format("truetype");
-  font-weight: 400;
-  font-style: normal
+    font-family: NotoSans;
+    src: url(../fonts/NotoSans/NotoSans-Regular.ttf) format("truetype");
+    font-weight: 400;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSans;
-  src: url(../fonts/NotoSans/NotoSans-Medium.ttf) format("truetype");
-  font-weight: 500;
-  font-style: normal
+    font-family: NotoSans;
+    src: url(../fonts/NotoSans/NotoSans-Medium.ttf) format("truetype");
+    font-weight: 500;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSans;
-  src: url(../fonts/NotoSans/NotoSans-SemiBold.ttf) format("truetype");
-  font-weight: 600;
-  font-style: normal
+    font-family: NotoSans;
+    src: url(../fonts/NotoSans/NotoSans-SemiBold.ttf) format("truetype");
+    font-weight: 600;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSans;
-  src: url(../fonts/NotoSans/NotoSans-Bold.ttf) format("truetype");
-  font-weight: 700;
-  font-style: normal
+    font-family: NotoSans;
+    src: url(../fonts/NotoSans/NotoSans-Bold.ttf) format("truetype");
+    font-weight: 700;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSans;
-  src: url(../fonts/NotoSans/NotoSans-ExtraBold.ttf) format("truetype");
-  font-weight: 800;
-  font-style: normal
+    font-family: NotoSans;
+    src: url(../fonts/NotoSans/NotoSans-ExtraBold.ttf) format("truetype");
+    font-weight: 800;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSans;
-  src: url(../fonts/NotoSans/NotoSans-Black.ttf) format("truetype");
-  font-weight: 900;
-  font-style: normal
+    font-family: NotoSans;
+    src: url(../fonts/NotoSans/NotoSans-Black.ttf) format("truetype");
+    font-weight: 900;
+    font-style: normal
 }
 
 /* NotoSansArabic */
+
 @font-face {
-  font-family: NotoSansArabic;
-  src: url(../fonts/NotoSansArabic/NotoSansArabic-Thin.ttf) format("truetype");
-  font-weight: 100;
-  font-style: normal
+    font-family: NotoSansArabic;
+    src: url(../fonts/NotoSansArabic/NotoSansArabic-Thin.ttf) format("truetype");
+    font-weight: 100;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSansArabic;
-  src: url(../fonts/NotoSansArabic/NotoSansArabic-ExtraLight.ttf) format("truetype");
-  font-weight: 200;
-  font-style: normal
+    font-family: NotoSansArabic;
+    src: url(../fonts/NotoSansArabic/NotoSansArabic-ExtraLight.ttf) format("truetype");
+    font-weight: 200;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSansArabic;
-  src: url(../fonts/NotoSansArabic/NotoSansArabic-Light.ttf) format("truetype");
-  font-weight: 300;
-  font-style: normal
+    font-family: NotoSansArabic;
+    src: url(../fonts/NotoSansArabic/NotoSansArabic-Light.ttf) format("truetype");
+    font-weight: 300;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSansArabic;
-  src: url(../fonts/NotoSansArabic/NotoSansArabic-Regular.ttf) format("truetype");
-  font-weight: 400;
-  font-style: normal
+    font-family: NotoSansArabic;
+    src: url(../fonts/NotoSansArabic/NotoSansArabic-Regular.ttf) format("truetype");
+    font-weight: 400;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSansArabic;
-  src: url(../fonts/NotoSansArabic/NotoSansArabic-Medium.ttf) format("truetype");
-  font-weight: 500;
-  font-style: normal
+    font-family: NotoSansArabic;
+    src: url(../fonts/NotoSansArabic/NotoSansArabic-Medium.ttf) format("truetype");
+    font-weight: 500;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSansArabic;
-  src: url(../fonts/NotoSansArabic/NotoSansArabic-SemiBold.ttf) format("truetype");
-  font-weight: 600;
-  font-style: normal
+    font-family: NotoSansArabic;
+    src: url(../fonts/NotoSansArabic/NotoSansArabic-SemiBold.ttf) format("truetype");
+    font-weight: 600;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSansArabic;
-  src: url(../fonts/NotoSansArabic/NotoSansArabic-Bold.ttf) format("truetype");
-  font-weight: 700;
-  font-style: normal
+    font-family: NotoSansArabic;
+    src: url(../fonts/NotoSansArabic/NotoSansArabic-Bold.ttf) format("truetype");
+    font-weight: 700;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSansArabic;
-  src: url(../fonts/NotoSansArabic/NotoSansArabic-ExtraBold.ttf) format("truetype");
-  font-weight: 800;
-  font-style: normal
+    font-family: NotoSansArabic;
+    src: url(../fonts/NotoSansArabic/NotoSansArabic-ExtraBold.ttf) format("truetype");
+    font-weight: 800;
+    font-style: normal
 }
 
 @font-face {
-  font-family: NotoSansArabic;
-  src: url(../fonts/NotoSansArabic/NotoSansArabic-Black.ttf) format("truetype");
-  font-weight: 900;
-  font-style: normal
+    font-family: NotoSansArabic;
+    src: url(../fonts/NotoSansArabic/NotoSansArabic-Black.ttf) format("truetype");
+    font-weight: 900;
+    font-style: normal
 }

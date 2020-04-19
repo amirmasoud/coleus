@@ -1,3 +1,0 @@
-mutation($user: String!) {
-  setUser(user: $user) @client
-}

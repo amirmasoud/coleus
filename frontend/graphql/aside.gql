@@ -1,0 +1,8 @@
+query Pages($book: String) {
+  books(where: {slug: {_ilike: $book}}) {
+    pages(order_by: {order: asc}, where: {parent_id: {_is_null: true}}) {
+      id
+      title
+    }
+  }
+}

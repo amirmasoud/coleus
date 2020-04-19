@@ -1,19 +1,11 @@
-query FetchPageById($id: Int) {
-  page(id: $id) {
+query Pages($page: bigint) {
+  pages(where: {id: {_eq: $page}}) {
     id
     title
-    content
-    next
-    prev
-    next_title
-    prev_title
-    book {
-      title
-      slug
-      collaborators {
-        name
-        username
-      }
+    blocks(order_by: {order: asc}) {
+      id
+      content
+      type
     }
   }
 }

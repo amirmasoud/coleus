@@ -14,4 +14,20 @@ class Book extends Model
     protected $fillable = [
         'title', 'slug', 'description', 'original', 'medium', 'small', 'xsmall', 'thumbnail', 'placeholder'
     ];
+
+    /**
+     * Get the pages for the book.
+     */
+    public function pages()
+    {
+        return $this->hasMany('App\Page');
+    }
+
+    /**
+     * The users that belong to the book.
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
 }

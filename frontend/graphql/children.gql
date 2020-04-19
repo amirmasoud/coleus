@@ -1,0 +1,17 @@
+query Children($parent: Int, $offset: Int) {
+  pages(
+    where: { parent_id: { _eq: $parent } }
+    order_by: { order: asc }
+    limit: 10
+    offset: $offset
+  ) {
+    id
+    title
+    parent_id
+  }
+  pages_aggregate(where: { parent_id: { _eq: $parent } }) {
+    aggregate {
+      count
+    }
+  }
+}

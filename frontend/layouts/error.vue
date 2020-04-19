@@ -1,40 +1,15 @@
 <template>
-  <div class="relative">
-    <neg-container v-if="error.statusCode === 404" class="pt-20">
-      <div class="flex flex-wrap items-center justify-between" dir="rtl">
-        <h1 class="w-full text-3xl xl:text-4xl text-nuxt-gray text-center font-medium leading-normal mb-24 z-10">
-          صفحه یافت نشد.
-        </h1>
-        <div class="w-full lg:w-2/3 mx-auto">
-          <!-- <lost-image/> -->
-        </div>
-      </div>
-    </neg-container>
-    <neg-container v-else class="flex flex-wrap items-center justify-between pt-20 lg:pt-0">
-      <div class="w-full lg:w-1/2 text-center lg:text-left pl-8">
-        <h1 class="text-6xl font-medium leading-normal text-nuxt-lightgreen">
-          {{ error.statusCode }}
-        </h1>
-        <h3 class="text-4xl text-nuxt-gray font-medium leading-relaxed mb-6">
-          {{ error.message }}
-        </h3>
-      </div>
-      <div class="hidden lg:block lg:w-5/12 xl:w-4/12">
-        <mountains-globe />
-      </div>
-    </neg-container>
+  <div class="container mx-auto">
+    <h1>{{ error.statusCode }}</h1>
+    <h1 v-if="error.statusCode === 404">Page not found</h1>
+    <h1 v-else>An error occurred</h1>
+    <h3>{{ error.message }}</h3>
+    <nuxt-link to="/">Home page</nuxt-link>
   </div>
 </template>
 
 <script>
-import mountainsGlobe from '@/components/svg/streamline/montains-globe'
-import lostImage from '@/components/svg/fogg/404'
-
 export default {
-  components: {
-    mountainsGlobe,
-    lostImage
-  },
   props: {
     error: {
       type: Object,

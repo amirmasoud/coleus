@@ -1,0 +1,17 @@
+body[data-theme='dark'] {
+  .coleus-select {
+    @apply text-white bg-gray-800;
+  }
+  .header {
+    @apply bg-coleus-gray;
+    &_nav {
+      @apply bg-coleus-gray;
+      &_link {
+        @apply text-white;
+      }
+    }
+  }
+  .footer {
+    @apply bg-coleus-gray;
+  }
+}

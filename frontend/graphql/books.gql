@@ -1,0 +1,24 @@
+query Books {
+  books {
+    id
+    order
+    slug
+    medium
+    title
+    thumbnail
+    book_users {
+      user {
+        username
+        name
+      }
+    }
+    pages(
+      where: { parent_id: { _is_null: false } }
+      order_by: { order: asc }
+      limit: 1
+    ) {
+      id
+      parent_id
+    }
+  }
+}

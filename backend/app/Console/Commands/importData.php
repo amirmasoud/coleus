@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\User;
 use App\Book;
+use App\Page;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -15,14 +16,24 @@ class ImportData extends Command
      *
      * @var string
      */
-    protected $signature = 'import:data';
+    protected $signature = 'import:data
+                            {path? : The path to dataset}
+                            {book? : The book ID to content add to}
+                            {parent? : The parent of the content}
+                            {--T|title= : The title of the content}
+                            {--R|refresh : Refresh book\'s content before import}
+                            {--C|count : Count title on indexing}
+                            {--P|persian : Persian numbers}
+                            {--H|header=* : Subheader titles}
+                            {--A|append : Append m1 to titles}
+                            {--D|delimiter= : Delimiter for append and title, default is ": "}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'import author and books';
 
     /**
      * Create a new command instance.
@@ -67,7 +78,7 @@ class ImportData extends Command
 
         $signature = rtrim(strtr(base64_encode(hash_hmac('sha256', $saltBin . $path, $keyBin, true)), '+/', '-_'), '=');
 
-        return 'https://image.negarin.test' . sprintf("/%s%s", $signature, $path);
+        return 'https://image.coleus.test' . sprintf("/%s%s", $signature, $path);
     }
 
     public function insertUser($user)
@@ -116,18 +127,21 @@ class ImportData extends Command
         // Reset
         User::truncate();
         Storage::deleteDirectory('profile_picture');
+        Book::truncate();
+        Storage::deleteDirectory('book_cover');
+        Page::truncate();
 
         $users = json_decode(Storage::disk('dataset')->get('ganjoor/users/all.json'));
         foreach ($users as $user) {
             $user = $this->insertUser($user);
 
-            $books = Storage::disk('dataset')->directories('ganjoor/books/' . $user->username);
+            $books = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/books.json'));
+
             foreach ($books as $book) {
-                $info = json_decode(Storage::disk('dataset')->get($book . '/info.json'));
                 $uniqid = uniqid('', true);
-                $original = '';
-                if (Storage::disk('dataset')->exists($book . '/cover.jpg')) {
-                    Storage::put('book_cover/' . $uniqid . '.jpg', Storage::disk('dataset')->get($book . '/cover.jpg'));
+                $cover = 'ganjoor/books/' . $user->username . '/' . $book->slug . '/' . $book->slug . '.jpg';
+                if (Storage::disk('dataset')->exists($cover)) {
+                    Storage::put('book_cover/' . $uniqid . '.jpg', Storage::disk('dataset')->get($cover));
                 } else {
                     if (Storage::missing('book_cover/default.jpg')) {
                         Storage::put('book_cover/default.jpg', Storage::disk('dataset')->get('ganjoor/books/default.jpg'));
@@ -136,27 +150,27 @@ class ImportData extends Command
                 }
 
                 // 2560x1600
-                $original = Storage::url('public/profile_picture/' . $uniqid . '.jpg');
+                $original = Storage::url('public/book_cover/' . $uniqid . '.jpg');
 
                 // 1280x800
-                $medium = $this->image('public/profile_picture/' . $uniqid . '.jpg', 1280, 800);
+                $medium = $this->image('public/book_cover/' . $uniqid . '.jpg', 800, 1200);
 
                 // 640x400
-                $small = $this->image('public/profile_picture/' . $uniqid . '.jpg', 640, 400);
+                $small = $this->image('public/book_cover/' . $uniqid . '.jpg', 400, 640);
 
                 // 160x100
-                $xsmall = $this->image('public/profile_picture/' . $uniqid . '.jpg', 160, 100);
+                $xsmall = $this->image('public/book_cover/' . $uniqid . '.jpg', 100, 160);
 
                 // 40x25
-                $thumbnail = $this->image('public/profile_picture/' . $uniqid . '.jpg', 40, 25);
+                $thumbnail = $this->image('public/book_cover/' . $uniqid . '.jpg', 25, 40);
 
                 // 8*5
-                $placeholder = $this->image('public/profile_picture/' . $uniqid . '.jpg', 8, 5);
+                $placeholder = $this->image('public/book_cover/' . $uniqid . '.jpg', 5, 8);
 
                 $book = $user->books()->create([
-                    'title' => $info->title,
-                    'slug' => $info->slug,
-                    'description' => $info->description,
+                    'title' => $book->title,
+                    'slug' => $book->slug,
+                    'description' => $book->description ?? '',
                     'original' => $original,
                     'medium' => $medium,
                     'placeholder' => $placeholder,
@@ -164,9 +178,104 @@ class ImportData extends Command
                     'thumbnail' => $thumbnail,
                     'xsmall' => $xsmall,
                 ]);
+                $this->info('Inserting ' . $book->slug);
 
+                $pages = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/' . $book->slug . '/pages.json'));
+                usort($pages, function ($a, $b) {
+                    return $a->order > $b->order;
+                });
+                foreach ($pages as $page) {
+                    $pageModel = $book->pages()->create([
+                        'title' => $page->title,
+                        'order' => $page->order,
+                        'status' => 'published'
+                    ]);
+
+                    $pages = (Storage::disk('dataset')->directories('ganjoor/books/' . $user->username . '/' . $book->slug . '/' . $page->path));
+                    sort($pages, SORT_NATURAL);
+                    $pageOrder = 0;
+                    $customCount = 1;
+                    foreach ($pages as $subpage) {
+                        $file = json_decode(Storage::disk('dataset')->get($subpage . '/output.json'));
+                        $title = '';
+
+                        foreach ($file->text as $key => $part) {
+                            if (!$key) { // First item
+                                if (!property_exists($page, 'page_title') && property_exists($part, 'm1') && !property_exists($page, 'page_header')) { // First m2
+                                    $title = $part->m1;
+                                } else { // Custom title
+                                    if (property_exists($page, 'page_header') && @isset(property_exists($page, 'page_header')[$pageOrder])) {
+                                        $title = property_exists($page, 'page_header')[$pageOrder];
+                                    } else {
+                                        if (property_exists($page, 'page_count_lang') && $page->page_count_lang == 'fa') {
+                                            $str = $customCount;
+                                            $western_persian = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+                                            $eastern_persian = array('٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩');
+
+                                            $str = str_replace($western_persian, $eastern_persian, $str);
+                                            $customCount++;
+                                        }
+                                        $title = property_exists($page, 'page_count')
+                                            ? $page->page_title . ' ' . (property_exists($page, 'page_count_lang') ? $str : $customCount++)
+                                            : $page->page_title;
+                                    }
+
+                                    if (property_exists($page, 'page_append') && property_exists($part, 'm1')) {
+                                        $title .= ': ' . $part->m1;
+                                    }
+                                }
+
+                                $subPageModel = $pageModel->children()->create([
+                                    'title' => $title,
+                                    'order' => $pageOrder,
+                                    'status' => 'published',
+                                    'book_id' => $book->id
+                                ]);
+                                $pageOrder++;
+                            }
+
+                            if (property_exists($part, 'm1') && property_exists($part, 'm2')) {
+                                $subPageModel->blocks()->create([
+                                    'order' => $key,
+                                    'content' => $part->m1,
+                                    'status' => 'published',
+                                    'type' => 'm-1/2'
+                                ]);
+                                $subPageModel->blocks()->create([
+                                    'order' => $key,
+                                    'content' => $part->m2,
+                                    'status' => 'published',
+                                    'type' => 'm-1/2'
+                                ]);
+                            }
+
+                            if (property_exists($part, 't1') && property_exists($part, 't2')) {
+                                $subPageModel->blocks()->create([
+                                    'order' => $key,
+                                    'content' => $part->t1,
+                                    'status' => 'published',
+                                    'type' => 't-1/2'
+                                ]);
+                                $subPageModel->blocks()->create([
+                                    'order' => $key,
+                                    'content' => $part->t2,
+                                    'status' => 'published',
+                                    'type' => 't-1/2'
+                                ]);
+                            }
+
+                            if (property_exists($part, 'p')) {
+                                $subPageModel->blocks()->create([
+                                    'order' => $key,
+                                    'content' => $part->p,
+                                    'status' => 'published',
+                                    'type' => 'p-full'
+                                ]);
+                            }
+                        }
+                    }
+                }
             }
-            dd($book);
         }
     }
 }

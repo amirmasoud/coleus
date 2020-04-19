@@ -1,4 +1,4 @@
-/nginx/log/*.log
-/database/data/
-/rabbitmq/data/
-/rabbitmq/logs/
+/prod/nginx/log/*.log
+/prod/database/data/
+/prod/rabbitmq/data/
+/prod/rabbitmq/logs/

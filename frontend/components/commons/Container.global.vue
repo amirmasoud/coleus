@@ -1,11 +1,11 @@
 <template>
-  <div class="container mx-auto px-4">
+  <div class="container mx-auto lg:px-4">
     <slot />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'NegContainer'
+  name: 'ColeusContainer'
 }
 </script>

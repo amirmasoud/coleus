@@ -1,103 +1,58 @@
 <template>
-  <div>
-    <neg-container>
-      <div class="flex flex-wrap flex-row-reverse mb-4">
-        <nuxt-link
-          class="w-1/4 group"
-          v-for="user in users"
-          :key="user.username"
-          :to="{ name: 'profile', params: { profile: user.username }}"
-          no-prefetch
-        >
-          <div class="p-2">
-            <div
-              class="flex flex-row-reverse p-4 border border-gray-200 shadow-sm rounded-md group-hover:shadow-lg transition-shadow duration-500 ease-in-out"
-            >
-              <img class="w-12 h-12 shadow rounded-full" :src="user.xsmall" />
-              <div class="w-full flex flex-col mr-4 text-right">
-                <h1 class="font-semibold">{{ user.name }}</h1>
-                <div class="flex justify-between font-light" dir="rtl">
-                  <div>
-                    <span class="font-medium">{{ user.books_aggregate.aggregate.count }}</span> کتاب
-                  </div>
-                </div>
+  <coleus-container class="flex flex-wrap flex-row">
+    <template v-if="users && users.length">
+      <nuxt-link
+        class="w-full md:w-1/4"
+        v-for="user in users"
+        :key="user.username"
+        :to="{ name: 'username', params: { username: user.username }}"
+        no-prefetch
+      >
+        <div class="p-2">
+          <div
+            class="bg-white border border-gray-300 flex flex-wrap items-center p-2 border border-gray-200 shadow-md rounded-full group-hover:shadow-lg transition-shadow duration-500 ease-in-out"
+          >
+            <div class="w-1/4 max-h-12 -mb-2">
+              <no-ssr>
+                <progressive-img
+                  class="shadow rounded-full border border-gray-300"
+                  :src="user.xsmall"
+                  :placeholder="user.thumbnail"
+                  :blur="30"
+                  :aspect-ratio="1"
+                />
+              </no-ssr>
+            </div>
+            <div class="w-3/4 flex flex-col text-right pr-4">
+              <h1 class="font-semibold">{{ user.name }}</h1>
+              <div class="flex justify-between font-light" dir="rtl">
+                <div class="text-gray-400">{{ user.book_users_aggregate.aggregate.count }} کتاب</div>
               </div>
             </div>
           </div>
-        </nuxt-link>
+        </div>
+      </nuxt-link>
+    </template>
+    <template v-else>
+      <div class="container">
+        <coleus-spinner class="mx-auto my-4 bg-white rounded-full p-1 shadow" />
       </div>
-    </neg-container>
-    <!-- <home-welcome /> -->
-    <!-- <home-why /> -->
-    <!-- <home-companies /> -->
-    <!-- <home-modes /> -->
-    <!-- <home-targets/>
-    <home-features/>-->
-    <!-- <home-sponsors /> -->
-  </div>
+    </template>
+  </coleus-container>
 </template>
 
 <script>
-import homeWelcome from '@/components/partials/home/welcome'
-import homeWhy from '@/components/partials/home/why'
-import homeCompanies from '@/components/partials/home/companies'
-// import homeFeatures from '@/components/partials/home/features'
-// import homeTargets from '@/components/partials/home/targets'
-import homeSponsors from '@/components/partials/home/sponsors'
-import homeModes from '@/components/partials/home/modes'
-
 export default {
-  components: {
-    // homeWelcome,
-    // homeWhy,
-    // homeCompanies,
-    // homeFeatures,
-    // homeTargets,
-    // homeSponsors,
-    // homeModes
-  },
-  head() {
-    return {
-      title: this.$store.state.lang.homepage.meta.title,
-      meta: [
-        {
-          name: 'description',
-          hid: 'description',
-          content: this.$store.state.lang.homepage.meta.description
-        },
-        // Open Graph
-        {
-          name: 'og:title',
-          content: this.$store.state.lang.homepage.meta.title
-        },
-        {
-          name: 'og:description',
-          content: this.$store.state.lang.homepage.meta.description
-        },
-        { name: 'og:type', content: 'website' },
-        { name: 'og:url', content: 'https://nuxtjs.org' },
-        { name: 'og:image', content: 'https://nuxtjs.org/meta_640.png' },
-        // Twitter Card
-        { name: 'twitter:card', content: 'summary' },
-        { name: 'twitter:site', content: '@nuxt_js' },
-        {
-          name: 'twitter:title',
-          content: this.$store.state.lang.homepage.meta.title
-        },
-        {
-          name: 'twitter:description',
-          content: this.$store.state.lang.homepage.meta.description
-        },
-        { name: 'twitter:image', content: 'https://nuxtjs.org/meta_640.png' },
-        { name: 'twitter:image:alt', content: 'NuxtJS Logo' }
-      ]
-    }
-    // },
-    // async asyncData () {
-    //   let sponsors = await fetch('https://opencollective.com/nuxtjs/members/organizations.json').then(res => res.json())
-    //   return {
-    //     sponsors
-    //   }
+  head: {
+    title: 'خانه',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'چایی برای ماندن'
+      }
+    ]
   },
   apollo: {
     users: {

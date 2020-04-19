@@ -1,34 +1,58 @@
 <template>
-  <aside :class="{ 'opacity-25': $store.state.focusMode }" class="opacity-transition block bg-gray-100 mt-8 -mx-4 lg:bg-transparent lg:mt-0 lg:mx-0 lg:inset-0 z-90 lg:mb-0 lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-1/4 lg:block">
-    <div class="h-full overflow-y-auto scrolling-touch text-center lg:text-left lg:h-auto lg:block lg:relative lg:sticky lg:top-24">
-      <a v-if="breadcrumb" class="block text-left p-4 lg:hidden" href="#nav" @click.prevent="showNav = !showNav">
-        <neg-times v-if="showNav" class="float-right mt-1 mr-1 h-5" />
-        <neg-caret-down v-else class="float-right mt-2 mr-1" />
-        <span class="uppercase text-gray-500 ml-1">{{ breadcrumb.group }} :</span> {{ breadcrumb.title }}
+  <aside
+    :class="{ 'opacity-25': false }"
+    class="opacity-transition block bg-white mt-8 -mx-4 lg:bg-transparent lg:mt-0 lg:mx-0 lg:inset-0 z-90 lg:mb-0 lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-1/4 lg:block"
+  >
+    <div
+      class="h-full overflow-y-auto scrolling-touch text-center lg:text-right lg:h-auto lg:block lg:relative lg:sticky lg:top-24"
+    >
+      <a class="block text-right p-4 lg:hidden" href="#nav" @click.prevent="showNav = !showNav">
+        <coleus-times v-if="showNav" class="float-right mt-1 mr-1 h-5" />
+        <coleus-caret-down v-else class="float-right mt-2 mr-1" />
+        <span class="uppercase text-gray-500 ml-1">Group :</span>
+        Title
       </a>
-      <nav class="pt-8 lg:overflow-y-auto lg:block lg:pl-0 lg:pr-8 sticky?lg:h-(screen-24)" :class="{ hidden: !showNav }">
-        <p class="uppercase font-bold pb-6">
-          {{ $store.state.lang.text.version }} <span class="text-negarin-lightgreen">{{ $store.state.docVersion }}</span>
-        </p>
-        <template v-for="(group, index) in list">
-          <h3 :key="`title-${index}`" class="uppercase text-gray-500 pb-2">
-            {{ group.title }}
-          </h3>
-          <ul :key="`list-${index}`" class="pb-8">
-            <li v-for="link in group.links" :key="link.to" class="py-2">
-              <nuxt-link class="text-gray-700 hover:text-negarin-lightgreen" :class="{'text-negarin-lightgreen': path === menu + link.to}" :to="menu + link.to" exact>
-                {{ link.name }}
-              </nuxt-link>
-              <ul v-if="path === menu + link.to && link.contents" class="pl-2 py-1">
-                <li v-for="(content, i) in link.contents" :key="content.to" class="py-1 text-sm">
-                  <a :href="menu + link.to + content.to" class="text-gray-600" :class="{'text-negarin-lightgreen': current === i}" @click.prevent="scrollTo(content.to)">
-                    {{ content.name }}
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </template>
+      <nav
+        id="test"
+        class="pt-8 lg:overflow-y-auto lg:block lg:pl-0 lg:pr-8 sticky?lg:h-(screen-24)"
+        :class="{ hidden: !showNav }"
+      >
+        <div v-if="books && books.length">
+          <template v-for="(page, index) in books[0].pages">
+            <h3
+              :key="`title-${index}`"
+              :id="`page-${page.id}`"
+              class="uppercase text-gray-500 pb-2"
+            >
+              <a
+                :href="`/${$route.params.username}/${$route.params.book}/${page.id}`"
+                @click.prevent="fetchChildren(page.id)"
+              >
+                <component class="float-right mt-2 ml-1" :is="isOpen(page)"></component>
+                {{ page.title }}
+              </a>
+            </h3>
+            <ul v-if="showChildren(page.id)" :key="`list-${index}`" class="pb-8 md:pr-4">
+              <li
+                v-for="subpage in pages"
+                :key="subpage.id"
+                :id="`page-${subpage.id}`"
+                @click.prevent="scrollTo(subpage.id)"
+                class="py-2"
+              >
+                <a
+                  class="text-gray-700 hover:text-indigo-400 cursor-pointer"
+                  :class="{'text-indigo-500': isCurrentPage(subpage.id) && !loading, 'text-indigo-400': isCurrentPage(subpage.id) && loading}"
+                  @click.prevent="fetchContent(subpage.id)"
+                  :href="`/${$route.params.username}/${$route.params.book}/${parent}/${subpage.id}`"
+                >
+                  {{ subpage.title }}
+                  <coleus-aside-spinner v-if="isCurrentPage(subpage.id) && loading" />
+                </a>
+              </li>
+            </ul>
+          </template>
+        </div>
       </nav>
     </div>
   </aside>
@@ -36,118 +60,130 @@
 
 <script>
 import throttle from 'lodash/throttle'
-import negCaretDown from '@/components/svg/CaretDown'
-import negTimes from '@/components/svg/Times'
+import coleusCaretDown from '@/components/svg/CaretDown'
+import coleusCaretLeft from '@/components/svg/CaretLeft'
+import coleusTimes from '@/components/svg/Times'
+import coleusAsideSpinner from '@/components/partials/AsideSpinner'
+
+const pageSize = 10
 
 export default {
+  props: {
+    loading: Boolean
+  },
   components: {
-    negCaretDown,
-    negTimes
+    coleusCaretDown,
+    coleusCaretLeft,
+    coleusTimes,
+    coleusAsideSpinner
   },
-  data () {
-    return { current: 0, setInter: null, showNav: false }
-  },
-  computed: {
-    list () {
-      return this.$store.state.menu[this.$route.params.section] || []
+  data: () => ({
+    current: 0,
+    setInter: null,
+    showNav: false,
+    currentPage: 0,
+    offset: 0,
+    parent: null,
+    parentLoading: false
+  }),
+  apollo: {
+    books: {
+      query: require('~/graphql/aside.gql'),
+      prefetch: ({ route }) => ({ book: route.params.book }),
+      variables() {
+        return { book: this.$route.params.book }
+      }
     },
-    visible () { return this.$store.state.visibleAffix },
-    path () { return this.$route.path.slice(-1) === '/' ? this.$route.path.slice(0, -1) : this.$route.path },
-    menu () { return '/' + this.$route.params.section },
-    breadcrumb () {
-      let breadcrumb = null
-      this.list.forEach((group) => {
-        group.links.forEach((link) => {
-          if ((this.$route.params.slug && link.to === '/' + this.$route.params.slug) || (!this.$route.params.slug && (link.to === '' || link.to === '/'))) {
-            breadcrumb = { group: group.title, title: link.name }
-          }
-        })
-      })
-      return breadcrumb
-    },
-    contents () {
-      const c = []
-      this.list.forEach((group) => {
-        if (Array.isArray(group.links) && !c.length) {
-          const l = group.links.find((link) => {
-            return this.path === this.menu + link.to
-          })
-          if (l && l.contents) {
-            l.contents.forEach((content) => {
-              const el = document.getElementById(content.to.slice(1))
-              if (el) {
-                c.push(el.offsetTop)
-              }
-            })
-          }
+    pages: {
+      debounce: 300,
+      query: require('~/graphql/children.gql'),
+      prefetch: ({ route }) => ({
+        parent: parseInt(route.params.parent),
+        offset: 0
+      }),
+      variables() {
+        return { parent: this.parent, offset: this.offset }
+      },
+      result({ data, loading, error }) {
+        if (process.client) {
+          this.addHashToLocation(
+            `/${this.$route.params.username}/${this.$route.params.book}/${this.parent}/${data.pages[0].id}`
+          )
         }
-      })
-      return c
+
+        if (data) {
+          this.parentLoading = false
+          return data.pages
+        }
+      }
     }
   },
   watch: {
-    '$route.fullPath': 'hashChanged'
-  },
-  mounted () {
-    this.$nextTick(() => {
-      window.addEventListener('scroll', throttle(() => this.scrolled(), 100))
-      if (this.$route.hash.length) {
-        this.scrollTo(this.$route.hash)
+    parent: (newParent) => ({
+      if(newParent) {
+        this.parentLoading = true
       }
-      this.scrolled()
     })
   },
-  methods: {
-    hashChanged (toPath, fromPath) {
-      this.showNav = false
-      toPath = toPath.split('#')
-      fromPath = fromPath.split('#')
-      this.$nextTick(() => this.scrollTo(this.$route.hash))
-    },
-    toggle () { this.$store.commit('toggle', 'visibleAffix') },
-    scrolled () {
-      const h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-      const doc = document.documentElement
-      const top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0)
-      const el = this.contents.find((pos) => {
-        return pos > top + (h / 2)
-      })
-      this.current = (el ? this.contents.indexOf(el) : this.contents.length) - 1
-    },
-    scrollTo (id) {
-      if (this._scrolling) {
-        return
+  mounted() {
+    this.parent = this.$route.params.parent
+  },
+  computed: {
+    breadcrumb() {
+      let breadcrumb = null
+      if (this.books && this.books.length) {
+        this.books[0].pages.forEach((group) => {
+          group.pages.forEach((link) => {
+            breadcrumb = { group: group.title, title: link.title }
+          })
+        })
       }
-      this._scrolling = true
-      if (this.$store.state.visibleAffix) {
-        this.toggle()
-      }
-      if (id !== this.$route.hash) {
-        this.$router.push(this.$route.fullPath.split('#')[0] + id)
-      }
-      this.$nextTick(() => {
-        const el = document.getElementById(id.slice(1))
-        if (!el) {
-          this._scrolling = false
-          return
-        }
-        const to = el.offsetTop - (window.outerWidth < 1024 ? 90 : 120)
-        const doc = document.documentElement
-        let top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0)
-        const diff = (to > top ? to - top : top - to) / 25
-        let i = 0
-        window.clearInterval(this.setInter)
-        this.setInter = window.setInterval(() => {
-          top = (to > top) ? top + diff : top - diff
-          window.scrollTo(0, top)
-          i++
-          if (i === 25) {
-            this._scrolling = false
-            window.clearInterval(this.setInter)
-          }
-        }, 10)
-      })
+      return breadcrumb
     }
+  },
+  methods: {
+    showChildren(pageId) {
+      return pageId == parseInt(this.parent)
+    },
+    fetchChildren(newParent) {
+      this.parent = newParent
+      this.pages = []
+    },
+    isOpen(page) {
+      if (this.parentLoading && page.id == parseInt(this.parent)) {
+        return 'coleus-aside-spinner'
+      } else if (!this.parentLoading && page.id == parseInt(this.parent)) {
+        return 'coleus-caret-down'
+      } else {
+        return 'coleus-caret-left'
+      }
+    },
+    scrollToTop() {
+      const c = document.documentElement.scrollTop || document.body.scrollTop
+      if (c > 0) {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+    },
+    isCurrentPage(id) {
+      return (
+        (this.currentPage == 0
+          ? parseInt(this.$route.params.page)
+          : this.currentPage) == id
+      )
+    },
+    addHashToLocation(params) {
+      history.pushState({}, null, params)
+    },
+    fetchContent(page) {
+      this.currentPage = parseInt(page)
+      this.addHashToLocation(
+        `/${this.$route.params.username}/${this.$route.params.book}/${this.parent}/${page}`
+      )
+      this.$root.$emit('content-changed', page)
+      this.scrollToTop()
+    },
+    toggle() {},
+    scrollTo(id) {}
   }
 }
 </script>

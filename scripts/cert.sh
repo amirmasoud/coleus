@@ -14,8 +14,8 @@ source $(dirname $0)/main.sh
 # fi
 
 eval openssl req -x509 \
-    -out nginx/certs/$1.crt \
-    -keyout nginx/certs/$1.key \
+    -out prod/nginx/certs/$1.crt \
+    -keyout prod/nginx/certs/$1.key \
     -newkey rsa:2048 \
     -nodes -sha256 \
     -subj '/CN=$1' \
