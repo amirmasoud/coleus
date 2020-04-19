@@ -22,6 +22,9 @@ export default {
       action: ''
     }
   },
+  head() {
+    let canonical = `https://negar.in${this.$route.path}`
+  },
   watch: {
     $route() {
       this.action = ''

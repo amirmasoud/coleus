@@ -26,9 +26,7 @@
             <div class="w-3/4 flex flex-col text-right pr-4">
               <h1 class="font-semibold">{{ user.name }}</h1>
               <div class="flex justify-between font-light" dir="rtl">
-                <div class="text-gray-400">
-                  {{ user.book_users_aggregate.aggregate.count }} کتاب
-                </div>
+                <div class="text-gray-400">{{ user.book_users_aggregate.aggregate.count }} کتاب</div>
               </div>
             </div>
           </div>
@@ -45,6 +43,17 @@
 
 <script>
 export default {
+  head: {
+    title: 'خانه',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'چایی برای ماندن'
+      }
+    ]
+  },
   apollo: {
     users: {
       query: require('~/graphql/users.gql')

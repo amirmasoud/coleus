@@ -21,6 +21,18 @@
 import BookCard from '~/components/partials/cards/Book'
 
 export default {
+  head: {
+    title: 'کتاب‌ها',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'همه کتاب‌ها'
+      }
+    ]
+  },
+
   components: {
     BookCard
   },

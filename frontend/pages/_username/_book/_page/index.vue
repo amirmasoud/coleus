@@ -39,7 +39,11 @@
 import coleusAside from '@/components/partials/Aside'
 
 export default {
-  scrollToTop: false,
+  head() {
+    return {
+      title: this.pages && this.pages.length ? this.pages[0].title : ''
+    }
+  },
   components: {
     coleusAside
   },
