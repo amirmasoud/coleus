@@ -47,7 +47,10 @@
                   :href="`/${$route.params.username}/${$route.params.book}/${parent}/${subpage.id}`"
                 >
                   {{ subpage.title }}
-                  <coleus-aside-spinner v-if="isCurrentPage(subpage.id) && loading" />
+                  <coleus-spinner
+                    v-if="isCurrentPage(subpage.id) && loading"
+                    class="float-right w-6 -mr-8 -mt-2 sticky"
+                  />
                 </a>
               </li>
             </ul>
@@ -110,20 +113,17 @@ export default {
             `/${this.$route.params.username}/${this.$route.params.book}/${this.parent}/${data.pages[0].id}`
           )
         }
-
-        if (data) {
-          this.parentLoading = false
-          return data.pages
-        }
+      },
+      update(data) {
+        this.parentLoading = false
+        return data.pages
       }
     }
   },
   watch: {
-    parent: (newParent) => ({
-      if(newParent) {
-        this.parentLoading = true
-      }
-    })
+    parent(newParent, oldParent) {
+      this.parentLoading = true
+    }
   },
   mounted() {
     this.parent = this.$route.params.parent
@@ -146,8 +146,10 @@ export default {
       return pageId == parseInt(this.parent)
     },
     fetchChildren(newParent) {
-      this.parent = newParent
-      this.pages = []
+      if (this.parent != newParent) {
+        this.parent = newParent
+        this.pages = []
+      }
     },
     isOpen(page) {
       if (this.parentLoading && page.id == parseInt(this.parent)) {
@@ -187,3 +189,19 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.list-complete-item {
+  transition: all 1s;
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-complete-enter, .list-complete-leave-to
+/* .list-complete-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.list-complete-leave-active {
+  position: absolute;
+}
+</style>
