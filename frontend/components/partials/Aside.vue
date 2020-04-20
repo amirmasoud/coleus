@@ -157,7 +157,7 @@ export default {
       result({ data, loading, error }) {
         if (process.client) {
           this.addHashToLocation(
-            `/${this.$route.params.username}/${this.$route.params.book}/${this.parent}/${data.pages[0].id}`
+            `/${this.$route.params.username}/${this.$route.params.book}/${this.parent}/${this.currentPage}/?page=${this.paginateCurrentPage}`
           )
         }
       },
@@ -187,6 +187,7 @@ export default {
   },
   mounted() {
     this.parent = this.$route.params.parent
+    this.offset = (parseInt(this.$route.query.page || 1) - 1) * 10
   },
   computed: {
     breadcrumb() {
@@ -205,13 +206,11 @@ export default {
     prevPage() {
       if (this.paginatePrevPage != this.paginateCurrentPage) {
         this.offset -= 10
-        // this.paginateCurrentPage -= 1
       }
     },
     nextPage() {
       if (this.paginateNextPage != this.paginateCurrentPage) {
         this.offset += 10
-        // this.paginateCurrentPage += 1
       }
     },
     calculatePagination() {
@@ -284,7 +283,7 @@ export default {
     fetchContent(page) {
       this.currentPage = parseInt(page)
       this.addHashToLocation(
-        `/${this.$route.params.username}/${this.$route.params.book}/${this.parent}/${page}`
+        `/${this.$route.params.username}/${this.$route.params.book}/${this.parent}/${page}/?page=${this.paginateCurrentPage}`
       )
       this.$root.$emit('content-changed', page)
       this.scrollToTop()
