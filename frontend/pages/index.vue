@@ -10,7 +10,7 @@
       >
         <div class="p-2">
           <div
-            class="bg-white border border-gray-300 flex flex-wrap items-center p-2 border border-gray-200 shadow-md rounded-full group-hover:shadow-lg transition-shadow duration-500 ease-in-out"
+            class="bg-white border border-gray-300 flex flex-wrap items-center p-2 shadow-md rounded-full group-hover:shadow-lg transition-shadow duration-500 ease-in-out"
           >
             <div class="w-1/4 max-h-12 -mb-2">
               <no-ssr>

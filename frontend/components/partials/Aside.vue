@@ -32,6 +32,39 @@
                 {{ page.title }}
               </a>
             </h3>
+            <div
+              v-if="showChildren(page.id) && !loadingParent"
+              class="pagination flex flex-wrap my-3"
+              :key="`pagination-${index}`"
+            >
+              <div class="w-1/6">
+                <a
+                  href="#"
+                  @click.prevent="prevPage()"
+                  :disabled="paginateCurrentPage == 1"
+                  class="flex justify-around bg-white border border-gray-400 text-gray-800 shadow h-8 w-8 rounded-full hover:shadow-md"
+                  :class="{ 'pagination-link-disabled': paginateCurrentPage == 1 }"
+                >
+                  <coleus-spinner v-if="loadingPrevPage" class="self-center p-1" />
+                  <coleus-caret-right v-else class="self-center" />
+                </a>
+              </div>
+              <div class="w-1/6">
+                <a
+                  href="#"
+                  @click.prevent="nextPage()"
+                  :disabled="paginateCurrentPage == paginateTotalPages"
+                  class="flex justify-around bg-white border border-gray-400 text-gray-800 shadow h-8 w-8 rounded-full hover:shadow-md"
+                  :class="{ 'pagination-link-disabled': paginateCurrentPage == paginateTotalPages }"
+                >
+                  <coleus-spinner v-if="loadingNextPage" class="self-center p-1" />
+                  <coleus-caret-left v-else class="self-center" />
+                </a>
+              </div>
+              <div
+                class="w-2/3 text-right text-gray-500 pr-2"
+              >صفحه {{ paginateCurrentPage }} از {{ paginateTotalPages }}</div>
+            </div>
             <ul v-if="showChildren(page.id)" :key="`list-${index}`" class="pb-8 md:pr-4">
               <li
                 v-for="subpage in pages"
@@ -65,6 +98,7 @@
 import throttle from 'lodash/throttle'
 import coleusCaretDown from '@/components/svg/CaretDown'
 import coleusCaretLeft from '@/components/svg/CaretLeft'
+import coleusCaretRight from '@/components/svg/CaretRight'
 import coleusTimes from '@/components/svg/Times'
 import coleusAsideSpinner from '@/components/partials/AsideSpinner'
 
@@ -77,6 +111,7 @@ export default {
   components: {
     coleusCaretDown,
     coleusCaretLeft,
+    coleusCaretRight,
     coleusTimes,
     coleusAsideSpinner
   },
@@ -87,7 +122,19 @@ export default {
     currentPage: 0,
     offset: 0,
     parent: null,
-    parentLoading: false
+    loadingParent: false,
+    loadingNextPage: false,
+    loadingPrevPage: false,
+    pagesAggregateCount: 0,
+    paginateTotal: 0,
+    paginateTotalItems: 0,
+    paginateCurrentPage: 1,
+    paginateNextPage: 1,
+    paginatePrevPage: 1,
+    paginateTotalPages: 1,
+    paginateHasMore: false,
+    paginateNextOffset: 0,
+    paginatePrevOffset: 0
   }),
   apollo: {
     books: {
@@ -115,14 +162,27 @@ export default {
         }
       },
       update(data) {
-        this.parentLoading = false
+        this.loadingParent = false
+        this.loadingNextPage = false
+        this.loadingPrevPage = false
+        this.pagesAggregateCount = data.pages_aggregate.aggregate.count
+        this.calculatePagination()
         return data.pages
       }
     }
   },
   watch: {
     parent(newParent, oldParent) {
-      this.parentLoading = true
+      this.loadingParent = true
+    },
+    offset(newOffset, oldOffset) {
+      if (newOffset > oldOffset) {
+        this.loadingNextPage = true
+      }
+
+      if (newOffset < oldOffset) {
+        this.loadingPrevPage = true
+      }
     }
   },
   mounted() {
@@ -142,6 +202,40 @@ export default {
     }
   },
   methods: {
+    prevPage() {
+      if (this.paginatePrevPage != this.paginateCurrentPage) {
+        this.offset -= 10
+        // this.paginateCurrentPage -= 1
+      }
+    },
+    nextPage() {
+      if (this.paginateNextPage != this.paginateCurrentPage) {
+        this.offset += 10
+        // this.paginateCurrentPage += 1
+      }
+    },
+    calculatePagination() {
+      this.paginateTotal = this.pagesAggregateCount
+      this.paginateTotalPages = Math.ceil(this.paginateTotal / 10)
+      this.paginateCurrentPage = Math.ceil(this.offset / 10) + 1
+      this.paginateNextPage =
+        this.paginateCurrentPage <= this.paginateTotalPages
+          ? this.paginateCurrentPage + 1
+          : this.paginateNextPage
+      this.paginatePrevPage =
+        Math.ceil(this.offset / 10) > 0 &&
+        Math.ceil(this.offset / 10) < this.paginateTotalPages
+          ? this.paginateCurrentPage - 1
+          : this.paginatePrevPage
+      this.paginateTotalPages = this.paginateTotalPages
+      this.paginateHasMore = this.totalPages - 10 - this.offset * 10 > 0
+      this.paginateNextOffset =
+        this.totalPages - 10 - this.offset * 10 > 0
+          ? this.offset + 10
+          : this.paginateNextOffset
+      this.paginatePrevOffset =
+        this.totalPages - 10 <= 0 ? this.offset - 10 : this.paginatePrevOffset
+    },
     showChildren(pageId) {
       return pageId == parseInt(this.parent)
     },
@@ -149,12 +243,23 @@ export default {
       if (this.parent != newParent) {
         this.parent = newParent
         this.pages = []
+
+        this.offset = 0
+        this.paginateTotal = 0
+        this.paginateTotalItems = 0
+        this.paginateCurrentPage = 1
+        this.paginateNextPage = 1
+        this.paginatePrevPage = 1
+        this.paginateTotalPages = 1
+        this.paginateHasMore = false
+        this.paginateNextOffset = 0
+        this.paginatePrevOffset = 0
       }
     },
     isOpen(page) {
-      if (this.parentLoading && page.id == parseInt(this.parent)) {
+      if (this.loadingParent && page.id == parseInt(this.parent)) {
         return 'coleus-aside-spinner'
-      } else if (!this.parentLoading && page.id == parseInt(this.parent)) {
+      } else if (!this.loadingParent && page.id == parseInt(this.parent)) {
         return 'coleus-caret-down'
       } else {
         return 'coleus-caret-left'
@@ -191,17 +296,7 @@ export default {
 </script>
 
 <style lang="scss">
-.list-complete-item {
-  transition: all 1s;
-  display: inline-block;
-  margin-right: 10px;
-}
-.list-complete-enter, .list-complete-leave-to
-/* .list-complete-leave-active below version 2.1.8 */ {
-  opacity: 0;
-  transform: translateY(30px);
-}
-.list-complete-leave-active {
-  position: absolute;
+.pagination-link-disabled {
+  @apply bg-gray-200 text-gray-400 border-gray-300 shadow-none cursor-not-allowed;
 }
 </style>
