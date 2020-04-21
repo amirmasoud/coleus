@@ -34,7 +34,7 @@
             </h3>
             <div
               v-if="showChildren(page.id) && !loadingParent"
-              class="pagination flex flex-wrap my-3"
+              class="pagination flex flex-wrap my-3 md:mr-3"
               :key="`pagination-${index}`"
             >
               <div class="w-1/6">
