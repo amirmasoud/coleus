@@ -1,4 +1,6 @@
+/prod/docker-compose.no-env.yml
 /prod/nginx/log/*.log
 /prod/database/data/
 /prod/rabbitmq/data/
 /prod/rabbitmq/logs/
+/prod/.env
