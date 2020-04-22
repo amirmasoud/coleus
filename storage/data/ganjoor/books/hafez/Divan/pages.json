@@ -1,0 +1,27 @@
+[
+    {
+        "path": "ghazal",
+        "title": "غزلیات",
+        "order": 0
+    },
+    {
+        "path": "robaee2",
+        "title": "رباعیات",
+        "order": 1
+    },
+    {
+        "path": "ghete",
+        "title": "قطعات",
+        "order": 2
+    },
+    {
+        "path": "ghaside",
+        "title": "قصاید",
+        "order": 3
+    },
+    {
+        "path": "montasab",
+        "title": "اشعار منتسب",
+        "order": 4
+    }
+]

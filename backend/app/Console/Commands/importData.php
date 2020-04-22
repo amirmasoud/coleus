@@ -178,7 +178,7 @@ class ImportData extends Command
                     'thumbnail' => $thumbnail,
                     'xsmall' => $xsmall,
                 ]);
-                $this->info('Inserting ' . $book->slug);
+                $this->info('Inserting ' . $user->username . ' → ' . $book->slug . '...');
 
                 $pages = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/' . $book->slug . '/pages.json'));
                 usort($pages, function ($a, $b) {
