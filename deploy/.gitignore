@@ -3,4 +3,3 @@
 /prod/database/data/
 /prod/rabbitmq/data/
 /prod/rabbitmq/logs/
-/prod/.env
