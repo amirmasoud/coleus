@@ -1,4 +1,18 @@
 ...
 
-1. SSL certificates
-2. Create database
+1. SSL certificates -> Let's encrypt
+2. Create database -> ./coleus psql -> create database coleus
+3. provide keys for services
+
+
+ISSUES:
+-1. chmod +x ./coleus
+00. ./coleus is not working
+01. Install docker and docker-compose automatically if not installed already (as non-root user)
+02. Create database
+03. Generate keys (.env)
+04. Docker up the thing.
+
+
+Server
+1. t3a -> 7.31 USD/month
