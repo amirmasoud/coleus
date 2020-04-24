@@ -204,8 +204,21 @@ class ImportData extends Command
                                 if (!property_exists($page, 'page_title') && property_exists($part, 'm1') && !property_exists($page, 'page_header')) { // First m2
                                     $title = $part->m1;
                                 } else { // Custom title
-                                    if (property_exists($page, 'page_header') && @isset(property_exists($page, 'page_header')[$pageOrder])) {
-                                        $title = property_exists($page, 'page_header')[$pageOrder];
+                                    $CustomHeader = '';
+                                    $hasCustomHeader = false;
+                                    if (property_exists($page, 'page_header')) {
+                                        foreach ($page->page_header as $value) {
+                                            $key = key($value);
+                                            if ($key == $pageOrder) {
+                                                $CustomHeader = $value->{$key};
+                                                $hasCustomHeader = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if ($hasCustomHeader) {
+                                        $title = $CustomHeader;
                                     } else {
                                         if (property_exists($page, 'page_count_lang') && $page->page_count_lang == 'fa') {
                                             $str = $customCount;
