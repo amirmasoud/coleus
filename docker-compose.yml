@@ -23,7 +23,7 @@ services:
       args:
         FPM_VERSION: ${FPM_VERSION}
         BACKEND_PORT: ${BACKEND_PORT}
-      dockerfile: ./deploy/prod/backend/Dockerfile
+      dockerfile: ../deploy/prod/backend/Dockerfile
     container_name: coleus-backend
     restart: unless-stopped
     ports:
