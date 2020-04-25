@@ -17,6 +17,8 @@ class ImportData extends Command
      * @var string
      */
     protected $signature = 'import:data
+                            {username? : Username}
+                            {bookSlug? : Book Slug}
                             {path? : The path to dataset}
                             {book? : The book ID to content add to}
                             {parent? : The parent of the content}
@@ -133,11 +135,17 @@ class ImportData extends Command
 
         $users = json_decode(Storage::disk('dataset')->get('ganjoor/users/all.json'));
         foreach ($users as $user) {
+            if (!is_null($this->argument('username')) && $user->username != $this->argument('username')) {
+                continue;
+            }
             $user = $this->insertUser($user);
 
             $books = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/books.json'));
 
             foreach ($books as $book) {
+                if (!is_null($this->argument('bookSlug')) && $book->slug != $this->argument('bookSlug')) {
+                    continue;
+                }
                 $uniqid = uniqid('', true);
                 $cover = 'ganjoor/books/' . $user->username . '/' . $book->slug . '/' . $book->slug . '.jpg';
                 if (Storage::disk('dataset')->exists($cover)) {
@@ -167,6 +175,8 @@ class ImportData extends Command
                 // 8*5
                 $placeholder = $this->image('public/book_cover/' . $uniqid . '.jpg', 5, 8);
 
+                $bookPath = property_exists($book, 'path') ? $book->path : $book->slug;
+
                 $book = $user->books()->create([
                     'title' => $book->title,
                     'slug' => $book->slug,
@@ -177,10 +187,11 @@ class ImportData extends Command
                     'small' => $small,
                     'thumbnail' => $thumbnail,
                     'xsmall' => $xsmall,
+                    'order' => $book->order ?? 0
                 ]);
                 $this->info('Inserting ' . $user->username . ' → ' . $book->slug . '...');
 
-                $pages = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/' . $book->slug . '/pages.json'));
+                $pages = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/' . $bookPath . '/pages.json'));
                 usort($pages, function ($a, $b) {
                     return $a->order > $b->order;
                 });
@@ -191,7 +202,7 @@ class ImportData extends Command
                         'status' => 'published'
                     ]);
 
-                    $pages = (Storage::disk('dataset')->directories('ganjoor/books/' . $user->username . '/' . $book->slug . '/' . $page->path));
+                    $pages = (Storage::disk('dataset')->directories('ganjoor/books/' . $user->username . '/' . $bookPath . '/' . $page->path));
                     sort($pages, SORT_NATURAL);
                     $pageOrder = 0;
                     $customCount = 1;
@@ -204,8 +215,21 @@ class ImportData extends Command
                                 if (!property_exists($page, 'page_title') && property_exists($part, 'm1') && !property_exists($page, 'page_header')) { // First m2
                                     $title = $part->m1;
                                 } else { // Custom title
-                                    if (property_exists($page, 'page_header') && @isset(property_exists($page, 'page_header')[$pageOrder])) {
-                                        $title = property_exists($page, 'page_header')[$pageOrder];
+                                    $CustomHeader = '';
+                                    $hasCustomHeader = false;
+                                    if (property_exists($page, 'page_header')) {
+                                        foreach ($page->page_header as $value) {
+                                            $key = key($value);
+                                            if ($key == $pageOrder) {
+                                                $CustomHeader = $value->{$key};
+                                                $hasCustomHeader = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if ($hasCustomHeader) {
+                                        $title = $CustomHeader;
                                     } else {
                                         if (property_exists($page, 'page_count_lang') && $page->page_count_lang == 'fa') {
                                             $str = $customCount;

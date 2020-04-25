@@ -36,7 +36,8 @@ php artisan add:content ganjoor/saadi/mavaez/mofradat 15 'مفردات' &&
 php artisan add:content ganjoor/saadi/mavaez/mosalas 15 'مثلثات' &&
 php artisan add:content ganjoor/saadi/mavaez/arabi 15 'قصاید و قطعات عربی'
 
-php artisan add:content ganjoor/ferdousi/shahname/aghaz 16 'آغاز کتاب' --header="بخش ۱ - آغاز کتاب" \
+php artisan add:content ganjoor/ferdousi/shahname/aghaz 16 'آغاز کتاب'  \
+    --header="بخش ۱ - آغاز کتاب" \
     --header="بخش ۲ - ستایش خرد" \
     --header="بخش ۳ - گفتار اندر آفرینش عالم" \
     --header="بخش ۴ - گفتار اندر آفرینش مردم" \

@@ -1,0 +1,22 @@
+[
+  {
+    "path": "ghazalsh",
+    "title": "غزلیات",
+    "order": 0
+  },
+  {
+    "path": "mostadrakat",
+    "title": "مستدرکات",
+    "order": 1
+  },
+  {
+    "path": "robaeesh",
+    "title": "رباعیات",
+    "order": 2
+  },
+  {
+    "path": "tarjeeat",
+    "title": "ترجیعات",
+    "order": 3
+  }
+]

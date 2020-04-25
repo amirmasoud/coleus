@@ -82,6 +82,9 @@ services:
       - backend-network
       # - frontend-network
 
+  https:
+    image: certbot/certbot
+
   cache:
     image: redis:${REDIS_VERSION}
     container_name: coleus-cache
