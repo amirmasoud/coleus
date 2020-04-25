@@ -61,9 +61,16 @@
                   <coleus-caret-left v-else class="self-center" />
                 </a>
               </div>
-              <div
-                class="w-2/3 text-right text-gray-500 pr-2"
-              >صفحه {{ paginateCurrentPage }} از {{ paginateTotalPages }}</div>
+              <div class="w-2/3 text-right text-gray-500 pr-2">
+                صفحه
+                <input
+                  class="inline bg-gray-300 w-16 py-1 px-2 rounded-full border border-gray-400"
+                  type="number"
+                  @input="throttledCurrentPage"
+                  v-model="paginateCurrentPage"
+                />
+                از {{ paginateTotalPages }}
+              </div>
             </div>
             <ul v-if="showChildren(page.id)" :key="`list-${index}`" class="pb-8 md:pr-4">
               <li
@@ -95,6 +102,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import throttle from 'lodash/throttle'
 import coleusCaretDown from '@/components/svg/CaretDown'
 import coleusCaretLeft from '@/components/svg/CaretLeft'
@@ -203,6 +211,15 @@ export default {
     }
   },
   methods: {
+    throttledCurrentPage: _.debounce(function(e) {
+      if (
+        !isNaN(e.target.value) &&
+        e.target.value > 0 &&
+        e.target.value <= this.paginateTotalPages
+      ) {
+        this.offset = (e.target.value - 1) * 10
+      }
+    }, 300),
     prevPage() {
       if (this.paginatePrevPage != this.paginateCurrentPage) {
         this.offset -= 10

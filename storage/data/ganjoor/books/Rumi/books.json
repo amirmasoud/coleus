@@ -2,25 +2,21 @@
   {
     "title": "دیوان شمس تبریزی",
     "slug": "The-Works-of-Shams-of-Tabriz",
-    "path": "shams",
     "order": 0
   },
   {
     "title": "مثنوی معنوی",
     "slug": "Spiritual-Couplets",
-    "path": "masnavi",
     "order": 1
   },
   {
     "title": "فیه ما فیه",
     "slug": "In-It-What's-in-It",
-    "path": "fhmfh",
     "order": 2
   },
   {
     "title": "مجالس سبعه",
     "slug": "Seven-Sessions",
-    "path": "7m",
     "order": 3
   }
 ]

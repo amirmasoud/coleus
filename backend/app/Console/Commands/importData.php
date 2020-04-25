@@ -17,6 +17,8 @@ class ImportData extends Command
      * @var string
      */
     protected $signature = 'import:data
+                            {username? : Username}
+                            {bookSlug? : Book Slug}
                             {path? : The path to dataset}
                             {book? : The book ID to content add to}
                             {parent? : The parent of the content}
@@ -133,11 +135,17 @@ class ImportData extends Command
 
         $users = json_decode(Storage::disk('dataset')->get('ganjoor/users/all.json'));
         foreach ($users as $user) {
+            if (!is_null($this->argument('username')) && $user->username != $this->argument('username')) {
+                continue;
+            }
             $user = $this->insertUser($user);
 
             $books = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/books.json'));
 
             foreach ($books as $book) {
+                if (!is_null($this->argument('bookSlug')) && $book->slug != $this->argument('bookSlug')) {
+                    continue;
+                }
                 $uniqid = uniqid('', true);
                 $cover = 'ganjoor/books/' . $user->username . '/' . $book->slug . '/' . $book->slug . '.jpg';
                 if (Storage::disk('dataset')->exists($cover)) {
@@ -167,6 +175,8 @@ class ImportData extends Command
                 // 8*5
                 $placeholder = $this->image('public/book_cover/' . $uniqid . '.jpg', 5, 8);
 
+                $bookPath = property_exists($book, 'path') ? $book->path : $book->slug;
+
                 $book = $user->books()->create([
                     'title' => $book->title,
                     'slug' => $book->slug,
@@ -180,8 +190,6 @@ class ImportData extends Command
                     'order' => $book->order ?? 0
                 ]);
                 $this->info('Inserting ' . $user->username . ' → ' . $book->slug . '...');
-
-                $bookPath = property_exists($book, 'path') ? $book->path : $book->slug;
 
                 $pages = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/' . $bookPath . '/pages.json'));
                 usort($pages, function ($a, $b) {
