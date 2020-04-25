@@ -1,0 +1,27 @@
+[
+    {
+      "path": "daftar1",
+      "title": "دفتر ۱",
+      "order": 0
+    },
+    {
+      "path": "daftar2",
+      "title": "دفتر ۲",
+      "order": 1
+    },
+    {
+      "path": "daftar3",
+      "title": "دفتر ۳",
+      "order": 2
+    },
+    {
+        "path": "daftar4",
+        "title": "دفتر ۴",
+        "order": 3
+      },
+      {
+        "path": "daftar5",
+        "title": "دفتر ۵",
+        "order": 4
+      }
+  ]

@@ -177,10 +177,13 @@ class ImportData extends Command
                     'small' => $small,
                     'thumbnail' => $thumbnail,
                     'xsmall' => $xsmall,
+                    'order' => $book->order ?? 0
                 ]);
                 $this->info('Inserting ' . $user->username . ' → ' . $book->slug . '...');
 
-                $pages = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/' . $book->slug . '/pages.json'));
+                $bookPath = property_exists($book, 'path') ? $book->path : $book->slug;
+
+                $pages = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/' . $bookPath . '/pages.json'));
                 usort($pages, function ($a, $b) {
                     return $a->order > $b->order;
                 });
@@ -191,7 +194,7 @@ class ImportData extends Command
                         'status' => 'published'
                     ]);
 
-                    $pages = (Storage::disk('dataset')->directories('ganjoor/books/' . $user->username . '/' . $book->slug . '/' . $page->path));
+                    $pages = (Storage::disk('dataset')->directories('ganjoor/books/' . $user->username . '/' . $bookPath . '/' . $page->path));
                     sort($pages, SORT_NATURAL);
                     $pageOrder = 0;
                     $customCount = 1;

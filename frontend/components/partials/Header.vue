@@ -30,22 +30,22 @@
             </li>
           </ul>
           <!-- Left Action -->
-          <a
+          <!-- <a
             href="#"
             class="block md:hidden flex p-2 -m-2 items-center justify-center text-coleus-gray hover:text-indigo-500 z-10 lg:hidden"
             @click.prevent="$emit('change', 'search')"
           >
             <coleus-search-icon class="block h-5 fill-current" />
           </a>
-          <coleus-search class="hidden md:inline-block align-middle" />
+          <coleus-search class="hidden md:inline-block align-middle" /> -->
         </coleus-container>
         <coleus-container class="hidden lg:block">
         </coleus-container>
       </template>
       <coleus-container v-else class="flex justify-between lg:hidden">
         <!-- Left Title -->
-        <coleus-search v-if="action === 'search'" class="w-full pr-4" />
-        <div v-else class="flex items-end">
+        <!-- <coleus-search v-if="action === 'search'" class="w-full pr-4" /> -->
+        <div class="flex items-end">
           <component
             :is="'coleus-' + action + '-icon'"
             class="block h-6 text-indigo-500 fill-current"
@@ -54,14 +54,14 @@
           <!-- $store.state.lang.links[action] -->
         </div>
         <!-- Right Action -->
-        <a
+        <!-- <a
           href="#"
           class="absolute flex p-2 -m-2 items-center justify-center text-coleus-gray hover:text-indigo-500 z-10 lg:hidden"
           :class="action === 'search' ? 'pt-3' : ''"
           @click.prevent="$emit('change', '')"
         >
           <coleus-times-icon class="block h-5 fill-current" />
-        </a>
+        </a> -->
       </coleus-container>
     </header>
     <!-- Mobile Main Navigation -->
