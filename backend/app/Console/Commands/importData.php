@@ -114,6 +114,7 @@ class ImportData extends Command
             'small' => $small,
             'thumbnail' => $thumbnail,
             'xsmall' => $xsmall,
+            'order' => $user->order ?? 0
         ]);
     }
 
@@ -246,6 +247,10 @@ class ImportData extends Command
 
                                     if (property_exists($page, 'page_append') && property_exists($part, 'm1')) {
                                         $title .= ': ' . $part->m1;
+                                    }
+
+                                    if (property_exists($page, 'page_append') && property_exists($part, 't1')) {
+                                        $title .= ': ' . $part->t1;
                                     }
                                 }
 

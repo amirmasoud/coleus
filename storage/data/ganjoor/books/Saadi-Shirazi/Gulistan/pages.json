@@ -8,7 +8,7 @@
   {
     "path": "gbab1",
     "title": "باب اول در سیرت پادشاهان",
-    "page_title": "حکایت شماره ",
+    "page_title": "حکایت ",
     "page_count": true,
     "page_count_lang": "fa",
     "order": 1
@@ -16,7 +16,7 @@
   {
     "path": "gbab2",
     "title": "باب دوم در اخلاق درویشان",
-    "page_title": "حکایت شماره ",
+    "page_title": "حکایت ",
     "page_count": true,
     "page_count_lang": "fa",
     "order": 2
@@ -24,7 +24,7 @@
   {
     "path": "gbab3",
     "title": "باب سوم در فضیلت قناعت",
-    "page_title": "حکایت شماره ",
+    "page_title": "حکایت ",
     "page_count": true,
     "page_count_lang": "fa",
     "order": 3
@@ -32,7 +32,7 @@
   {
     "path": "gbab4",
     "title": "باب چهارم در فواید خاموشی",
-    "page_title": "حکایت شماره ",
+    "page_title": "حکایت ",
     "page_count": true,
     "page_count_lang": "fa",
     "order": 4
@@ -40,7 +40,7 @@
   {
     "path": "gbab5",
     "title": "باب پنجم در عشق و جوانی",
-    "page_title": "حکایت شماره ",
+    "page_title": "حکایت ",
     "page_count": true,
     "page_count_lang": "fa",
     "order": 5
@@ -48,7 +48,7 @@
   {
     "path": "gbab6",
     "title": "باب ششم در ضعف و پیری",
-    "page_title": "حکایت شماره ",
+    "page_title": "حکایت ",
     "page_count": true,
     "page_count_lang": "fa",
     "order": 6
@@ -56,7 +56,7 @@
   {
     "path": "gbab7",
     "title": "باب هفتم در تأثیر تربیت",
-    "page_title": "حکایت شماره ",
+    "page_title": "حکایت ",
     "page_count": true,
     "page_count_lang": "fa",
     "order": 7
@@ -64,7 +64,7 @@
   {
     "path": "gbab8",
     "title": "باب هشتم در آداب صحبت",
-    "page_title": "حکایت شمار ",
+    "page_title": "حکایت ",
     "page_count": true,
     "page_count_lang": "fa",
     "order": 8
