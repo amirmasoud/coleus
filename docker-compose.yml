@@ -1,20 +1,24 @@
 version: "3"
 
 services:
-  # frontend:
-  #   image: frontend:1.0.0
-  #   build:
-  #     context: ../frontend
-  #     dockerfile: ../deploy/frontend/Dockerfile
-  #     args:
-  #       - NODE_VERSION=${NODE_VERSION}
-  #   container_name: coleus-frontend
-  #   restart: unless-stopped
-  #   ports:
-  #     - 3000:3000
-  #   working_dir: /var/www/frontend
-  #   networks:
-  #     - frontend-network
+  frontend:
+    image: frontend:${FRONTEND_TAG}
+    build:
+      context: ./frontend
+      dockerfile: ../deploy/prod/frontend/Dockerfile
+      args:
+        - NODE_VERSION=${NODE_VERSION}
+    container_name: coleus-frontend
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    working_dir: /var/www/frontend
+    volumes:
+      - ./frontend/.env:/var/www/frontend/.env
+    command:
+      "yarn start"
+    networks:
+      - frontend-network
 
   backend:
     image: backend:${BACKEND_TAG}
@@ -76,11 +80,11 @@ services:
       - ./deploy/prod/nginx/conf.d/:/etc/nginx/conf.d/
       - ./deploy/prod/nginx/log/:/var/log/nginx/
     depends_on:
-      # - frontend
+      - frontend
       - backend
     networks:
       - backend-network
-      # - frontend-network
+      - frontend-network
 
   https:
     image: certbot/certbot
@@ -181,8 +185,8 @@ services:
 networks:
   backend-network:
     driver: bridge
-  # frontend-network:
-  #   driver: bridge
+  frontend-network:
+    driver: bridge
 
 volumes:
   data:

@@ -9,5 +9,4 @@ RUN yarn install --frozen-lockfile && \
     yarn cache clean && \
     yarn build
 
-EXPOSE 3000
-CMD ["yarn", "start"]
+ENV HOST 0.0.0.0
