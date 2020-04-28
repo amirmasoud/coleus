@@ -1,0 +1,28 @@
+[
+  {
+    "path": "ghaside",
+    "title": "رباعیات",
+    "order": 0,
+    "page_title": "قصیده ",
+    "page_count": true,
+    "page_count_lang": "fa",
+    "page_append": true
+  },
+  {
+    "path": "robaeen",
+    "title": "رباعیات",
+    "order": 1,
+    "page_title": "رباعی ",
+    "page_count": true,
+    "page_count_lang": "fa",
+    "page_append": true
+  },
+  {
+    "path": "mosammat",
+    "title": "مسمط",
+    "order": 2,
+    "page_header": [
+      { "0": "ای گنبد زنگارگون ای پرجنون پرفنون" }
+    ]
+  }
+]
