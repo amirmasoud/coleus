@@ -1,0 +1,23 @@
+[
+  {
+    "path": "2beytiha",
+    "title": "دوبیتی‌ها",
+    "page_title": "شماره ",
+    "page_count": true,
+    "page_count_lang": "fa",
+    "page_append": true,
+    "order": 0
+  },
+  {
+    "path": "ghaside",
+    "title": "قصیده",
+    "page_header": [{ "0": "بتا تا زار چون تو دلبرستم" }],
+    "order": 1
+  },
+  {
+    "path": "ghazal",
+    "title": "غزل",
+    "page_header": [{ "0": "دلا در عشق تو صد دفترستم" }],
+    "order": 2
+  }
+]

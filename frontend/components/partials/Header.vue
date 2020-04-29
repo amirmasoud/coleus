@@ -122,7 +122,7 @@
 </template>
 
 <script>
-import coleusLogo from '@/components/svg/coleus'
+import coleusLogo from '@/components/svg/Coleus'
 import coleusGlobe from '@/components/svg/Globe'
 import coleusBooksIcon from '@/components/svg/Books'
 import coleusUsersIcon from '@/components/svg/Users'

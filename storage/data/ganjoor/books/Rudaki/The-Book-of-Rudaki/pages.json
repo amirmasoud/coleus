@@ -1,0 +1,75 @@
+[
+  {
+    "path": "kalila-sand",
+    "title": "ابیات به جا مانده از کلیله و دمنه و سندبادنامه",
+    "order": 0,
+    "page_title": "پاره ",
+    "page_count": true,
+    "page_count_lang": "fa",
+    "page_append": true
+  },
+  {
+    "path": "motaghareb",
+    "title": "ابیات به جا مانده از مثنوی بحر متقارب",
+    "order": 1,
+    "page_title": "پاره ",
+    "page_count": true,
+    "page_count_lang": "fa",
+    "page_append": true
+  },
+  {
+    "path": "khafeef",
+    "title": "ابیات به جا مانده از مثنوی بحر خفیف",
+    "order": 2,
+    "page_title": "پاره ",
+    "page_count": true,
+    "page_count_lang": "fa",
+    "page_append": true
+  },
+  {
+    "path": "hzj",
+    "title": "ابیات به جا مانده از مثنوی بحر هزج",
+    "order": 3,
+    "page_title": "پاره ",
+    "page_count": true,
+    "page_count_lang": "fa",
+    "page_append": true
+  },
+  {
+    "path": "digar",
+    "title": "ابیات به جا مانده از دیگر مثنویها",
+    "order": 4,
+    "page_title": "پاره ",
+    "page_count": true,
+    "page_count_lang": "fa",
+    "page_append": true
+  },
+
+  {
+    "path": "robaeer",
+    "title": "رباعیات",
+    "order": 5,
+    "page_title": "رباعی ",
+    "page_count": true,
+    "page_count_lang": "fa",
+    "page_append": true
+  },
+  {
+    "path": "parakande",
+    "title": "ابیات پراکنده",
+    "order": 6,
+    "page_title": "شماره ",
+    "page_count": true,
+    "page_count_lang": "fa",
+    "page_append": true
+  },
+  {
+    "path": "baghimande",
+    "title": "قصاید و قطعات",
+    "order": 7,
+    "page_title": "شماره ",
+    "page_count": true,
+    "page_count_lang": "fa",
+    "page_append": true
+  }
+]
