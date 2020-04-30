@@ -66,7 +66,7 @@ class AddUser extends Command
 
         $signature = rtrim(strtr(base64_encode(hash_hmac('sha256', $saltBin . $path, $keyBin, true)), '+/', '-_'), '=');
 
-        return 'https://image.coleus.test' . sprintf("/%s%s", $signature, $path);
+        return 'https://image.coleus.app' . sprintf("/%s%s", $signature, $path);
     }
 
     /**

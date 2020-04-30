@@ -10,13 +10,13 @@
       >
         <img itemprop="image" :src="user.small || user.photo_url" class="hidden">
         <p itemprop="description" class="hidden">{{ user.bio }}</p>
-        <no-ssr>
+        <client-only>
           <progressive-img
             :src="user.small || user.photo_url"
             :placeholder="user.placeholder"
             :aspect-ratio="1"
           />
-        </no-ssr>
+        </client-only>
         <div class="px-4 py-2">
           <div itemprop="name" class="text-normal mb-1 py-1">{{ user.name }}</div>
         </div>

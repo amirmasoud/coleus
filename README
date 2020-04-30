@@ -4,6 +4,10 @@
 2. Create database -> ./coleus psql -> create database coleus
 3. provide keys for services
 
+.env -> root
+    |-> backend
+    |-> frontend
+
 
 ISSUES:
 -1. chmod +x ./coleus

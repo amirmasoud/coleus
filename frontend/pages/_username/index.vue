@@ -8,7 +8,7 @@
             class="cover-profile object-cover h-16 sm:h-32 w-full -mb-8 sm:-mb-16 sm:rounded-lg shadow"
           />
           <div class="mx-auto w-20 sm:w-32 -mb-4">
-            <no-ssr>
+            <client-only>
               <progressive-img
                 class="shadow-lg rounded-full border-4 border-white"
                 :src="user.medium"
@@ -16,7 +16,7 @@
                 :blur="30"
                 :aspect-ratio="1"
               />
-            </no-ssr>
+            </client-only>
           </div>
           <h1
             class="font-semibold text-center mt-4 text-2xl sm:text-3xl lg:text-4xl"
