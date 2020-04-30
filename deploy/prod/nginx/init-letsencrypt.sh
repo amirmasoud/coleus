@@ -11,7 +11,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(coleus.app www.coleus.app backend.coleus.app www.backend.coleus.app graphql.coleus.app www.graphql.coleus.app image.coleus.app www.image.coleus.app storage.coleus.app www.storage.coleus.app)
+domains=(coleus.app www.coleus.app)
 rsa_key_size=4096
 data_path="./certbot"
 email=$(read_var CERTBOT_EMAIL) # Adding a valid address is strongly recommended
@@ -72,10 +72,10 @@ esac
 # Enable staging mode if needed
 if [ $staging != "0" ]; then staging_arg="--staging"; fi
 
+# --webroot -w /var/www/certbot \
 docker-compose --env-file ../../../.env -f ../../../docker-compose.yml run --rm --entrypoint "\
-  certbot certonly --dns-cloudflare --dns-cloudflare-credentials ./cloudflare.ini \
+  certbot certonly --dns-cloudflare --dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini \
     --preferred-challenges dns-01 \
-    --webroot -w /var/www/certbot \
     $staging_arg \
     $email_arg \
     $domain_args \
