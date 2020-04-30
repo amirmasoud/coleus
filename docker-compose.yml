@@ -76,11 +76,11 @@ services:
     restart: unless-stopped
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     volumes:
-      - ./deploy/prod/nginx/certs/:/etc/ssl/certs/
+      # - ./deploy/prod/nginx/certs/:/etc/ssl/certs/
       - ./deploy/prod/nginx/conf.d/:/etc/nginx/conf.d/
       - ./deploy/prod/nginx/log/:/var/log/nginx/
       - ./deploy/prod/nginx/certbot/conf:/etc/letsencrypt
-      - ./deploy/prod/nginx/certbot/www:/var/www/certbot
+      # - ./deploy/prod/nginx/certbot/www:/var/www/certbot
     depends_on:
       - frontend
       - backend
