@@ -1,9 +1,9 @@
 #!/bin/bash
 
 read_var() {
-    VAR=$(grep $1 ../../../.env | xargs -0)
-    IFS="=" read -ra VAR <<< "$VAR"
-    echo ${VAR[1]}
+  VAR=$(grep $1 ../../../.env | xargs -0)
+  IFS="=" read -ra VAR <<<"$VAR"
+  echo ${VAR[1]}
 }
 
 if ! [ -x "$(command -v docker-compose)" ]; then
@@ -15,7 +15,7 @@ domains=(backend.coleus.app www.backend.coleus.app)
 rsa_key_size=4096
 data_path="./certbot"
 email=$(read_var CERTBOT_EMAIL) # Adding a valid address is strongly recommended
-staging=0 # Set to 1 if you're testing your setup to avoid hitting request limits
+staging=0                       # Set to 1 if you're testing your setup to avoid hitting request limits
 
 if [ -d "$data_path" ]; then
   read -p "Existing data found for $domains. Continue and replace existing certificate? (y/N) " decision
@@ -24,12 +24,11 @@ if [ -d "$data_path" ]; then
   fi
 fi
 
-
 if [ ! -e "$data_path/conf/options-ssl-nginx.conf" ] || [ ! -e "$data_path/conf/ssl-dhparams.pem" ]; then
   echo "### Downloading recommended TLS parameters ..."
   mkdir -p "$data_path/conf"
-  curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf > "$data_path/conf/options-ssl-nginx.conf"
-  curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem > "$data_path/conf/ssl-dhparams.pem"
+  curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf >"$data_path/conf/options-ssl-nginx.conf"
+  curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem >"$data_path/conf/ssl-dhparams.pem"
   echo
 fi
 
@@ -43,9 +42,9 @@ docker-compose --env-file ../../../.env -f ../../../docker-compose.yml run --rm 
     -subj '/CN=localhost'" ssl
 echo
 
-
 echo "### Starting nginx ..."
-docker-compose --env-file ../../../.env -f ../../../docker-compose.yml up --force-recreate -d proxy
+nginx
+# docker-compose --env-file ../../../.env -f ../../../docker-compose.yml up --force-recreate -d proxy
 echo
 
 echo "### Deleting dummy certificate for $domains ..."
@@ -55,18 +54,21 @@ docker-compose --env-file ../../../.env -f ../../../docker-compose.yml run --rm 
   rm -Rf /etc/letsencrypt/renewal/$domains.conf" ssl
 echo
 
-
 echo "### Requesting Let's Encrypt certificate for $domains ..."
 #Join $domains to -d args
 domain_args=""
 for domain in "${domains[@]}"; do
   domain_args="$domain_args -d $domain"
+  domain_args="$domain_args -d backend.$domain"
+  domain_args="$domain_args -d storage.$domain"
+  domain_args="$domain_args -d image.$domain"
+  domain_args="$domain_args -d graphql.$domain"
 done
 
 # Select appropriate email arg
 case "$email" in
-  "") email_arg="--register-unsafely-without-email" ;;
-  *) email_arg="--email $email" ;;
+"") email_arg="--register-unsafely-without-email" ;;
+*) email_arg="--email $email" ;;
 esac
 
 # Enable staging mode if needed
@@ -84,5 +86,5 @@ docker-compose --env-file ../../../.env -f ../../../docker-compose.yml run --rm 
     --force-renewal" ssl
 echo
 
-echo "### Reloading nginx ..."
-docker-compose --env-file ../../../.env -f ../../../docker-compose.yml exec proxy nginx -s reload
+# echo "### Reloading nginx ..."
+# docker-compose --env-file ../../../.env -f ../../../docker-compose.yml exec proxy nginx -s reload
