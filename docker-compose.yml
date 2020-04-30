@@ -15,8 +15,7 @@ services:
     working_dir: /var/www/frontend
     volumes:
       - ./frontend/.env:/var/www/frontend/.env
-    command:
-      "yarn start"
+    command: "yarn start"
     networks:
       - frontend-network
 
@@ -75,10 +74,13 @@ services:
       - 80:80
       - 443:443
     restart: unless-stopped
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     volumes:
       - ./deploy/prod/nginx/certs/:/etc/ssl/certs/
       - ./deploy/prod/nginx/conf.d/:/etc/nginx/conf.d/
       - ./deploy/prod/nginx/log/:/var/log/nginx/
+      - ./deploy/prod/nginx/certbot/conf:/etc/letsencrypt
+      - ./deploy/prod/nginx/certbot/www:/var/www/certbot
     depends_on:
       - frontend
       - backend
@@ -86,8 +88,13 @@ services:
       - backend-network
       - frontend-network
 
-  https:
+  ssl:
     image: certbot/certbot
+    container_name: coleus-ssl
+    volumes:
+      - ./deploy/prod/certbot/conf:/etc/letsencrypt
+      - ./deploy/prod/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   cache:
     image: redis:${REDIS_VERSION}
@@ -128,7 +135,7 @@ services:
       - MINIO_DOMAIN=${MINIO_PUBLIC_URL}
       - MINIO_BROWSER=${MINIO_BROWSER}
       - MINIO_REGION=us-east-1
-    command: [ "server", "/data"]
+    command: ["server", "/data"]
     networks:
       - backend-network
     healthcheck:
