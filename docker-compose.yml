@@ -89,7 +89,7 @@ services:
       - frontend-network
 
   ssl:
-    image: certbot/certbot
+    image: certbot/dns-cloudflare
     container_name: coleus-ssl
     volumes:
       - ./deploy/prod/certbot/conf:/etc/letsencrypt
