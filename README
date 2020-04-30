@@ -8,7 +8,6 @@
     |-> backend
     |-> frontend
 
-
 ISSUES:
 -1. chmod +x ./coleus
 00. ./coleus is not working
@@ -16,7 +15,7 @@ ISSUES:
 02. Create database
 03. Generate keys (.env)
 04. Docker up the thing.
-
+Change domains
 
 Server
 1. t3a.small -> 7.31 USD/month

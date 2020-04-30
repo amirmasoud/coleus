@@ -71,22 +71,22 @@
           class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
           :to="{ name: 'books' }"
         >
-          <component
+          <!-- <component
             :is="'coleus-books-icon'"
             class="inline-block h-5 fill-current mb-1"
             :class="{'text-indigo-500': action === 'books'}"
-          />
+          /> -->
           <span class="block text-xs md:text-base md:pl-3 font-medium text-gray">کتاب‌ها</span>
         </nuxt-link>
         <nuxt-link
           class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
           :to="{ name: 'index' }"
         >
-          <component
+          <!-- <component
             :is="'coleus-users-icon'"
             class="inline-block h-5 fill-current mb-1"
             :class="{'text-indigo-500': action === 'users'}"
-          />
+          /> -->
           <span class="block text-xs md:text-base md:pl-3 font-medium text-gray">شاعران</span>
         </nuxt-link>
       </div>
@@ -124,16 +124,16 @@
 <script>
 import coleusLogo from '@/components/svg/Coleus'
 import coleusGlobe from '@/components/svg/Globe'
-import coleusBooksIcon from '@/components/svg/Books'
-import coleusUsersIcon from '@/components/svg/Users'
+// import coleusBooksIcon from '@/components/svg/Books'
+// import coleusUsersIcon from '@/components/svg/Users'
 import coleusSearchIcon from '@/components/svg/Search'
 import coleusSearch from '@/components/partials/Search'
 import coleusArrowLeft from '@/components/svg/ArrowLeft'
 
 export default {
   components: {
-    coleusUsersIcon,
-    coleusBooksIcon,
+    // coleusUsersIcon,
+    // coleusBooksIcon,
     coleusLogo,
     coleusSearchIcon,
     coleusSearch,
