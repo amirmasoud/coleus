@@ -92,8 +92,8 @@ services:
     image: certbot/dns-cloudflare
     container_name: coleus-ssl
     volumes:
-      - ./deploy/prod/certbot/conf:/etc/letsencrypt
-      - ./deploy/prod/certbot/www:/var/www/certbot
+      - ./deploy/prod/nginx/certbot/conf:/etc/letsencrypt
+      - ./deploy/prod/nginx/certbot/www:/var/www/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   cache:
