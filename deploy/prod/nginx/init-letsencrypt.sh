@@ -86,5 +86,3 @@ echo
 
 echo "### Reloading nginx ..."
 docker-compose --env-file ../../../.env -f ../../../docker-compose.yml exec proxy nginx -s reload
-
-$ sudo certbot certonly --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare.ini -d example.com,*.example.com
