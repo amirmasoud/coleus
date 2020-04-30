@@ -54,8 +54,8 @@ class ImportData extends Command
      */
     public function image($path, $width = 32, $height = 32)
     {
-        $key = 'f4740b81b9581903dff7cad6b95d4ce87538296893fff3766d3680e111b3bec0c8ec6cbd51496cb393cc9f7af95d90276b9a7803ddf5d0833060070394294d44';
-        $salt = '3d2088cbd7254ab2ae4488db2d51bb3bd55feda242773c318a0c6117f7c2f91a4cf9802f8ff27f9bac0acf79f14c4bd6e58d9c88cf9fc9f9e4bc61bb247bfd66';
+        $key = env('IMGPROXY_KEY');
+        $salt = env('IMGPROXY_SALT');
 
         $keyBin = pack("H*", $key);
         if (empty($keyBin)) {
