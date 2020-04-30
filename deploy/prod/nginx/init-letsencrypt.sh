@@ -73,7 +73,9 @@ esac
 if [ $staging != "0" ]; then staging_arg="--staging"; fi
 
 docker-compose --env-file ../../../.env -f ../../../docker-compose.yml run --rm --entrypoint "\
-  certbot certonly --webroot -w /var/www/certbot \
+  certbot certonly --dns-cloudflare --dns-cloudflare-credentials ./cloudflare.ini \
+    --preferred-challenges dns-01 \
+    --webroot -w /var/www/certbot \
     $staging_arg \
     $email_arg \
     $domain_args \
@@ -84,3 +86,5 @@ echo
 
 echo "### Reloading nginx ..."
 docker-compose --env-file ../../../.env -f ../../../docker-compose.yml exec proxy nginx -s reload
+
+$ sudo certbot certonly --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare.ini -d example.com,*.example.com
