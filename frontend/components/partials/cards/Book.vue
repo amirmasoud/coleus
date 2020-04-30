@@ -3,7 +3,7 @@
     itemtype="http://schema.org/Book"
     class="max-w-md shadow-md bg-white rounded-br-none rounded-bl-none rounded-tr rounded-tl overflow-hidden border border-gray-300"
   >
-    <no-ssr>
+    <client-only>
       <progressive-img
         itemprop="image"
         :src="book.medium"
@@ -11,7 +11,7 @@
         :blur="30"
         :aspect-ratio="1.5"
       />
-    </no-ssr>
+    </client-only>
     <div class="px-4">
       <div v-if="$route.name == 'books'" class="text-gray-400 text-sm">
         <nuxt-link

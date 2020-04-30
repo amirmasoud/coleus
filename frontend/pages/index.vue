@@ -13,7 +13,7 @@
             class="bg-white border border-gray-300 flex flex-wrap items-center p-2 shadow-md rounded-full group-hover:shadow-lg transition-shadow duration-500 ease-in-out"
           >
             <div class="w-1/4 max-h-12 -mb-2">
-              <no-ssr>
+              <client-only>
                 <progressive-img
                   class="shadow rounded-full border border-gray-300"
                   :src="user.xsmall"
@@ -21,7 +21,7 @@
                   :blur="30"
                   :aspect-ratio="1"
                 />
-              </no-ssr>
+              </client-only>
             </div>
             <div class="w-3/4 flex flex-col text-right pr-4">
               <h1 class="font-semibold">{{ user.name }}</h1>
