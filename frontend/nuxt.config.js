@@ -1,7 +1,17 @@
-require('dotenv').config()
+import dotenv from "dotenv"; dotenv.config();
 
 export default {
   mode: 'universal',
+
+  env: {
+    APP_ENV: process.env.APP_ENV,
+    APP_LOCALE: process.env.APP_LOCALE,
+    FRONT_URL: process.env.FRONT_URL,
+    GQL_URL: process.env.GQL_URL,
+    BASE_URL: process.env.BASE_URL,
+    GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID,
+    GOOGLE_ADSENSE_ID: process.env.GOOGLE_ADSENSE_ID
+  },
 
   /*
    ** Headers of the page
@@ -47,6 +57,12 @@ export default {
         id: process.env.GOOGLE_ANALYTICS_ID
       }
     ],
+    [
+      '@nuxtjs/google-adsense',
+      {
+        id: process.env.GOOGLE_ADSENSE_ID
+      }
+    ],
     // Doc: https://github.com/nuxt-community/global-components
     '@nuxtjs/global-components',
     // Doc: https://github.com/nuxt-community/dotenv-module
@@ -55,7 +71,10 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/pwa', '@nuxtjs/apollo'],
+  modules: [
+    '@nuxtjs/pwa',
+    '@nuxtjs/apollo'
+  ],
   /*
    ** Build configuration
    */
