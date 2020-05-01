@@ -50,19 +50,6 @@ export default {
     '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss',
-    // Doc: https://github.com/nuxt-community/analytics-module
-    [
-      '@nuxtjs/google-analytics',
-      {
-        id: process.env.GOOGLE_ANALYTICS_ID
-      }
-    ],
-    [
-      '@nuxtjs/google-adsense',
-      {
-        id: process.env.GOOGLE_ADSENSE_ID
-      }
-    ],
     // Doc: https://github.com/nuxt-community/global-components
     '@nuxtjs/global-components',
     // Doc: https://github.com/nuxt-community/dotenv-module

@@ -22,8 +22,13 @@ export default {
       action: ''
     }
   },
-  head() {
-    let canonical = `https://negar.in${this.$route.path}`
+  head: {
+    script: [
+      {
+        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
+        'data-ad-client': process.env.GOOGLE_ADSENSE_ID
+      }
+    ]
   },
   watch: {
     $route() {
