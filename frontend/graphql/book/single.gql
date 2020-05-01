@@ -1,4 +1,4 @@
-query Book($slug: String) {
+query BookSingle($slug: String) {
   books(where: {slug: {_ilike: $slug}}) {
     id
     title
