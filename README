@@ -9,7 +9,7 @@
     |-> frontend
 
 backend -> composer install && php artisan key:generate && php artisan migrate && php artisan imprt:data
-
+Hasura -> export schema
 ISSUES:
 -1. chmod +x ./coleus
 00. ./coleus is not working
