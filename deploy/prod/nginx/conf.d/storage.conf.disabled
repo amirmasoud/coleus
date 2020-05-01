@@ -1,8 +1,26 @@
 server {
 	listen 80;
 	server_name storage.coleus.app www.storage.coleus.app;
+	rewrite ^ https://$server_name$request_uri? permanent;
+}
+
+server {
+	listen 443 ssl;
+
+	ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+
+	ssl_ciphers ALL:!aNULL:!ADH:!eNULL:!LOW:!EXP:RC4+RSA:+HIGH:+MEDIUM;
+
+	server_name storage.coleus.app www.storage.coleus.app;
+
 	error_log /var/log/nginx/storage.error.log;
 	access_log /var/log/nginx/storage.access.log;
+
+	ssl_certificate /etc/letsencrypt/live/coleus.app/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/coleus.app/privkey.pem;
+	include /etc/letsencrypt/options-ssl-nginx.conf;
+	ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+	ssl_session_timeout 5m;
 
 	ignore_invalid_headers off;
 	client_max_body_size 0;

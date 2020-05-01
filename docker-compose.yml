@@ -74,12 +74,12 @@ services:
       - 80:80
       - 443:443
     restart: unless-stopped
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     volumes:
       # - ./deploy/prod/nginx/certs/:/etc/ssl/certs/
       - ./deploy/prod/nginx/conf.d/:/etc/nginx/conf.d/
       - ./deploy/prod/nginx/log/:/var/log/nginx/
-      - ./deploy/prod/nginx/certbot/conf:/etc/letsencrypt
+      # - ./deploy/prod/nginx/certbot/conf:/etc/letsencrypt
       # - ./deploy/prod/nginx/certbot/www:/var/www/certbot
     depends_on:
       - frontend
@@ -88,13 +88,13 @@ services:
       - backend-network
       - frontend-network
 
-  ssl:
-    image: certbot/dns-cloudflare
-    container_name: coleus-ssl
-    volumes:
-      - ./deploy/prod/nginx/certbot/conf:/etc/letsencrypt
-      - ./deploy/prod/nginx/certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+  # ssl:
+  #   image: certbot/dns-cloudflare
+  #   container_name: coleus-ssl
+  #   volumes:
+  #     - ./deploy/prod/nginx/certbot/conf:/etc/letsencrypt
+  #     - ./deploy/prod/nginx/certbot/www:/var/www/certbot
+  #   entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   cache:
     image: redis:${REDIS_VERSION}
