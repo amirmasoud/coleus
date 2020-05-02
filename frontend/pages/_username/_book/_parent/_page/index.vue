@@ -3,16 +3,16 @@
     <div class="lg:flex">
       <coleus-aside class="hidden lg:block" :loading="$apollo.loading" />
       <div class="min-h-screen w-full lg:static lg:max-h-full lg:overflow-visible lg:w-3/4">
-        <div class="-mx-4 lg:mx-0 flex flex-col-reverse lg:flex-row">
+        <div class="lg:mx-0 flex flex-col-reverse lg:flex-row">
           <div
-            class="lg:min-h-screen w-full py-8 px-4 lg:static lg:overflow-visible lg:max-h-full lg:w-3/4"
+            class="lg:min-h-screen w-full px-4 lg:static lg:overflow-visible lg:max-h-full lg:w-3/4"
           >
             <!--       @mouseover="$store.dispatch('focusMode')"
             @mouseleave="$store.dispatch('clearFocusMode')"-->
             <div v-if="pages && pages.length">
               <coleus-article>
                 <h1 class="text-4xl mb-10 border-indigo-600">{{ pages[0].title }}</h1>
-                <div class="flex flex-wrap">
+                <div class="flex flex-wrap content-wrapper">
                   <div
                     v-for="block in pages[0].blocks"
                     :key="block.id"
@@ -68,3 +68,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.content-wrapper .w-full:nth-child(2n) {
+  @apply pb-6;
+}
+</style>
+

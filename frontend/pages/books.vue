@@ -5,7 +5,7 @@
         <nuxt-link
           :to="{name: 'username-book-parent-page', params: { username: book.book_users[0].user.username, book: book.slug, parent: book.pages[0].parent_id, page: book.pages[0].id }}"
         >
-          <book-card :book="book" class="mx-auto" />
+          <book-card :book="book" class="mx-auto mb-8" />
         </nuxt-link>
       </div>
     </div>

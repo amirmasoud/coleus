@@ -1,5 +1,5 @@
 <template>
-  <div dir="rtl" class="bg-gray-100 min-h-screen">
+  <div dir="rtl" class="bg-white min-h-screen mb-16">
     <coleus-header v-model="action" />
     <main class="lg:block relative pt-20 md:pt-24" :class="{'hidden': action}">
       <nuxt />
@@ -21,14 +21,6 @@ export default {
     return {
       action: ''
     }
-  },
-  head: {
-    script: [
-      {
-        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
-        'data-ad-client': process.env.GOOGLE_ADSENSE_ID
-      }
-    ]
   },
   watch: {
     $route() {

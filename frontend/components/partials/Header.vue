@@ -189,7 +189,7 @@ export default {
 
 <style>
 .header {
-  @apply fixed bg-gray-100 top-0 left-0 right-0 z-30;
+  @apply fixed bg-white top-0 left-0 right-0 z-30;
 }
 .header_nav_link a.nuxt-link-active {
   @apply text-gray-100 bg-indigo-500 rounded-full;

@@ -2,20 +2,18 @@
   <coleus-container class="flex flex-wrap flex-row">
     <template v-if="users && users.length">
       <nuxt-link
-        class="w-full md:w-1/4"
+        class="w-full min-w-sm sm:w-1/2 md:w-1/3"
         v-for="user in users"
         :key="user.username"
         :to="{ name: 'username', params: { username: user.username }}"
         no-prefetch
       >
-        <div class="p-2">
-          <div
-            class="bg-white border border-gray-300 flex flex-wrap items-center p-2 shadow-md rounded-full group-hover:shadow-lg transition-shadow duration-500 ease-in-out"
-          >
-            <div class="w-1/4 max-h-12 -mb-2">
+        <div class="px-4 py-2 sm:p-2">
+          <div class="bg-white border border-gray-300 flex flex-wrap items-center shadow rounded">
+            <div class="w-1/4 -mb-2 p-2">
               <client-only>
                 <progressive-img
-                  class="shadow rounded-full border border-gray-300"
+                  class="rounded"
                   :src="user.xsmall"
                   :placeholder="user.thumbnail"
                   :blur="30"
@@ -49,8 +47,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content:
-          'چایی برای ماندن'
+        content: 'چایی برای ماندن'
       }
     ]
   },

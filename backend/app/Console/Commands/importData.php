@@ -80,7 +80,7 @@ class ImportData extends Command
 
         $signature = rtrim(strtr(base64_encode(hash_hmac('sha256', $saltBin . $path, $keyBin, true)), '+/', '-_'), '=');
 
-        return 'https://image.coleus.app' . sprintf("/%s%s", $signature, $path);
+        return env('IMGPROXY_PUBLIC_URL') . sprintf("/%s%s", $signature, $path);
     }
 
     public function insertUser($user)
