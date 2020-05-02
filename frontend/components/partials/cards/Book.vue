@@ -1,7 +1,7 @@
 <template>
   <div
     itemtype="http://schema.org/Book"
-    class="max-w-md shadow-md bg-white rounded-br-none rounded-bl-none rounded-tr rounded-tl overflow-hidden border border-gray-300"
+    class="max-w-md bg-white rounded-tr rounded-tl overflow-hidden"
   >
     <client-only>
       <progressive-img
@@ -10,16 +10,17 @@
         :placeholder="book.thumbnail"
         :blur="30"
         :aspect-ratio="1.5"
+        class="shadow border border-gray-200 rounded"
       />
     </client-only>
-    <div class="px-4">
-      <div v-if="$route.name == 'books'" class="text-gray-400 text-sm">
+    <div class="">
+      <div v-if="$route.name == 'books'" class="text-gray-900 font-light">
         <nuxt-link
           class="hover:text-indigo-500 focus:text-indigo-500 transition-all duration-300 ease-in-out"
           :to="{ name: 'username', params: { username: book.book_users[0].user.username } }"
         >{{ book.book_users[0].user.name }}</nuxt-link>
       </div>
-      <div itemprop="name" class="text-lg mb-1 pb-3 pt-1">{{ book.title }}</div>
+      <div itemprop="name" class="text-lg font-bold mb-1 pb-3 pt-1">{{ book.title }}</div>
     </div>
   </div>
 </template>
