@@ -22,7 +22,7 @@
             <h3
               :key="`title-${index}`"
               :id="`page-${page.id}`"
-              class="uppercase text-gray-500 pb-2"
+              class="font-semibold text-gray-900 pb-2"
             >
               <a
                 :href="`/${$route.params.username}/${$route.params.book}/${page.id}`"
@@ -42,37 +42,36 @@
                   href="#"
                   @click.prevent="prevPage()"
                   :disabled="paginateCurrentPage == 1"
-                  class="flex justify-around bg-white border border-gray-400 text-gray-800 shadow h-8 w-8 rounded-full hover:shadow-md"
+                  class="flex justify-around text-gray-800 h-8 w-8"
                   :class="{ 'pagination-link-disabled': paginateCurrentPage == 1 }"
                 >
                   <coleus-spinner v-if="loadingPrevPage" class="self-center p-1" />
                   <coleus-caret-right v-else class="self-center" />
                 </a>
               </div>
+              <div class="w-2/3 text-right text-gray-900">
+                <input
+                  class="inline w-24 py-1 px-2 border-b border-gray-400 focus:border-indigo-400"
+                  type="number"
+                  @input="throttledCurrentPage"
+                  v-model="paginateCurrentPage"
+                />
+                <span> از </span> {{ paginateTotalPages }}
+              </div>
               <div class="w-1/6">
                 <a
                   href="#"
                   @click.prevent="nextPage()"
                   :disabled="paginateCurrentPage == paginateTotalPages"
-                  class="flex justify-around bg-white border border-gray-400 text-gray-800 shadow h-8 w-8 rounded-full hover:shadow-md"
+                  class="flex justify-around text-gray-800 h-8 w-8"
                   :class="{ 'pagination-link-disabled': paginateCurrentPage == paginateTotalPages }"
                 >
                   <coleus-spinner v-if="loadingNextPage" class="self-center p-1" />
                   <coleus-caret-left v-else class="self-center" />
                 </a>
               </div>
-              <div class="w-2/3 text-right text-gray-500 pr-2">
-                صفحه
-                <input
-                  class="inline bg-gray-300 w-16 py-1 px-2 rounded-full border border-gray-400"
-                  type="number"
-                  @input="throttledCurrentPage"
-                  v-model="paginateCurrentPage"
-                />
-                از {{ paginateTotalPages }}
-              </div>
             </div>
-            <ul v-if="showChildren(page.id)" :key="`list-${index}`" class="pb-8 md:pr-4">
+            <ul v-if="showChildren(page.id)" :key="`list-${index}`" class="pb-4 md:pr-4">
               <li
                 v-for="subpage in pages"
                 :key="subpage.id"
@@ -313,6 +312,6 @@ export default {
 
 <style lang="scss">
 .pagination-link-disabled {
-  @apply bg-gray-200 text-gray-400 border-gray-300 shadow-none cursor-not-allowed;
+  @apply text-gray-400 border-gray-200 shadow-none cursor-not-allowed;
 }
 </style>

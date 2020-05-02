@@ -1,5 +1,5 @@
 <template>
-  <div dir="rtl" class="bg-white min-h-screen">
+  <div dir="rtl" class="bg-white min-h-screen mb-16">
     <coleus-header v-model="action" />
     <main class="lg:block relative pt-20 md:pt-24" :class="{'hidden': action}">
       <nuxt />
