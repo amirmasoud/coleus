@@ -22,14 +22,6 @@ export default {
       action: ''
     }
   },
-  head: {
-    script: [
-      {
-        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
-        'data-ad-client': process.env.GOOGLE_ADSENSE_ID
-      }
-    ]
-  },
   watch: {
     $route() {
       this.action = ''
