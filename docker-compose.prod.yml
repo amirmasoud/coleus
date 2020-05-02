@@ -1,0 +1,162 @@
+version: "3"
+
+services:
+  frontend:
+    image: frontend:${FRONTEND_TAG}
+    build:
+      context: ./frontend
+      dockerfile: ../deploy/prod/frontend/Dockerfile
+      args:
+        - NODE_VERSION=${NODE_VERSION}
+    container_name: coleus-frontend
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    working_dir: /var/www/frontend
+    volumes:
+      - ./frontend/.env:/var/www/frontend/.env
+    command: "yarn start"
+    networks:
+      - frontend-network
+
+  backend:
+    image: backend:${BACKEND_TAG}
+    build:
+      context: ./backend
+      args:
+        FPM_VERSION: ${FPM_VERSION}
+        BACKEND_PORT: ${BACKEND_PORT}
+      dockerfile: ../deploy/prod/backend/Dockerfile
+    container_name: coleus-backend
+    restart: unless-stopped
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+    working_dir: /var/www/backend
+    depends_on:
+      - database
+      - cache
+    volumes:
+      - ./backend:/var/www/backend
+      - ./deploy/prod/backend/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./deploy/prod/backend/php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+    networks:
+      - backend-network
+
+  database:
+    image: postgres:${PGSQL_VERSION}
+    container_name: coleus-database
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./deploy/prod/database/data:/var/lib/postgresql/data
+    networks:
+      - backend-network
+
+  graphql:
+    image: hasura/graphql-engine:v1.1.0
+    container_name: coleus-graphql
+    ports:
+      - 8180:8180
+    depends_on:
+      - database
+    restart: unless-stopped
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:@database:5432/coleus
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "${GRAPHQL_ENABLE_CONSOLE}"
+      HASURA_GRAPHQL_ADMIN_SECRET: ${GRAPHQL_ADMIN_SECRET}
+      HASURA_GRAPHQL_ENABLE_ALLOWLIST: "${GRAPHQL_ENABLE_ALLOWLIST}"
+    networks:
+      - backend-network
+
+  proxy:
+    image: nginx:${NGINX_VERSION}
+    container_name: coleus-proxy
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped
+    volumes:
+      - ./deploy/prod/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./deploy/prod/nginx/log/:/var/log/nginx/
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - backend-network
+      - frontend-network
+
+  cache:
+    image: redis:${REDIS_VERSION}
+    container_name: coleus-cache
+    command: ["redis-server"]
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+    volumes:
+      - ./deploy/prod/redis-data:/data
+    networks:
+      - backend-network
+
+  storage:
+    image: minio/minio
+    container_name: coleus-storage
+    restart: unless-stopped
+    volumes:
+      - ./storage:/data
+      - ./deploy/prod/minio:/root/.minio
+    ports:
+      - 9001:9000
+    environment:
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+      - MINIO_DOMAIN=${MINIO_PUBLIC_URL}
+      - MINIO_BROWSER=${MINIO_BROWSER}
+      - MINIO_REGION=us-east-1
+    command: ["server", "/data"]
+    networks:
+      - backend-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9001/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  image:
+    image: darthsim/imgproxy:latest
+    container_name: coleus-image
+    restart: unless-stopped
+    environment:
+      IMGPROXY_KEY: ${IMGPROXY_KEY}
+      IMGPROXY_SALT: ${IMGPROXY_SALT}
+      IMGPROXY_SIGNATURE_SIZE: ${IMGPROXY_SIGNATURE_SIZE}
+      IMGPROXY_QUALITY: ${IMGPROXY_QUALITY}
+      IMGPROXY_GZIP_COMPRESSION: ${IMGPROXY_GZIP_COMPRESSION}
+      IMGPROXY_JPEG_PROGRESSIVE: ${IMGPROXY_JPEG_PROGRESSIVE}
+      IMGPROXY_SENTRY_DSN: ${IMGPROXY_SENTRY_DSN}
+      IMGPROXY_SENTRY_ENVIRONMENT: ${IMGPROXY_SENTRY_ENVIRONMENT}
+      IMGPROXY_SENTRY_RELEASE: ${IMGPROXY_SENTRY_RELEASE}
+      IMGPROXY_USE_S3: ${IMGPROXY_USE_S3}
+      IMGPROXY_LOCAL_FILESYSTEM_ROOT: /opt
+      IMGPROXY_S3_ENDPOINT: http://storage:9000
+      AWS_ACCESS_KEY_ID: ${MINIO_ACCESS_KEY}
+      AWS_SECRET_ACCESS_KEY: ${MINIO_SECRET_KEY}
+      AWS_REGION: us-east-1
+    ports:
+      - 8080:8080
+    volumes:
+      - ./storage:/opt
+    networks:
+      - backend-network
+
+networks:
+  backend-network:
+    driver: bridge
+  frontend-network:
+    driver: bridge
+
+volumes:
+  data:
+  redis-data:
+  storage:
+  minio:
