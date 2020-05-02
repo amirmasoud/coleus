@@ -3,10 +3,10 @@
     <div v-if="users && users.length">
       <div v-for="user in users" :key="user.id">
         <div class="lg:py-2">
-          <img
+          <!-- <img
             src="/cover.jpg"
             class="cover-profile object-cover h-16 sm:h-32 w-full -mb-8 sm:-mb-16 sm:rounded-lg shadow"
-          />
+          /> -->
           <div class="mx-auto w-20 sm:w-32 -mb-4">
             <client-only>
               <progressive-img
@@ -21,7 +21,7 @@
           <h1
             class="font-semibold text-center mt-4 text-2xl sm:text-3xl lg:text-4xl"
           >{{ user.name }}</h1>
-          <div class="text-gray-500 text-center font-thin text-sm">{{ user.username }}</div>
+          <div class="text-gray-500 text-center font-light">{{ user.username }}</div>
         </div>
         <div v-if="user.book_users && user.book_users.length" class="flex content-start flex-wrap">
           <div
