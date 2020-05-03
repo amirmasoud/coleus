@@ -1,7 +1,7 @@
 <template>
   <div dir="rtl" class="bg-white min-h-screen mb-16">
     <coleus-header v-model="action" />
-    <main class="lg:block relative pt-20 md:pt-24" :class="{'hidden': action}">
+    <main class="lg:block relative pt-20 md:pt-24" :class="{ hidden: action }">
       <nuxt />
     </main>
     <!-- <coleus-footer class="pb-16 lg:pb-0 lg:block" :class="{'hidden': action}" /> -->
@@ -10,12 +10,12 @@
 
 <script>
 import coleusHeader from '@/components/partials/Header'
-import coleusFooter from '@/components/partials/Footer'
+// import coleusFooter from '@/components/partials/Footer'
 
 export default {
   components: {
-    coleusHeader,
-    coleusFooter
+    coleusHeader
+    // coleusFooter
   },
   data() {
     return {

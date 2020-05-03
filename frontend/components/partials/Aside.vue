@@ -6,7 +6,11 @@
     <div
       class="h-full overflow-y-auto scrolling-touch text-center lg:text-right lg:h-auto lg:block lg:relative lg:sticky lg:top-24"
     >
-      <a class="block text-right p-4 lg:hidden" href="#nav" @click.prevent="showNav = !showNav">
+      <a
+        class="block text-right p-4 lg:hidden"
+        href="#nav"
+        @click.prevent="showNav = !showNav"
+      >
         <coleus-times v-if="showNav" class="float-right mt-1 mr-1 h-5" />
         <coleus-caret-down v-else class="float-right mt-2 mr-1" />
         <span class="uppercase text-gray-500 ml-1">Group :</span>
@@ -25,10 +29,15 @@
               class="font-semibold text-gray-900 pb-2"
             >
               <a
-                :href="`/${$route.params.username}/${$route.params.book}/${page.id}`"
+                :href="
+                  `/${$route.params.username}/${$route.params.book}/${page.id}`
+                "
                 @click.prevent="fetchChildren(page.id)"
               >
-                <component class="float-right mt-2 ml-1" :is="isOpen(page)"></component>
+                <component
+                  class="float-right mt-2 ml-1"
+                  :is="isOpen(page)"
+                ></component>
                 {{ page.title }}
               </a>
             </h3>
@@ -43,9 +52,14 @@
                   @click.prevent="prevPage()"
                   :disabled="paginateCurrentPage == 1"
                   class="flex justify-around text-gray-800 h-8 w-8"
-                  :class="{ 'pagination-link-disabled': paginateCurrentPage == 1 }"
+                  :class="{
+                    'pagination-link-disabled': paginateCurrentPage == 1
+                  }"
                 >
-                  <coleus-spinner v-if="loadingPrevPage" class="self-center p-1" />
+                  <coleus-spinner
+                    v-if="loadingPrevPage"
+                    class="self-center p-1"
+                  />
                   <coleus-caret-right v-else class="self-center" />
                 </a>
               </div>
@@ -64,14 +78,24 @@
                   @click.prevent="nextPage()"
                   :disabled="paginateCurrentPage == paginateTotalPages"
                   class="flex justify-around text-gray-800 h-8 w-8"
-                  :class="{ 'pagination-link-disabled': paginateCurrentPage == paginateTotalPages }"
+                  :class="{
+                    'pagination-link-disabled':
+                      paginateCurrentPage == paginateTotalPages
+                  }"
                 >
-                  <coleus-spinner v-if="loadingNextPage" class="self-center p-1" />
+                  <coleus-spinner
+                    v-if="loadingNextPage"
+                    class="self-center p-1"
+                  />
                   <coleus-caret-left v-else class="self-center" />
                 </a>
               </div>
             </div>
-            <ul v-if="showChildren(page.id)" :key="`list-${index}`" class="pb-4 md:pr-4">
+            <ul
+              v-if="showChildren(page.id)"
+              :key="`list-${index}`"
+              class="pb-4 md:pr-4"
+            >
               <li
                 v-for="subpage in pages"
                 :key="subpage.id"
@@ -81,9 +105,14 @@
               >
                 <a
                   class="text-gray-700 hover:text-indigo-400 cursor-pointer"
-                  :class="{'text-indigo-500': isCurrentPage(subpage.id) && !loading, 'text-indigo-400': isCurrentPage(subpage.id) && loading}"
+                  :class="{
+                    'text-indigo-500': isCurrentPage(subpage.id) && !loading,
+                    'text-indigo-400': isCurrentPage(subpage.id) && loading
+                  }"
                   @click.prevent="fetchContent(subpage.id)"
-                  :href="`/${$route.params.username}/${$route.params.book}/${parent}/${subpage.id}`"
+                  :href="
+                    `/${$route.params.username}/${$route.params.book}/${parent}/${subpage.id}`
+                  "
                 >
                   {{ subpage.title }}
                   <coleus-spinner
@@ -102,14 +131,11 @@
 
 <script>
 import _ from 'lodash'
-import throttle from 'lodash/throttle'
 import coleusCaretDown from '@/components/svg/CaretDown'
 import coleusCaretLeft from '@/components/svg/CaretLeft'
 import coleusCaretRight from '@/components/svg/CaretRight'
 import coleusTimes from '@/components/svg/Times'
 import coleusAsideSpinner from '@/components/partials/AsideSpinner'
-
-const pageSize = 10
 
 export default {
   props: {
@@ -220,12 +246,12 @@ export default {
       }
     }, 300),
     prevPage() {
-      if (this.paginatePrevPage != this.paginateCurrentPage) {
+      if (this.paginatePrevPage !== this.paginateCurrentPage) {
         this.offset -= 10
       }
     },
     nextPage() {
-      if (this.paginateNextPage != this.paginateCurrentPage) {
+      if (this.paginateNextPage !== this.paginateCurrentPage) {
         this.offset += 10
       }
     },
@@ -242,7 +268,8 @@ export default {
         Math.ceil(this.offset / 10) < this.paginateTotalPages
           ? this.paginateCurrentPage - 1
           : this.paginatePrevPage
-      this.paginateTotalPages = this.paginateTotalPages
+      const newPaginateTotalPages = this.paginateTotalPages
+      this.paginateTotalPages = newPaginateTotalPages
       this.paginateHasMore = this.totalPages - 10 - this.offset * 10 > 0
       this.paginateNextOffset =
         this.totalPages - 10 - this.offset * 10 > 0
@@ -252,10 +279,10 @@ export default {
         this.totalPages - 10 <= 0 ? this.offset - 10 : this.paginatePrevOffset
     },
     showChildren(pageId) {
-      return pageId == parseInt(this.parent)
+      return pageId === parseInt(this.parent)
     },
     fetchChildren(newParent) {
-      if (this.parent != newParent) {
+      if (this.parent !== newParent) {
         this.parent = newParent
         this.pages = []
 
@@ -272,9 +299,9 @@ export default {
       }
     },
     isOpen(page) {
-      if (this.loadingParent && page.id == parseInt(this.parent)) {
+      if (this.loadingParent && page.id === parseInt(this.parent)) {
         return 'coleus-aside-spinner'
-      } else if (!this.loadingParent && page.id == parseInt(this.parent)) {
+      } else if (!this.loadingParent && page.id === parseInt(this.parent)) {
         return 'coleus-caret-down'
       } else {
         return 'coleus-caret-left'
@@ -288,9 +315,9 @@ export default {
     },
     isCurrentPage(id) {
       return (
-        (this.currentPage == 0
+        (this.currentPage === 0
           ? parseInt(this.$route.params.page)
-          : this.currentPage) == id
+          : this.currentPage) === id
       )
     },
     addHashToLocation(params) {
