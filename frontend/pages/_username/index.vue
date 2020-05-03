@@ -2,7 +2,7 @@
   <coleus-container>
     <div v-if="users && users.length">
       <div v-for="user in users" :key="user.id">
-        <div class="lg:py-2">
+        <div class="px-4 py-2 sm:p-2">
           <!-- <img
             src="/cover.jpg"
             class="cover-profile object-cover h-16 sm:h-32 w-full -mb-8 sm:-mb-16 sm:rounded-lg shadow"
@@ -29,12 +29,12 @@
         </div>
         <div
           v-if="user.book_users && user.book_users.length"
-          class="flex content-start flex-wrap"
+          class="flex content-start flex-wrap px-2 sm:p-2"
         >
           <div
             v-for="{ book } in user.book_users"
             :key="book.id"
-            class="p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
+            class="p-2 w-1/2 md:w-1/3 lg:w-1/4"
           >
             <nuxt-link
               :to="{
@@ -65,14 +65,14 @@
 import BookCard from '~/components/partials/cards/Book'
 
 export default {
+  components: {
+    BookCard
+  },
+
   head() {
     return {
       title: this.users ? this.users[0].name : ''
     }
-  },
-
-  components: {
-    BookCard
   },
 
   apollo: {

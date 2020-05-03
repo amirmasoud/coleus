@@ -49,14 +49,10 @@
 import coleusAside from '@/components/partials/Aside'
 
 export default {
-  head() {
-    return {
-      title: this.pages && this.pages.length ? this.pages[0].title : ''
-    }
-  },
   components: {
     coleusAside
   },
+
   data: () => ({
     page: null
   }),
@@ -65,6 +61,12 @@ export default {
     this.$root.$on('content-changed', (param) => {
       this.page = param
     })
+  },
+
+  head() {
+    return {
+      title: this.pages && this.pages.length ? this.pages[0].title : ''
+    }
   },
 
   apollo: {

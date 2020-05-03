@@ -24,8 +24,8 @@
         <div v-if="books && books.length">
           <template v-for="(page, index) in books[0].pages">
             <h3
-              :key="`title-${index}`"
               :id="`page-${page.id}`"
+              :key="`title-${index}`"
               class="font-semibold text-gray-900 pb-2"
             >
               <a
@@ -35,26 +35,26 @@
                 @click.prevent="fetchChildren(page.id)"
               >
                 <component
-                  class="float-right mt-2 ml-1"
                   :is="isOpen(page)"
+                  class="float-right mt-2 ml-1"
                 ></component>
                 {{ page.title }}
               </a>
             </h3>
             <div
               v-if="showChildren(page.id) && !loadingParent"
-              class="pagination flex flex-wrap my-3 md:mr-3"
               :key="`pagination-${index}`"
+              class="pagination flex flex-wrap my-3 md:mr-3"
             >
               <div class="w-1/6">
                 <a
                   href="#"
-                  @click.prevent="prevPage()"
                   :disabled="paginateCurrentPage == 1"
                   class="flex justify-around text-gray-800 h-8 w-8"
                   :class="{
                     'pagination-link-disabled': paginateCurrentPage == 1
                   }"
+                  @click.prevent="prevPage()"
                 >
                   <coleus-spinner
                     v-if="loadingPrevPage"
@@ -65,23 +65,23 @@
               </div>
               <div class="w-2/3 text-right text-gray-900">
                 <input
+                  v-model="paginateCurrentPage"
                   class="inline w-24 py-1 px-2 border-b border-gray-400 focus:border-indigo-400"
                   type="number"
                   @input="throttledCurrentPage"
-                  v-model="paginateCurrentPage"
                 />
                 <span> از </span> {{ paginateTotalPages }}
               </div>
               <div class="w-1/6">
                 <a
                   href="#"
-                  @click.prevent="nextPage()"
                   :disabled="paginateCurrentPage == paginateTotalPages"
                   class="flex justify-around text-gray-800 h-8 w-8"
                   :class="{
                     'pagination-link-disabled':
                       paginateCurrentPage == paginateTotalPages
                   }"
+                  @click.prevent="nextPage()"
                 >
                   <coleus-spinner
                     v-if="loadingNextPage"
@@ -98,10 +98,10 @@
             >
               <li
                 v-for="subpage in pages"
-                :key="subpage.id"
                 :id="`page-${subpage.id}`"
-                @click.prevent="scrollTo(subpage.id)"
+                :key="subpage.id"
                 class="py-2"
+                @click.prevent="scrollTo(subpage.id)"
               >
                 <a
                   class="text-gray-700 hover:text-indigo-400 cursor-pointer"
@@ -109,10 +109,10 @@
                     'text-indigo-500': isCurrentPage(subpage.id) && !loading,
                     'text-indigo-400': isCurrentPage(subpage.id) && loading
                   }"
-                  @click.prevent="fetchContent(subpage.id)"
                   :href="
                     `/${$route.params.username}/${$route.params.book}/${parent}/${subpage.id}`
                   "
+                  @click.prevent="fetchContent(subpage.id)"
                 >
                   {{ subpage.title }}
                   <coleus-spinner
@@ -138,9 +138,6 @@ import coleusTimes from '@/components/svg/Times'
 import coleusAsideSpinner from '@/components/partials/AsideSpinner'
 
 export default {
-  props: {
-    loading: Boolean
-  },
   components: {
     coleusCaretDown,
     coleusCaretLeft,
@@ -148,6 +145,11 @@ export default {
     coleusTimes,
     coleusAsideSpinner
   },
+
+  props: {
+    loading: Boolean
+  },
+
   data: () => ({
     current: 0,
     setInter: null,
@@ -204,6 +206,19 @@ export default {
       }
     }
   },
+  computed: {
+    breadcrumb() {
+      let breadcrumb = null
+      if (this.books && this.books.length) {
+        this.books[0].pages.forEach((group) => {
+          group.pages.forEach((link) => {
+            breadcrumb = { group: group.title, title: link.title }
+          })
+        })
+      }
+      return breadcrumb
+    }
+  },
   watch: {
     parent(newParent, oldParent) {
       this.loadingParent = true
@@ -221,19 +236,6 @@ export default {
   mounted() {
     this.parent = this.$route.params.parent
     this.offset = (parseInt(this.$route.query.page || 1) - 1) * 10
-  },
-  computed: {
-    breadcrumb() {
-      let breadcrumb = null
-      if (this.books && this.books.length) {
-        this.books[0].pages.forEach((group) => {
-          group.pages.forEach((link) => {
-            breadcrumb = { group: group.title, title: link.title }
-          })
-        })
-      }
-      return breadcrumb
-    }
   },
   methods: {
     throttledCurrentPage: _.debounce(function(e) {
