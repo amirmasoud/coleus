@@ -57,10 +57,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [
-    '@nuxtjs/pwa',
-    '@nuxtjs/apollo'
-  ],
+  modules: ['@nuxtjs/pwa', '@nuxtjs/apollo'],
   /*
    ** Build configuration
    */

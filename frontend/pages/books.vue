@@ -4,7 +4,7 @@
       <div
         v-for="book in books"
         :key="book.id"
-        class="p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
+        class="p-2 w-1/2 md:w-1/3 lg:w-1/4"
       >
         <nuxt-link
           :to="{
