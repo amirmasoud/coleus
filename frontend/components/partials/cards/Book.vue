@@ -37,6 +37,11 @@
 <script>
 export default {
   name: 'BookCard',
-  props: ['book']
+  props: {
+    book: {
+      type: Object,
+      default: () => {}
+    }
+  }
 }
 </script>

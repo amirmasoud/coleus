@@ -33,6 +33,10 @@
 import BookCard from '~/components/partials/cards/Book'
 
 export default {
+  components: {
+    BookCard
+  },
+
   head() {
     return {
       title: 'کتاب‌ها',
@@ -44,10 +48,6 @@ export default {
         }
       ]
     }
-  },
-
-  components: {
-    BookCard
   },
 
   apollo: {

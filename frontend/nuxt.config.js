@@ -1,16 +1,17 @@
-// import dotenv from "dotenv"; dotenv.config();
+import dotenv from 'dotenv'
+dotenv.config()
 
 export default {
   mode: 'universal',
 
-  // env: {
-  //   APP_ENV: process.env.APP_ENV,
-  //   APP_LOCALE: process.env.APP_LOCALE,
-  //   FRONT_URL: process.env.FRONT_URL,
-  //   GQL_URL: process.env.GQL_URL,
-  //   BASE_URL: process.env.BASE_URL,
-  //   GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID
-  // },
+  env: {
+    //   APP_ENV: process.env.APP_ENV,
+    //   APP_LOCALE: process.env.APP_LOCALE,
+    //   FRONT_URL: process.env.FRONT_URL,
+    //   GQL_URL: process.env.GQL_URL,
+    //   BASE_URL: process.env.BASE_URL,
+    GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID
+  },
 
   /*
    ** Headers of the page
@@ -52,7 +53,17 @@ export default {
     // Doc: https://github.com/nuxt-community/global-components
     '@nuxtjs/global-components',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    [
+      '@nuxtjs/google-analytics',
+      {
+        id: process.env.GOOGLE_ANALYTICS_ID
+        // debug: {
+        //   enabled: true,
+        //   sendHitTask: true
+        // }
+      }
+    ]
   ],
   /*
    ** Nuxt.js modules

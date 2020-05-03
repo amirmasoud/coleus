@@ -2,9 +2,9 @@
   <coleus-container class="flex flex-wrap flex-row">
     <template v-if="users && users.length">
       <nuxt-link
-        class="w-full min-w-sm sm:w-1/2 md:w-1/3"
         v-for="user in users"
         :key="user.username"
+        class="w-full min-w-sm sm:w-1/2 md:w-1/3"
         :to="{ name: 'username', params: { username: user.username } }"
         no-prefetch
       >
