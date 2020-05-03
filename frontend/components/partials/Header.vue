@@ -1,100 +1,64 @@
 <template>
   <div class="absolute">
-    <!-- Common Header -->
-    <header
-      class="header lg:border-0"
-      :class="action === 'search' ? 'py-4' : 'py-6 lg:py-0'"
-    >
+    <header class="header">
       <template v-if="action === ''">
-        <coleus-container class="flex items-center lg:py-6">
-          <!-- Right Logo -->
-          <nuxt-link :to="{ name: 'index' }">
-            <h1 class="m-0 h-0 w-0 overflow-hidden"></h1>
-            <coleus-logo class="h-6 lg:h-8" />
-          </nuxt-link>
-          <!-- Center Navigation -->
-          <ul class="hidden lg:flex lg:pt-1 xl:pt-0 text-center mx-auto">
-            <li class="header_nav_link xl:px-4 lg:py-0 lg:px-2 py-2">
-              <nuxt-link
-                class="block p-2 font-medium uppercase hover:no-underline hover:text-indigo-500"
-                :to="{ name: 'index' }"
-                exact
-              >شاعران</nuxt-link>
+        <coleus-container class="flex flex-wrap py-4">
+          <ul class="hidden w-4/5 flex items-start justify-start lg:flex pr-2">
+            <li class="header_nav_link ml-8">
+              <nuxt-link class="block" :to="{ name: 'index' }" exact
+                >شاعران</nuxt-link
+              >
             </li>
-            <li class="header_nav_link xl:px-4 lg:py-0 lg:px-2 py-2">
-              <nuxt-link
-                class="block p-2 font-medium uppercase hover:no-underline hover:text-indigo-500"
-                :to="{ name: 'books' }"
-                exact
-              >کتاب‌ها</nuxt-link>
+            <li class="header_nav_link">
+              <nuxt-link class="block" :to="{ name: 'books' }" exact
+                >کتاب‌ها</nuxt-link
+              >
             </li>
           </ul>
-          <!-- Left Action -->
-          <!-- <a
-            href="#"
-            class="block md:hidden flex p-2 -m-2 items-center justify-center text-coleus-gray hover:text-indigo-500 z-10 lg:hidden"
-            @click.prevent="$emit('change', 'search')"
+          <nuxt-link
+            class="w-full lg:w-1/5 flex items-center justify-center lg:justify-end"
+            :to="{ name: 'index' }"
           >
-            <coleus-search-icon class="block h-5 fill-current" />
-          </a>
-          <coleus-search class="hidden md:inline-block align-middle" /> -->
-        </coleus-container>
-        <coleus-container class="hidden lg:block">
+            <coleus-logo class="h-5 lg:pl-2" />
+          </nuxt-link>
         </coleus-container>
       </template>
       <coleus-container v-else class="flex justify-between lg:hidden">
-        <!-- Left Title -->
-        <!-- <coleus-search v-if="action === 'search'" class="w-full pr-4" /> -->
         <div class="flex items-end">
           <component
             :is="'coleus-' + action + '-icon'"
             class="block h-6 text-indigo-500 fill-current"
           />
-          <span class="block text-lg font-medium uppercase text-coleus-gray pl-4 h-6">{{ action }}</span>
-          <!-- $store.state.lang.links[action] -->
+          <span
+            class="block text-lg font-medium uppercase text-coleus-gray pl-4 h-6"
+            >{{ action }}</span
+          >
         </div>
-        <!-- Right Action -->
-        <!-- <a
-          href="#"
-          class="absolute flex p-2 -m-2 items-center justify-center text-coleus-gray hover:text-indigo-500 z-10 lg:hidden"
-          :class="action === 'search' ? 'pt-3' : ''"
-          @click.prevent="$emit('change', '')"
-        >
-          <coleus-times-icon class="block h-5 fill-current" />
-        </a> -->
       </coleus-container>
     </header>
-    <!-- Mobile Main Navigation -->
     <nav class="header_mobile_nav block lg:hidden">
       <div class="flex justify-between">
         <nuxt-link
           class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
           :to="{ name: 'books' }"
         >
-          <!-- <component
-            :is="'coleus-books-icon'"
-            class="inline-block h-5 fill-current mb-1"
-            :class="{'text-indigo-500': action === 'books'}"
-          /> -->
-          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray">کتاب‌ها</span>
+          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
+            >کتاب‌ها</span
+          >
         </nuxt-link>
         <nuxt-link
           class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
           :to="{ name: 'index' }"
         >
-          <!-- <component
-            :is="'coleus-users-icon'"
-            class="inline-block h-5 fill-current mb-1"
-            :class="{'text-indigo-500': action === 'users'}"
-          /> -->
-          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray">شاعران</span>
+          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
+            >شاعران</span
+          >
         </nuxt-link>
       </div>
     </nav>
-    <!-- Mobile Aside Navigation -->
     <div
       class="header_mobile_aside block lg:hidden"
-      :class="{'header_mobile_aside--open': sublinks.length}"
+      :class="{ 'header_mobile_aside--open': sublinks.length }"
     >
       <coleus-container>
         <transition-group
@@ -104,15 +68,18 @@
           name="list"
           class="header_mobile_aside_group"
         >
-          <h3 :key="`title-${index}`" class="uppercase text-gray-500 pb-2">{{ group.title }}</h3>
+          <h3 :key="`title-${index}`" class="uppercase text-gray-500 pb-2">
+            {{ group.title }}
+          </h3>
           <ul :key="`list-${index}`" class="pb-6">
             <li v-for="l in group.links" :key="l.to" class="py-2">
               <nuxt-link
                 class="block text-gray-700 hover:text-indigo-500"
-                :class="{'text-indigo-500': path === locale + l.to}"
+                :class="{ 'text-indigo-500': path === locale + l.to }"
                 :to="locale + l.to"
                 exact
-              >{{ l.name }}</nuxt-link>
+                >{{ l.name }}</nuxt-link
+              >
             </li>
           </ul>
         </transition-group>
@@ -190,9 +157,6 @@ export default {
 <style>
 .header {
   @apply fixed bg-white top-0 left-0 right-0 z-30;
-}
-.header_nav_link a.nuxt-link-active {
-  @apply text-gray-100 bg-indigo-500 rounded-full;
 }
 .header_mobile_nav {
   @apply fixed bg-white border-t border-gray-300 left-0 bottom-0 right-0 z-30;

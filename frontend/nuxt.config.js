@@ -1,17 +1,16 @@
-import dotenv from "dotenv"; dotenv.config();
+// import dotenv from "dotenv"; dotenv.config();
 
 export default {
   mode: 'universal',
 
-  env: {
-    APP_ENV: process.env.APP_ENV,
-    APP_LOCALE: process.env.APP_LOCALE,
-    FRONT_URL: process.env.FRONT_URL,
-    GQL_URL: process.env.GQL_URL,
-    BASE_URL: process.env.BASE_URL,
-    GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID,
-    GOOGLE_ADSENSE_ID: process.env.GOOGLE_ADSENSE_ID
-  },
+  // env: {
+  //   APP_ENV: process.env.APP_ENV,
+  //   APP_LOCALE: process.env.APP_LOCALE,
+  //   FRONT_URL: process.env.FRONT_URL,
+  //   GQL_URL: process.env.GQL_URL,
+  //   BASE_URL: process.env.BASE_URL,
+  //   GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID
+  // },
 
   /*
    ** Headers of the page
@@ -27,7 +26,7 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }]
   },
   /*
    ** Customize the progress-bar color
@@ -58,10 +57,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [
-    '@nuxtjs/pwa',
-    '@nuxtjs/apollo'
-  ],
+  modules: ['@nuxtjs/pwa', '@nuxtjs/apollo'],
   /*
    ** Build configuration
    */
