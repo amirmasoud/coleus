@@ -17,15 +17,13 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    htmlAttrs: {
+      lang: 'fa'
+    },
+    title: 'Coleus',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      {
-        hid: 'description',
-        name: 'description',
-        content: process.env.npm_package_description || ''
-      }
+      { name: 'viewport', content: 'width=device-width, initial scale=1' }
     ],
     link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }]
   },
@@ -46,22 +44,14 @@ export default {
    ** Nuxt.js dev-modules
    */
   buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss',
-    // Doc: https://github.com/nuxt-community/global-components
     '@nuxtjs/global-components',
-    // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
     [
       '@nuxtjs/google-analytics',
       {
         id: process.env.GOOGLE_ANALYTICS_ID
-        // debug: {
-        //   enabled: true,
-        //   sendHitTask: true
-        // }
       }
     ]
   ],
