@@ -70,8 +70,27 @@ export default {
   },
 
   head() {
+    const title = this.users ? this.users[0].name : 'پروفایل کاربر'
+    const description = 'لیست کتاب‌های قابل مطالعه‌ی ' + title
     return {
-      title: this.users ? this.users[0].name : ''
+      title,
+      meta: [
+        { hid: 'description', name: 'description', content: description },
+        // Open Graph
+        { hid: 'og:title', property: 'og:title', content: title },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: description
+        },
+        // Twitter Card
+        { hid: 'twitter:title', name: 'twitter:title', content: title },
+        {
+          hid: 'twitter:description',
+          name: 'twitter:description',
+          content: description
+        }
+      ]
     }
   },
 
