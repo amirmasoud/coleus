@@ -151,6 +151,7 @@ export default {
   },
 
   data: () => ({
+    fresh: true,
     current: 0,
     setInter: null,
     showNav: false,
@@ -190,10 +191,12 @@ export default {
         return { parent: this.parent, offset: this.offset }
       },
       result({ data, loading, error }) {
-        if (process.client) {
+        if (process.client && !this.fresh) {
           this.addHashToLocation(
-            `/${this.$route.params.username}/${this.$route.params.book}/${this.parent}/${this.currentPage}/?page=${this.paginateCurrentPage}`
+            `/${this.$route.params.username}/${this.$route.params.book}/${this.parent}/${this.currentPage}?page=${this.paginateCurrentPage}`
           )
+        } else {
+          this.fresh = false
         }
       },
       update(data) {
@@ -233,7 +236,14 @@ export default {
       }
     }
   },
+  // watchQuery(newQuery, oldQuery) {
+  //   console.log(newQuery, oldQuery)
+  //   // Only execute component methods if the old query string contained `bar`
+  //   // and the new query string contains `foo`
+  //   return true
+  // },
   mounted() {
+    this.currentPage = this.$route.params.page
     this.parent = this.$route.params.parent
     this.offset = (parseInt(this.$route.query.page || 1) - 1) * 10
   },
@@ -328,7 +338,7 @@ export default {
     fetchContent(page) {
       this.currentPage = parseInt(page)
       this.addHashToLocation(
-        `/${this.$route.params.username}/${this.$route.params.book}/${this.parent}/${page}/?page=${this.paginateCurrentPage}`
+        `/${this.$route.params.username}/${this.$route.params.book}/${this.parent}/${page}?page=${this.paginateCurrentPage}`
       )
       this.$root.$emit('content-changed', page)
       this.scrollToTop()
