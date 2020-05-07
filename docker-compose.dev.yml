@@ -78,17 +78,17 @@ services:
     networks:
       - backend-network
 
-  # search:
-  #   image: elasticsearch:7.5.2
-  #   container_name: coleus-dev-search
-  #   restart: unless-stopped
-  #   environment:
-  #     - discovery.type=single-node
-  #   ports:
-  #     - 9200:9200
-  #     - 9300:9300
-  #   networks:
-  #     - backend-network
+  search:
+    image: valeriansaliou/sonic:${SONIC_VERSION}
+    container_name: coleus-dev-search
+    restart: unless-stopped
+    volumes:
+      - ./deploy/dev/sonic/config.cfg:/etc/sonic.cfg
+      - ./deploy/dev/sonic/store/:/var/lib/sonic/store/
+    ports:
+      - 1491:1491
+    networks:
+      - backend-network
 
   storage:
     image: minio/minio

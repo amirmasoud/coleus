@@ -1,0 +1,12 @@
+language: php
+php:
+  - '7.0'
+  - '7.1'
+  - '7.2'
+  - '7.3'
+before_script: composer install
+script:
+  - mkdir /tmp/sonic
+  - sudo docker run -d -p 1491:1491 -v $PWD/.travis/sonic.cfg:/etc/sonic.cfg -v /tmp/sonic:/var/lib/sonic/store/ valeriansaliou/sonic:v1.1.8
+  - $PWD/.travis/wait-for-it.sh 127.0.0.1:1491
+  - php -f example.php

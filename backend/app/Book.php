@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
+    use searchable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -14,6 +17,16 @@ class Book extends Model
     protected $fillable = [
         'title', 'slug', 'description', 'original', 'medium', 'small', 'xsmall', 'thumbnail', 'placeholder', 'order'
     ];
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return array_filter([$this->title, $this->slug, $this->description]);
+    }
 
     /**
      * Get the pages for the book.

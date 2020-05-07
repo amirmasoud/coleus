@@ -2,13 +2,14 @@
 
 namespace App;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -43,5 +44,15 @@ class User extends Authenticatable
     public function books()
     {
         return $this->belongsToMany('App\Book');
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return array_filter([$this->username, $this->name]);
     }
 }

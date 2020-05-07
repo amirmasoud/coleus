@@ -44,7 +44,8 @@
                   book: book.slug,
                   parent: book.pages[0].parent_id,
                   page: book.pages[0].id
-                }
+                },
+                query: { page: 1 }
               }"
             >
               <book-card :book="book" class="mx-auto" />
