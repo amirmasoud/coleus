@@ -9,8 +9,6 @@
           <div
             class="lg:min-h-screen w-full px-4 lg:static lg:overflow-visible lg:max-h-full lg:w-3/4"
           >
-            <!--       @mouseover="$store.dispatch('focusMode')"
-            @mouseleave="$store.dispatch('clearFocusMode')"-->
             <div v-if="pages && pages.length">
               <coleus-article>
                 <h1 class="text-4xl mb-10 border-indigo-600">
@@ -22,7 +20,8 @@
                     :key="block.id"
                     class="w-full py-2"
                     :class="{
-                      'md:w-1/2': ['m-1/2', 't-1/2'].includes(block.type)
+                      'md:w-1/2': ['m-1/2', 't-1/2'].includes(block.type),
+                      'leading-loose': ['p-full'].includes(block.type)
                     }"
                   >
                     {{ block.content }}
