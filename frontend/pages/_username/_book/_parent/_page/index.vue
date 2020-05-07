@@ -1,64 +1,54 @@
 <template>
-  <coleus-container>
-    <div class="lg:flex">
-      <coleus-aside class="hidden lg:block" :loading="$apollo.loading" />
+  <div
+    class="min-h-screen w-full lg:static lg:max-h-full lg:overflow-visible lg:w-3/4"
+  >
+    <div class="lg:mx-0 flex flex-col-reverse lg:flex-row">
       <div
-        class="min-h-screen w-full lg:static lg:max-h-full lg:overflow-visible lg:w-3/4"
+        class="lg:min-h-screen w-full px-4 lg:static lg:overflow-visible lg:max-h-full lg:w-3/4"
       >
-        <div class="lg:mx-0 flex flex-col-reverse lg:flex-row">
-          <div
-            class="lg:min-h-screen w-full px-4 lg:static lg:overflow-visible lg:max-h-full lg:w-3/4"
-          >
-            <div v-if="pages && pages.length">
-              <coleus-article>
-                <h1 class="text-4xl mb-10 border-indigo-600">
-                  {{ pages[0].title }}
-                </h1>
-                <div class="flex flex-wrap content-wrapper">
-                  <div
-                    v-for="block in pages[0].blocks"
-                    :key="block.id"
-                    class="w-full py-2"
-                    :class="{
-                      'md:w-1/2': ['m-1/2', 't-1/2'].includes(block.type),
-                      'leading-loose': ['p-full'].includes(block.type)
-                    }"
-                  >
-                    {{ block.content }}
-                  </div>
-                </div>
-              </coleus-article>
-              <!-- <coleus-pagination /> -->
+        <div v-if="pages && pages.length">
+          <coleus-article>
+            <h1 class="text-4xl mb-10 border-indigo-600">
+              {{ pages[0].title }}
+            </h1>
+            <div class="flex flex-wrap content-wrapper">
+              <div
+                v-for="block in pages[0].blocks"
+                :key="block.id"
+                class="w-full py-2"
+                :class="{
+                  'md:w-1/2': ['m-1/2', 't-1/2'].includes(block.type),
+                  'leading-loose': ['p-full'].includes(block.type)
+                }"
+                v-html="block.content"
+              ></div>
             </div>
-            <template v-else>
-              <div class="container">
-                <coleus-spinner
-                  class="mx-auto my-4 bg-white rounded-full p-1 shadow"
-                />
-              </div>
-            </template>
-          </div>
+          </coleus-article>
+          <!-- <coleus-pagination /> -->
         </div>
+        <template v-else>
+          <div class="container">
+            <coleus-spinner
+              class="mx-auto my-4 bg-white rounded-full p-1 shadow"
+            />
+          </div>
+        </template>
       </div>
     </div>
-  </coleus-container>
+  </div>
 </template>
 
 <script>
-import coleusAside from '@/components/partials/Aside'
-
 export default {
-  components: {
-    coleusAside
-  },
-
   data: () => ({
-    page: null
+    page: null,
+    parent: null
   }),
 
   mounted() {
-    this.$root.$on('content-changed', (param) => {
-      this.page = param
+    this.$root.$on('content-changed', (page, parent) => {
+      this.page = page
+      this.parent = parent
     })
   },
 
@@ -93,6 +83,26 @@ export default {
       prefetch: ({ route }) => ({ page: route.params.page }),
       variables() {
         return { page: this.page || this.$route.params.page }
+      },
+      result({ data, loading, error }) {
+        // if (process.client && !this.fresh) {
+        //   const from = window.location.pathname + window.location.search
+        //   const to = `/${this.$route.params.username}/${
+        //     this.$route.params.book
+        //   }/${this.parent || this.$route.params.parent}/${this.page ||
+        //     this.$route.params.page}?page=${this.$route.query.page || 1}`
+        //   if (from !== to) {
+        //     history.pushState(
+        //       {},
+        //       null,
+        //       `/${this.$route.params.username}/${this.$route.params.book}/${this
+        //         .parent || this.$route.params.parent}/${this.page ||
+        //         this.$route.params.page}?page=${this.$route.query.page || 1}`
+        //     )
+        //   }
+        // } else {
+        //   this.fresh = false
+        // }
       }
     }
   }
