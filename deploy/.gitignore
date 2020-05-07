@@ -3,9 +3,11 @@
 /prod/rabbitmq/data/
 /prod/rabbitmq/logs/
 /prod/redis-data/
+/prod/sonic/store/
 
 /dev/nginx/log/*.log
 /dev/database/data/
 /dev/rabbitmq/data/
 /dev/rabbitmq/logs/
 /dev/redis-data/
+/dev/sonic/store/
