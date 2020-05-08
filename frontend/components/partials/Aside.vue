@@ -1,24 +1,24 @@
 <template>
   <aside
-    class="block bg-gray-200 mt-8 -mx-4 lg:mt-0 lg:mx-0 lg:inset-0 z-90 lg:mb-0 lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-1/4 lg:block"
+    class="block bg-gray-100 mt-8 -mx-4 lg:mt-0 lg:mx-0 lg:inset-0 z-90 lg:mb-0 lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-1/4 lg:block"
   >
     <div
-      class="h-full overflow-y-auto scrolling-touch text-center lg:text-right lg:h-auto lg:block lg:relative lg:sticky lg:top-24 lg:mt-2"
+      class="h-full overflow-y-auto scrolling-touch lg:text-right lg:h-auto lg:block lg:relative lg:sticky lg:top-24 lg:mt-2"
     >
       <nav
-        id="test"
         class="lg:overflow-y-auto lg:block lg:pl-0 lg:px-2 sticky?lg:h-(screen-24)"
       >
         <div v-if="books && books.length">
-          <template class="flex" v-for="(page, index) in books[0].pages">
+          <template v-for="(page, index) in books[0].pages" class="flex">
             <button
+              class="flex text-right"
               type="button"
-              @click.prevent="toggleHeader(page.id)"
               :key="`icon-${index}`"
+              @click.prevent="toggleHeader(page.id)"
             >
               <component
-                class="mt-2 ml-1"
                 :is="headerIcon(page.id)"
+                class="mt-2 ml-1"
               ></component>
               <h3 class="text-gray-900 pb-2">
                 {{ page.title }}
@@ -29,12 +29,56 @@
               :key="`pagination-${index}`"
               class="pagination flex flex-wrap"
             >
-              <ul :key="`list-${index}`" class="pb-4 md:pr-4">
+              <div class="w-1/6">
+                <button
+                  :disabled="paginateCurrentPage == 1"
+                  class="flex justify-around text-gray-800 h-8 w-8"
+                  :class="{
+                    'pagination-link-disabled': paginateCurrentPage == 1
+                  }"
+                >
+                  <!-- <coleus-spinner
+                    v-if="loadingPrevPage"
+                    class="self-center p-1"
+                  /> -->
+                  <coleus-caret-right class="self-center" />
+                </button>
+              </div>
+              <div class="w-2/3 text-right text-gray-900">
+                <input
+                  v-model="paginateCurrentPage"
+                  class="inline w-24 py-1 px-2 border-b border-gray-400 focus:border-indigo-400"
+                  type="number"
+                  @input="throttledCurrentPage"
+                />
+                <span> از </span> {{ paginateTotalPages }}
+              </div>
+              <div class="w-1/6">
+                <button
+                  :disabled="paginateCurrentPage == paginateTotalPages"
+                  class="flex justify-around text-gray-800 h-8 w-8"
+                  :class="{
+                    'pagination-link-disabled':
+                      paginateCurrentPage == paginateTotalPages
+                  }"
+                >
+                  <!-- <coleus-spinner
+                    v-if="loadingNextPage"
+                    class="self-center p-1"
+                  /> -->
+                  <coleus-caret-left class="self-center" />
+                </button>
+              </div>
+
+              <ul
+                :key="`list-${index}`"
+                class="pb-2 pr-3 mr-2 border-r border-gray-400"
+              >
                 <li
                   v-for="subpage in pages"
                   :id="`page-${subpage.id}`"
                   :key="subpage.id"
-                  class="py-2"
+                  class="py-1"
                 >
                   <nuxt-link :to="pageLink(subpage.id)">
                     {{ subpage.title }}
@@ -163,20 +207,20 @@
 </template>
 
 <script>
-// import _ from 'lodash'
+import _ from 'lodash'
 import coleusCaretDown from '@/components/svg/CaretDown'
 import coleusCaretLeft from '@/components/svg/CaretLeft'
-// import coleusCaretRight from '@/components/svg/CaretRight'
+import coleusCaretRight from '@/components/svg/CaretRight'
 // import coleusTimes from '@/components/svg/Times'
-// import coleusAsideSpinner from '@/components/partials/AsideSpinner'
+import coleusAsideSpinner from '@/components/partials/AsideSpinner'
 
 export default {
   components: {
     coleusCaretDown,
-    coleusCaretLeft
-    // coleusCaretRight,
+    coleusCaretLeft,
+    coleusCaretRight,
     // coleusTimes,
-    // coleusAsideSpinner
+    coleusAsideSpinner
   },
 
   props: {
@@ -189,22 +233,32 @@ export default {
     // setInter: null,
     // showNav: false,
     // currentPage: 0,
-    // offset: 0,
-    // parent: null,
-    // loadingParent: false,
+    offset: 0,
+    parent: null,
+    loadingParent: false,
     // loadingNextPage: false,
     // loadingPrevPage: false,
-    // pagesAggregateCount: 0,
+    pagesAggregate: 0,
     // paginateTotal: 0,
     // paginateTotalItems: 0,
-    // paginateCurrentPage: 1,
+    paginateCurrentPage: 1,
+    perPage: 10,
     // paginateNextPage: 1,
     // paginatePrevPage: 1,
-    // paginateTotalPages: 1,
+    paginateTotalPages: 1
     // paginateHasMore: false,
     // paginateNextOffset: 0,
     // paginatePrevOffset: 0
   }),
+  computed: {
+    currentParent() {
+      return this.parent || this.$route.params.parent
+    },
+
+    currentOffset() {
+      return this.perPage * this.paginateCurrentPage - this.perPage
+    }
+  },
   apollo: {
     books: {
       query: require('~/graphql/aside.gql'),
@@ -220,16 +274,16 @@ export default {
         offset: 0
       }),
       variables() {
-        return { parent: this.$route.params.parent, offset: 0 }
+        return { parent: this.currentParent, offset: this.currentOffset }
+      },
+      update(data) {
+        this.loadingParent = false
+        //   this.loadingNextPage = false
+        //   this.loadingPrevPage = false
+        this.pagesAggregate = data.pages_aggregate.aggregate.count
+        this.calculatePagination()
+        return data.pages
       }
-      // update(data) {
-      //   this.loadingParent = false
-      //   this.loadingNextPage = false
-      //   this.loadingPrevPage = false
-      //   this.pagesAggregateCount = data.pages_aggregate.aggregate.count
-      //   this.calculatePagination()
-      //   return data.pages
-      // }
     }
   },
   watch: {
@@ -261,7 +315,7 @@ export default {
      * @return {boolean}
      */
     isExpanded(pageId) {
-      return parseInt(pageId) === parseInt(this.$route.params.parent)
+      return parseInt(pageId) === parseInt(this.currentParent)
     },
 
     /**
@@ -272,6 +326,10 @@ export default {
      * @return {string}
      */
     headerIcon(pageId) {
+      if (this.isExpanded(pageId) && this.loadingParent) {
+        return 'coleus-aside-spinner'
+      }
+
       if (this.isExpanded(pageId)) {
         return 'coleus-caret-down'
       } else {
@@ -286,26 +344,79 @@ export default {
      * @return {void}
      */
     toggleHeader(pageId) {
-      this.$route.params.parent = pageId
+      if (this.parent !== pageId) {
+        this.parent = pageId
+        // Causing currentParent in computed properties to change and trigger
+        // apollo pages query.
+        this.loadingParent = true
+      }
     },
 
     /**
      * Generate link for each contents items.
      *
-     * @param {number} subPageId
+     * @param {number} pageId
      * @return {Object}
      */
-    pageLink(subPageId) {
+    pageLink(pageId) {
       return {
         name: 'username-book-parent-page',
         params: {
           username: this.$route.params.username,
           book: this.$route.params.book,
-          parent: this.$route.params.parent,
-          page: subPageId
+          parent: this.currentParent,
+          page: pageId
         },
         query: { page: this.$route.query.page }
       }
+    },
+
+    /**
+     * Go to custom page.
+     *
+     * @return {void}
+     */
+    throttledCurrentPage: _.debounce(function(e) {
+      const newPage = e.target.value
+      if (
+        !isNaN(newPage) &&
+        newPage > 0 &&
+        newPage <= this.paginateTotalPages
+      ) {
+        this.offset = (newPage - 1) * this.perPage
+      }
+    }, 300),
+
+    /**
+     * Convert pagination to offset.
+     *
+     * @return {void}
+     */
+    calculatePagination() {
+      this.paginateTotalPages = Math.ceil(this.pagesAggregate / this.perPage)
+      this.paginateCurrentPage = Math.ceil(this.offset / this.perPage) + 1
+    },
+
+    /**
+     * Calculate next page.
+     *
+     * @return {number}
+     */
+    nextPage() {
+      return this.paginateCurrentPage <= this.paginateTotalPages
+        ? this.paginateCurrentPage + 1
+        : this.paginateCurrentPage
+    },
+
+    /**
+     * Calculate previous page.
+     *
+     * @return {number}
+     */
+    prevPage() {
+      return this.paginateCurrentPage >= this.paginateTotalPages
+        ? this.paginateCurrentPage - 1
+        : this.paginateCurrentPage
     }
     // throttledCurrentPage: _.debounce(function(e) {
     //   if (
