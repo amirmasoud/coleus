@@ -75,7 +75,11 @@
                   </button>
                 </div>
 
-                <ul :key="`list-${index}`" class="py-2 w-full">
+                <ul
+                  v-if="!loadingParent"
+                  :key="`list-${index}`"
+                  class="py-2 w-full"
+                >
                   <li
                     v-for="subpage in pages"
                     :id="`page-${subpage.id}`"
@@ -183,7 +187,7 @@ export default {
         this.$router.push(this.pageLink(this.$route.params.page, newPage))
       }
     },
-    // parent(newParent, oldParent) {
+    // currentParent(newParent, oldParent) {
     //   this.loadingParent = true
     // },
     offset(newOffset, oldOffset) {
