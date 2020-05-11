@@ -75,15 +75,22 @@
                   </button>
                 </div>
 
-                <ul :key="`list-${index}`" class="py-2 w-full">
+                <ul
+                  v-if="!loadingParent"
+                  :key="`list-${index}`"
+                  class="py-2 w-full"
+                >
                   <li
                     v-for="subpage in pages"
                     :id="`page-${subpage.id}`"
                     :key="subpage.id"
-                    class="py-1 px-3 text-sm"
+                    class="text-sm"
                     :class="{ 'bg-gray-300': subpage.id == $route.params.page }"
                   >
-                    <nuxt-link :to="pageLink(subpage.id)">
+                    <nuxt-link
+                      :to="pageLink(subpage.id)"
+                      class="block px-3 py-1"
+                    >
                       {{ subpage.title }}
                     </nuxt-link>
                   </li>
@@ -180,7 +187,7 @@ export default {
         this.$router.push(this.pageLink(this.$route.params.page, newPage))
       }
     },
-    // parent(newParent, oldParent) {
+    // currentParent(newParent, oldParent) {
     //   this.loadingParent = true
     // },
     offset(newOffset, oldOffset) {
