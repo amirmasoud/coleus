@@ -89,119 +89,6 @@
             </div>
           </template>
         </div>
-        <!-- <div v-if="books && books.length">
-          <template v-for="(page, index) in books[0].pages">
-            <h3
-              :id="`page-${page.id}`"
-              :key="`title-${index}`"
-              class="text-gray-900 pb-2"
-            >
-              <a
-                :href="
-                  `/${$route.params.username}/${$route.params.book}/${page.id}`
-                "
-                @click.prevent="fetchChildren(page.id)"
-              >
-                <component
-                  :is="isOpen(page)"
-                  class="float-right mt-2 ml-1"
-                ></component>
-                {{ page.title }}
-              </a>
-            </h3>
-            <div
-              v-if="showChildren(page.id) && !loadingParent"
-              :key="`pagination-${index}`"
-              class="pagination flex flex-wrap"
-            >
-              <div class="w-1/6">
-                <a
-                  href="#"
-                  :disabled="paginateCurrentPage == 1"
-                  class="flex justify-around text-gray-800 h-8 w-8"
-                  :class="{
-                    'pagination-link-disabled': paginateCurrentPage == 1
-                  }"
-                  @click.prevent="prevPage()"
-                >
-                  <coleus-spinner
-                    v-if="loadingPrevPage"
-                    class="self-center p-1"
-                  />
-                  <coleus-caret-right v-else class="self-center" />
-                </a>
-              </div>
-              <div class="w-2/3 text-right text-gray-900">
-                <input
-                  v-model="paginateCurrentPage"
-                  class="inline w-24 py-1 px-2 border-b border-gray-400 focus:border-indigo-400"
-                  type="number"
-                  @input="throttledCurrentPage"
-                />
-                <span> از </span> {{ paginateTotalPages }}
-              </div>
-              <div class="w-1/6">
-                <a
-                  href="#"
-                  :disabled="paginateCurrentPage == paginateTotalPages"
-                  class="flex justify-around text-gray-800 h-8 w-8"
-                  :class="{
-                    'pagination-link-disabled':
-                      paginateCurrentPage == paginateTotalPages
-                  }"
-                  @click.prevent="nextPage()"
-                >
-                  <coleus-spinner
-                    v-if="loadingNextPage"
-                    class="self-center p-1"
-                  />
-                  <coleus-caret-left v-else class="self-center" />
-                </a>
-              </div>
-            </div>
-            <ul
-              v-if="showChildren(page.id)"
-              :key="`list-${index}`"
-              class="pb-4 md:pr-4"
-            >
-              <li
-                v-for="subpage in pages"
-                :id="`page-${subpage.id}`"
-                :key="subpage.id"
-                class="py-2"
-              >
-                <nuxt-link
-                  :to="{
-                    name: 'username-book-parent-page',
-                    params: {
-                      username: $route.params.username,
-                      book: $route.params.book,
-                      parent: $route.params.parent,
-                      page: subpage.id
-                    },
-                    query: { page: $route.query.page }
-                  }"
-                >
-                  {{ subpage.title }}
-                </nuxt-link>
-                <a
-                  class="text-gray-700 hover:text-indigo-400 cursor-pointer"
-                  :class="{
-                    'text-indigo-500': isCurrentPage(subpage.id) && !loading,
-                    'text-indigo-400': isCurrentPage(subpage.id) && loading
-                  }"
-                  @click.prevent="currentPage = subpage.id"
-                >
-                  {{ subpage.title }}
-                  <coleus-spinner
-                    v-if="isCurrentPage(subpage.id) && loading"
-                    class="float-right w-6 -mr-4 -mt-2 p-1 sticky"
-                  />
-                </a>
-              </li>
-            </ul>
-          </template>
-        </div> -->
       </nav>
     </div>
   </aside>
@@ -212,7 +99,6 @@ import _ from 'lodash'
 import coleusCaretDown from '@/components/svg/CaretDown'
 import coleusCaretLeft from '@/components/svg/CaretLeft'
 import coleusCaretRight from '@/components/svg/CaretRight'
-// import coleusTimes from '@/components/svg/Times'
 import coleusAsideSpinner from '@/components/partials/AsideSpinner'
 
 export default {
@@ -220,7 +106,6 @@ export default {
     coleusCaretDown,
     coleusCaretLeft,
     coleusCaretRight,
-    // coleusTimes,
     coleusAsideSpinner
   },
 
@@ -229,27 +114,15 @@ export default {
   },
 
   data: () => ({
-    // fresh: true,
-    // current: 0,
-    // setInter: null,
-    // showNav: false,
-    // currentPage: 0,
     offset: 0,
     parent: null,
     loadingParent: false,
     loadingNextPage: false,
     loadingPrevPage: false,
     pagesAggregate: 0,
-    // paginateTotal: 0,
-    // paginateTotalItems: 0,
-    paginateCurrentPage: 1,
+    paginatePage: 1,
     perPage: 10,
-    // paginateNextPage: 1,
-    // paginatePrevPage: 1,
     paginateTotalPages: 1
-    // paginateHasMore: false,
-    // paginateNextOffset: 0,
-    // paginatePrevOffset: 0
   }),
   computed: {
     currentParent() {
@@ -258,6 +131,15 @@ export default {
 
     currentOffset() {
       return this.perPage * this.paginateCurrentPage - this.perPage
+    },
+
+    paginateCurrentPage: {
+      get() {
+        return this.paginatePage
+      },
+      set(newPage) {
+        this.paginatePage = newPage
+      }
     }
   },
   apollo: {
@@ -307,9 +189,10 @@ export default {
     }
   },
   created() {
-    // this.currentPage = this.$route.params.page
-    // this.parent = this.$route.params.parent
-    // this.offset = (parseInt(this.$route.query.page || 1) - 1) * 10
+    const queryPage = parseInt(this.$route.query.page)
+    if (this.paginateCurrentPage !== queryPage) {
+      this.paginateCurrentPage = queryPage
+    }
   },
   methods: {
     /**
@@ -439,6 +322,16 @@ export default {
      */
     goToPrevPage() {
       this.paginateCurrentPage -= 1
+    },
+
+    /**
+     * Navigate to a new page.
+     *
+     * @param {number}
+     * @return {object}
+     */
+    goToPage(pageId) {
+      return this.$router.replace(this.pageLink(pageId))
     }
 
     // fetchChildren(newParent) {
