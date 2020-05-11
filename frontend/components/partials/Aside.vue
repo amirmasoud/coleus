@@ -31,42 +31,43 @@
             >
               <div class="w-1/6">
                 <button
+                  type="button"
                   :disabled="paginateCurrentPage == 1"
                   class="flex justify-around text-gray-800 h-8 w-8"
                   :class="{
                     'pagination-link-disabled': paginateCurrentPage == 1
                   }"
+                  @click="goToPrevPage"
                 >
-                  <!-- <coleus-spinner
-                    v-if="loadingPrevPage"
-                    class="self-center p-1"
-                  /> -->
-                  <coleus-caret-right class="self-center" />
+                  <coleus-spinner v-if="loadingPrevPage" class="self-center" />
+                  <coleus-caret-right v-else class="self-center" />
                 </button>
               </div>
               <div class="w-2/3 text-right text-gray-900">
                 <input
-                  v-model="paginateCurrentPage"
-                  class="inline w-24 py-1 px-2 border-b border-gray-400 focus:border-indigo-400"
+                  :value="paginateCurrentPage"
+                  class="inline w-24 py-1 px-2 border-b border-gray-400 focus:border-indigo-400 font-sans"
                   type="number"
+                  min="1"
+                  :max="paginateTotalPages"
                   @input="throttledCurrentPage"
                 />
-                <span> از </span> {{ paginateTotalPages }}
+                <span> از </span
+                ><span class="font-sans">{{ paginateTotalPages }}</span>
               </div>
               <div class="w-1/6">
                 <button
+                  type="button"
                   :disabled="paginateCurrentPage == paginateTotalPages"
                   class="flex justify-around text-gray-800 h-8 w-8"
                   :class="{
                     'pagination-link-disabled':
                       paginateCurrentPage == paginateTotalPages
                   }"
+                  @click="goToNextPage"
                 >
-                  <!-- <coleus-spinner
-                    v-if="loadingNextPage"
-                    class="self-center p-1"
-                  /> -->
-                  <coleus-caret-left class="self-center" />
+                  <coleus-spinner v-if="loadingNextPage" class="self-center" />
+                  <coleus-caret-left v-else class="self-center" />
                 </button>
               </div>
 
@@ -236,8 +237,8 @@ export default {
     offset: 0,
     parent: null,
     loadingParent: false,
-    // loadingNextPage: false,
-    // loadingPrevPage: false,
+    loadingNextPage: false,
+    loadingPrevPage: false,
     pagesAggregate: 0,
     // paginateTotal: 0,
     // paginateTotalItems: 0,
@@ -278,8 +279,8 @@ export default {
       },
       update(data) {
         this.loadingParent = false
-        //   this.loadingNextPage = false
-        //   this.loadingPrevPage = false
+        this.loadingNextPage = false
+        this.loadingPrevPage = false
         this.pagesAggregate = data.pages_aggregate.aggregate.count
         this.calculatePagination()
         return data.pages
@@ -287,22 +288,25 @@ export default {
     }
   },
   watch: {
-    // currentPage(newPage, oldPage) {
-    //   this.fetchContent(newPage, this.parent)
-    // },
+    paginateCurrentPage(newPage, oldPage) {
+      if (newPage !== oldPage) {
+        this.offset += (newPage - oldPage) * this.perPage
+        this.$router.push(this.pageLink(this.$route.params.page, newPage))
+      }
+    },
     // parent(newParent, oldParent) {
     //   this.loadingParent = true
     // },
-    // offset(newOffset, oldOffset) {
-    //   if (newOffset > oldOffset) {
-    //     this.loadingNextPage = true
-    //   }
-    //   if (newOffset < oldOffset) {
-    //     this.loadingPrevPage = true
-    //   }
-    // }
+    offset(newOffset, oldOffset) {
+      if (newOffset > oldOffset) {
+        this.loadingNextPage = true
+      }
+      if (newOffset < oldOffset) {
+        this.loadingPrevPage = true
+      }
+    }
   },
-  mounted() {
+  created() {
     // this.currentPage = this.$route.params.page
     // this.parent = this.$route.params.parent
     // this.offset = (parseInt(this.$route.query.page || 1) - 1) * 10
@@ -358,16 +362,16 @@ export default {
      * @param {number} pageId
      * @return {Object}
      */
-    pageLink(pageId) {
+    pageLink(pageId, queryPage) {
       return {
         name: 'username-book-parent-page',
         params: {
           username: this.$route.params.username,
           book: this.$route.params.book,
           parent: this.currentParent,
-          page: pageId
+          page: pageId || parseInt(this.$route.params.page)
         },
-        query: { page: this.$route.query.page }
+        query: { page: queryPage || parseInt(this.$route.query.page) }
       }
     },
 
@@ -377,13 +381,13 @@ export default {
      * @return {void}
      */
     throttledCurrentPage: _.debounce(function(e) {
-      const newPage = e.target.value
+      const newPage = parseInt(e.target.value)
       if (
         !isNaN(newPage) &&
         newPage > 0 &&
         newPage <= this.paginateTotalPages
       ) {
-        this.offset = (newPage - 1) * this.perPage
+        this.paginateCurrentPage = newPage
       }
     }, 300),
 
@@ -409,6 +413,15 @@ export default {
     },
 
     /**
+     * Navigate to next page.
+     *
+     * @return {void}
+     */
+    goToNextPage() {
+      this.paginateCurrentPage += 1
+    },
+
+    /**
      * Calculate previous page.
      *
      * @return {number}
@@ -417,52 +430,17 @@ export default {
       return this.paginateCurrentPage >= this.paginateTotalPages
         ? this.paginateCurrentPage - 1
         : this.paginateCurrentPage
+    },
+
+    /**
+     * Navigate to previous page.
+     *
+     * @return {void}
+     */
+    goToPrevPage() {
+      this.paginateCurrentPage -= 1
     }
-    // throttledCurrentPage: _.debounce(function(e) {
-    //   if (
-    //     !isNaN(e.target.value) &&
-    //     e.target.value > 0 &&
-    //     e.target.value <= this.paginateTotalPages
-    //   ) {
-    //     this.offset = (e.target.value - 1) * 10
-    //   }
-    // }, 300),
-    // prevPage() {
-    //   if (this.paginatePrevPage !== this.paginateCurrentPage) {
-    //     this.offset -= 10
-    //   }
-    // },
-    // nextPage() {
-    //   if (this.paginateNextPage !== this.paginateCurrentPage) {
-    //     this.offset += 10
-    //   }
-    // },
-    // calculatePagination() {
-    //   this.paginateTotal = this.pagesAggregateCount
-    //   this.paginateTotalPages = Math.ceil(this.paginateTotal / 10)
-    //   this.paginateCurrentPage = Math.ceil(this.offset / 10) + 1
-    //   this.paginateNextPage =
-    //     this.paginateCurrentPage <= this.paginateTotalPages
-    //       ? this.paginateCurrentPage + 1
-    //       : this.paginateNextPage
-    //   this.paginatePrevPage =
-    //     Math.ceil(this.offset / 10) > 0 &&
-    //     Math.ceil(this.offset / 10) < this.paginateTotalPages
-    //       ? this.paginateCurrentPage - 1
-    //       : this.paginatePrevPage
-    //   const newPaginateTotalPages = this.paginateTotalPages
-    //   this.paginateTotalPages = newPaginateTotalPages
-    //   this.paginateHasMore = this.totalPages - 10 - this.offset * 10 > 0
-    //   this.paginateNextOffset =
-    //     this.totalPages - 10 - this.offset * 10 > 0
-    //       ? this.offset + 10
-    //       : this.paginateNextOffset
-    //   this.paginatePrevOffset =
-    //     this.totalPages - 10 <= 0 ? this.offset - 10 : this.paginatePrevOffset
-    // },
-    // showChildren(pageId) {
-    //   return pageId === parseInt(this.parent)
-    // },
+
     // fetchChildren(newParent) {
     //   if (this.parent !== newParent) {
     //     this.parent = newParent
