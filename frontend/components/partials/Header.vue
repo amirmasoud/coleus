@@ -38,6 +38,14 @@
     </header>
     <nav class="header_mobile_nav block lg:hidden">
       <div class="flex justify-between">
+        <button
+          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
+          @click.prevent="$root.$emit('toggle-contents')"
+        >
+          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
+            >فهرست</span
+          >
+        </button>
         <nuxt-link
           class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
           :to="{ name: 'books' }"

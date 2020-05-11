@@ -1,91 +1,94 @@
 <template>
   <aside
-    class="block bg-gray-100 mt-8 -mx-4 lg:mt-0 lg:mx-0 lg:inset-0 z-90 lg:mb-0 lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-1/4 lg:block"
+    class="block bg-gray-100 mt-8 lg:mt-0 lg:mx-0 lg:inset-0 z-90 lg:mb-0 lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-1/4 lg:block"
   >
     <div
       class="h-full overflow-y-auto scrolling-touch lg:text-right lg:h-auto lg:block lg:relative lg:sticky lg:top-24 lg:mt-2"
     >
-      <nav
-        class="lg:overflow-y-auto lg:block lg:pl-0 lg:px-2 sticky?lg:h-(screen-24)"
-      >
+      <nav class="lg:overflow-y-auto lg:block lg:pl-0 sticky?lg:h-(screen-24)">
         <div v-if="books && books.length">
           <template v-for="(page, index) in books[0].pages" class="flex">
-            <button
-              class="flex text-right"
-              type="button"
-              :key="`icon-${index}`"
-              @click.prevent="toggleHeader(page.id)"
-            >
-              <component
-                :is="headerIcon(page.id)"
-                class="mt-2 ml-1"
-              ></component>
-              <h3 class="text-gray-900 pb-2">
-                {{ page.title }}
-              </h3>
-            </button>
-            <div
-              v-if="isExpanded(page.id)"
-              :key="`pagination-${index}`"
-              class="pagination flex flex-wrap"
-            >
-              <div class="w-1/6">
-                <button
-                  type="button"
-                  :disabled="paginateCurrentPage == 1"
-                  class="flex justify-around text-gray-800 h-8 w-8"
-                  :class="{
-                    'pagination-link-disabled': paginateCurrentPage == 1
-                  }"
-                  @click="goToPrevPage"
-                >
-                  <coleus-spinner v-if="loadingPrevPage" class="self-center" />
-                  <coleus-caret-right v-else class="self-center" />
-                </button>
-              </div>
-              <div class="w-2/3 text-right text-gray-900">
-                <input
-                  :value="paginateCurrentPage"
-                  class="inline w-24 py-1 px-2 border-b border-gray-400 focus:border-indigo-400 font-sans"
-                  type="number"
-                  min="1"
-                  :max="paginateTotalPages"
-                  @input="throttledCurrentPage"
-                />
-                <span> از </span
-                ><span class="font-sans">{{ paginateTotalPages }}</span>
-              </div>
-              <div class="w-1/6">
-                <button
-                  type="button"
-                  :disabled="paginateCurrentPage == paginateTotalPages"
-                  class="flex justify-around text-gray-800 h-8 w-8"
-                  :class="{
-                    'pagination-link-disabled':
-                      paginateCurrentPage == paginateTotalPages
-                  }"
-                  @click="goToNextPage"
-                >
-                  <coleus-spinner v-if="loadingNextPage" class="self-center" />
-                  <coleus-caret-left v-else class="self-center" />
-                </button>
-              </div>
-
-              <ul
-                :key="`list-${index}`"
-                class="pb-2 pr-3 mr-2 border-r border-gray-400"
+            <div :key="`icon-${index}`">
+              <button
+                class="flex text-right"
+                type="button"
+                @click.prevent="toggleHeader(page.id)"
               >
-                <li
-                  v-for="subpage in pages"
-                  :id="`page-${subpage.id}`"
-                  :key="subpage.id"
-                  class="py-1"
-                >
-                  <nuxt-link :to="pageLink(subpage.id)">
-                    {{ subpage.title }}
-                  </nuxt-link>
-                </li>
-              </ul>
+                <component
+                  :is="headerIcon(page.id)"
+                  class="mt-2 ml-1"
+                ></component>
+                <h3 class="text-gray-900 pb-2">
+                  {{ page.title }}
+                </h3>
+              </button>
+              <div
+                v-if="isExpanded(page.id)"
+                :key="`pagination-${index}`"
+                class="pagination flex flex-wrap"
+              >
+                <div class="w-1/6">
+                  <button
+                    type="button"
+                    :disabled="paginateCurrentPage == 1"
+                    class="flex justify-around text-gray-800 h-8 w-8"
+                    :class="{
+                      'pagination-link-disabled': paginateCurrentPage == 1
+                    }"
+                    @click="goToPrevPage"
+                  >
+                    <coleus-spinner
+                      v-if="loadingPrevPage"
+                      class="self-center"
+                    />
+                    <coleus-caret-right v-else class="self-center" />
+                  </button>
+                </div>
+                <div class="w-2/3 text-right text-gray-900">
+                  <input
+                    :value="paginateCurrentPage"
+                    class="inline w-24 py-1 px-2 border-b border-gray-400 focus:border-indigo-400 font-sans"
+                    type="number"
+                    min="1"
+                    :max="paginateTotalPages"
+                    @input="throttledCurrentPage"
+                  />
+                  <span> از </span
+                  ><span class="font-sans">{{ paginateTotalPages }}</span>
+                </div>
+                <div class="w-1/6">
+                  <button
+                    type="button"
+                    :disabled="paginateCurrentPage == paginateTotalPages"
+                    class="flex justify-around text-gray-800 h-8 w-8"
+                    :class="{
+                      'pagination-link-disabled':
+                        paginateCurrentPage == paginateTotalPages
+                    }"
+                    @click="goToNextPage"
+                  >
+                    <coleus-spinner
+                      v-if="loadingNextPage"
+                      class="self-center"
+                    />
+                    <coleus-caret-left v-else class="self-center" />
+                  </button>
+                </div>
+
+                <ul :key="`list-${index}`" class="py-2 w-full">
+                  <li
+                    v-for="subpage in pages"
+                    :id="`page-${subpage.id}`"
+                    :key="subpage.id"
+                    class="py-1 px-3 text-sm"
+                    :class="{ 'bg-gray-300': subpage.id == $route.params.page }"
+                  >
+                    <nuxt-link :to="pageLink(subpage.id)">
+                      {{ subpage.title }}
+                    </nuxt-link>
+                  </li>
+                </ul>
+              </div>
             </div>
           </template>
         </div>
@@ -114,6 +117,7 @@ export default {
   },
 
   data: () => ({
+    fresh: true,
     offset: 0,
     parent: null,
     loadingParent: false,
@@ -333,50 +337,6 @@ export default {
     goToPage(pageId) {
       return this.$router.replace(this.pageLink(pageId))
     }
-
-    // fetchChildren(newParent) {
-    //   if (this.parent !== newParent) {
-    //     this.parent = newParent
-    //     this.pages = []
-    //     this.offset = 0
-    //     this.paginateTotal = 0
-    //     this.paginateTotalItems = 0
-    //     this.paginateCurrentPage = 1
-    //     this.paginateNextPage = 1
-    //     this.paginatePrevPage = 1
-    //     this.paginateTotalPages = 1
-    //     this.paginateHasMore = false
-    //     this.paginateNextOffset = 0
-    //     this.paginatePrevOffset = 0
-    //   }
-    // },
-    // isOpen(page) {
-    //   if (this.loadingParent && page.id === parseInt(this.parent)) {
-    //     return 'coleus-aside-spinner'
-    //   } else if (!this.loadingParent && page.id === parseInt(this.parent)) {
-    //     return 'coleus-caret-down'
-    //   } else {
-    //     return 'coleus-caret-left'
-    //   }
-    // },
-    // scrollToTop() {
-    //   const c = document.documentElement.scrollTop || document.body.scrollTop
-    //   if (c > 0) {
-    //     window.scrollTo({ top: 0, behavior: 'smooth' })
-    //   }
-    // },
-    // isCurrentPage(id) {
-    //   return (
-    //     (this.currentPage === 0
-    //       ? parseInt(this.$route.params.page)
-    //       : this.currentPage) === id
-    //   )
-    // },
-    // fetchContent(page, parent) {
-    //   // this.currentPage = parseInt(page)
-    //   this.$root.$emit('content-changed', page, parent)
-    //   this.scrollToTop()
-    // }
   }
 }
 </script>
