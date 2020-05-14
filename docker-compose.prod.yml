@@ -54,7 +54,7 @@ services:
       - backend-network
 
   graphql:
-    image: hasura/graphql-engine:v1.1.0
+    image: hasura/graphql-engine:v1.2.1.cli-migrations
     container_name: coleus-graphql
     ports:
       - 8180:8180
