@@ -1,4 +1,4 @@
-version: "3"
+version: "3.2"
 
 services:
   backend:
@@ -36,7 +36,7 @@ services:
       - backend-network
 
   graphql:
-    image: hasura/graphql-engine:v1.2.1.cli-migrations
+    image: hasura/graphql-engine:v1.2.1.cli-migrations-v2
     container_name: coleus-dev-graphql
     ports:
       - 8180:8180
@@ -48,6 +48,16 @@ services:
       HASURA_GRAPHQL_ENABLE_CONSOLE: "${GRAPHQL_ENABLE_CONSOLE}"
       # HASURA_GRAPHQL_ADMIN_SECRET: ${GRAPHQL_ADMIN_SECRET}
       HASURA_GRAPHQL_ENABLE_ALLOWLIST: "${GRAPHQL_ENABLE_ALLOWLIST}"
+    volumes:
+      - ./graphql/metadata:/hasura-metadata
+      - ${PWD}/graphql/config.yaml:/config.yaml
+    # volumes:
+    #   - type: bind
+    #     source: ./graphql/metadata
+    #     target: /hasura-metadata
+    #   - type: bind
+    #     source: ${PWD}/graphql/config.yaml
+    #     target: /config.yaml
     networks:
       - backend-network
 
