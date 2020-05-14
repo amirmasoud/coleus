@@ -47,6 +47,26 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the value used to index the model.
+     *
+     * @return mixed
+     */
+    public function getScoutKey()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Get the key name used to index the model.
+     *
+     * @return mixed
+     */
+    public function getScoutKeyName()
+    {
+        return 'username';
+    }
+
+    /**
      * Get the indexable data array for the model.
      *
      * @return array

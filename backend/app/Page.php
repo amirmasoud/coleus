@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +18,26 @@ class Page extends Model
     protected $fillable = [
         'title', 'order', 'status', 'book_id'
     ];
+
+    /**
+     * Get the value used to index the model.
+     *
+     * @return mixed
+     */
+    public function getScoutKey()
+    {
+        return Str::of($this->title)->slug('-') . '-' . $this->id;
+    }
+
+    /**
+     * Get the key name used to index the model.
+     *
+     * @return mixed
+     */
+    public function getScoutKeyName()
+    {
+        return 'title';
+    }
 
     /**
      * Get the indexable data array for the model.
