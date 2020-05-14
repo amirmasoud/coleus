@@ -59,6 +59,7 @@ services:
       - 443:443
     restart: unless-stopped
     volumes:
+      - ./backend:/var/www/backend
       - ./deploy/dev/nginx/conf.d/:/etc/nginx/conf.d/
       - ./deploy/dev/nginx/log/:/var/log/nginx/
     depends_on:
