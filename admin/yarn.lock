@@ -8915,14 +8915,6 @@ ra-data-hasura@^0.0.8:
   resolved "https://registry.yarnpkg.com/ra-data-hasura/-/ra-data-hasura-0.0.8.tgz#8db4bad451134c949bda920a1dc57bb08978ed61"
   integrity sha512-o7EeajFx+4oJX+6Zw56IbvASdvvzTiDX5X+LSpJ0Mc89wtVDlqKMIAtV2xWLUbdtY+q9QRQU2eyobnBv5o3qOg==
 
-ra-data-json-server@^3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/ra-data-json-server/-/ra-data-json-server-3.5.1.tgz#8db45f33f7f8ae56f30ec173746b3868888178cf"
-  integrity sha512-0gEeSsqeY/SYrv5uTsGLlihVbfpUwBOpdA/VADPOFFYP2zSbCGN9eMXDNGOtO06iCmimOLCF8yYtclmMjBUxwQ==
-  dependencies:
-    query-string "^5.1.1"
-    ra-core "^3.5.1"
-
 ra-i18n-polyglot@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/ra-i18n-polyglot/-/ra-i18n-polyglot-3.5.1.tgz#6d5c3adda72e5c8c4a144f1fe085d95ddf952cc4"
