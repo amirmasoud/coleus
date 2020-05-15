@@ -1,6 +1,22 @@
 version: "3.2"
 
 services:
+  admin:
+    image: admin:${ADMIN_TAG}
+    build:
+      context: ./admin
+      dockerfile: ../deploy/dev/admin/Dockerfile
+      args:
+        - NODE_VERSION=${NODE_VERSION}
+    container_name: coleus-admin
+    restart: unless-stopped
+    ports:
+      - 5000:5000
+    working_dir: /var/www/admin
+    command: "serve -s build"
+    networks:
+      - backend-network
+
   backend:
     image: backend:${BACKEND_TAG}
     build:
@@ -46,18 +62,11 @@ services:
     environment:
       HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:@database:5432/coleus
       HASURA_GRAPHQL_ENABLE_CONSOLE: "${GRAPHQL_ENABLE_CONSOLE}"
-      # HASURA_GRAPHQL_ADMIN_SECRET: ${GRAPHQL_ADMIN_SECRET}
       HASURA_GRAPHQL_ENABLE_ALLOWLIST: "${GRAPHQL_ENABLE_ALLOWLIST}"
+      GRAPHQL_BACKEND_ENDPOINT: "${GRAPHQL_BACKEND_ENDPOINT}"
     volumes:
       - ./graphql/metadata:/hasura-metadata
       - ${PWD}/graphql/config.yaml:/config.yaml
-    # volumes:
-    #   - type: bind
-    #     source: ./graphql/metadata
-    #     target: /hasura-metadata
-    #   - type: bind
-    #     source: ${PWD}/graphql/config.yaml
-    #     target: /config.yaml
     networks:
       - backend-network
 

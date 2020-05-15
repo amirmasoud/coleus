@@ -64,8 +64,11 @@ services:
     environment:
       HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:@database:5432/coleus
       HASURA_GRAPHQL_ENABLE_CONSOLE: "${GRAPHQL_ENABLE_CONSOLE}"
-      HASURA_GRAPHQL_ADMIN_SECRET: ${GRAPHQL_ADMIN_SECRET}
       HASURA_GRAPHQL_ENABLE_ALLOWLIST: "${GRAPHQL_ENABLE_ALLOWLIST}"
+      GRAPHQL_BACKEND_ENDPOINT: "${GRAPHQL_BACKEND_ENDPOINT}"
+    volumes:
+      - ./graphql/metadata:/hasura-metadata
+      - ${PWD}/graphql/config.yaml:/config.yaml
     networks:
       - backend-network
 
