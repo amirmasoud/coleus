@@ -23,8 +23,9 @@
         "league/flysystem-aws-s3-v3": "~1.0",
         "league/flysystem-cached-adapter": "~1.0",
         "php-amqplib/php-amqplib": "^2.11",
+        "php-sonic/php-sonic": "*",
         "predis/predis": "^1.1",
-        "php-sonic/php-sonic": "*"
+        "rebing/graphql-laravel": "^5.1"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
