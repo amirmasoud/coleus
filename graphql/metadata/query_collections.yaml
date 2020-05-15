@@ -1,19 +1,19 @@
 - name: allowed-queries
   definition:
     queries:
-      - name: FetchUsersTest
-        query: |-
-          query FetchUsers {
-            users {
-              name
-              username
-              xsmall
-              placeholder
-              thumbnail
-              book_users_aggregate {
-                aggregate {
-                  count
-                }
+    - name: FetchUsersTest
+      query: |-
+        query FetchUsers {
+          users {
+            name
+            username
+            xsmall
+            placeholder
+            thumbnail
+            book_users_aggregate {
+              aggregate {
+                count
               }
             }
           }
+        }

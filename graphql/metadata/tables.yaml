@@ -1,82 +1,82 @@
-- array_relationships:
-    - name: blocks
-      using:
-        foreign_key_constraint_on:
-          column: parent_id
-          table:
-            name: blocks
-            schema: public
-  object_relationships:
-    - name: block
-      using:
-        foreign_key_constraint_on: parent_id
-    - name: page
-      using:
-        foreign_key_constraint_on: page_id
-  table:
+- table:
+    schema: public
     name: blocks
-    schema: public
-- object_relationships:
-    - name: book
-      using:
-        foreign_key_constraint_on: book_id
-    - name: user
-      using:
-        foreign_key_constraint_on: user_id
-  table:
-    name: book_user
-    schema: public
-- array_relationships:
-    - name: book_users
-      using:
-        foreign_key_constraint_on:
-          column: book_id
-          table:
-            name: book_user
-            schema: public
-    - name: pages
-      using:
-        foreign_key_constraint_on:
-          column: book_id
-          table:
-            name: pages
-            schema: public
-  table:
-    name: books
-    schema: public
-- array_relationships:
-    - name: blocks
-      using:
-        foreign_key_constraint_on:
-          column: page_id
-          table:
-            name: blocks
-            schema: public
-    - name: pages
-      using:
-        foreign_key_constraint_on:
-          column: parent_id
-          table:
-            name: pages
-            schema: public
   object_relationships:
-    - name: book
-      using:
-        foreign_key_constraint_on: book_id
-    - name: page
-      using:
-        foreign_key_constraint_on: parent_id
-  table:
+  - name: block
+    using:
+      foreign_key_constraint_on: parent_id
+  - name: page
+    using:
+      foreign_key_constraint_on: page_id
+  array_relationships:
+  - name: blocks
+    using:
+      foreign_key_constraint_on:
+        column: parent_id
+        table:
+          schema: public
+          name: blocks
+- table:
+    schema: public
+    name: book_user
+  object_relationships:
+  - name: book
+    using:
+      foreign_key_constraint_on: book_id
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+- table:
+    schema: public
+    name: books
+  array_relationships:
+  - name: book_users
+    using:
+      foreign_key_constraint_on:
+        column: book_id
+        table:
+          schema: public
+          name: book_user
+  - name: pages
+    using:
+      foreign_key_constraint_on:
+        column: book_id
+        table:
+          schema: public
+          name: pages
+- table:
+    schema: public
     name: pages
+  object_relationships:
+  - name: book
+    using:
+      foreign_key_constraint_on: book_id
+  - name: page
+    using:
+      foreign_key_constraint_on: parent_id
+  array_relationships:
+  - name: blocks
+    using:
+      foreign_key_constraint_on:
+        column: page_id
+        table:
+          schema: public
+          name: blocks
+  - name: pages
+    using:
+      foreign_key_constraint_on:
+        column: parent_id
+        table:
+          schema: public
+          name: pages
+- table:
     schema: public
-- array_relationships:
-    - name: book_users
-      using:
-        foreign_key_constraint_on:
-          column: user_id
-          table:
-            name: book_user
-            schema: public
-  table:
     name: users
-    schema: public
+  array_relationships:
+  - name: book_users
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          schema: public
+          name: book_user
