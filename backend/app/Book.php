@@ -19,26 +19,6 @@ class Book extends Model
     ];
 
     /**
-     * Get the value used to index the model.
-     *
-     * @return mixed
-     */
-    public function getScoutKey()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Get the key name used to index the model.
-     *
-     * @return mixed
-     */
-    public function getScoutKeyName()
-    {
-        return 'slug';
-    }
-
-    /**
      * Get the indexable data array for the model.
      *
      * @return array

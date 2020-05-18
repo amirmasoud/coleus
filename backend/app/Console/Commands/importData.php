@@ -4,10 +4,11 @@ namespace App\Console\Commands;
 
 use App\User;
 use App\Book;
-use App\Contracts\Image;
 use App\Page;
+use App\Block;
+use App\Contracts\Image;
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ImportData extends Command
@@ -57,6 +58,12 @@ class ImportData extends Command
         $this->image = $image;
     }
 
+    /**
+     * Insert a new user.
+     *
+     * @param \App\User $user
+     * @return void
+     */
     public function insertUser($user)
     {
         $uniqid = uniqid('', true);
@@ -81,7 +88,7 @@ class ImportData extends Command
             'name' => $user->name,
             'username' => $user->username,
             'email' => $user->email,
-            'password' => Hash::make('123456'), // @todo
+            'password' => Str::random(40),
             'original' => $original,
             'medium' => $medium,
             'placeholder' => $placeholder,
@@ -90,6 +97,88 @@ class ImportData extends Command
             'xsmall' => $xsmall,
             'order' => $user->order ?? 0
         ]);
+    }
+
+    /**
+     * Insert a new book.
+     *
+     * @param \App\User $user
+     * @param stdClass $book
+     * @return void
+     */
+    public function insertBook($user, $book)
+    {
+        $uniqid = uniqid('', true);
+        $cover = 'ganjoor/books/' . $user->username . '/' . $book->slug . '/' . $book->slug . '.jpg';
+        if (Storage::disk('dataset')->exists($cover)) {
+            Storage::put('book_cover/' . $uniqid . '.jpg', Storage::disk('dataset')->get($cover));
+        } else {
+            if (Storage::missing('book_cover/default.jpg')) {
+                Storage::put('book_cover/default.jpg', Storage::disk('dataset')->get('ganjoor/books/default.jpg'));
+            }
+            $uniqid = 'default';
+        }
+
+        // 2560x1600
+        $original = Storage::url('public/book_cover/' . $uniqid . '.jpg');
+
+        // 1280x800
+        $medium = $this->image->publicUrl('public/book_cover/' . $uniqid . '.jpg', 800, 1200);
+
+        // 640x400
+        $small = $this->image->publicUrl('public/book_cover/' . $uniqid . '.jpg', 400, 640);
+
+        // 160x100
+        $xsmall = $this->image->publicUrl('public/book_cover/' . $uniqid . '.jpg', 100, 160);
+
+        // 40x25
+        $thumbnail = $this->image->publicUrl('public/book_cover/' . $uniqid . '.jpg', 25, 40);
+
+        // 8*5
+        $placeholder = $this->image->publicUrl('public/book_cover/' . $uniqid . '.jpg', 5, 8);
+
+        return $user->books()->create([
+            'title' => $book->title,
+            'slug' => $book->slug,
+            'description' => $book->description ?? '',
+            'original' => $original,
+            'medium' => $medium,
+            'placeholder' => $placeholder,
+            'small' => $small,
+            'thumbnail' => $thumbnail,
+            'xsmall' => $xsmall,
+            'order' => $book->order ?? 0
+        ]);
+        $this->info('Inserting ' . $user->username . ' → ' . $book->slug . '...');
+    }
+
+    /**
+     * Convert western number to persian numbers.
+     *
+     * @param  string $input
+     * @return void
+     */
+    private function convertToPersian($input)
+    {
+        $persian = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+        $western = array('٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩');
+
+        return str_replace($western, $persian, $input);
+    }
+
+    /**
+     * Format page number if it's set.
+     *
+     * @param  stdObject $page
+     * @param  integer $idx
+     * @return void
+     */
+    private function getPageNumber($page, $idx)
+    {
+        if (property_exists($page, 'page_count_lang') && $page->page_count_lang == 'fa') {
+            return ' ' . $this->convertToPersian($idx);
+        }
+        return '';
     }
 
     /**
@@ -102,11 +191,13 @@ class ImportData extends Command
         ini_set('memory_limit', '-1');
 
         // Reset
+        $this->info('Reset data');
         User::truncate();
         Storage::deleteDirectory('profile_picture');
         Book::truncate();
         Storage::deleteDirectory('book_cover');
         Page::truncate();
+        Block::truncate();
 
         $users = json_decode(Storage::disk('dataset')->get('ganjoor/users/all.json'));
         foreach ($users as $user) {
@@ -121,57 +212,14 @@ class ImportData extends Command
                 if (!is_null($this->argument('bookSlug')) && $book->slug != $this->argument('bookSlug')) {
                     continue;
                 }
-                $uniqid = uniqid('', true);
-                $cover = 'ganjoor/books/' . $user->username . '/' . $book->slug . '/' . $book->slug . '.jpg';
-                if (Storage::disk('dataset')->exists($cover)) {
-                    Storage::put('book_cover/' . $uniqid . '.jpg', Storage::disk('dataset')->get($cover));
-                } else {
-                    if (Storage::missing('book_cover/default.jpg')) {
-                        Storage::put('book_cover/default.jpg', Storage::disk('dataset')->get('ganjoor/books/default.jpg'));
-                    }
-                    $uniqid = 'default';
-                }
-
-                // 2560x1600
-                $original = Storage::url('public/book_cover/' . $uniqid . '.jpg');
-
-                // 1280x800
-                $medium = $this->image->publicUrl('public/book_cover/' . $uniqid . '.jpg', 800, 1200);
-
-                // 640x400
-                $small = $this->image->publicUrl('public/book_cover/' . $uniqid . '.jpg', 400, 640);
-
-                // 160x100
-                $xsmall = $this->image->publicUrl('public/book_cover/' . $uniqid . '.jpg', 100, 160);
-
-                // 40x25
-                $thumbnail = $this->image->publicUrl('public/book_cover/' . $uniqid . '.jpg', 25, 40);
-
-                // 8*5
-                $placeholder = $this->image->publicUrl('public/book_cover/' . $uniqid . '.jpg', 5, 8);
-
                 $bookPath = property_exists($book, 'path') ? $book->path : $book->slug;
-
-                $book = $user->books()->create([
-                    'title' => $book->title,
-                    'slug' => $book->slug,
-                    'description' => $book->description ?? '',
-                    'original' => $original,
-                    'medium' => $medium,
-                    'placeholder' => $placeholder,
-                    'small' => $small,
-                    'thumbnail' => $thumbnail,
-                    'xsmall' => $xsmall,
-                    'order' => $book->order ?? 0
-                ]);
-                $this->info('Inserting ' . $user->username . ' → ' . $book->slug . '...');
-
+                $bookModel = $this->insertBook($user, $book);
                 $pages = json_decode(Storage::disk('dataset')->get('ganjoor/books/' . $user->username . '/' . $bookPath . '/pages.json'));
                 usort($pages, function ($a, $b) {
                     return $a->order > $b->order;
                 });
                 foreach ($pages as $page) {
-                    $pageModel = $book->pages()->create([
+                    $pageModel = $bookModel->pages()->create([
                         'title' => $page->title,
                         'order' => $page->order,
                         'status' => 'published'
@@ -180,7 +228,7 @@ class ImportData extends Command
                     $pages = (Storage::disk('dataset')->directories('ganjoor/books/' . $user->username . '/' . $bookPath . '/' . $page->path));
                     sort($pages, SORT_NATURAL);
                     $pageOrder = 0;
-                    $customCount = 1;
+                    $idx = 1;
                     foreach ($pages as $subpage) {
                         $file = json_decode(Storage::disk('dataset')->get($subpage . '/output.json'));
                         $title = '';
@@ -206,17 +254,11 @@ class ImportData extends Command
                                     if ($hasCustomHeader) {
                                         $title = $CustomHeader;
                                     } else {
-                                        if (property_exists($page, 'page_count_lang') && $page->page_count_lang == 'fa') {
-                                            $str = $customCount;
-                                            $western_persian = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
-                                            $eastern_persian = array('٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩');
-
-                                            $str = str_replace($western_persian, $eastern_persian, $str);
-                                            $customCount++;
+                                        if (property_exists($page, 'page_count')) {
+                                            $title = $page->page_title . $this->getPageNumber($page, $idx++);
+                                        } else {
+                                            $title = $page->page_title;
                                         }
-                                        $title = property_exists($page, 'page_count')
-                                            ? $page->page_title . ' ' . (property_exists($page, 'page_count_lang') ? $str : $customCount++)
-                                            : $page->page_title;
                                     }
 
                                     if (property_exists($page, 'page_append') && property_exists($part, 'm1')) {
@@ -232,7 +274,7 @@ class ImportData extends Command
                                     'title' => $title,
                                     'order' => $pageOrder,
                                     'status' => 'published',
-                                    'book_id' => $book->id
+                                    'book_id' => $bookModel->id
                                 ]);
                                 $pageOrder++;
                             }

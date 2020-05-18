@@ -14,7 +14,7 @@ class SearchController extends Controller
 {
     public function query(Request $request)
     {
-        dd(User::search('sghl')->get());
+        dd(‌Block::search($request->q)->get());
         if ($request->filled('q')) {
             try {
                 return [
