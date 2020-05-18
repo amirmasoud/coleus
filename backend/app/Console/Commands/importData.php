@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\User;
 use App\Book;
+use App\Contracts\Image;
 use App\Page;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
@@ -38,49 +39,22 @@ class ImportData extends Command
     protected $description = 'import author and books';
 
     /**
+     * Image contract instance.
+     *
+     * @var /App/Contracts/Image
+     */
+    private $image;
+
+    /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Image $image)
     {
         parent::__construct();
-    }
 
-    /**
-     * @todo extract to package
-     *
-     * @return void
-     */
-    public function image($path, $width = 32, $height = 32)
-    {
-        $key = env('IMGPROXY_KEY');
-        $salt = env('IMGPROXY_SALT');
-
-        $keyBin = pack("H*", $key);
-        if (empty($keyBin)) {
-            die('Key expected to be hex-encoded string');
-        }
-
-        $saltBin = pack("H*", $salt);
-        if (empty($saltBin)) {
-            die('Salt expected to be hex-encoded string');
-        }
-
-        $resize = 'fill';
-        $gravity = 'no';
-        $enlarge = 1;
-        $extension = 'jpg';
-        $filename = uniqid('', true);
-
-        $url = 's3://' . $path;
-        $encodedUrl = rtrim(strtr(base64_encode($url), '+/', '-_'), '=');
-
-        $path = "/filename:{$filename}/resize:{$resize}/width:{$width}/height:{$height}/gravity:{$gravity}/enlarge:{$enlarge}/{$encodedUrl}.{$extension}";
-
-        $signature = rtrim(strtr(base64_encode(hash_hmac('sha256', $saltBin . $path, $keyBin, true)), '+/', '-_'), '=');
-
-        return env('IMGPROXY_PUBLIC_URL') . sprintf("/%s%s", $signature, $path);
+        $this->image = $image;
     }
 
     public function insertUser($user)
@@ -97,11 +71,11 @@ class ImportData extends Command
         }
 
         $original = Storage::url('public/profile_picture/' . $uniqid . '.jpg');
-        $medium = $this->image('public/profile_picture/' . $uniqid . '.jpg', 512, 512);
-        $placeholder = $this->image('public/profile_picture/' . $uniqid . '.jpg', 4, 4);
-        $small = $this->image('public/profile_picture/' . $uniqid . '.jpg', 256, 256);
-        $thumbnail = $this->image('public/profile_picture/' . $uniqid . '.jpg', 32, 32);
-        $xsmall = $this->image('public/profile_picture/' . $uniqid . '.jpg', 64, 64);
+        $medium = $this->image->publicUrl('public/profile_picture/' . $uniqid . '.jpg', 512, 512);
+        $placeholder = $this->image->publicUrl('public/profile_picture/' . $uniqid . '.jpg', 4, 4);
+        $small = $this->image->publicUrl('public/profile_picture/' . $uniqid . '.jpg', 256, 256);
+        $thumbnail = $this->image->publicUrl('public/profile_picture/' . $uniqid . '.jpg', 32, 32);
+        $xsmall = $this->image->publicUrl('public/profile_picture/' . $uniqid . '.jpg', 64, 64);
 
         return User::create([
             'name' => $user->name,
@@ -162,19 +136,19 @@ class ImportData extends Command
                 $original = Storage::url('public/book_cover/' . $uniqid . '.jpg');
 
                 // 1280x800
-                $medium = $this->image('public/book_cover/' . $uniqid . '.jpg', 800, 1200);
+                $medium = $this->image->publicUrl('public/book_cover/' . $uniqid . '.jpg', 800, 1200);
 
                 // 640x400
-                $small = $this->image('public/book_cover/' . $uniqid . '.jpg', 400, 640);
+                $small = $this->image->publicUrl('public/book_cover/' . $uniqid . '.jpg', 400, 640);
 
                 // 160x100
-                $xsmall = $this->image('public/book_cover/' . $uniqid . '.jpg', 100, 160);
+                $xsmall = $this->image->publicUrl('public/book_cover/' . $uniqid . '.jpg', 100, 160);
 
                 // 40x25
-                $thumbnail = $this->image('public/book_cover/' . $uniqid . '.jpg', 25, 40);
+                $thumbnail = $this->image->publicUrl('public/book_cover/' . $uniqid . '.jpg', 25, 40);
 
                 // 8*5
-                $placeholder = $this->image('public/book_cover/' . $uniqid . '.jpg', 5, 8);
+                $placeholder = $this->image->publicUrl('public/book_cover/' . $uniqid . '.jpg', 5, 8);
 
                 $bookPath = property_exists($book, 'path') ? $book->path : $book->slug;
 
