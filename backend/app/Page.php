@@ -20,26 +20,6 @@ class Page extends Model
     ];
 
     /**
-     * Get the value used to index the model.
-     *
-     * @return mixed
-     */
-    public function getScoutKey()
-    {
-        return Str::of($this->title)->slug('-') . '-' . $this->id;
-    }
-
-    /**
-     * Get the key name used to index the model.
-     *
-     * @return mixed
-     */
-    public function getScoutKeyName()
-    {
-        return 'title';
-    }
-
-    /**
      * Get the indexable data array for the model.
      *
      * @return array
