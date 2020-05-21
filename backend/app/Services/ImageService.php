@@ -28,11 +28,11 @@ class ImageService implements Image
      */
     public function publicUrl($path, $width = 32, $height = 32)
     {
-        if (empty($this->keyBin = pack("H*", env('IMGPROXY_KEY')))) {
+        if (empty($this->keyBin = pack("H*", config('imgproxy.key')))) {
             throw new ImageKeyException();
         }
 
-        if (empty($this->saltBin = pack("H*", env('IMGPROXY_SALT')))) {
+        if (empty($this->saltBin = pack("H*", config('imgproxy.salt')))) {
             throw new ImageSaltException();
         }
 
@@ -49,6 +49,6 @@ class ImageService implements Image
 
         $signature = rtrim(strtr(base64_encode(hash_hmac('sha256', $this->saltBin . $path, $this->keyBin, true)), '+/', '-_'), '=');
 
-        return env('IMGPROXY_PUBLIC_URL') . sprintf("/%s%s", $signature, $path);
+        return config('imgproxy.url') . sprintf("/%s%s", $signature, $path);
     }
 }
