@@ -15,4 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('search', 'SearchController@query');
+Route::middleware('cache.headers:private;max_age=5')->group(function () {
+    Route::get('search', 'SearchController@query');
+});

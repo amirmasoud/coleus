@@ -18,13 +18,15 @@ RUN rm -f /etc/apk/repositories &&\
 
 WORKDIR /var/www/backend
 
-COPY . /var/www/backend
+# COPY . /var/www/backend
 
-RUN chown -R www-data:www-data \
-    /var/www/backend/storage \
-    /var/www/backend/bootstrap/cache && \
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# chown -R www-data:www-data \
+# /var/www/backend/storage \
+# /var/www/backend/bootstrap/cache && \
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+COPY ./start.sh /usr/local/bin/start.sh
 
 ARG BACKEND_PORT
 EXPOSE ${BACKEND_PORT}
-CMD ["php-fpm"]
+CMD ["/usr/local/bin/start.sh"]

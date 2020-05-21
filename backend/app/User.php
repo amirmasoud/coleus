@@ -46,6 +46,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Book');
     }
 
+    public function getScoutKey()
+    {
+        return $this->id;
+    }
+
     /**
      * Get the indexable data array for the model.
      *
@@ -53,6 +58,6 @@ class User extends Authenticatable
      */
     public function toSearchableArray()
     {
-        return array_filter([$this->username, $this->name]);
+        return array_filter([$this->id, $this->username, $this->name]);
     }
 }

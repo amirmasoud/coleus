@@ -18,6 +18,11 @@ class Book extends Model
         'title', 'slug', 'description', 'original', 'medium', 'small', 'xsmall', 'thumbnail', 'placeholder', 'order'
     ];
 
+    public function getScoutKey()
+    {
+        return $this->id;
+    }
+
     /**
      * Get the indexable data array for the model.
      *
@@ -25,7 +30,7 @@ class Book extends Model
      */
     public function toSearchableArray()
     {
-        return array_filter([$this->title, $this->slug, $this->description]);
+        return array_filter([$this->id, $this->title, $this->slug, $this->description]);
     }
 
     /**
