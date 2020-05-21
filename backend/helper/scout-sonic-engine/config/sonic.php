@@ -1,3 +1,7 @@
+<?php
+
+return [
+
     /*
     |--------------------------------------------------------------------------
     | Sonic Configuration
@@ -11,3 +15,5 @@
         'connection_timeout' => env('SONIC_CONNECTION_TIMEOUT', 10),
         'read_timeout' => env('SONIC_READ_TIMEOUT',  5)
     ],
+
+];

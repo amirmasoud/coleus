@@ -1,11 +1,11 @@
 <?php
 
-namespace coleus\Sonic\Providers;
+namespace Coleus\Sonic\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use coleus\Sonic\Engines\SonicSearchEngine;
-use Laravel\Scout\EngineManager;
+use Coleus\Sonic\SonicEngine;
 use SonicSearch\ChannelFactory;
+use Laravel\Scout\EngineManager;
+use Illuminate\Support\ServiceProvider;
 
 class SonicServiceProvider extends ServiceProvider
 {
@@ -14,6 +14,10 @@ class SonicServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->publishes([
+            __DIR__ . '/../config/sonic.php' => config_path('sonic.php'),
+        ], 'config');
+
         $this->app->make(EngineManager::class)->extend('sonic', function () {
             $factory = new ChannelFactory(
                 config('scout.sonic.address'),
@@ -23,7 +27,12 @@ class SonicServiceProvider extends ServiceProvider
                 config('scout.sonic.read_timeout')
             );
 
-            return new SonicSearchEngine($factory);
+            return new SonicEngine($factory);
         });
+    }
+
+    public function register()
+    {
+        $this->mergeConfigFrom(__DIR__ . '/../config/sonic.php', 'sonic');
     }
 }

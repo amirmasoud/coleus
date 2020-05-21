@@ -19,6 +19,11 @@ class Page extends Model
         'title', 'order', 'status', 'book_id'
     ];
 
+    public function getScoutKey()
+    {
+        return $this->id;
+    }
+
     /**
      * Get the indexable data array for the model.
      *
@@ -26,7 +31,7 @@ class Page extends Model
      */
     public function toSearchableArray()
     {
-        return array_filter([$this->title]);
+        return array_filter([$this->id, $this->title]);
     }
 
     /**

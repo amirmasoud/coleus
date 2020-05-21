@@ -1,11 +1,11 @@
 <?php
 
-namespace james2doyle\SonicScout\Tests\Fixtures;
+namespace Coleus\Sonic\Tests\Fixtures;
 
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 
-class SearchableModel extends Model
+class ExampleModel extends Model
 {
     use Searchable;
 
@@ -21,7 +21,8 @@ class SearchableModel extends Model
         return [$this->id, 'searchable model'];
     }
 
-    public function getScoutKey() {
+    public function getScoutKey()
+    {
         return $this->id;
     }
 

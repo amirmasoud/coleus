@@ -1,13 +1,12 @@
 <?php
 
-namespace coleus\Sonic\Engines;
+namespace Coleus\Sonic;
 
 use Laravel\Scout\Builder;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Laravel\Scout\Engines\Engine;
 use SonicSearch\ChannelFactory;
+use Laravel\Scout\Engines\Engine;
 
-class SonicSearchEngine extends Engine
+class SonicEngine extends Engine
 {
     /**
      * The Sonic search client.
@@ -191,9 +190,15 @@ class SonicSearchEngine extends Engine
 
         $objectIdPositions = array_flip($results);
 
-        $result = $model->getScoutModelsByIds($builder, $results)
-            ->filter(function ($model) use ($results) {
-                return in_array($model->getScoutKey(), $results);
+        $filtered_results = [];
+        foreach ($results as $result) {
+            if (is_numeric($result)) {
+                $filtered_results[] = (int) $result;
+            }
+        }
+        $result = $model->getScoutModelsByIds($builder, $filtered_results)
+            ->filter(function ($model) use ($filtered_results) {
+                return in_array($model->getScoutKey(), $filtered_results);
             });
 
         // sonic has no way to understand filters/wheres so we fake it on the collection
@@ -203,7 +208,7 @@ class SonicSearchEngine extends Engine
 
         return $result->sortBy(function ($model) use ($objectIdPositions) {
             return $objectIdPositions[$model->getScoutKey()];
-        });;
+        });
     }
 
     /**
@@ -225,6 +230,6 @@ class SonicSearchEngine extends Engine
      */
     public function flush($model)
     {
-        $this->delete(\collect($model));
+        $this->delete(collect($model));
     }
 }

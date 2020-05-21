@@ -1,17 +1,18 @@
 <?php
-namespace james2doyle\SonicScout\Tests;
+
+namespace Coleus\Sonic\Tests;
 
 use stdClass;
 use Mockery;
 use Laravel\Scout\Builder;
+use Coleus\Sonic\SonicEngine;
 use PHPUnit\Framework\TestCase;
 use SonicSearch\ChannelFactory;
 use SonicSearch\IngestChannel;
 use SonicSearch\SearchChannel;
 use SonicSearch\ControlChannel;
-use james2doyle\SonicScout\Engines\SonicSearchEngine;
 use Illuminate\Database\Eloquent\Collection;
-use james2doyle\SonicScout\Tests\Fixtures\SearchableModel;
+use Coleus\Sonic\Tests\Fixtures\ExampleModel;
 
 class SonicEngineTest extends TestCase
 {
@@ -56,8 +57,8 @@ class SonicEngineTest extends TestCase
             'newControlChannel' => $mocks['control'],
         ]);
 
-        $engine = new SonicSearchEngine($factory);
-        $engine->update(Collection::make([new SearchableModel(['id' => 1])]));
+        $engine = new SonicEngine($factory);
+        $engine->update(Collection::make([new ExampleModel(['id' => 1])]));
     }
 
     /** @test */
@@ -69,8 +70,8 @@ class SonicEngineTest extends TestCase
         $mocks['ingest']->shouldReceive('push')->withArgs(function () {
             $args = func_get_args();
             $expected = [
-                'SearchableModels',
-                'SearchableModel',
+                'ExampleModels',
+                'ExampleModel',
                 '1',
                 '1 searchable model',
             ];
@@ -86,8 +87,8 @@ class SonicEngineTest extends TestCase
             'newControlChannel' => $mocks['control'],
         ]);
 
-        $engine = new SonicSearchEngine($factory);
-        $engine->update(Collection::make([new SearchableModel(['id' => 1])]));
+        $engine = new SonicEngine($factory);
+        $engine->update(Collection::make([new ExampleModel(['id' => 1])]));
     }
 
     /** @test */
@@ -99,8 +100,8 @@ class SonicEngineTest extends TestCase
         $mocks['ingest']->shouldReceive('flush')->withArgs(function () {
             $args = func_get_args();
             $expected = [
-                'SearchableModels',
-                'SearchableModel',
+                'ExampleModels',
+                'ExampleModel',
                 '1',
             ];
 
@@ -113,8 +114,8 @@ class SonicEngineTest extends TestCase
             'newControlChannel' => $mocks['control'],
         ]);
 
-        $engine = new SonicSearchEngine($factory);
-        $engine->delete(Collection::make([new SearchableModel(['id' => 1])]));
+        $engine = new SonicEngine($factory);
+        $engine->delete(Collection::make([new ExampleModel(['id' => 1])]));
     }
 
     /** @test */
@@ -127,8 +128,8 @@ class SonicEngineTest extends TestCase
         $mocks['search']->shouldReceive('query')->withArgs(function () {
             $args = func_get_args();
             $expected = [
-                'SearchableModels',
-                'SearchableModel',
+                'ExampleModels',
+                'ExampleModel',
                 'searchable',
                 null,
                 null,
@@ -143,9 +144,9 @@ class SonicEngineTest extends TestCase
             'newControlChannel' => $mocks['control'],
         ]);
 
-        $engine = new SonicSearchEngine($factory);
+        $engine = new SonicEngine($factory);
 
-        $builder = new Builder(new SearchableModel, 'searchable');
+        $builder = new Builder(new ExampleModel, 'searchable');
         $engine->search($builder);
     }
 
@@ -160,11 +161,11 @@ class SonicEngineTest extends TestCase
             'newControlChannel' => $mocks['control'],
         ]);
 
-        $engine = new SonicSearchEngine($factory);
+        $engine = new SonicEngine($factory);
 
         $model = Mockery::mock(stdClass::class);
         $model->shouldReceive('getScoutModelsByIds')->andReturn($models = Collection::make([
-            new SearchableModel(['id' => 1]),
+            new ExampleModel(['id' => 1]),
         ]));
         $builder = Mockery::mock(Builder::class);
         $results = $engine->map($builder, [1], $model);
@@ -201,7 +202,7 @@ class SonicEngineTest extends TestCase
         $model->shouldReceive('getScoutKey')->andReturn(1);
         $model->shouldReceive('toSearchableArray')->andReturn(['id' => 1, 'email' => 'hello@example.com']);
 
-        $engine = new SonicSearchEngine($factory);
+        $engine = new SonicEngine($factory);
         $engine->update(Collection::make([$model]));
     }
 }

@@ -19,6 +19,11 @@ class Block extends Model
         'content', 'order', 'status', 'type'
     ];
 
+    public function getScoutKey()
+    {
+        return $this->id;
+    }
+
     /**
      * Get the indexable data array for the model.
      *
@@ -26,6 +31,6 @@ class Block extends Model
      */
     public function toSearchableArray()
     {
-        return array_filter([$this->content]);
+        return array_filter([$this->id, $this->content]);
     }
 }
