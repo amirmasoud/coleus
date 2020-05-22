@@ -19,9 +19,10 @@
     ],
     "require": {
         "php": "^7.2.5",
-        "fideloper/proxy": "^4.0",
         "coleus/scout-sonic-engine": "*",
-        "laravel/framework": "^7.2",
+        "fideloper/proxy": "^4.0",
+        "fruitcake/laravel-cors": "^2.0",
+        "laravel/framework": "^7.0",
         "laravel/scout": "^8.0",
         "laravel/tinker": "^2.0",
         "league/flysystem-aws-s3-v3": "~1.0",
