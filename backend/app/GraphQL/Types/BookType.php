@@ -4,6 +4,7 @@ namespace App\GraphQL\Types;
 
 use App\Book;
 use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
 class BookType extends GraphQLType
@@ -61,6 +62,34 @@ class BookType extends GraphQLType
                 'type' => Type::int(),
                 'description' => 'The order of book'
             ],
+            'users' => [
+                'type' => Type::listOf(GraphQL::type('user')),
+                'description' => 'The user book',
+            ],
+            'pages' => [
+                'type' => Type::listOf(GraphQL::type('page')),
+                'description' => 'The book pages',
+                'args' => [
+                    'order_by' => [
+                        'type' => Type::string(),
+                    ],
+                    'limit' => [
+                        'type' => Type::int(),
+                    ],
+                    'parent_id' => [
+                        'type' => Type::string(),
+                    ]
+                ],
+                'resolve' => function ($root, $args) {
+                    return $root->pages()
+                        ->when($args['parent_id'] == 'not_null', function ($query) {
+                            return $query->whereNotNull('parent_id');
+                        })
+                        ->orderBy('id', $args['order_by'] ?? 'desc')
+                        ->limit($args['limit'] ?? 15)
+                        ->get();
+                }
+            ]
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\GraphQL\Types;
 
 use App\Page;
 use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
 class PageType extends GraphQLType
@@ -29,10 +30,18 @@ class PageType extends GraphQLType
                 'type' => Type::string(),
                 'description' => 'The status of page'
             ],
+            'parent_id' => [
+                'type' => Type::int(),
+                'description' => 'The parent ID of page'
+            ],
             'order' => [
                 'type' => Type::int(),
                 'description' => 'The order of page'
             ],
+            'book' => [
+                'type' => GraphQL::type('book'),
+                'description' => 'The page books',
+            ]
         ];
     }
 }

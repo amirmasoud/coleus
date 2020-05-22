@@ -102,7 +102,7 @@ return [
         'default' => [
             'query' => [
                 'SearchUsers' => App\GraphQL\Queries\SearchUsersQuery::class,
-                'SearchBooks' => App\GraphQL\Queries\SearchUsersQuery::class,
+                'SearchBooks' => App\GraphQL\Queries\SearchBooksQuery::class,
                 'SearchPages' => App\GraphQL\Queries\SearchPagesQuery::class,
                 'SearchBlocks' => App\GraphQL\Queries\SearchBlocksQuery::class,
                 // 'search' => App\GraphQL\Queries\SearchResultQuery::class,
@@ -211,7 +211,9 @@ return [
     /*
      * Any headers that will be added to the response returned by the default controller
      */
-    'headers' => [],
+    'headers' => [
+        'Cache-Control' => 'no-cache'
+    ],
 
     /*
      * Any JSON encoding options when returning a response from the default controller

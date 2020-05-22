@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Block extends Model
 {
@@ -32,5 +33,10 @@ class Block extends Model
     public function toSearchableArray()
     {
         return array_filter([$this->id, $this->content]);
+    }
+
+    public function page(): BelongsTo
+    {
+        return $this->belongsTo('App\Page');
     }
 }
