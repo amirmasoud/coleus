@@ -15,6 +15,7 @@
               >
             </li>
           </ul>
+          <coleus-search />
           <nuxt-link
             class="w-full lg:w-1/5 flex items-center justify-center lg:justify-end"
             :to="{ name: 'index' }"
