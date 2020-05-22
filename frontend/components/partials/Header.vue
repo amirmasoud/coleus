@@ -2,8 +2,8 @@
   <div class="absolute">
     <header class="header">
       <template v-if="action === ''">
-        <coleus-container class="flex flex-wrap py-4">
-          <ul class="hidden w-4/5 flex items-start justify-start lg:flex pr-2">
+        <coleus-container class="flex flex-wrap justify-between py-4">
+          <ul class="hidden flex items-center justify-start lg:flex pr-2">
             <li class="header_nav_link ml-8">
               <nuxt-link class="block" :to="{ name: 'index' }" exact
                 >شاعران</nuxt-link
