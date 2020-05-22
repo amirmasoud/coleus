@@ -4,6 +4,7 @@ namespace App\GraphQL\Types;
 
 use App\Block;
 use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
 class BlockType extends GraphQLType
@@ -37,6 +38,10 @@ class BlockType extends GraphQLType
                 'type' => Type::int(),
                 'description' => 'The order of block'
             ],
+            'page' => [
+                'type' => GraphQL::type('page'),
+                'description' => 'The page of block',
+            ]
         ];
     }
 }

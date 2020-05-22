@@ -90,7 +90,12 @@ export default {
   },
   apollo: {
     clientConfigs: {
-      default: '~/plugins/apollo-default-config.js'
+      default: {
+        httpEndpoint: process.env.GQL_URL
+      },
+      backend: {
+        httpEndpoint: process.env.BACKEND_URL
+      }
     }
   }
 }
