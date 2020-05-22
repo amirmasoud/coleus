@@ -11,6 +11,27 @@
     <coleus-search-icon
       class="block absolute text-gray-600 z-10 h-4 mt-3 mr-3 right-0 top-0 fill-current"
     />
+    <div
+      v-if="anyResult()"
+      class="absolute bg-white w-full rounded shadow border border-gray-300 mt-2 py-2"
+    >
+      <div v-for="(index, item) in search" :key="index">
+        <div v-if="hasResult(item)">
+          <h2
+            class="uppercase text-gray-400 text-xs font-semibold mt-2 mb-1 px-2"
+          >
+            {{ search[item] }}
+          </h2>
+          <ul>
+            <li v-for="result in eachSection(item)" :key="result.id">
+              <a href="#" class="w-full block px-2 py-1 truncate">
+                {{ getLinkText(result, item) }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -27,7 +48,13 @@ export default {
     users: [],
     books: [],
     pages: [],
-    blocks: []
+    blocks: [],
+    search: {
+      users: 'شاعران',
+      books: 'کتاب‌ها',
+      pages: 'صفحات',
+      blocks: 'بخش‌ها'
+    }
   }),
   apollo: {
     SearchUsers: {
@@ -59,7 +86,31 @@ export default {
   methods: {
     performSearch: _.debounce(function(query) {
       this.query = query
-    }, 300)
+    }, 300),
+    eachSection(item) {
+      return this[item]
+    },
+    getLinkText(result, item) {
+      if (item === 'users') {
+        return result.name
+      } else if (item === 'books' || item === 'pages') {
+        return result.title
+      } else {
+        // item === blocks
+        return result.content
+      }
+    },
+    hasResult(item) {
+      return this[item].length
+    },
+    anyResult() {
+      return (
+        this.users.length ||
+        this.books.length ||
+        this.pages.length ||
+        this.blocks.length
+      )
+    }
   }
 }
 </script>
