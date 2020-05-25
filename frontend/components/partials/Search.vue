@@ -1,36 +1,60 @@
 <template>
-  <div class="relative">
-    <input
-      class="coleus-search-input"
-      type="text"
-      name="search"
-      placeholder="جستجو"
-      dir="rtl"
-      v-on:input="performSearch($event.target.value)"
-    />
-    <coleus-search-icon
-      class="block absolute text-gray-600 z-10 h-4 mt-3 mr-3 right-0 top-0 fill-current"
-    />
-    <div
-      v-if="anyResult()"
-      class="absolute bg-white w-full rounded shadow border border-gray-300 mt-2 py-2"
-    >
-      <div v-for="(index, item) in search" :key="index">
-        <div v-if="hasResult(item)">
-          <h2
-            class="uppercase text-gray-400 text-xs font-semibold mt-2 mb-1 px-2"
-          >
-            {{ search[item] }}
-          </h2>
-          <ul>
-            <li v-for="result in eachSection(item)" :key="result.id">
-              <a href="#" class="w-full block px-2 py-1 truncate">
-                {{ getLinkText(result, item) }}
-              </a>
-            </li>
-          </ul>
+  <div class="max-w-sm w-full">
+    <button
+      v-if="isOpen"
+      @click="isOpen = false"
+      tabindex="-1"
+      class="fixed inset-0 h-full w-full bg-black opacity-50 cursor-default"
+    ></button>
+    <div class="relative">
+      <input
+        class="coleus-search-input"
+        :class="[isOpen ? 'z-10' : 'z-0']"
+        type="text"
+        name="search"
+        placeholder="جستجو"
+        dir="rtl"
+        v-on:input="performSearch($event.target.value)"
+        @focus="isOpen = !isOpen"
+      />
+      <coleus-spinner
+        v-if="searching"
+        class="block absolute text-gray-600 z-10 h-4 mt-3 mr-1 right-0 top-0 fill-current"
+      />
+      <coleus-search-icon
+        v-else
+        class="block absolute text-gray-600 z-10 h-4 mt-3 mr-3 right-0 top-0 fill-current"
+      />
+      <template v-if="isOpen">
+        <div
+          v-if="anyResult()"
+          class="absolute bg-white w-full rounded shadow border border-gray-300 mt-2 py-2"
+        >
+          <div v-for="(index, item) in search" :key="index">
+            <div v-if="hasResult(item)">
+              <h2
+                class="uppercase text-gray-400 text-xs font-semibold mt-2 mb-1 px-2"
+              >
+                {{ search[item] }}
+              </h2>
+              <ul>
+                <li
+                  v-for="result in eachSection(item)"
+                  :key="result.id"
+                  @click="isOpen = false"
+                >
+                  <nuxt-link
+                    :to="linkTo(result, item)"
+                    class="w-full block px-2 py-1 truncate"
+                  >
+                    {{ getLinkText(result, item) }}
+                  </nuxt-link>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>
@@ -44,6 +68,8 @@ export default {
     coleusSearchIcon
   },
   data: () => ({
+    isOpen: false,
+    searching: false,
     query: '',
     users: [],
     books: [],
@@ -69,6 +95,7 @@ export default {
         this.books = data.data.SearchBooks
         this.pages = data.data.SearchPages
         this.blocks = data.data.SearchBlocks
+        this.searching = false
       },
       skip() {
         if (this.query === '') {
@@ -76,6 +103,7 @@ export default {
           this.books = []
           this.pages = []
           this.blocks = []
+          this.searching = false
           return true
         } else {
           return false
@@ -83,10 +111,26 @@ export default {
       }
     }
   },
+  created() {
+    const handleEscape = (e) => {
+      if (e.key === 'Esc' || e.key === 'Escape') {
+        this.isOpen = false
+        this.searching = false
+        e.target.blur()
+      }
+    }
+    if (process.client) {
+      document.addEventListener('keydown', handleEscape) // eslint-disable-line nuxt/no-globals-in-created
+      this.$once('hook:beforeDestroy', () => {
+        document.removeEventListener('keydown', handleEscape) // eslint-disable-line nuxt/no-globals-in-created
+      })
+    }
+  },
   methods: {
     performSearch: _.debounce(function(query) {
       this.query = query
-    }, 300),
+      this.searching = true
+    }, 500),
     eachSection(item) {
       return this[item]
     },
@@ -110,6 +154,50 @@ export default {
         this.pages.length ||
         this.blocks.length
       )
+    },
+    linkTo(result, item) {
+      if (item === 'users') {
+        return {
+          name: 'username',
+          params: {
+            username: result.username
+          }
+        }
+      } else if (item === 'books') {
+        return {
+          name: 'username-book-parent-page',
+          params: {
+            username: result.users[0].username,
+            book: result.slug,
+            parent: result.pages.parent_id,
+            page: result.pages.id
+          },
+          query: { page: 1 }
+        }
+      } else if (item === 'pages') {
+        return {
+          name: 'username-book-parent-page',
+          params: {
+            username: result.book.users[0].username,
+            book: result.book.slug,
+            parent: result.parent_id,
+            page: result.id
+          },
+          query: { page: 1 }
+        }
+      } else {
+        // item === blocks
+        return {
+          name: 'username-book-parent-page',
+          params: {
+            username: result.page.book.users[0].username,
+            book: result.page.book.slug,
+            parent: result.page.parent_id,
+            page: result.page.id
+          },
+          query: { page: 1 }
+        }
+      }
     }
   }
 }
