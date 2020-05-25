@@ -18,15 +18,17 @@ RUN rm -f /etc/apk/repositories &&\
 
 WORKDIR /var/www/backend
 
-# COPY . /var/www/backend
+COPY . /var/www/backend
 
-# chown -R www-data:www-data \
-# /var/www/backend/storage \
-# /var/www/backend/bootstrap/cache && \
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    chown -R www-data:www-data \
+    /var/www/backend/storage \
+    /var/www/backend/bootstrap/cache
 
-COPY ./start.sh /usr/local/bin/start.sh
+COPY supervisord.conf /etc/supervisord.conf
 
 ARG BACKEND_PORT
 EXPOSE ${BACKEND_PORT}
-CMD ["/usr/local/bin/start.sh"]
+# CMD ["php-fpm"]
+# CMD ["php", "/var/www/backend/artisan", "queue:work" ,"--tries=3", "--timeout=90"]
+ENTRYPOINT ["supervisord", "--nodaemon", "--configuration", "/etc/supervisord.conf"]
