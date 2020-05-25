@@ -1,6 +1,6 @@
 <template>
   <div class="absolute">
-    <header class="header">
+    <header class="header shadow">
       <template v-if="action === ''">
         <coleus-container class="flex flex-wrap justify-between py-4">
           <ul class="hidden flex items-center justify-start lg:flex pr-2">
