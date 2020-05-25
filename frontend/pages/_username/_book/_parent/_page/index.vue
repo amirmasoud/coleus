@@ -7,7 +7,7 @@
         class="lg:min-h-screen w-full px-4 lg:static lg:overflow-visible lg:max-h-full lg:w-3/4"
       >
         <div v-if="pages && pages.length">
-          <coleus-article>
+          <coleus-article class="mt-16">
             <h1 class="text-4xl mb-10 border-indigo-600">
               {{ pages[0].title }}
             </h1>
@@ -24,7 +24,6 @@
               ></div>
             </div>
           </coleus-article>
-          <!-- <coleus-pagination /> -->
         </div>
         <template v-else>
           <div class="container">
