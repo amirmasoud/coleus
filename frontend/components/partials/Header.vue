@@ -15,7 +15,7 @@
               >
             </li>
           </ul>
-          <coleus-search />
+          <coleus-search class="hidden lg:flex" />
           <nuxt-link
             class="w-full lg:w-1/5 flex items-center justify-center lg:justify-end"
             :to="{ name: 'index' }"
@@ -37,14 +37,27 @@
         </div>
       </coleus-container>
     </header>
+    <div
+      class="block lg:hidden mt-16 w-screen px-4 absolute bg-white top-0 right-0 left-0 bottom-0 h-screen overflow-y-scroll mb-12 z-20"
+    >
+      <coleus-search />
+    </div>
     <nav class="header_mobile_nav block lg:hidden">
       <div class="flex justify-between">
         <button
-          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
+          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center"
           @click.prevent="$root.$emit('toggle-contents')"
         >
           <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
             >فهرست</span
+          >
+        </button>
+        <button
+          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
+          @click.prevent="showSearch()"
+        >
+          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
+            >جستجو</span
           >
         </button>
         <nuxt-link
@@ -158,7 +171,8 @@ export default {
     nav(section) {
       this.currentSection = this.currentSection === section ? '' : section
       this.mobileNav = !this.mobileNav
-    }
+    },
+    showSearch() {}
   }
 }
 </script>
