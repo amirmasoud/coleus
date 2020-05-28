@@ -20,15 +20,13 @@ WORKDIR /var/www/backend
 
 COPY . /var/www/backend
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    chown -R www-data:www-data \
+RUN chown -R www-data:www-data \
     /var/www/backend/storage \
-    /var/www/backend/bootstrap/cache
+    /var/www/backend/bootstrap/cache && \
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY supervisord.conf /etc/supervisord.conf
 
 ARG BACKEND_PORT
 EXPOSE ${BACKEND_PORT}
-# CMD ["php-fpm"]
-# CMD ["php", "/var/www/backend/artisan", "queue:work" ,"--tries=3", "--timeout=90"]
 ENTRYPOINT ["supervisord", "--nodaemon", "--configuration", "/etc/supervisord.conf"]

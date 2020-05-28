@@ -102,6 +102,18 @@ services:
     networks:
       - backend-network
 
+  search:
+    image: valeriansaliou/sonic:${SONIC_VERSION}
+    container_name: coleus-search
+    restart: unless-stopped
+    volumes:
+      - ./deploy/prod/sonic/config.cfg:/etc/sonic.cfg
+      - ./deploy/prod/sonic/store/:/var/lib/sonic/store/
+    ports:
+      - 1491:1491
+    networks:
+      - backend-network
+
   storage:
     image: minio/minio
     container_name: coleus-storage
