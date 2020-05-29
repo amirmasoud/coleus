@@ -91,6 +91,13 @@ export default {
     users: {
       query: require('~/graphql/users.gql')
     }
+  },
+  created() {
+    if (process.client) {
+      window.pageXOffset = 0 // eslint-disable-line nuxt/no-globals-in-created
+      document.documentElement.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
+      document.body.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
+    }
   }
 }
 </script>

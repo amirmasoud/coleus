@@ -47,7 +47,10 @@
       <div class="flex justify-between">
         <button
           class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 hover:no-underline hover:text-indigo-500 text-center"
-          @click.prevent="$root.$emit('toggle-contents')"
+          @click.prevent="
+            $root.$emit('toggle-contents')
+            closeSearch()
+          "
           :disabled="$route.name !== 'username-book-parent-page'"
           :class="[
             $route.name !== 'username-book-parent-page'
@@ -72,6 +75,7 @@
         <nuxt-link
           class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-gray-900 hover:no-underline hover:text-indigo-500 text-center visited:text-gray-900"
           :to="{ name: 'books' }"
+          @click.native="closeSearch()"
         >
           <coleus-book-icon class="w-4" />
           <span class="block text-xs md:text-base font-medium text-gray"
@@ -81,6 +85,7 @@
         <nuxt-link
           class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-gray-900 hover:no-underline hover:text-indigo-500 text-center visited:text-gray-900"
           :to="{ name: 'index' }"
+          @click.native="closeSearch()"
         >
           <coleus-users-icon class="w-4" />
           <span class="block text-xs md:text-base font-medium text-gray"
@@ -155,6 +160,7 @@ export default {
   data() {
     return {
       searchOpen: false,
+      currentPos: 0,
       links: [
         {
           icon: 'books',
@@ -188,6 +194,32 @@ export default {
     },
     toggleSearch() {
       this.searchOpen = !this.searchOpen
+
+      if (process.client && this.searchOpen === true) {
+        this.currentPos =
+          document.documentElement.scrollTop || document.body.scrollTop
+        window.pageXOffset = 0
+        document.documentElement.scrollTop = 0
+        document.body.scrollTop = 0
+        document.body.style.overflowY = 'hidden'
+      }
+
+      if (process.client && this.searchOpen === false) {
+        document.body.style.removeProperty('overflow-y')
+        console.log(this.currentPos)
+        window.pageXOffset = this.currentPos
+        document.documentElement.scrollTop = this.currentPos
+        document.body.scrollTop = this.currentPos
+      }
+    },
+    closeSearch() {
+      this.searchOpen = false
+      if (process.client) {
+        document.body.style.removeProperty('overflow-y')
+        window.pageXOffset = this.currentPos
+        document.documentElement.scrollTop = this.currentPos
+        document.body.scrollTop = this.currentPos
+      }
     }
   }
 }

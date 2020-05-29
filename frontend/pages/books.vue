@@ -70,6 +70,14 @@ export default {
     books: {
       query: require('~/graphql/books.gql')
     }
+  },
+
+  created() {
+    if (process.client) {
+      window.pageXOffset = 0 // eslint-disable-line nuxt/no-globals-in-created
+      document.documentElement.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
+      document.body.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
+    }
   }
 }
 </script>
