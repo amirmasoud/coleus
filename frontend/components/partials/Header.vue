@@ -46,33 +46,37 @@
     <nav class="header_mobile_nav block lg:hidden">
       <div class="flex justify-between">
         <button
-          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center"
           @click.prevent="$root.$emit('toggle-contents')"
         >
+          <coleus-bars-icon class="w-4" />
           <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
             >فهرست</span
           >
         </button>
         <button
-          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
           @click.prevent="toggleSearch()"
         >
+          <coleus-search-icon class="w-4" />
           <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
             >جستجو</span
           >
         </button>
         <nuxt-link
-          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
           :to="{ name: 'books' }"
         >
+          <coleus-book-icon class="w-4" />
           <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
             >کتاب‌ها</span
           >
         </nuxt-link>
         <nuxt-link
-          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
           :to="{ name: 'index' }"
         >
+          <coleus-users-icon class="w-4" />
           <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
             >شاعران</span
           >
@@ -114,21 +118,23 @@
 <script>
 import coleusLogo from '@/components/svg/Coleus'
 import coleusGlobe from '@/components/svg/Globe'
-// import coleusBooksIcon from '@/components/svg/Books'
-// import coleusUsersIcon from '@/components/svg/Users'
+import coleusBookIcon from '@/components/svg/Book'
+import coleusUsersIcon from '@/components/svg/Users'
 import coleusSearchIcon from '@/components/svg/Search'
+import coleusBarsIcon from '@/components/svg/Bars'
 import coleusSearch from '@/components/partials/Search'
 import coleusArrowLeft from '@/components/svg/ArrowLeft'
 
 export default {
   components: {
-    // coleusUsersIcon,
-    // coleusBooksIcon,
+    coleusUsersIcon,
+    coleusBookIcon,
     coleusLogo,
     coleusSearchIcon,
     coleusSearch,
     coleusArrowLeft,
-    coleusGlobe
+    coleusGlobe,
+    coleusBarsIcon
   },
   model: {
     prop: 'action',
