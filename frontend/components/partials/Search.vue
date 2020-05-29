@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-sm w-full">
+  <div class="w-full lg:max-w-sm w-full">
     <button
       v-if="isOpen"
       @click="isOpen = false"

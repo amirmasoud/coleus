@@ -56,7 +56,7 @@
           ]"
         >
           <coleus-bars-icon class="w-4" />
-          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
+          <span class="block text-xs md:text-base font-medium text-gray"
             >فهرست</span
           >
         </button>
@@ -65,7 +65,7 @@
           @click.prevent="toggleSearch()"
         >
           <coleus-search-icon class="w-4" />
-          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
+          <span class="block text-xs md:text-base font-medium text-gray"
             >جستجو</span
           >
         </button>
@@ -74,7 +74,7 @@
           :to="{ name: 'books' }"
         >
           <coleus-book-icon class="w-4" />
-          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
+          <span class="block text-xs md:text-base font-medium text-gray"
             >کتاب‌ها</span
           >
         </nuxt-link>
@@ -83,7 +83,7 @@
           :to="{ name: 'index' }"
         >
           <coleus-users-icon class="w-4" />
-          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
+          <span class="block text-xs md:text-base font-medium text-gray"
             >شاعران</span
           >
         </nuxt-link>
