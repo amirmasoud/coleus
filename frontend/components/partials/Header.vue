@@ -38,7 +38,8 @@
       </coleus-container>
     </header>
     <div
-      class="block lg:hidden mt-16 w-screen px-4 absolute bg-white top-0 right-0 left-0 bottom-0 h-screen overflow-y-scroll mb-12 z-20"
+      class="lg:hidden mt-16 w-screen absolute bg-white top-0 right-0 left-0 bottom-0 h-screen overflow-y-hidden mb-12 z-20"
+      :class="[searchOpen ? 'block' : 'hidden']"
     >
       <coleus-search />
     </div>
@@ -54,7 +55,7 @@
         </button>
         <button
           class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
-          @click.prevent="showSearch()"
+          @click.prevent="toggleSearch()"
         >
           <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
             >جستجو</span
@@ -141,6 +142,7 @@ export default {
   },
   data() {
     return {
+      searchOpen: false,
       links: [
         {
           icon: 'books',
@@ -172,7 +174,9 @@ export default {
       this.currentSection = this.currentSection === section ? '' : section
       this.mobileNav = !this.mobileNav
     },
-    showSearch() {}
+    toggleSearch() {
+      this.searchOpen = !this.searchOpen
+    }
   }
 }
 </script>

@@ -4,31 +4,33 @@
       v-if="isOpen"
       @click="isOpen = false"
       tabindex="-1"
-      class="fixed inset-0 h-full w-full bg-black opacity-50 cursor-default"
+      class="hidden lg:block fixed inset-0 h-full w-full bg-black opacity-50 cursor-default"
     ></button>
     <div class="relative">
-      <input
-        class="coleus-search-input"
-        :class="[isOpen ? 'z-10' : 'z-0']"
-        type="text"
-        name="search"
-        placeholder="جستجو"
-        dir="rtl"
-        v-on:input="performSearch($event.target.value)"
-        @focus="isOpen = !isOpen"
-      />
-      <coleus-spinner
-        v-if="searching"
-        class="block absolute text-gray-600 z-10 h-4 mt-3 mr-3 right-0 top-0 fill-current"
-      />
-      <coleus-search-icon
-        v-else
-        class="block absolute text-gray-600 z-10 h-4 mt-3 mr-3 right-0 top-0 fill-current"
-      />
+      <div class="relative px-4">
+        <input
+          class="coleus-search-input"
+          :class="[isOpen ? 'z-10' : 'z-0']"
+          type="text"
+          name="search"
+          placeholder="جستجو"
+          dir="rtl"
+          v-on:input="performSearch($event.target.value)"
+          @focus="isOpen = !isOpen"
+        />
+        <coleus-spinner
+          v-if="searching"
+          class="block absolute text-gray-600 z-10 h-4 mt-3 mr-6 lg:mr-3 right-0 top-0 fill-current"
+        />
+        <coleus-search-icon
+          v-else
+          class="block absolute text-gray-600 z-10 h-4 mt-3 mr-6 lg:mr-3 right-0 top-0 fill-current"
+        />
+      </div>
       <template v-if="isOpen">
         <div
           v-if="anyResult()"
-          class="absolute bg-white w-full rounded shadow border border-gray-300 mt-2 py-2"
+          class="absolute bg-white w-full px-4 lg:px-0 lg:rounded lg:shadow lg:border lg:border-gray-300 mt-2 mb-32 lg:mb-0 py-2 overflow-y-scroll h-screen lg:h-auto pb-40 lg:pb-0"
         >
           <div v-for="(index, item) in search" :key="index">
             <div v-if="hasResult(item)">
