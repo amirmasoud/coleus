@@ -20,11 +20,11 @@
         />
         <coleus-spinner
           v-if="searching"
-          class="block absolute text-gray-600 z-10 h-4 mt-3 mr-6 lg:mr-3 right-0 top-0 fill-current"
+          class="block absolute text-gray-600 z-10 h-4 mt-3 mr-6 right-0 top-0 fill-current"
         />
         <coleus-search-icon
           v-else
-          class="block absolute text-gray-600 z-10 h-4 mt-3 mr-6 lg:mr-3 right-0 top-0 fill-current"
+          class="block absolute text-gray-600 z-10 h-4 mt-3 mr-6 right-0 top-0 fill-current"
         />
       </div>
       <template v-if="isOpen">
