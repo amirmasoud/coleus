@@ -46,7 +46,7 @@
     <nav class="header_mobile_nav block lg:hidden">
       <div class="flex justify-between">
         <button
-          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 hover:no-underline hover:text-indigo-500 text-center"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 hover:no-underline text-center focus:outline-none"
           @click.prevent="
             $root.$emit('toggle-contents')
             closeSearch()
@@ -59,38 +59,41 @@
           ]"
         >
           <coleus-bars-icon class="w-4" />
-          <span class="block text-xs md:text-base font-medium text-gray"
-            >فهرست</span
-          >
+          <span class="block text-xs md:text-base font-medium">فهرست</span>
         </button>
         <button
-          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-gray-900 hover:no-underline hover:text-indigo-500 text-center visited:text-gray-900"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-gray-900 hover:no-underline hover:text-indigo-500 text-center focus:outline-none"
           @click.prevent="toggleSearch()"
+          :class="[searchOpen === true ? 'text-indigo-500' : 'text-gray-900']"
         >
           <coleus-search-icon class="w-4" />
-          <span class="block text-xs md:text-base font-medium text-gray"
-            >جستجو</span
-          >
+          <span class="block text-xs md:text-base font-medium">جستجو</span>
         </button>
         <nuxt-link
-          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-gray-900 hover:no-underline hover:text-indigo-500 text-center visited:text-gray-900"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 hover:no-underline text-center focus:outline-none"
           :to="{ name: 'books' }"
           @click.native="closeSearch()"
+          :class="[
+            $route.name === 'books' && searchOpen === false
+              ? 'text-indigo-500'
+              : 'text-gray-900'
+          ]"
         >
           <coleus-book-icon class="w-4" />
-          <span class="block text-xs md:text-base font-medium text-gray"
-            >کتاب‌ها</span
-          >
+          <span class="block text-xs md:text-base font-medium">کتاب‌ها</span>
         </nuxt-link>
         <nuxt-link
-          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-gray-900 hover:no-underline hover:text-indigo-500 text-center visited:text-gray-900"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-gray-900 hover:no-underline text-center focus:outline-none"
           :to="{ name: 'index' }"
           @click.native="closeSearch()"
+          :class="[
+            $route.name === 'index' && searchOpen === false
+              ? 'text-indigo-500'
+              : 'text-gray-900'
+          ]"
         >
           <coleus-users-icon class="w-4" />
-          <span class="block text-xs md:text-base font-medium text-gray"
-            >شاعران</span
-          >
+          <span class="block text-xs md:text-base font-medium">شاعران</span>
         </nuxt-link>
       </div>
     </nav>
