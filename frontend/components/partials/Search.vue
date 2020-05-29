@@ -13,6 +13,7 @@
           :class="[isOpen ? 'z-10' : 'z-0']"
           type="text"
           name="search"
+          autocomplete="off"
           placeholder="جستجو"
           dir="rtl"
           v-on:input="performSearch($event.target.value)"
