@@ -31,7 +31,7 @@
             class="block h-6 text-indigo-500 fill-current"
           />
           <span
-            class="block text-lg font-medium uppercase text-coleus-gray pl-4 h-6"
+            class="block text-lg font-medium uppercase text-gray-900 pl-4 h-6"
             >{{ action }}</span
           >
         </div>
@@ -46,8 +46,14 @@
     <nav class="header_mobile_nav block lg:hidden">
       <div class="flex justify-between">
         <button
-          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 hover:no-underline hover:text-indigo-500 text-center"
           @click.prevent="$root.$emit('toggle-contents')"
+          :disabled="$route.name !== 'username-book-parent-page'"
+          :class="[
+            $route.name !== 'username-book-parent-page'
+              ? 'text-gray-400'
+              : 'text-gray-900'
+          ]"
         >
           <coleus-bars-icon class="w-4" />
           <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
@@ -55,7 +61,7 @@
           >
         </button>
         <button
-          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-gray-900 hover:no-underline hover:text-indigo-500 text-center visited:text-gray-900"
           @click.prevent="toggleSearch()"
         >
           <coleus-search-icon class="w-4" />
@@ -64,7 +70,7 @@
           >
         </button>
         <nuxt-link
-          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-gray-900 hover:no-underline hover:text-indigo-500 text-center visited:text-gray-900"
           :to="{ name: 'books' }"
         >
           <coleus-book-icon class="w-4" />
@@ -73,7 +79,7 @@
           >
         </nuxt-link>
         <nuxt-link
-          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-gray-900 hover:no-underline hover:text-indigo-500 text-center visited:text-gray-900"
           :to="{ name: 'index' }"
         >
           <coleus-users-icon class="w-4" />
