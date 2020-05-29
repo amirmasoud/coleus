@@ -1,10 +1,13 @@
 <template>
   <coleus-container>
-    <div v-if="books && books.length" class="flex content-start flex-wrap">
+    <div
+      v-if="books && books.length"
+      class="flex content-start flex-wrap mt-6 pl-4"
+    >
       <div
         v-for="book in books"
         :key="book.id"
-        class="p-2 w-1/2 md:w-1/3 lg:w-1/4"
+        class="pr-4 w-1/2 md:w-1/3 lg:w-1/4"
       >
         <nuxt-link
           :to="{
@@ -18,7 +21,7 @@
             query: { page: 1 }
           }"
         >
-          <book-card :book="book" class="mx-auto mb-8" />
+          <book-card :book="book" class="mx-auto mb-4" />
         </nuxt-link>
       </div>
     </div>
@@ -66,6 +69,14 @@ export default {
   apollo: {
     books: {
       query: require('~/graphql/books.gql')
+    }
+  },
+
+  created() {
+    if (process.client) {
+      window.pageXOffset = 0 // eslint-disable-line nuxt/no-globals-in-created
+      document.documentElement.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
+      document.body.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
     }
   }
 }

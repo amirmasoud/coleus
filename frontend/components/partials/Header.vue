@@ -31,48 +31,64 @@
             class="block h-6 text-indigo-500 fill-current"
           />
           <span
-            class="block text-lg font-medium uppercase text-coleus-gray pl-4 h-6"
+            class="block text-lg font-medium uppercase text-gray-900 pl-4 h-6"
             >{{ action }}</span
           >
         </div>
       </coleus-container>
     </header>
     <div
-      class="block lg:hidden mt-16 w-screen px-4 absolute bg-white top-0 right-0 left-0 bottom-0 h-screen overflow-y-scroll mb-12 z-20"
+      class="lg:hidden mt-16 w-screen absolute bg-white top-0 right-0 left-0 bottom-0 h-screen overflow-y-hidden mb-12 z-20"
+      :class="[searchOpen ? 'block' : 'hidden']"
     >
       <coleus-search />
     </div>
     <nav class="header_mobile_nav block lg:hidden">
       <div class="flex justify-between">
         <button
-          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center"
-          @click.prevent="$root.$emit('toggle-contents')"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 hover:no-underline hover:text-indigo-500 text-center"
+          @click.prevent="
+            $root.$emit('toggle-contents')
+            closeSearch()
+          "
+          :disabled="$route.name !== 'username-book-parent-page'"
+          :class="[
+            $route.name !== 'username-book-parent-page'
+              ? 'text-gray-400'
+              : 'text-gray-900'
+          ]"
         >
-          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
+          <coleus-bars-icon class="w-4" />
+          <span class="block text-xs md:text-base font-medium text-gray"
             >فهرست</span
           >
         </button>
         <button
-          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
-          @click.prevent="showSearch()"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-gray-900 hover:no-underline hover:text-indigo-500 text-center visited:text-gray-900"
+          @click.prevent="toggleSearch()"
         >
-          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
+          <coleus-search-icon class="w-4" />
+          <span class="block text-xs md:text-base font-medium text-gray"
             >جستجو</span
           >
         </button>
         <nuxt-link
-          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-gray-900 hover:no-underline hover:text-indigo-500 text-center visited:text-gray-900"
           :to="{ name: 'books' }"
+          @click.native="closeSearch()"
         >
-          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
+          <coleus-book-icon class="w-4" />
+          <span class="block text-xs md:text-base font-medium text-gray"
             >کتاب‌ها</span
           >
         </nuxt-link>
         <nuxt-link
-          class="block md:flex md:justify-center w-full p-2 md:p-4 text-coleus-gray hover:no-underline hover:text-indigo-500 text-center visited:text-coleus-gray"
+          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-gray-900 hover:no-underline hover:text-indigo-500 text-center visited:text-gray-900"
           :to="{ name: 'index' }"
+          @click.native="closeSearch()"
         >
-          <span class="block text-xs md:text-base md:pl-3 font-medium text-gray"
+          <coleus-users-icon class="w-4" />
+          <span class="block text-xs md:text-base font-medium text-gray"
             >شاعران</span
           >
         </nuxt-link>
@@ -113,21 +129,23 @@
 <script>
 import coleusLogo from '@/components/svg/Coleus'
 import coleusGlobe from '@/components/svg/Globe'
-// import coleusBooksIcon from '@/components/svg/Books'
-// import coleusUsersIcon from '@/components/svg/Users'
+import coleusBookIcon from '@/components/svg/Book'
+import coleusUsersIcon from '@/components/svg/Users'
 import coleusSearchIcon from '@/components/svg/Search'
+import coleusBarsIcon from '@/components/svg/Bars'
 import coleusSearch from '@/components/partials/Search'
 import coleusArrowLeft from '@/components/svg/ArrowLeft'
 
 export default {
   components: {
-    // coleusUsersIcon,
-    // coleusBooksIcon,
+    coleusUsersIcon,
+    coleusBookIcon,
     coleusLogo,
     coleusSearchIcon,
     coleusSearch,
     coleusArrowLeft,
-    coleusGlobe
+    coleusGlobe,
+    coleusBarsIcon
   },
   model: {
     prop: 'action',
@@ -141,6 +159,8 @@ export default {
   },
   data() {
     return {
+      searchOpen: false,
+      currentPos: 0,
       links: [
         {
           icon: 'books',
@@ -172,7 +192,35 @@ export default {
       this.currentSection = this.currentSection === section ? '' : section
       this.mobileNav = !this.mobileNav
     },
-    showSearch() {}
+    toggleSearch() {
+      this.searchOpen = !this.searchOpen
+
+      if (process.client && this.searchOpen === true) {
+        this.currentPos =
+          document.documentElement.scrollTop || document.body.scrollTop
+        window.pageXOffset = 0
+        document.documentElement.scrollTop = 0
+        document.body.scrollTop = 0
+        document.body.style.overflowY = 'hidden'
+      }
+
+      if (process.client && this.searchOpen === false) {
+        document.body.style.removeProperty('overflow-y')
+        console.log(this.currentPos)
+        window.pageXOffset = this.currentPos
+        document.documentElement.scrollTop = this.currentPos
+        document.body.scrollTop = this.currentPos
+      }
+    },
+    closeSearch() {
+      this.searchOpen = false
+      if (process.client) {
+        document.body.style.removeProperty('overflow-y')
+        window.pageXOffset = this.currentPos
+        document.documentElement.scrollTop = this.currentPos
+        document.body.scrollTop = this.currentPos
+      }
+    }
   }
 }
 </script>

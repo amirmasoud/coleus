@@ -1,7 +1,7 @@
 <template>
   <coleus-container class="flex flex-wrap flex-row">
     <template v-if="users && users.length">
-      <h1 class="w-full pr-2 mt-5 mb-2 text-2xl">شاعران</h1>
+      <h1 class="w-full px-4 mt-5 mb-2 text-2xl">شاعران</h1>
       <nuxt-link
         v-for="user in users"
         :key="user.username"
@@ -90,6 +90,13 @@ export default {
   apollo: {
     users: {
       query: require('~/graphql/users.gql')
+    }
+  },
+  created() {
+    if (process.client) {
+      window.pageXOffset = 0 // eslint-disable-line nuxt/no-globals-in-created
+      document.documentElement.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
+      document.body.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
     }
   }
 }
