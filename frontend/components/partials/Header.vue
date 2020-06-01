@@ -21,6 +21,7 @@
             :to="{ name: 'index' }"
           >
             <coleus-logo class="h-5 lg:pl-2" />
+            <coleus-leaf class="h-10 w-10 lg:pl-2" />
           </nuxt-link>
         </coleus-container>
       </template>
@@ -131,6 +132,7 @@
 
 <script>
 import coleusLogo from '@/components/svg/Coleus'
+import coleusLeaf from '@/components/svg/Leaf'
 import coleusGlobe from '@/components/svg/Globe'
 import coleusBookIcon from '@/components/svg/Book'
 import coleusUsersIcon from '@/components/svg/Users'
@@ -144,6 +146,7 @@ export default {
     coleusUsersIcon,
     coleusBookIcon,
     coleusLogo,
+    coleusLeaf,
     coleusSearchIcon,
     coleusSearch,
     coleusArrowLeft,
