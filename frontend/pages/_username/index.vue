@@ -3,10 +3,6 @@
     <div v-if="users && users.length">
       <div v-for="user in users" :key="user.id">
         <div class="px-4 py-2 sm:p-2">
-          <!-- <img
-            src="/cover.jpg"
-            class="cover-profile object-cover h-16 sm:h-32 w-full -mb-8 sm:-mb-16 sm:rounded-lg shadow"
-          /> -->
           <div class="mx-auto w-20 sm:w-32 -mb-4">
             <client-only>
               <progressive-img
@@ -34,7 +30,7 @@
           <div
             v-for="{ book } in user.book_users"
             :key="book.id"
-            class="p-2 w-1/2 md:w-1/3 lg:w-1/4"
+            class="p-2 w-1/2 md:w-1/3 lg:w-1/6"
           >
             <nuxt-link
               :to="{
