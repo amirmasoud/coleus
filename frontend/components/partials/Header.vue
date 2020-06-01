@@ -20,8 +20,8 @@
             class="w-full lg:w-1/5 flex items-center justify-center lg:justify-end"
             :to="{ name: 'index' }"
           >
-            <coleus-logo class="h-5 lg:pl-2" />
-            <coleus-leaf class="h-10 w-10 lg:pl-2" />
+            <coleus-logo class="h-5" />
+            <coleus-leaf class="h-6 w-6 lg:h-10 lg:w-10 mx-2" />
           </nuxt-link>
         </coleus-container>
       </template>
