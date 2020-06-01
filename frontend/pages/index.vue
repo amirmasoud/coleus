@@ -1,7 +1,7 @@
 <template>
   <coleus-container class="flex flex-wrap flex-row">
     <template v-if="users && users.length">
-      <h1 class="w-full px-4 mt-5 mb-2 text-2xl">شاعران</h1>
+      <h1 class="w-full px-4 mt-4 mb-2 text-2xl">شاعران</h1>
       <nuxt-link
         v-for="user in users"
         :key="user.username"

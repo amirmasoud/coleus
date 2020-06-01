@@ -42,7 +42,7 @@
       class="lg:hidden mt-16 w-screen absolute bg-white top-0 right-0 left-0 bottom-0 h-screen overflow-y-hidden mb-12 z-20"
       :class="[searchOpen ? 'block' : 'hidden']"
     >
-      <coleus-search />
+      <coleus-search @result-clicked="closeSearch(0)" />
     </div>
     <nav class="header_mobile_nav block lg:hidden">
       <div class="flex justify-between">
@@ -218,13 +218,20 @@ export default {
         document.body.scrollTop = this.currentPos
       }
     },
-    closeSearch() {
+    closeSearch(pos = -1) {
       this.searchOpen = false
-      if (process.client) {
+      if (process.client && pos === -1) {
         document.body.style.removeProperty('overflow-y')
         window.pageXOffset = this.currentPos
         document.documentElement.scrollTop = this.currentPos
         document.body.scrollTop = this.currentPos
+      }
+
+      if (process.client && pos !== -1) {
+        document.body.style.removeProperty('overflow-y')
+        window.pageXOffset = 0
+        document.documentElement.scrollTop = 0
+        document.body.scrollTop = 0
       }
     }
   }

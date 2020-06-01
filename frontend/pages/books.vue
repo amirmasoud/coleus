@@ -2,7 +2,7 @@
   <coleus-container>
     <div
       v-if="books && books.length"
-      class="flex content-start flex-wrap mt-6 pl-4"
+      class="flex content-start flex-wrap mt-4 pl-4"
     >
       <div
         v-for="book in books"
