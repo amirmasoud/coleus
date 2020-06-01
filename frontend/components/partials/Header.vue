@@ -1,8 +1,8 @@
 <template>
   <div class="absolute">
-    <header class="header shadow">
+    <header class="header shadow h-16">
       <template v-if="action === ''">
-        <coleus-container class="flex flex-wrap justify-between py-4">
+        <coleus-container class="flex flex-wrap justify-between">
           <ul class="hidden flex items-center justify-start lg:flex pr-2">
             <li class="header_nav_link ml-8">
               <nuxt-link class="block" :to="{ name: 'index' }" exact
@@ -250,32 +250,9 @@ export default {
   top: 72px;
   bottom: 60px;
   transform: translateX(-100%);
-  transition-property: transform;
-  transition-duration: 1s;
-  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
-  /* transition-delay: .5s; */
-  & .header_mobile_aside_group {
-    transform: translateX(-100%);
-    transition-property: transform;
-    transition-duration: 0.3s;
-    transition-timing-function: ease-in-out;
-    &:nth-child(1) {
-      transition-delay: 0.2s;
-    }
-    &:nth-child(2) {
-      transition-delay: 0.3s;
-    }
-    &:nth-child(3) {
-      transition-delay: 0.4s;
-    }
-    &:nth-child(4) {
-      transition-delay: 0.5s;
-    }
-  }
 }
 .header_mobile_aside--open {
   transform: translateX(0px);
-  transition-delay: 0s;
   & .header_mobile_aside_group {
     transform: translateX(0px);
   }

@@ -6,8 +6,8 @@
       tabindex="-1"
       class="hidden lg:block fixed inset-0 h-full w-full bg-black opacity-50 cursor-default"
     ></button>
-    <div class="relative">
-      <div class="relative px-4">
+    <div class="relative w-full">
+      <div class="relative px-4 lg:px-0">
         <input
           class="coleus-search-input"
           :class="[isOpen ? 'z-10' : 'z-0']"
@@ -21,17 +21,17 @@
         />
         <coleus-spinner
           v-if="searching"
-          class="block absolute text-gray-600 z-10 h-4 mt-3 mr-6 right-0 top-0 fill-current"
+          class="block absolute text-gray-600 z-10 h-4 mt-3 mr-3 right-0 top-0 fill-current"
         />
         <coleus-search-icon
           v-else
-          class="block absolute text-gray-600 z-10 h-4 mt-3 mr-6 right-0 top-0 fill-current"
+          class="block absolute text-gray-600 z-10 h-4 mt-3 mr-3 right-0 top-0 fill-current"
         />
       </div>
       <template v-if="isOpen">
         <div
           v-if="anyResult()"
-          class="absolute bg-white w-full px-4 lg:px-0 lg:rounded lg:shadow lg:border lg:border-gray-300 mt-2 mb-32 lg:mb-0 py-2 overflow-y-scroll h-screen lg:h-auto pb-48 lg:pb-0"
+          class="absolute bg-white w-full px-4 lg:px-0 lg:rounded lg:shadow lg:border lg:border-gray-300 mt-2 mb-32 lg:mb-0 py-2 overflow-y-scroll h-screen lg:h-64 pb-48 lg:pb-0"
         >
           <div v-for="(index, item) in search" :key="index">
             <div v-if="hasResult(item)">
