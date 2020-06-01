@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="block bg-gray-100 mt-8 lg:mt-0 lg:mx-0 lg:inset-0 z-90 lg:mb-0 lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-1/4 lg:block"
+    class="block bg-gray-100 py-4 lg:mx-0 lg:inset-0 z-90 lg:mb-0 lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-1/4 lg:block"
   >
     <div
       class="h-full overflow-y-auto scrolling-touch lg:text-right lg:h-auto lg:block lg:relative lg:sticky lg:top-24 lg:mt-2"
@@ -10,7 +10,7 @@
           <template v-for="(page, index) in books[0].pages" class="flex">
             <div :key="`icon-${index}`">
               <button
-                class="flex text-right"
+                class="flex text-right focus:outline-none w-full px-2"
                 type="button"
                 @click.prevent="toggleHeader(page.id)"
               >
@@ -56,7 +56,7 @@
                   <span> از </span
                   ><span class="font-sans">{{ paginateTotalPages }}</span>
                 </div>
-                <div class="w-1/6">
+                <div class="w-1/6 flex justify-end">
                   <button
                     type="button"
                     :disabled="paginateCurrentPage == paginateTotalPages"

@@ -2,12 +2,12 @@
   <coleus-container>
     <div
       v-if="books && books.length"
-      class="flex content-start flex-wrap mt-6 pl-4"
+      class="flex content-start flex-wrap mt-4 pl-4"
     >
       <div
         v-for="book in books"
         :key="book.id"
-        class="pr-4 w-1/2 md:w-1/3 lg:w-1/4"
+        class="pr-4 w-1/2 md:w-1/3 lg:w-1/6"
       >
         <nuxt-link
           :to="{

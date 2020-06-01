@@ -1,48 +1,34 @@
 <template>
   <div class="absolute">
-    <header class="header shadow">
-      <template v-if="action === ''">
-        <coleus-container class="flex flex-wrap justify-between py-4">
-          <ul class="hidden flex items-center justify-start lg:flex pr-2">
-            <li class="header_nav_link ml-8">
-              <nuxt-link class="block" :to="{ name: 'index' }" exact
-                >شاعران</nuxt-link
-              >
-            </li>
-            <li class="header_nav_link">
-              <nuxt-link class="block" :to="{ name: 'books' }" exact
-                >کتاب‌ها</nuxt-link
-              >
-            </li>
-          </ul>
-          <coleus-search class="hidden lg:flex" />
-          <nuxt-link
-            class="w-full lg:w-1/5 flex items-center justify-center lg:justify-end"
-            :to="{ name: 'index' }"
-          >
-            <coleus-logo class="h-5 lg:pl-2" />
-            <coleus-leaf class="h-10 w-10 lg:pl-2" />
-          </nuxt-link>
-        </coleus-container>
-      </template>
-      <coleus-container v-else class="flex justify-between lg:hidden">
-        <div class="flex items-end">
-          <component
-            :is="'coleus-' + action + '-icon'"
-            class="block h-6 text-indigo-500 fill-current"
-          />
-          <span
-            class="block text-lg font-medium uppercase text-gray-900 pl-4 h-6"
-            >{{ action }}</span
-          >
-        </div>
+    <header class="header shadow h-16">
+      <coleus-container class="flex flex-wrap h-16 justify-between">
+        <ul class="hidden flex items-center justify-start lg:flex pr-2">
+          <li class="header_nav_link ml-8">
+            <nuxt-link class="block" :to="{ name: 'index' }" exact
+              >شاعران</nuxt-link
+            >
+          </li>
+          <li class="header_nav_link">
+            <nuxt-link class="block" :to="{ name: 'books' }" exact
+              >کتاب‌ها</nuxt-link
+            >
+          </li>
+        </ul>
+        <coleus-search class="hidden lg:flex" />
+        <nuxt-link
+          class="w-full lg:w-1/5 flex items-center justify-center lg:justify-end"
+          :to="{ name: 'index' }"
+        >
+          <coleus-logo class="h-5" />
+          <coleus-leaf class="h-6 w-6 lg:h-10 lg:w-10 mx-2" />
+        </nuxt-link>
       </coleus-container>
     </header>
     <div
       class="lg:hidden mt-16 w-screen absolute bg-white top-0 right-0 left-0 bottom-0 h-screen overflow-y-hidden mb-12 z-20"
       :class="[searchOpen ? 'block' : 'hidden']"
     >
-      <coleus-search />
+      <coleus-search @result-clicked="closeSearch(0)" />
     </div>
     <nav class="header_mobile_nav block lg:hidden">
       <div class="flex justify-between">
@@ -133,13 +119,13 @@
 <script>
 import coleusLogo from '@/components/svg/Coleus'
 import coleusLeaf from '@/components/svg/Leaf'
-import coleusGlobe from '@/components/svg/Globe'
+// import coleusGlobe from '@/components/svg/Globe'
 import coleusBookIcon from '@/components/svg/Book'
 import coleusUsersIcon from '@/components/svg/Users'
 import coleusSearchIcon from '@/components/svg/Search'
 import coleusBarsIcon from '@/components/svg/Bars'
 import coleusSearch from '@/components/partials/Search'
-import coleusArrowLeft from '@/components/svg/ArrowLeft'
+// import coleusArrowLeft from '@/components/svg/ArrowLeft'
 
 export default {
   components: {
@@ -149,8 +135,8 @@ export default {
     coleusLeaf,
     coleusSearchIcon,
     coleusSearch,
-    coleusArrowLeft,
-    coleusGlobe,
+    // coleusArrowLeft,
+    // coleusGlobe,
     coleusBarsIcon
   },
   model: {
@@ -218,13 +204,20 @@ export default {
         document.body.scrollTop = this.currentPos
       }
     },
-    closeSearch() {
+    closeSearch(pos = -1) {
       this.searchOpen = false
-      if (process.client) {
+      if (process.client && pos === -1) {
         document.body.style.removeProperty('overflow-y')
         window.pageXOffset = this.currentPos
         document.documentElement.scrollTop = this.currentPos
         document.body.scrollTop = this.currentPos
+      }
+
+      if (process.client && pos !== -1) {
+        document.body.style.removeProperty('overflow-y')
+        window.pageXOffset = 0
+        document.documentElement.scrollTop = 0
+        document.body.scrollTop = 0
       }
     }
   }
@@ -243,32 +236,9 @@ export default {
   top: 72px;
   bottom: 60px;
   transform: translateX(-100%);
-  transition-property: transform;
-  transition-duration: 1s;
-  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
-  /* transition-delay: .5s; */
-  & .header_mobile_aside_group {
-    transform: translateX(-100%);
-    transition-property: transform;
-    transition-duration: 0.3s;
-    transition-timing-function: ease-in-out;
-    &:nth-child(1) {
-      transition-delay: 0.2s;
-    }
-    &:nth-child(2) {
-      transition-delay: 0.3s;
-    }
-    &:nth-child(3) {
-      transition-delay: 0.4s;
-    }
-    &:nth-child(4) {
-      transition-delay: 0.5s;
-    }
-  }
 }
 .header_mobile_aside--open {
   transform: translateX(0px);
-  transition-delay: 0s;
   & .header_mobile_aside_group {
     transform: translateX(0px);
   }
