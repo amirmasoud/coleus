@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full lg:max-w-sm w-full mt-3">
+  <div class="w-full lg:max-w-sm w-full items-center">
     <button
       v-if="isOpen"
       @click="isOpen = false"
@@ -7,9 +7,11 @@
       class="hidden lg:block fixed inset-0 h-full w-full bg-black opacity-50 cursor-default"
     ></button>
     <div class="relative w-full">
-      <div class="relative px-4 lg:px-0">
+      <div
+        class="relative px-4 lg:px-0 py-2 z-10 lg:z-0 shadow lg:shadow-none bg-gray-100 lg:bg-transparent"
+      >
         <input
-          class="coleus-search-input"
+          class="coleus-search-input hidden"
           :class="[isOpen ? 'z-10' : 'z-0']"
           type="text"
           name="search"
@@ -19,19 +21,30 @@
           v-on:input="performSearch($event.target.value)"
           @focus="isOpen = !isOpen"
         />
+        <input
+          class="coleus-search-input lg:block"
+          :class="[isOpen ? 'z-10' : 'z-0']"
+          type="text"
+          name="search"
+          autocomplete="off"
+          placeholder="جستجو"
+          dir="rtl"
+          v-on:input="performSearch($event.target.value)"
+          @focus="isOpen = true"
+        />
         <coleus-spinner
           v-if="searching"
-          class="block absolute text-gray-600 z-10 h-4 mt-3 mr-6 lg:mr-3 right-0 top-0 fill-current"
+          class="block absolute text-gray-600 z-10 h-4 mt-5 mr-8 lg:mr-3 right-0 top-0 fill-current"
         />
         <coleus-search-icon
           v-else
-          class="block absolute text-gray-600 z-10 h-4 mt-3 mr-6 lg:mr-3 right-0 top-0 fill-current"
+          class="block absolute text-gray-600 z-10 h-4 mt-5 mr-8 lg:mr-3 right-0 top-0 fill-current"
         />
       </div>
-      <template v-if="isOpen">
+      <div class="hidden lg:block" v-if="isOpen">
         <div
           v-if="anyResult()"
-          class="absolute bg-white w-full px-4 lg:px-0 lg:rounded lg:shadow lg:border lg:border-gray-300 mt-2 mb-32 lg:mb-0 py-2 overflow-y-scroll h-screen lg:h-64 pb-48 lg:pb-0"
+          class="absolute bg-white w-full px-4 lg:px-0 lg:rounded lg:shadow lg:border lg:border-gray-300 mb-32 lg:mb-0 py-2 overflow-y-scroll h-screen lg:h-64 pb-48 lg:pb-0"
         >
           <div v-for="(index, item) in search" :key="index">
             <div v-if="hasResult(item)">
@@ -57,7 +70,37 @@
             </div>
           </div>
         </div>
-      </template>
+      </div>
+      <div class="block lg:hidden">
+        <div
+          v-if="anyResult()"
+          class="absolute bg-white w-full px-4 lg:px-0 lg:rounded lg:shadow lg:border lg:border-gray-300 mb-32 lg:mb-0 py-2 overflow-y-scroll h-screen lg:h-64 pb-48 lg:pb-0"
+        >
+          <div v-for="(index, item) in search" :key="index">
+            <div v-if="hasResult(item)">
+              <h2
+                class="uppercase text-gray-400 text-xs font-semibold mt-2 mb-1 px-2"
+              >
+                {{ search[item] }}
+              </h2>
+              <ul>
+                <li
+                  v-for="result in eachSection(item)"
+                  :key="result.id"
+                  @click="resultClicked()"
+                >
+                  <nuxt-link
+                    :to="linkTo(result, item)"
+                    class="w-full block px-2 py-1 truncate"
+                  >
+                    {{ getLinkText(result, item) }}
+                  </nuxt-link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
