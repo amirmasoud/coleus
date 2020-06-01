@@ -1,41 +1,27 @@
 <template>
   <div class="absolute">
     <header class="header shadow h-16">
-      <template v-if="action === ''">
-        <coleus-container class="flex flex-wrap justify-between">
-          <ul class="hidden flex items-center justify-start lg:flex pr-2">
-            <li class="header_nav_link ml-8">
-              <nuxt-link class="block" :to="{ name: 'index' }" exact
-                >شاعران</nuxt-link
-              >
-            </li>
-            <li class="header_nav_link">
-              <nuxt-link class="block" :to="{ name: 'books' }" exact
-                >کتاب‌ها</nuxt-link
-              >
-            </li>
-          </ul>
-          <coleus-search class="hidden lg:flex" />
-          <nuxt-link
-            class="w-full lg:w-1/5 flex items-center justify-center lg:justify-end"
-            :to="{ name: 'index' }"
-          >
-            <coleus-logo class="h-5" />
-            <coleus-leaf class="h-6 w-6 lg:h-10 lg:w-10 mx-2" />
-          </nuxt-link>
-        </coleus-container>
-      </template>
-      <coleus-container v-else class="flex justify-between lg:hidden">
-        <div class="flex items-end">
-          <component
-            :is="'coleus-' + action + '-icon'"
-            class="block h-6 text-indigo-500 fill-current"
-          />
-          <span
-            class="block text-lg font-medium uppercase text-gray-900 pl-4 h-6"
-            >{{ action }}</span
-          >
-        </div>
+      <coleus-container class="flex flex-wrap h-16 justify-between">
+        <ul class="hidden flex items-center justify-start lg:flex pr-2">
+          <li class="header_nav_link ml-8">
+            <nuxt-link class="block" :to="{ name: 'index' }" exact
+              >شاعران</nuxt-link
+            >
+          </li>
+          <li class="header_nav_link">
+            <nuxt-link class="block" :to="{ name: 'books' }" exact
+              >کتاب‌ها</nuxt-link
+            >
+          </li>
+        </ul>
+        <coleus-search class="hidden lg:flex" />
+        <nuxt-link
+          class="w-full lg:w-1/5 flex items-center justify-center lg:justify-end"
+          :to="{ name: 'index' }"
+        >
+          <coleus-logo class="h-5" />
+          <coleus-leaf class="h-6 w-6 lg:h-10 lg:w-10 mx-2" />
+        </nuxt-link>
       </coleus-container>
     </header>
     <div
@@ -133,13 +119,13 @@
 <script>
 import coleusLogo from '@/components/svg/Coleus'
 import coleusLeaf from '@/components/svg/Leaf'
-import coleusGlobe from '@/components/svg/Globe'
+// import coleusGlobe from '@/components/svg/Globe'
 import coleusBookIcon from '@/components/svg/Book'
 import coleusUsersIcon from '@/components/svg/Users'
 import coleusSearchIcon from '@/components/svg/Search'
 import coleusBarsIcon from '@/components/svg/Bars'
 import coleusSearch from '@/components/partials/Search'
-import coleusArrowLeft from '@/components/svg/ArrowLeft'
+// import coleusArrowLeft from '@/components/svg/ArrowLeft'
 
 export default {
   components: {
@@ -149,8 +135,8 @@ export default {
     coleusLeaf,
     coleusSearchIcon,
     coleusSearch,
-    coleusArrowLeft,
-    coleusGlobe,
+    // coleusArrowLeft,
+    // coleusGlobe,
     coleusBarsIcon
   },
   model: {
