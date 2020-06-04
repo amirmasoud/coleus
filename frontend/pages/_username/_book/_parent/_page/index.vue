@@ -38,11 +38,6 @@
   </div>
 </template>
 
-<script
-  async="async"
-  data-cfasync="false"
-  src="//pl15515995.passtechusa.com/d9c0e25cb60646528947b767ad1840ef/invoke.js"
-></script>
 <script>
 export default {
   data: () => ({
@@ -77,6 +72,14 @@ export default {
           hid: 'twitter:description',
           name: 'twitter:description',
           content: description
+        }
+      ],
+      script: [
+        {
+          src:
+            '//pl15515995.passtechusa.com/d9c0e25cb60646528947b767ad1840ef/invoke.js',
+          async: 'async',
+          'data-cfasync': true
         }
       ]
     }
