@@ -14,6 +14,9 @@
 <script>
 import coleusAside from '@/components/partials/Aside'
 export default {
+  components: {
+    coleusAside
+  },
   data: () => ({
     toggleContents: false
   }),
@@ -21,9 +24,6 @@ export default {
     this.$root.$on('toggle-contents', () => {
       this.toggleContents = !this.toggleContents
     })
-  },
-  components: {
-    coleusAside
   }
 }
 </script>

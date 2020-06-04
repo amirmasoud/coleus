@@ -8,6 +8,10 @@
         v-for="book in books"
         :key="book.id"
         class="pr-4 w-1/2 md:w-1/3 lg:w-1/6"
+        itemscope=""
+        itemtype="http://schema.org/Book"
+        vocab="http://schema.org/"
+        typeof="Book"
       >
         <nuxt-link
           :to="{
@@ -40,7 +44,13 @@ export default {
   components: {
     BookCard
   },
-
+  created() {
+    if (process.client) {
+      window.pageXOffset = 0 // eslint-disable-line nuxt/no-globals-in-created
+      document.documentElement.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
+      document.body.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
+    }
+  },
   head() {
     const title = 'کتاب‌ها - Coleus'
     const description = 'لیست کتاب‌های قابل مطالعه آنلاین'
@@ -65,18 +75,9 @@ export default {
       ]
     }
   },
-
   apollo: {
     books: {
       query: require('~/graphql/books.gql')
-    }
-  },
-
-  created() {
-    if (process.client) {
-      window.pageXOffset = 0 // eslint-disable-line nuxt/no-globals-in-created
-      document.documentElement.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
-      document.body.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
     }
   }
 }

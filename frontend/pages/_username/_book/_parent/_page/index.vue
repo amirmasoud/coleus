@@ -31,10 +31,18 @@
           </div>
         </template>
       </div>
+      <div class="w-full lg:w-1/4">
+        <div id="container-d9c0e25cb60646528947b767ad1840ef"></div>
+      </div>
     </div>
   </div>
 </template>
 
+<script
+  async="async"
+  data-cfasync="false"
+  src="//pl15515995.passtechusa.com/d9c0e25cb60646528947b767ad1840ef/invoke.js"
+></script>
 <script>
 export default {
   data: () => ({
