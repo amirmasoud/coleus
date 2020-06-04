@@ -2,9 +2,9 @@
   <div class="w-full lg:max-w-sm w-full items-center">
     <button
       v-if="isOpen"
-      @click="isOpen = false"
       tabindex="-1"
       class="hidden lg:block fixed inset-0 h-full w-full bg-black opacity-50 cursor-default"
+      @click="isOpen = false"
     ></button>
     <div class="relative w-full">
       <div
@@ -18,7 +18,7 @@
           autocomplete="off"
           placeholder="جستجو"
           dir="rtl"
-          v-on:input="performSearch($event.target.value)"
+          @input="performSearch($event.target.value)"
           @focus="isOpen = !isOpen"
         />
         <input
@@ -29,7 +29,7 @@
           autocomplete="off"
           placeholder="جستجو"
           dir="rtl"
-          v-on:input="performSearch($event.target.value)"
+          @input="performSearch($event.target.value)"
           @focus="isOpen = true"
         />
         <coleus-spinner
@@ -41,7 +41,7 @@
           class="block absolute text-gray-600 z-10 h-4 mt-5 mr-8 lg:mr-3 right-0 top-0 fill-current"
         />
       </div>
-      <div class="hidden lg:block" v-if="isOpen">
+      <div v-if="isOpen" class="hidden lg:block">
         <div
           v-if="anyResult()"
           class="absolute bg-white w-full px-4 lg:px-0 lg:rounded lg:shadow lg:border lg:border-gray-300 mb-32 lg:mb-0 py-2 overflow-y-scroll h-screen lg:h-64 pb-48 lg:pb-0"

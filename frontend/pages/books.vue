@@ -40,7 +40,13 @@ export default {
   components: {
     BookCard
   },
-
+  created() {
+    if (process.client) {
+      window.pageXOffset = 0 // eslint-disable-line nuxt/no-globals-in-created
+      document.documentElement.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
+      document.body.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
+    }
+  },
   head() {
     const title = 'کتاب‌ها - Coleus'
     const description = 'لیست کتاب‌های قابل مطالعه آنلاین'
@@ -65,18 +71,9 @@ export default {
       ]
     }
   },
-
   apollo: {
     books: {
       query: require('~/graphql/books.gql')
-    }
-  },
-
-  created() {
-    if (process.client) {
-      window.pageXOffset = 0 // eslint-disable-line nuxt/no-globals-in-created
-      document.documentElement.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
-      document.body.scrollTop = 0 // eslint-disable-line nuxt/no-globals-in-created
     }
   }
 }
