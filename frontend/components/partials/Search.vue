@@ -10,28 +10,26 @@
       <div
         class="relative px-4 lg:px-0 py-2 z-10 lg:z-0 shadow lg:shadow-none bg-gray-100 lg:bg-transparent"
       >
-        <input
-          class="coleus-search-input hidden"
-          :class="[isOpen ? 'z-10' : 'z-0']"
-          type="text"
-          name="search"
-          autocomplete="off"
-          placeholder="جستجو"
-          dir="rtl"
-          @input="performSearch($event.target.value)"
-          @focus="isOpen = !isOpen"
-        />
-        <input
-          class="coleus-search-input lg:block"
-          :class="[isOpen ? 'z-10' : 'z-0']"
-          type="text"
-          name="search"
-          autocomplete="off"
-          placeholder="جستجو"
-          dir="rtl"
-          @input="performSearch($event.target.value)"
-          @focus="isOpen = true"
-        />
+        <div class="flex flex-wrap items-center">
+          <input
+            class="coleus-search-input flex-grow"
+            :class="[isOpen ? 'z-10' : 'z-0']"
+            type="text"
+            name="search"
+            autocomplete="off"
+            placeholder="جستجو"
+            dir="rtl"
+            @input="performSearch($event.target.value)"
+            @focus="isOpen = true"
+          />
+          <button
+            type="button"
+            class="lg:hidden flex-grow-0 mr-2 text-indigo-500 focus:outline-none"
+            @click.prevent="close()"
+          >
+            لغو
+          </button>
+        </div>
         <coleus-spinner
           v-if="searching"
           class="block absolute text-gray-600 z-10 h-4 mt-5 mr-8 lg:mr-3 right-0 top-0 fill-current"
@@ -57,7 +55,7 @@
                 <li
                   v-for="result in eachSection(item)"
                   :key="result.id"
-                  @click="resultClicked()"
+                  @click="close()"
                 >
                   <nuxt-link
                     :to="linkTo(result, item)"
@@ -87,7 +85,7 @@
                 <li
                   v-for="result in eachSection(item)"
                   :key="result.id"
-                  @click="resultClicked()"
+                  @click="close()"
                 >
                   <nuxt-link
                     :to="linkTo(result, item)"
@@ -201,9 +199,9 @@ export default {
         this.blocks.length
       )
     },
-    resultClicked() {
+    close() {
       this.isOpen = false
-      this.$emit('result-clicked')
+      this.$emit('close')
     },
     linkTo(result, item) {
       if (item === 'users') {
@@ -255,7 +253,7 @@ export default {
 
 <style lang="scss">
 .coleus-search-input {
-  @apply bg-gray-200 text-coleus-gray font-medium px-4 pr-10 rounded h-10 outline-none border border-gray-300 w-full transition duration-300 ease-in-out;
+  @apply bg-gray-200 text-coleus-gray font-medium px-4 pr-10 rounded h-10 outline-none border border-gray-300 transition duration-300 ease-in-out;
   ::placeholder {
     @apply text-gray-600;
   }
