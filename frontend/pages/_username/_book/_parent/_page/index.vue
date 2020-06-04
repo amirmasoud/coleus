@@ -79,7 +79,7 @@ export default {
           src:
             '//pl15515995.passtechusa.com/d9c0e25cb60646528947b767ad1840ef/invoke.js',
           async: 'async',
-          'data-cfasync': true
+          'data-cfasync': false
         }
       ]
     }
@@ -91,26 +91,6 @@ export default {
       prefetch: ({ route }) => ({ page: route.params.page }),
       variables() {
         return { page: this.page || this.$route.params.page }
-      },
-      result({ data, loading, error }) {
-        // if (process.client && !this.fresh) {
-        //   const from = window.location.pathname + window.location.search
-        //   const to = `/${this.$route.params.username}/${
-        //     this.$route.params.book
-        //   }/${this.parent || this.$route.params.parent}/${this.page ||
-        //     this.$route.params.page}?page=${this.$route.query.page || 1}`
-        //   if (from !== to) {
-        //     history.pushState(
-        //       {},
-        //       null,
-        //       `/${this.$route.params.username}/${this.$route.params.book}/${this
-        //         .parent || this.$route.params.parent}/${this.page ||
-        //         this.$route.params.page}?page=${this.$route.query.page || 1}`
-        //     )
-        //   }
-        // } else {
-        //   this.fresh = false
-        // }
       }
     }
   }
