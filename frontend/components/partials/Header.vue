@@ -25,10 +25,10 @@
       </coleus-container>
     </header>
     <div
-      class="lg:hidden mt-16 w-screen absolute bg-white top-0 right-0 left-0 bottom-0 h-screen overflow-y-hidden mb-12 z-20"
+      class="lg:hidden w-screen absolute bg-white top-0 right-0 left-0 bottom-0 h-screen overflow-y-hidden mb-12 z-30"
       :class="[searchOpen ? 'block' : 'hidden']"
     >
-      <coleus-search @result-clicked="closeSearch(0)" />
+      <coleus-search @close="closeSearch(0)" />
     </div>
     <nav class="header_mobile_nav block lg:hidden">
       <div class="flex justify-between">
