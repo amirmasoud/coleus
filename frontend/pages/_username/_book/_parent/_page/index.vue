@@ -31,8 +31,10 @@
           </div>
         </template>
       </div>
-      <div class="w-full lg:w-1/4">
-        <div id="container-d9c0e25cb60646528947b767ad1840ef"></div>
+      <div class="w-full lg:w-1/4 order-first lg:order-last">
+        <div dir="ltr" class="mx-auto max-w-xs">
+          <div id="container-d9c0e25cb60646528947b767ad1840ef"></div>
+        </div>
       </div>
     </div>
   </div>
