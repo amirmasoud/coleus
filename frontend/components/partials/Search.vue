@@ -157,7 +157,7 @@ export default {
   },
   created() {
     const handleEscapeAndBack = (e) => {
-      if (e.key === 'Esc' || e.key === 'Escape' || e.key === backbutton) {
+      if (e.key === 'Esc' || e.key === 'Escape' || e.key === 'backbutton') {
         this.isOpen = false
         this.searching = false
         e.target.blur()
