@@ -10,9 +10,9 @@
       <div
         class="relative px-4 lg:px-0 py-2 z-10 lg:z-0 shadow lg:shadow-none bg-gray-100 lg:bg-transparent"
       >
-        <div class="flex flex-wrap items-center">
+        <div class="flex flex-no-wrap items-center">
           <input
-            class="coleus-search-input flex-grow"
+            class="coleus-search-input w-11/12"
             :class="[isOpen ? 'z-10' : 'z-0']"
             type="text"
             name="search"
@@ -24,7 +24,7 @@
           />
           <button
             type="button"
-            class="lg:hidden flex-grow-0 mr-2 text-indigo-500 focus:outline-none"
+            class="lg:hidden w-1/12 mr-2 text-indigo-500 focus:outline-none"
             @click.prevent="close()"
           >
             لغو
@@ -156,17 +156,17 @@ export default {
     }
   },
   created() {
-    const handleEscape = (e) => {
-      if (e.key === 'Esc' || e.key === 'Escape') {
+    const handleEscapeAndBack = (e) => {
+      if (e.key === 'Esc' || e.key === 'Escape' || e.key === backbutton) {
         this.isOpen = false
         this.searching = false
         e.target.blur()
       }
     }
     if (process.client) {
-      document.addEventListener('keydown', handleEscape) // eslint-disable-line nuxt/no-globals-in-created
+      document.addEventListener('keydown', handleEscapeAndBack) // eslint-disable-line nuxt/no-globals-in-created
       this.$once('hook:beforeDestroy', () => {
-        document.removeEventListener('keydown', handleEscape) // eslint-disable-line nuxt/no-globals-in-created
+        document.removeEventListener('keydown', handleEscapeAndBack) // eslint-disable-line nuxt/no-globals-in-created
       })
     }
   },
