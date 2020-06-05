@@ -156,17 +156,17 @@ export default {
     }
   },
   created() {
-    const handleEscape = (e) => {
-      if (e.key === 'Esc' || e.key === 'Escape') {
+    const handleEscapeAndBack = (e) => {
+      if (e.key === 'Esc' || e.key === 'Escape' || e.key === backbutton) {
         this.isOpen = false
         this.searching = false
         e.target.blur()
       }
     }
     if (process.client) {
-      document.addEventListener('keydown', handleEscape) // eslint-disable-line nuxt/no-globals-in-created
+      document.addEventListener('keydown', handleEscapeAndBack) // eslint-disable-line nuxt/no-globals-in-created
       this.$once('hook:beforeDestroy', () => {
-        document.removeEventListener('keydown', handleEscape) // eslint-disable-line nuxt/no-globals-in-created
+        document.removeEventListener('keydown', handleEscapeAndBack) // eslint-disable-line nuxt/no-globals-in-created
       })
     }
   },
