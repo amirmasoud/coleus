@@ -62,7 +62,6 @@ export default {
   sitemap: {
     hostname: process.env.FRONT_URL,
     gzip: true,
-    exclude: [],
     routes: [
       '/Rumi',
       '/Hafez',
