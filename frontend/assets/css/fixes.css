@@ -1,0 +1,19 @@
+.rounded-sm .progressive-image-main {
+  @apply rounded-sm;
+}
+
+.rounded .progressive-image-main {
+  @apply rounded;
+}
+
+.rounded-md .progressive-image-main {
+  @apply rounded;
+}
+
+.rounded-lg .progressive-image-main {
+  @apply rounded-lg;
+}
+
+.rounded-full .progressive-image-main {
+  @apply rounded-full;
+}

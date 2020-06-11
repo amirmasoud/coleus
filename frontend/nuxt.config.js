@@ -4,12 +4,12 @@ dotenv.config()
 export default {
   mode: 'universal',
 
+  components: [
+    { path: '~/components/', prefix: 'coleus' },
+    { path: '~/components/svg/', prefix: 'coleus-svg' }
+  ],
+
   env: {
-    //   APP_ENV: process.env.APP_ENV,
-    //   APP_LOCALE: process.env.APP_LOCALE,
-    //   FRONT_URL: process.env.FRONT_URL,
-    //   GQL_URL: process.env.GQL_URL,
-    //   BASE_URL: process.env.BASE_URL,
     GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID
   },
 
@@ -46,7 +46,7 @@ export default {
   buildModules: [
     '@nuxtjs/eslint-module',
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/global-components',
+    '@nuxt/components',
     '@nuxtjs/dotenv',
     [
       '@nuxtjs/google-analytics',

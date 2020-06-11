@@ -1,27 +1,19 @@
 <template>
   <div class="absolute">
-    <header class="header shadow h-16">
+    <header class="fixed bg-white top-0 left-0 right-0 z-30 shadow h-16">
       <coleus-container class="flex flex-wrap h-16 justify-between">
         <ul class="hidden flex items-center justify-start lg:flex pr-2">
-          <li class="header_nav_link ml-8">
-            <nuxt-link class="block" :to="{ name: 'index' }" exact
-              >شاعران</nuxt-link
-            >
-          </li>
-          <li class="header_nav_link">
-            <nuxt-link class="block" :to="{ name: 'books' }" exact
-              >کتاب‌ها</nuxt-link
-            >
-          </li>
+          <coleus-nav-list-link :to="{ name: 'index' }" class="ml-8"
+            >شاعران</coleus-nav-list-link
+          >
+          <coleus-nav-list-link :to="{ name: 'books' }" class="ml-8"
+            >کتاب‌ها</coleus-nav-list-link
+          >
         </ul>
         <coleus-search class="hidden lg:flex" />
-        <nuxt-link
-          class="w-full lg:w-1/5 flex items-center justify-center lg:justify-end"
-          :to="{ name: 'index' }"
-        >
-          <coleus-logo class="h-5" />
-          <coleus-leaf class="h-6 w-6 lg:h-10 lg:w-10 mx-2" />
-        </nuxt-link>
+        <coleus-logo-link
+          class="flex items-center w-full lg:w-1/5 justify-center lg:justify-end"
+        />
       </coleus-container>
     </header>
     <div
@@ -30,160 +22,48 @@
     >
       <coleus-search @close="closeSearch(0)" />
     </div>
-    <nav class="header_mobile_nav block lg:hidden">
+    <nav
+      class="fixed bg-white border-t border-gray-300 left-0 bottom-0 right-0 z-30 lg:hidden"
+    >
       <div class="flex justify-between">
-        <button
-          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 hover:no-underline text-center focus:outline-none"
-          :disabled="$route.name !== 'username-book-parent-page'"
-          :class="[
-            $route.name !== 'username-book-parent-page'
-              ? 'text-gray-400'
-              : 'text-gray-900'
-          ]"
-          @click.prevent="
-            $root.$emit('toggle-contents')
-            closeSearch()
-          "
+        <coleus-nav-mobile-menu-link @click.prevent="closeSearch()"
+          >فهرست</coleus-nav-mobile-menu-link
         >
-          <coleus-bars-icon class="w-4" />
-          <span class="block text-xs md:text-base font-medium">فهرست</span>
-        </button>
-        <button
-          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-gray-900 hover:no-underline hover:text-indigo-500 text-center focus:outline-none"
-          :class="[searchOpen === true ? 'text-indigo-500' : 'text-gray-900']"
-          @click.prevent="toggleSearch()"
+        <coleus-nav-mobile-search-link
+          :searchOpen="searchOpen"
+          @click.native="toggleSearch()"
+          >جستجو</coleus-nav-mobile-search-link
         >
-          <coleus-search-icon class="w-4" />
-          <span class="block text-xs md:text-base font-medium">جستجو</span>
-        </button>
-        <nuxt-link
+        <coleus-nav-mobile-link
           :to="{ name: 'books' }"
-          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 hover:no-underline text-center focus:outline-none"
-          :class="[
-            $route.name === 'books' && searchOpen === false
-              ? 'text-indigo-500'
-              : 'text-gray-900'
-          ]"
+          routeName="books"
+          :searchOpen="searchOpen"
+          svg="coleus-svg-book"
           @click.native="closeSearch()"
+          >کتاب‌ها</coleus-nav-mobile-link
         >
-          <coleus-book-icon class="w-4" />
-          <span class="block text-xs md:text-base font-medium">کتاب‌ها</span>
-        </nuxt-link>
-        <nuxt-link
+        <coleus-nav-mobile-link
           :to="{ name: 'index' }"
-          class="flex flex-col items-center justify-between md:justify-center w-full p-2 md:p-4 text-gray-900 hover:no-underline text-center focus:outline-none"
-          :class="[
-            $route.name === 'index' && searchOpen === false
-              ? 'text-indigo-500'
-              : 'text-gray-900'
-          ]"
+          routeName="index"
+          :searchOpen="searchOpen"
+          svg="coleus-svg-users"
           @click.native="closeSearch()"
+          >شاعران</coleus-nav-mobile-link
         >
-          <coleus-users-icon class="w-4" />
-          <span class="block text-xs md:text-base font-medium">شاعران</span>
-        </nuxt-link>
       </div>
     </nav>
-    <div
-      class="header_mobile_aside block lg:hidden"
-      :class="{ 'header_mobile_aside--open': sublinks.length }"
-    >
-      <coleus-container>
-        <transition-group
-          v-for="(group, index) in sublinks"
-          :key="index"
-          tag="div"
-          name="list"
-          class="header_mobile_aside_group"
-        >
-          <h3 :key="`title-${index}`" class="uppercase text-gray-500 pb-2">
-            {{ group.title }}
-          </h3>
-          <ul :key="`list-${index}`" class="pb-6">
-            <li v-for="l in group.links" :key="l.to" class="py-2">
-              <nuxt-link
-                class="block text-gray-700 hover:text-indigo-500"
-                :class="{ 'text-indigo-500': path === locale + l.to }"
-                :to="locale + l.to"
-                exact
-                >{{ l.name }}</nuxt-link
-              >
-            </li>
-          </ul>
-        </transition-group>
-      </coleus-container>
-    </div>
   </div>
 </template>
 
 <script>
-import coleusLogo from '@/components/svg/Coleus'
-import coleusLeaf from '@/components/svg/Leaf'
-// import coleusGlobe from '@/components/svg/Globe'
-import coleusBookIcon from '@/components/svg/Book'
-import coleusUsersIcon from '@/components/svg/Users'
-import coleusSearchIcon from '@/components/svg/Search'
-import coleusBarsIcon from '@/components/svg/Bars'
-import coleusSearch from '@/components/partials/Search'
-// import coleusArrowLeft from '@/components/svg/ArrowLeft'
-
 export default {
-  components: {
-    coleusUsersIcon,
-    coleusBookIcon,
-    coleusLogo,
-    coleusLeaf,
-    coleusSearchIcon,
-    coleusSearch,
-    // coleusArrowLeft,
-    // coleusGlobe,
-    coleusBarsIcon
-  },
-  model: {
-    prop: 'action',
-    event: 'change'
-  },
-  props: {
-    action: {
-      type: String,
-      required: true
-    }
-  },
   data() {
     return {
       searchOpen: false,
-      currentPos: 0,
-      links: [
-        {
-          icon: 'books',
-          text: 'کتاب‌ها'
-        },
-        {
-          icon: 'users',
-          text: 'شاعران'
-        }
-      ]
-    }
-  },
-  computed: {
-    path() {
-      return this.$route.path.slice(-1) === '/'
-        ? this.$route.path.slice(0, -1)
-        : this.$route.path
-    },
-    locale() {
-      return '/' + this.action
-    },
-    sublinks() {
-      return []
-      // return this.$store.state.menu[this.action] || []
+      currentPos: 0
     }
   },
   methods: {
-    nav(section) {
-      this.currentSection = this.currentSection === section ? '' : section
-      this.mobileNav = !this.mobileNav
-    },
     toggleSearch() {
       this.searchOpen = !this.searchOpen
 
@@ -222,33 +102,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.header {
-  @apply fixed bg-white top-0 left-0 right-0 z-30;
-}
-.header_mobile_nav {
-  @apply fixed bg-white border-t border-gray-300 left-0 bottom-0 right-0 z-30;
-}
-.header_mobile_aside {
-  @apply fixed left-0 bg-gray-100 pt-6 z-20 w-full overflow-y-auto;
-  top: 72px;
-  bottom: 60px;
-  transform: translateX(-100%);
-}
-.header_mobile_aside--open {
-  transform: translateX(0px);
-  & .header_mobile_aside_group {
-    transform: translateX(0px);
-  }
-}
-.list-enter-active,
-.list-leave-active {
-  transition: all 1s;
-}
-.list-enter,
-.list-leave-to {
-  opacity: 0;
-  transform: translateY(30px);
-}
-</style>
