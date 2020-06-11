@@ -32,10 +32,10 @@ class SitemapCreate extends Command
         parent::__construct();
     }
 
-    private function url($param)
+    private function url(...$params)
     {
         return '<url>
-            <loc>' . config('app.front') . '/' . $param . '</loc>
+            <loc>' . config('app.front') . '/' . implode('/', $params) . '</loc>
         </url>
         ';
     }
@@ -53,9 +53,9 @@ class SitemapCreate extends Command
         foreach (User::get() as $user) {
             $users[] = $this->url($user['username']);
             foreach ($user->books()->get() as $book) {
-                $books[] = $this->url($user['username'] . '/' . $book['slug']);
+                $books[] = $this->url($user['username'], $book['slug']);
                 foreach ($book->pages()->whereNotNull('parent_id')->get() as $page) {
-                    $pages[] = $this->url($user['username'] . '/' . $book['slug'] . '/' . $page->parent_id . '/' . $page->id);
+                    $pages[] = $this->url($user['username'], $book['slug'], $page->parent_id, $page->id);
                 }
             }
         }
