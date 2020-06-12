@@ -1,8 +1,9 @@
 {
-  "name": "coleus-frontend",
+  "name": "@coleus/frontend",
   "version": "1.0.0",
   "description": "Coleus frontend application",
-  "author": "Amirmasoud Sheydaei",
+  "homepage": "https://github.com/amirmasoud/coleus",
+  "author": "Amirmasoud Sheydaei <amirmasoud.sheydaei@gmail.com> (https://amirmasoud.me)",
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -15,6 +16,7 @@
     "@nuxtjs/apollo": "^4.0.0-rc19",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
+    "core-js": "2",
     "graphql-tag": "^2.10.3",
     "lodash": "^4.17.15",
     "mousetrap": "^1.6.5",

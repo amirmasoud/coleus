@@ -54,6 +54,21 @@ export default {
    */
   modules: ['@nuxtjs/pwa', '@nuxtjs/apollo'],
 
+  pwa: {
+    meta: {
+      name: 'Coleus',
+      author: 'Amirmasoud Sheydaei',
+      theme_color: '#ffffff',
+      lang: 'fa',
+      ogHost: process.env.FRONT_URL,
+      nativeUI: true
+    },
+    manifest: {
+      name: 'Coleus',
+      lang: 'fa'
+    }
+  },
+
   apollo: {
     clientConfigs: {
       default: {
