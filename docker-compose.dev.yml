@@ -1,21 +1,21 @@
 version: "3.2"
 
 services:
-  admin:
-    image: admin:${ADMIN_TAG}
-    build:
-      context: ./admin
-      dockerfile: ../deploy/dev/admin/Dockerfile
-      args:
-        - NODE_VERSION=${NODE_VERSION}
-    container_name: coleus-admin
-    restart: unless-stopped
-    ports:
-      - 5000:5000
-    working_dir: /var/www/admin
-    command: "serve -s build"
-    networks:
-      - backend-network
+  # admin:
+  #   image: admin:${ADMIN_TAG}
+  #   build:
+  #     context: ./admin
+  #     dockerfile: ../deploy/dev/admin/Dockerfile
+  #     args:
+  #       - NODE_VERSION=${NODE_VERSION}
+  #   container_name: coleus-admin
+  #   restart: unless-stopped
+  #   ports:
+  #     - 5000:5000
+  #   working_dir: /var/www/admin
+  #   command: "serve -s build"
+  #   networks:
+  #     - backend-network
 
   backend:
     image: backend:${BACKEND_TAG}
