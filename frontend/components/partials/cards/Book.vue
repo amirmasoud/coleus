@@ -57,7 +57,6 @@
 
 <script>
 export default {
-  name: 'BookCard',
   props: {
     book: {
       type: Object,

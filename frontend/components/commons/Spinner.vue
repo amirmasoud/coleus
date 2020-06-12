@@ -6,7 +6,6 @@
 
 <script>
 export default {
-  name: 'ColeusSpinner',
   data: () => ({
     interval: null,
     colors: [
