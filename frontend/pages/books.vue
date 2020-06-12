@@ -21,7 +21,7 @@
             query: { page: 1 }
           }"
         >
-          <book-card :book="book" class="mx-auto mb-4" />
+          <coleus-book-card :book="book" class="mx-auto mb-4" />
         </nuxt-link>
       </div>
     </div>
@@ -34,12 +34,7 @@
 </template>
 
 <script>
-import BookCard from '~/components/partials/cards/Book'
-
 export default {
-  components: {
-    BookCard
-  },
   created() {
     if (process.client) {
       window.pageXOffset = 0 // eslint-disable-line nuxt/no-globals-in-created

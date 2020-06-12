@@ -1,8 +1,9 @@
 import React from "react";
 import PostIcon from "@material-ui/icons/Book";
 import UserIcon from "@material-ui/icons/Group";
-import { Admin, Resource, ListGuesser } from "react-admin";
+import { Admin, Resource, ListGuesser, EditGuesser } from "react-admin";
 import hasuraDataProvider from "ra-data-hasura";
+import { UserList } from "./components/users";
 
 // The following components are created when following the react-admin tutorial
 // import { PostList, PostEdit, PostCreate, PostShow } from "./posts";
@@ -29,7 +30,7 @@ const App = () => (
       show={PostShow}
     />
     <Resource name="users" icon={UserIcon} list={UserList} /> */}
-    <Resource name="users" list={ListGuesser} />
+    <Resource name="users" list={UserList} edit={EditGuesser} />
     <Resource name="books" list={ListGuesser} />
     <Resource name="pages" list={ListGuesser} />
     <Resource name="blocks" list={ListGuesser} />

@@ -118,11 +118,9 @@ export default {
     coleusCaretRight,
     coleusAsideSpinner
   },
-
   props: {
     loading: Boolean
   },
-
   data: () => ({
     fresh: true,
     offset: 0,
@@ -187,9 +185,6 @@ export default {
         this.$router.push(this.pageLink(this.$route.params.page, newPage))
       }
     },
-    // currentParent(newParent, oldParent) {
-    //   this.loadingParent = true
-    // },
     offset(newOffset, oldOffset) {
       if (newOffset > oldOffset) {
         this.loadingNextPage = true

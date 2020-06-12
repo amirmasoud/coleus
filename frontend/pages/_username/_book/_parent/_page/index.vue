@@ -46,14 +46,12 @@ export default {
     page: null,
     parent: null
   }),
-
   mounted() {
     this.$root.$on('content-changed', (page, parent) => {
       this.page = page
       this.parent = parent
     })
   },
-
   head() {
     const title = this.pages && this.pages.length ? this.pages[0].title : ''
     const description = 'مطالعه صفحه ' + title
@@ -86,7 +84,6 @@ export default {
       ]
     }
   },
-
   apollo: {
     pages: {
       query: require('~/graphql/page.gql'),

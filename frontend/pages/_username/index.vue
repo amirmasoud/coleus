@@ -44,7 +44,7 @@
                 query: { page: 1 }
               }"
             >
-              <book-card :book="book" class="mx-auto" />
+              <coleus-book-card :book="book" class="mx-auto" />
             </nuxt-link>
           </div>
         </div>
@@ -59,13 +59,7 @@
 </template>
 
 <script>
-import BookCard from '~/components/partials/cards/Book'
-
 export default {
-  components: {
-    BookCard
-  },
-
   head() {
     const title = this.users ? this.users[0].name : 'پروفایل کاربر'
     const description = 'لیست کتاب‌های قابل مطالعه‌ی ' + title
@@ -90,7 +84,6 @@ export default {
       ]
     }
   },
-
   apollo: {
     users: {
       query: require('~/graphql/profile.gql'),
@@ -102,9 +95,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.cover-profile {
-  filter: blur(2px);
-}
-</style>

@@ -12,11 +12,7 @@
 </template>
 
 <script>
-import coleusAside from '@/components/partials/Aside'
 export default {
-  components: {
-    coleusAside
-  },
   data: () => ({
     toggleContents: false
   }),
