@@ -1,12 +1,12 @@
 {
-  "name": "@coleus/frontend",
+  "name": "coleus",
   "version": "1.0.0",
   "description": "Coleus frontend application",
   "homepage": "https://github.com/amirmasoud/coleus",
   "author": "Amirmasoud Sheydaei <amirmasoud.sheydaei@gmail.com> (https://amirmasoud.me)",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "NUXT_HOST=0.0.0.0 NUXT_PORT=3000 nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
