@@ -8,6 +8,19 @@
       >
         <div v-if="pages && pages.length">
           <coleus-article class="mt-2">
+            <p class="py-2 text-gray-500 font-light">
+              <nuxt-link
+                :to="{
+                  name: 'username',
+                  params: {
+                    username: pages[0].book.book_users[0].user.username
+                  }
+                }"
+                >{{ pages[0].book.book_users[0].user.name }}</nuxt-link
+              >
+              ←
+              {{ pages[0].book.title }}
+            </p>
             <h1 class="text-4xl mb-10 border-indigo-600">
               {{ pages[0].title }}
             </h1>
