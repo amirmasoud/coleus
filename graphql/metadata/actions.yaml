@@ -1,12 +1,6 @@
-actions:
-- name: actionName
-  definition:
-    kind: synchronous
-    handler: http://backend.coleus.test
+actions: []
 custom_types:
   enums: []
-  input_objects:
-  - name: SampleInput
-  objects:
-  - name: SampleOutput
+  input_objects: []
+  objects: []
   scalars: []

@@ -1,11 +1,20 @@
 query Pages($page: bigint) {
-  pages(where: {id: {_eq: $page}}) {
+  pages(where: { id: { _eq: $page } }) {
     id
     title
-    blocks(order_by: {order: asc}) {
+    blocks(order_by: { order: asc }) {
       id
       content
       type
+    }
+    book {
+      title
+      book_users {
+        user {
+          name
+          username
+        }
+      }
     }
   }
 }
