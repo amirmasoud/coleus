@@ -9,17 +9,11 @@
         <div v-if="pages && pages.length">
           <coleus-article class="mt-2">
             <p class="py-2 text-gray-500 font-light">
-              <nuxt-link
-                :to="{
-                  name: 'username',
-                  params: {
-                    username: pages[0].book.book_users[0].user.username
-                  }
-                }"
-                >{{ pages[0].book.book_users[0].user.name }}</nuxt-link
-              >
-              ←
-              {{ pages[0].book.title }}
+              <coleus-breadcrumb-element
+                :user-username="pages[0].book.book_users[0].user.username"
+                :user-name="pages[0].book.book_users[0].user.name"
+                :book-title="pages[0].book.title"
+              />
             </p>
             <h1 class="text-4xl mb-10 border-indigo-600">
               {{ pages[0].title }}
