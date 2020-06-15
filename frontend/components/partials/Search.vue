@@ -61,6 +61,26 @@
                     :to="linkTo(result, item)"
                     class="w-full block px-2 py-1 truncate"
                   >
+                    <p v-if="item === 'books'" class="text-gray-500 font-light">
+                      <lazy-coleus-breadcrumb-element
+                        :user-name="result.users[0].name"
+                      />
+                    </p>
+                    <p v-if="item === 'pages'" class="text-gray-500 font-light">
+                      <lazy-coleus-breadcrumb-element
+                        :user-name="result.book.users[0].name"
+                        :book-title="result.book.title"
+                      />
+                    </p>
+                    <p
+                      v-if="item === 'blocks'"
+                      class="text-gray-500 font-light"
+                    >
+                      <lazy-coleus-breadcrumb-element
+                        :user-name="result.page.book.users[0].name"
+                        :book-title="result.page.book.title"
+                      />
+                    </p>
                     {{ getLinkText(result, item) }}
                   </nuxt-link>
                 </li>

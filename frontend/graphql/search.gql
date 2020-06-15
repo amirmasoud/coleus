@@ -5,6 +5,7 @@ query Search($q: String) {
   }
   SearchBooks(q: $q) {
     users {
+      name
       username
     }
     title
