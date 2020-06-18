@@ -2,6 +2,7 @@ query Search($q: String) {
   SearchUsers(q: $q) {
     name
     username
+    totalBooks
     books(limit: 3) {
       title
       slug

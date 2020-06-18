@@ -58,6 +58,13 @@ class UserType extends GraphQLType
                 'type' => Type::int(),
                 'description' => 'The order of user'
             ],
+            'totalBooks' => [
+                'type' => Type::int(),
+                'description' => 'Total number of books of user',
+                'resolve' => function ($root, $args) {
+                    return $root->books()->count();
+                }
+            ],
             'books' => [
                 'type' => Type::listOf(GraphQL::type('book')),
                 'description' => 'The user\'s books',

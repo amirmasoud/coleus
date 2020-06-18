@@ -56,39 +56,68 @@
                   v-for="result in eachSection(item)"
                   :key="result.id"
                   @click="close()"
-                  class="border-b border-gray-200"
+                  class="border-b border-gray-200 px-2 py-1 truncate"
                 >
-                  <nuxt-link
-                    :to="linkTo(result, item)"
-                    class="w-full block px-2 py-1 truncate"
-                  >
-                    <p v-if="item === 'books'" class="text-gray-500 font-light">
-                      <lazy-coleus-breadcrumb-element
-                        :user-name="result.users[0].name"
-                      />
+                  <p v-if="item === 'books'" class="text-gray-500 font-light">
+                    <lazy-coleus-breadcrumb-element
+                      :user-name="result.users[0].name"
+                    />
+                  </p>
+                  <p v-if="item === 'pages'" class="text-gray-500 font-light">
+                    <lazy-coleus-breadcrumb-element
+                      :user-name="result.book.users[0].name"
+                      :book-title="result.book.title"
+                    />
+                  </p>
+                  <p v-if="item === 'blocks'" class="text-gray-500 font-light">
+                    <lazy-coleus-breadcrumb-element
+                      :user-name="result.page.book.users[0].name"
+                      :book-title="result.page.book.title"
+                    />
+                  </p>
+                  <nuxt-link :to="linkTo(result, item)">
+                    <p>
+                      {{ getLinkText(result, item) }}
                     </p>
-                    <p v-if="item === 'pages'" class="text-gray-500 font-light">
-                      <lazy-coleus-breadcrumb-element
-                        :user-name="result.book.users[0].name"
-                        :book-title="result.book.title"
-                      />
-                    </p>
-                    <p
-                      v-if="item === 'blocks'"
-                      class="text-gray-500 font-light"
-                    >
-                      <lazy-coleus-breadcrumb-element
-                        :user-name="result.page.book.users[0].name"
-                        :book-title="result.page.book.title"
-                      />
-                    </p>
-                    {{ getLinkText(result, item) }}
-                    <template v-if="item === 'users'">
-                      <span v-for="book in result.books" :key="book.slug">
-                        {{ book.title }}
-                      </span>
-                    </template>
                   </nuxt-link>
+                  <template v-if="item === 'users'">
+                    <div class="my-2">
+                      <span
+                        v-for="book in result.books"
+                        :key="book.slug"
+                        class="bg-gray-300 text-gray-800 rounded-full px-2 ml-1 text-sm"
+                      >
+                        <nuxt-link
+                          :to="{
+                            name: 'username-book-parent-page',
+                            params: {
+                              username: result.username,
+                              book: book.slug,
+                              parent: book.pages[0].parent_id,
+                              page: book.pages[0].id
+                            }
+                          }"
+                        >
+                          {{ book.title }}
+                        </nuxt-link>
+                      </span>
+                      <span
+                        v-if="result.totalBooks - 3 > 0"
+                        class="bg-gray-300 text-gray-800 rounded-full px-2 ml-1 text-sm"
+                      >
+                        <nuxt-link
+                          :to="{
+                            name: 'username',
+                            params: {
+                              username: result.username
+                            }
+                          }"
+                        >
+                          {{ result.totalBooks - 3 }}+
+                        </nuxt-link>
+                      </span>
+                    </div>
+                  </template>
                 </li>
               </ul>
             </div>
