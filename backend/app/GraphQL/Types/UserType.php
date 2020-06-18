@@ -4,6 +4,7 @@ namespace App\GraphQL\Types;
 
 use App\User;
 use GraphQL\Type\Definition\Type;
+use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
 class UserType extends GraphQLType
@@ -57,6 +58,20 @@ class UserType extends GraphQLType
                 'type' => Type::int(),
                 'description' => 'The order of user'
             ],
+            'books' => [
+                'type' => Type::listOf(GraphQL::type('book')),
+                'description' => 'The user\'s books',
+                'args' => [
+                    'limit' => [
+                        'type' => Type::int(),
+                    ]
+                ],
+                'resolve' => function ($root, $args) {
+                    return $root->books()
+                        ->limit($args['limit'] ?? INF)
+                        ->get();
+                }
+            ]
         ];
     }
 }

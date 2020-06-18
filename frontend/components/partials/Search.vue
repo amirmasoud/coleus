@@ -56,6 +56,7 @@
                   v-for="result in eachSection(item)"
                   :key="result.id"
                   @click="close()"
+                  class="border-b border-gray-200"
                 >
                   <nuxt-link
                     :to="linkTo(result, item)"
@@ -82,6 +83,11 @@
                       />
                     </p>
                     {{ getLinkText(result, item) }}
+                    <template v-if="item === 'users'">
+                      <span v-for="book in result.books" :key="book.slug">
+                        {{ book.title }}
+                      </span>
+                    </template>
                   </nuxt-link>
                 </li>
               </ul>
@@ -106,12 +112,38 @@
                   v-for="result in eachSection(item)"
                   :key="result.id"
                   @click="close()"
+                  class="border-b border-gray-200"
                 >
                   <nuxt-link
                     :to="linkTo(result, item)"
                     class="w-full block px-2 py-1 truncate"
                   >
+                    <p v-if="item === 'books'" class="text-gray-500 font-light">
+                      <lazy-coleus-breadcrumb-element
+                        :user-name="result.users[0].name"
+                      />
+                    </p>
+                    <p v-if="item === 'pages'" class="text-gray-500 font-light">
+                      <lazy-coleus-breadcrumb-element
+                        :user-name="result.book.users[0].name"
+                        :book-title="result.book.title"
+                      />
+                    </p>
+                    <p
+                      v-if="item === 'blocks'"
+                      class="text-gray-500 font-light"
+                    >
+                      <lazy-coleus-breadcrumb-element
+                        :user-name="result.page.book.users[0].name"
+                        :book-title="result.page.book.title"
+                      />
+                    </p>
                     {{ getLinkText(result, item) }}
+                    <template v-if="item === 'users'">
+                      <span v-for="book in result.books" :key="book.slug">
+                        {{ book.title }}
+                      </span>
+                    </template>
                   </nuxt-link>
                 </li>
               </ul>
