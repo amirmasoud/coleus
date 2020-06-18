@@ -4,11 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: [
-          'NotoSansArabic',
-          'NotoSans',
-          ...defaultTheme.fontFamily.sans
-        ]
+        sans: ['NotoSansArabic', 'NotoSans', ...defaultTheme.fontFamily.sans]
       },
       colors: {
         coleus: {
@@ -17,12 +13,12 @@ module.exports = {
           green: '#108775'
         }
       },
-      fill: theme => ({
+      fill: (theme) => ({
         'coleus-gray': theme('colors.coleus.gray'),
         'coleus-lightgreen': theme('colors.coleus.lightgreen'),
         'coleus-green': theme('colors.coleus.green')
       }),
-      stroke: theme => ({
+      stroke: (theme) => ({
         'coleus-gray': theme('colors.coleus.gray'),
         'coleus-lightgreen': theme('colors.coleus.lightgreen'),
         'coleus-green': theme('colors.coleus.green')
@@ -39,5 +35,15 @@ module.exports = {
     textColor: ['responsive', 'hover', 'focus', 'group-hover'],
     boxShadow: ['responsive', 'group-hover']
   },
-  plugins: []
+  plugins: [],
+  purge: {
+    enabled: process.env.NODE_ENV === 'production',
+    content: [
+      'components/**/*.vue',
+      'layouts/**/*.vue',
+      'pages/**/*.vue',
+      'plugins/**/*.js',
+      'nuxt.config.js'
+    ]
+  }
 }
