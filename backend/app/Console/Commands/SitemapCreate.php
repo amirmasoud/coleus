@@ -48,12 +48,10 @@ class SitemapCreate extends Command
     public function handle()
     {
         $users = [];
-        $books = [];
         $pages = [];
         foreach (User::get() as $user) {
             $users[] = $this->url($user['username']);
             foreach ($user->books()->get() as $book) {
-                $books[] = $this->url($user['username'], $book['slug']);
                 foreach ($book->pages()->whereNotNull('parent_id')->get() as $page) {
                     $pages[] = $this->url($user['username'], $book['slug'], $page->parent_id, $page->id);
                 }
@@ -68,7 +66,6 @@ class SitemapCreate extends Command
             xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
             xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">'
             . implode('', $users) .
-            implode('', $books) .
             implode('', $pages) .
             '</urlset>';
 
