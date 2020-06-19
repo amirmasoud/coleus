@@ -76,7 +76,7 @@
                     />
                   </p>
                   <nuxt-link :to="linkTo(result, item)">
-                    <p>
+                    <p class="truncate">
                       {{ getLinkText(result, item) }}
                     </p>
                   </nuxt-link>
@@ -163,9 +163,9 @@
                   </p>
                   <nuxt-link
                     :to="linkTo(result, item)"
-                    class="w-full block px-2 py-1 truncate"
+                    class="w-full block px-2 py-1"
                   >
-                    <p>
+                    <p class="truncate">
                       {{ getLinkText(result, item) }}
                     </p>
                   </nuxt-link>
