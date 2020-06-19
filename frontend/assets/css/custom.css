@@ -5,3 +5,15 @@
     }
   }
 }
+
+/* used for search result height in mobile view */
+.h-\(screen-27\) {
+  height: calc(100vh - 6.75rem);
+}
+
+/* used for search result height in mobile sm (32.4) view */
+@screen md {
+  .sm\:h-\(screen-32\) {
+    height: calc(100vh - 8.1rem);
+  }
+}

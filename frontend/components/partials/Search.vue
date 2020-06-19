@@ -42,7 +42,7 @@
       <div v-if="isOpen" class="hidden lg:block">
         <div
           v-if="anyResult()"
-          class="absolute bg-white w-full px-4 lg:px-0 lg:rounded lg:shadow lg:border lg:border-gray-300 mb-32 lg:mb-0 py-2 overflow-y-scroll h-screen lg:h-64 pb-48 lg:pb-0"
+          class="absolute bg-white w-full px-0 rounded shadow border border-gray-300 py-2 overflow-y-scroll h-64"
         >
           <div v-for="(index, item) in search" :key="index">
             <div v-if="hasResult(item)">
@@ -56,7 +56,7 @@
                   v-for="result in eachSection(item)"
                   :key="result.id"
                   @click="close()"
-                  class="border-b border-gray-200 px-2 py-1 truncate"
+                  class="border-b border-gray-200 px-2 py-1"
                 >
                   <p v-if="item === 'books'" class="text-gray-500 font-light">
                     <lazy-coleus-breadcrumb-element
@@ -76,7 +76,7 @@
                     />
                   </p>
                   <nuxt-link :to="linkTo(result, item)">
-                    <p>
+                    <p class="truncate">
                       {{ getLinkText(result, item) }}
                     </p>
                   </nuxt-link>
@@ -128,7 +128,7 @@
       <div class="block lg:hidden">
         <div
           v-if="anyResult()"
-          class="absolute bg-white w-full px-4 lg:px-0 lg:rounded lg:shadow lg:border lg:border-gray-300 mb-32 lg:mb-0 py-2 overflow-y-scroll h-screen lg:h-64 pb-48 lg:pb-0"
+          class="absolute bg-white w-full px-4 py-2 overflow-y-scroll h-(screen-27) sm:h-(screen-32)"
         >
           <div v-for="(index, item) in search" :key="index">
             <div v-if="hasResult(item)">
@@ -142,7 +142,7 @@
                   v-for="result in eachSection(item)"
                   :key="result.id"
                   @click="close()"
-                  class="border-b border-gray-200 px-2 py-1 truncate"
+                  class="border-b border-gray-200 px-2 py-1"
                 >
                   <p v-if="item === 'books'" class="text-gray-500 font-light">
                     <lazy-coleus-breadcrumb-element
@@ -161,11 +161,8 @@
                       :book-title="result.page.book.title"
                     />
                   </p>
-                  <nuxt-link
-                    :to="linkTo(result, item)"
-                    class="w-full block px-2 py-1 truncate"
-                  >
-                    <p>
+                  <nuxt-link :to="linkTo(result, item)">
+                    <p class="truncate">
                       {{ getLinkText(result, item) }}
                     </p>
                   </nuxt-link>
@@ -332,8 +329,8 @@ export default {
           params: {
             username: result.users[0].username,
             book: result.slug,
-            parent: result.pages.parent_id,
-            page: result.pages.id
+            parent: result.pages[0].parent_id,
+            page: result.pages[0].id
           },
           query: { page: 1 }
         }
@@ -346,7 +343,7 @@ export default {
             parent: result.parent_id,
             page: result.id
           },
-          query: { page: 1 }
+          query: { page: result.page_no }
         }
       } else {
         // item === blocks
@@ -358,7 +355,7 @@ export default {
             parent: result.page.parent_id,
             page: result.page.id
           },
-          query: { page: 1 }
+          query: { page: result.page_no }
         }
       }
     }
