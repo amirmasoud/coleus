@@ -56,7 +56,7 @@
                   v-for="result in eachSection(item)"
                   :key="result.id"
                   @click="close()"
-                  class="border-b border-gray-200 px-2 py-1 truncate"
+                  class="border-b border-gray-200 px-2 py-1"
                 >
                   <p v-if="item === 'books'" class="text-gray-500 font-light">
                     <lazy-coleus-breadcrumb-element
@@ -142,7 +142,7 @@
                   v-for="result in eachSection(item)"
                   :key="result.id"
                   @click="close()"
-                  class="border-b border-gray-200 px-2 py-1 truncate"
+                  class="border-b border-gray-200 px-2 py-1"
                 >
                   <p v-if="item === 'books'" class="text-gray-500 font-light">
                     <lazy-coleus-breadcrumb-element
@@ -161,10 +161,7 @@
                       :book-title="result.page.book.title"
                     />
                   </p>
-                  <nuxt-link
-                    :to="linkTo(result, item)"
-                    class="w-full block px-2 py-1"
-                  >
+                  <nuxt-link :to="linkTo(result, item)">
                     <p class="truncate">
                       {{ getLinkText(result, item) }}
                     </p>
