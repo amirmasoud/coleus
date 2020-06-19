@@ -41,6 +41,16 @@ class PageType extends GraphQLType
             'book' => [
                 'type' => GraphQL::type('book'),
                 'description' => 'The page books',
+            ],
+            'page_no' => [
+                'type' => Type::int(),
+                'description' => 'The page number',
+                'resolve' => function ($root, $args) {
+                    return (int) ($root->book->pages
+                        ->where('parent_id', $root->parent_id)
+                        ->where('id', '<=', $root->id)
+                        ->count() / 10) + 1;
+                }
             ]
         ];
     }

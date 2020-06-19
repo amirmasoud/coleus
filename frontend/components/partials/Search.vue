@@ -343,7 +343,7 @@ export default {
             parent: result.parent_id,
             page: result.id
           },
-          query: { page: 1 }
+          query: { page: result.page_no }
         }
       } else {
         // item === blocks

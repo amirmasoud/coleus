@@ -30,6 +30,7 @@ query Search($q: String) {
     id
     title
     parent_id
+    page_no
     book {
       title
       slug
