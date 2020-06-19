@@ -332,8 +332,8 @@ export default {
           params: {
             username: result.users[0].username,
             book: result.slug,
-            parent: result.pages.parent_id,
-            page: result.pages.id
+            parent: result.pages[0].parent_id,
+            page: result.pages[0].id
           },
           query: { page: 1 }
         }
