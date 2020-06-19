@@ -54,5 +54,6 @@ query Search($q: String) {
       }
     }
     content
+    page_no
   }
 }

@@ -355,7 +355,7 @@ export default {
             parent: result.page.parent_id,
             page: result.page.id
           },
-          query: { page: 1 }
+          query: { page: result.page_no }
         }
       }
     }
