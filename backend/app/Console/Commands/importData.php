@@ -191,12 +191,16 @@ class ImportData extends Command
 
         // Reset
         $this->info('Reset data');
-        User::truncate();
-        Storage::deleteDirectory('profile_picture');
-        Book::truncate();
-        Storage::deleteDirectory('book_cover');
-        Page::truncate();
-        Block::truncate();
+        if (!is_null($this->argument('username'))) {
+            User::whereUsername($this->argument('username'))->delete();
+        } else {
+            User::truncate();
+            Storage::deleteDirectory('profile_picture');
+            Book::truncate();
+            Storage::deleteDirectory('book_cover');
+            Page::truncate();
+            Block::truncate();
+        }
 
         $users = json_decode(Storage::disk('dataset')->get('ganjoor/users/all.json'));
         foreach ($users as $user) {
