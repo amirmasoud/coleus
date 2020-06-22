@@ -192,16 +192,18 @@ class ImportData extends Command
         // Reset
         $this->info('Reset data');
         if (!is_null($this->argument('username'))) {
-            $user = User::whereUsername($this->argument('username'))->firstOrFail();
-            $user->books()->detach();
-            foreach ($user->books as $book) {
-                foreach ($book->pages as $page) {
-                    $page->blocks->delete();
-                    $page->delete();
+            $user = User::whereUsername($this->argument('username'))->first();
+            if (!is_null($user)) {
+                $user->books()->detach();
+                foreach ($user->books as $book) {
+                    foreach ($book->pages as $page) {
+                        $page->blocks->delete();
+                        $page->delete();
+                    }
+                    $book->delete();
                 }
-                $book->delete();
+                $user->delete();
             }
-            $user->delete();
         } else {
             User::truncate();
             Storage::deleteDirectory('profile_picture');
