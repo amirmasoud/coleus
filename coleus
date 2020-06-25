@@ -29,7 +29,7 @@ elif [ $1 = "artisan" ]; then
     exit 1
 elif [ $1 = "tinker" ]; then
     eval "./tinker.sh"
-    exit;
+    exit
 elif [ $1 = "composer" ]; then
     eval "./composer.sh \"${@:2}\""
     exit 1

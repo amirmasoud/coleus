@@ -2,4 +2,4 @@
 
 source $(dirname $0)/main.sh
 
-eval "docker-compose exec backend php artisan $@"
+eval "cd ../../ && docker-compose -f docker-compose.dev.yml exec backend php artisan $@"

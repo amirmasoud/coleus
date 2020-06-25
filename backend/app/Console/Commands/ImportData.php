@@ -20,17 +20,7 @@ class ImportData extends Command
      */
     protected $signature = 'import:data
                             {username? : Username}
-                            {bookSlug? : Book Slug}
-                            {path? : The path to dataset}
-                            {book? : The book ID to content add to}
-                            {parent? : The parent of the content}
-                            {--T|title= : The title of the content}
-                            {--R|refresh : Refresh book\'s content before import}
-                            {--C|count : Count title on indexing}
-                            {--P|persian : Persian numbers}
-                            {--H|header=* : Subheader titles}
-                            {--A|append : Append m1 to titles}
-                            {--D|delimiter= : Delimiter for append and title, default is ": "}';
+                            {bookSlug? : Book Slug}';
 
     /**
      * The console command description.
