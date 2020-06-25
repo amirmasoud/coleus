@@ -135,11 +135,11 @@ export default {
   }),
   computed: {
     currentParent() {
-      return this.parent || this.$route.params.parent
+      return parseInt(this.parent || this.$route.params.parent)
     },
 
     currentOffset() {
-      return this.perPage * this.paginateCurrentPage - this.perPage
+      return parseInt(this.perPage * this.paginateCurrentPage - this.perPage)
     },
 
     paginateCurrentPage: {
@@ -157,6 +157,11 @@ export default {
       prefetch: ({ route }) => ({ book: route.params.book }),
       variables() {
         return { book: this.$route.params.book }
+      },
+      result(res) {
+        if (!res.data.books.length) {
+          this.$root.$emit('graphql-error')
+        }
       }
     },
     pages: {
@@ -175,6 +180,19 @@ export default {
         this.pagesAggregate = data.pages_aggregate.aggregate.count
         this.calculatePagination()
         return data.pages
+      },
+      skip() {
+        const skip =
+          !Number.isInteger(this.currentParent) ||
+          this.currentParent <= 0 ||
+          !Number.isInteger(this.currentOffset) ||
+          this.currentOffset < 0
+
+        if (skip) {
+          this.$root.$emit('graphql-error')
+        }
+
+        return skip
       }
     }
   },

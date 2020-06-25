@@ -31,7 +31,10 @@ export default {
    ** Plugins to load before mounting the App
    **
    */
-  plugins: [{ src: '~/plugins/progressive-image.js', mode: 'client' }],
+  plugins: [
+    '~/mixins/common.js',
+    { src: '~/plugins/progressive-image.js', mode: 'client' }
+  ],
 
   /*
    ** Nuxt.js dev-modules
