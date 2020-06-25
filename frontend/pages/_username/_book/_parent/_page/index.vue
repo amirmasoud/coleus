@@ -91,12 +91,27 @@ export default {
       ]
     }
   },
+  computed: {
+    currentPage() {
+      return parseInt(this.page || this.$route.params.page)
+    }
+  },
   apollo: {
     pages: {
       query: require('~/graphql/page.gql'),
       prefetch: ({ route }) => ({ page: route.params.page }),
       variables() {
-        return { page: this.page || this.$route.params.page }
+        return { page: this.currentPage }
+      },
+      skip() {
+        const skip =
+          !Number.isInteger(this.currentPage) || this.currentParent <= 0
+
+        if (skip) {
+          this.$root.$emit('graphql-error')
+        }
+
+        return skip
       }
     }
   }
