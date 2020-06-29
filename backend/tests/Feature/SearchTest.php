@@ -123,5 +123,34 @@ class SearchTest extends TestCase
      */
     public function testBlockSearch()
     {
+        $user = factory(User::class)->create();
+        $user->books()->createMany(
+            factory(Book::class, 1)->make()->toArray()
+        );
+        $book = Book::first();
+        $book->pages()->createMany(
+            factory(Page::class, 1)->make()->toArray()
+        );
+        $page = Page::first();
+        $page->blocks()->createMany(
+            factory(Block::class, 1)->make()->toArray()
+        );
+        $block = Block::first();
+        $block->update(['content' => 'Test Block']);
+        $this->assertDatabaseHas('blocks', ['id' => $block->id]);
+
+        $response = $this->withHeaders([
+            'Content-Type' => 'application/json',
+        ])->json('GET', '/graphql', [
+            'query' => 'query search($q: String) {SearchBlocks(q: $q) {content}}',
+            'variables' => '{"q":"Test"}'
+        ]);
+        $response->assertStatus(200)->assertExactJson([
+            'data' => [
+                'SearchBlocks' => [
+                    ["content" => "Test Block"]
+                ]
+            ]
+        ]);
     }
 }
