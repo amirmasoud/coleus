@@ -43,7 +43,7 @@ class SearchTest extends TestCase
             'query' => 'query search($q: String) {SearchUsers(q: $q) {name}}',
             'variables' => '{"q":"Test"}'
         ]);
-        $response->assertStatus(200)->assertJson([
+        $response->assertStatus(200)->assertExactJson([
             'data' => [
                 'SearchUsers' => [
                     ["name" => "Test User"]
@@ -59,6 +59,27 @@ class SearchTest extends TestCase
      */
     public function testBookSearch()
     {
+        $user = factory(User::class)->create();
+        $user->books()->createMany(
+            factory(Book::class, 1)->make()->toArray()
+        );
+        $book = Book::first();
+        $book->update(['title' => 'Test Book']);
+        $this->assertDatabaseHas('books', ['id' => $book->id]);
+
+        $response = $this->withHeaders([
+            'Content-Type' => 'application/json',
+        ])->json('GET', '/graphql', [
+            'query' => 'query search($q: String) {SearchBooks(q: $q) {title}}',
+            'variables' => '{"q":"Test"}'
+        ]);
+        $response->assertStatus(200)->assertExactJson([
+            'data' => [
+                'SearchBooks' => [
+                    ["title" => "Test Book"]
+                ]
+            ]
+        ]);
     }
 
     /**
@@ -68,6 +89,26 @@ class SearchTest extends TestCase
      */
     public function testPageSearch()
     {
+        $user = factory(User::class)->create();
+        $user->books()->createMany(
+            factory(Book::class, 1)->make()->toArray()
+        );
+        $book = Book::first();
+        $this->assertDatabaseHas('books', ['id' => $book->id]);
+
+        $response = $this->withHeaders([
+            'Content-Type' => 'application/json',
+        ])->json('GET', '/graphql', [
+            'query' => 'query search($q: String) {SearchBooks(q: $q) {title}}',
+            'variables' => '{"q":"Test"}'
+        ]);
+        $response->assertStatus(200)->assertExactJson([
+            'data' => [
+                'SearchBooks' => [
+                    ["title" => "Test Book"]
+                ]
+            ]
+        ]);
     }
 
     /**
