@@ -21,7 +21,7 @@ class SearchTest extends TestCase
      */
     public function testStatus()
     {
-        $response = $this->get('/api/search?q=test');
+        $response = $this->get('/graphql');
 
         $response->assertStatus(200);
     }
@@ -36,6 +36,20 @@ class SearchTest extends TestCase
         $user = factory(User::class)->create();
         $user->update(['name' => 'Test User']);
         $this->assertDatabaseHas('users', ['id' => $user->id]);
+
+        $response = $this->withHeaders([
+            'Content-Type' => 'application/json',
+        ])->json('GET', '/graphql', [
+            'query' => 'query search($q: String) {SearchUsers(q: $q) {name}}',
+            'variables' => '{"q":"Test"}'
+        ]);
+        $response->assertStatus(200)->assertJson([
+            'data' => [
+                'SearchUsers' => [
+                    ["name" => "Test User"]
+                ]
+            ]
+        ]);
     }
 
     /**
