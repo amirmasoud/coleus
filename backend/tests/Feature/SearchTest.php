@@ -94,18 +94,23 @@ class SearchTest extends TestCase
             factory(Book::class, 1)->make()->toArray()
         );
         $book = Book::first();
-        $this->assertDatabaseHas('books', ['id' => $book->id]);
+        $book->pages()->createMany(
+            factory(Page::class, 1)->make()->toArray()
+        );
+        $page = Page::first();
+        $page->update(['title' => 'Test Page']);
+        $this->assertDatabaseHas('pages', ['id' => $page->id]);
 
         $response = $this->withHeaders([
             'Content-Type' => 'application/json',
         ])->json('GET', '/graphql', [
-            'query' => 'query search($q: String) {SearchBooks(q: $q) {title}}',
+            'query' => 'query search($q: String) {SearchPages(q: $q) {title}}',
             'variables' => '{"q":"Test"}'
         ]);
         $response->assertStatus(200)->assertExactJson([
             'data' => [
-                'SearchBooks' => [
-                    ["title" => "Test Book"]
+                'SearchPages' => [
+                    ["title" => "Test Page"]
                 ]
             ]
         ]);
