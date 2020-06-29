@@ -14,7 +14,3 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('cache.headers:private;max_age=5')->group(function () {
-    Route::get('search', 'SearchController@query');
-});
