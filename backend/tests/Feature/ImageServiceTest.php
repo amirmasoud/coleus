@@ -31,5 +31,7 @@ class ImageServiceTest extends TestCase
         // $this->get($url)
         //     ->assertOk()
         //     ->assertHeader('content-type', 'image/jpeg');
+
+        Storage::deleteDirectory('test');
     }
 }
