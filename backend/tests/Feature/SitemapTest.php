@@ -3,15 +3,12 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use DOMDocument;
 use App\User;
 use App\Book;
-use App\Page;
-use App\Block;
 
 class SitemapTest extends TestCase
 {
