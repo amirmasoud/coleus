@@ -9,10 +9,17 @@ import {
   BooleanField,
   NumberField,
   ImageField,
+  DateField,
   EditButton,
   TextInput,
   BooleanInput,
   NumberInput,
+  SelectInput,
+  ReferenceField,
+  ReferenceArrayField,
+  ReferenceManyField,
+  SingleFieldList,
+  ChipField,
 } from "react-admin";
 
 export const UserList = (props) => (
@@ -32,13 +39,22 @@ export const UserList = (props) => (
 
 export const UserEdit = (props) => (
   <Edit {...props}>
-    <SimpleForm rowClick="edit">
+    <SimpleForm>
+      <DateField source="created_at" showTime />
+      <ImageField source="medium" />
       <TextInput source="id" />
-      <ImageField source="thumbnail" />
       <TextInput source="name" />
       <TextInput source="username" />
       <TextInput source="email" />
-      <TextInput source="status" />
+      <TextInput source="website" />
+      <SelectInput
+        source="status"
+        choices={[
+          { id: "open", name: "Open" },
+          { id: "locked", name: "Locked" },
+          { id: "banned", name: "Banned" },
+        ]}
+      />
       <BooleanInput source="sticky" />
       <NumberInput source="order" />
       <TextInput multiline source="bio" />
