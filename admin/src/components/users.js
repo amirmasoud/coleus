@@ -15,6 +15,11 @@ import {
   BooleanInput,
   NumberInput,
   SelectInput,
+  ReferenceField,
+  ReferenceArrayField,
+  ReferenceManyField,
+  SingleFieldList,
+  ChipField,
 } from "react-admin";
 
 export const UserList = (props) => (
@@ -34,7 +39,7 @@ export const UserList = (props) => (
 
 export const UserEdit = (props) => (
   <Edit {...props}>
-    <SimpleForm rowClick="edit">
+    <SimpleForm>
       <DateField source="created_at" showTime />
       <ImageField source="medium" />
       <TextInput source="id" />
