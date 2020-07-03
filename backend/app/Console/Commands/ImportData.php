@@ -186,9 +186,9 @@ class ImportData extends Command
             if (!is_null($user)) {
                 foreach ($user->books as $book) {
                     foreach ($book->pages as $page) {
-                        $page->blocks->delete();
-                        $page->delete();
+                        $page->blocks()->delete();
                     }
+                    $book->pages()->delete();
                     $user->books()->detach($book->id);
                     $book->delete();
                 }
