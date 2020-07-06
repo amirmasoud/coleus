@@ -18,7 +18,7 @@
             <h1 class="text-4xl mb-10 border-indigo-600">
               {{ pages[0].title }}
             </h1>
-            <div class="flex flex-wrap content-wrapper">
+            <div class="flex flex-wrap content-wrapper sm:mb-20">
               <div
                 v-for="block in pages[0].blocks"
                 :key="block.id"
