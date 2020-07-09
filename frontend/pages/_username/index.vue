@@ -4,11 +4,11 @@
       <div v-for="user in users" :key="user.id">
         <div class="px-4 py-2 sm:p-2">
           <div
-            class="flex mx-auto w-20 sm:w-32 -mb-4 shadow-lg border-4 border-white rounded-full overflow-hidden"
+            class="flex mx-auto w-20 sm:w-32 -mb-4 shadow border-4 border-white rounded-full overflow-hidden"
           >
             <client-only>
               <progressive-img
-                class="pofile-page-image"
+                class="profile-page-image"
                 :src="user.medium"
                 :placeholder="user.thumbnail"
                 :blur="30"
