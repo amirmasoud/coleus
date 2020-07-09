@@ -5,7 +5,7 @@
     itemtype="http://schema.org/Book"
     property="book"
     typeof="Book"
-    class="max-w-md bg-white overflow-hidden"
+    class="max-w-md bg-white rounded-lg"
   >
     <meta itemprop="bookFormat" content="EBook/DAISY3" />
     <meta itemprop="accessMode" content="{textual}" />
