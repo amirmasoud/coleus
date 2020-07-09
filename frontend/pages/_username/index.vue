@@ -92,6 +92,16 @@ export default {
       prefetch: ({ route }) => ({ username: route.params.username }),
       variables() {
         return { username: this.$route.params.username }
+      },
+      update(data) {
+        if (data.users.length) {
+          return data.users
+        } else {
+          this.$nuxt.error({
+            message: 'کاربر مورد نظر یافت نشد',
+            statusCode: 404
+          })
+        }
       }
     }
   }
