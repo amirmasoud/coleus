@@ -17,3 +17,12 @@
     height: calc(100vh - 8.1rem);
   }
 }
+
+/* Progressive image */
+.home-profile img {
+  @apply rounded;
+}
+
+.book-cover img {
+  @apply shadow border border-gray-200 rounded-lg;
+}

@@ -30,7 +30,7 @@
               />
               <client-only>
                 <progressive-img
-                  class="rounded"
+                  class="home-profile"
                   :src="user.xsmall"
                   :placeholder="user.thumbnail"
                   :blur="30"

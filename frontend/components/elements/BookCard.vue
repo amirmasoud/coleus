@@ -5,7 +5,7 @@
     itemtype="http://schema.org/Book"
     property="book"
     typeof="Book"
-    class="max-w-md bg-white rounded overflow-hidden"
+    class="max-w-md bg-white overflow-hidden"
   >
     <meta itemprop="bookFormat" content="EBook/DAISY3" />
     <meta itemprop="accessMode" content="{textual}" />
@@ -25,7 +25,7 @@
         :placeholder="book.thumbnail"
         :blur="30"
         :aspect-ratio="1.5"
-        class="shadow border border-gray-200 rounded"
+        class="book-cover"
       />
     </client-only>
     <div class="">
