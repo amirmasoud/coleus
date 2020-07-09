@@ -26,3 +26,7 @@
 .book-cover img {
   @apply shadow border border-gray-200 rounded-lg;
 }
+
+.profile-page-image img {
+  @apply shadow-lg rounded-full;
+}
