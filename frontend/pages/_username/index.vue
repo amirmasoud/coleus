@@ -8,7 +8,7 @@
           >
             <client-only>
               <progressive-img
-                class="shadow-lg rounded-full"
+                class="pofile-page-image"
                 :src="user.medium"
                 :placeholder="user.thumbnail"
                 :blur="30"
