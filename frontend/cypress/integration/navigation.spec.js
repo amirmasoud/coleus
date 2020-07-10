@@ -21,4 +21,12 @@ context('Navigation', () => {
       /Parvin-E'tesami\/Divan---E-Parvin-E'Tesami\/1\/2\/\?page=1|Parvin-E%27tesami\/Divan---E-Parvin-E%27Tesami\/1\/2\/\?page=1/
     )
   })
+
+  it('lands on 404', () => {
+    cy.request({ method: 'GET', url: '404', failOnStatusCode: false }).then(
+      (response) => {
+        expect(response.status).to.eq(404)
+      }
+    )
+  })
 })
