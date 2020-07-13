@@ -1,11 +1,11 @@
 <template>
   <aside
-    class="block absolute right-0 left-0 bg-gray-100 py-4 lg:mx-0 lg:inset-0 z-90 lg:mb-0 lg:static lg:h-auto lg:overflow-y-visible lg:pt-0 lg:w-1/4 lg:block"
+    class="aside-container block absolute right-0 left-0 bg-gray-100 py-4 lg:mx-0 lg:inset-0 z-90 lg:mb-0 lg:sticky lg:pt-0 lg:w-1/4 lg:pb-0"
   >
     <div
-      class="h-full overflow-y-auto scrolling-touch lg:text-right lg:h-auto lg:block lg:relative lg:sticky lg:top-24 lg:mt-2"
+      class="aside-inner-container overflow-y-auto scrolling-touch lg:text-right lg:h-auto lg:block lg:relative lg:sticky lg:top-24 lg:mt-0"
     >
-      <nav class="lg:overflow-y-auto lg:block lg:pl-0 sticky?lg:h-(screen-24)">
+      <nav class="lg:overflow-y-auto lg:block lg:pl-0">
         <div v-if="books && books.length">
           <template v-for="(page, index) in books[0].pages" class="flex">
             <div :key="`icon-${index}`">
@@ -372,5 +372,19 @@ export default {
 <style lang="scss">
 .pagination-link-disabled {
   @apply text-gray-400 border-gray-200 shadow-none cursor-not-allowed;
+}
+
+.aside-container {
+  @screen lg {
+    height: calc(100vh - 4rem);
+    position: sticky;
+    top: 4rem;
+  }
+}
+
+.aside-inner-container {
+  @screen lg {
+    height: calc(100vh - 4rem);
+  }
 }
 </style>
