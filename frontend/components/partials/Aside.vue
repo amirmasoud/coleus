@@ -257,6 +257,7 @@ export default {
     toggleHeader(pageId) {
       if (this.parent !== pageId) {
         this.parent = pageId
+        this.paginateCurrentPage = 1
         // Causing currentParent in computed properties to change and trigger
         // apollo pages query.
         this.loadingParent = true
