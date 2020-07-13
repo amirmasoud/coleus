@@ -306,7 +306,14 @@ export default {
      */
     calculatePagination() {
       this.paginateTotalPages = Math.ceil(this.pagesAggregate / this.perPage)
-      this.paginateCurrentPage = Math.ceil(this.offset / this.perPage) + 1
+      if (
+        !(
+          Number.isInteger(this.paginateCurrentPage) &&
+          this.paginateCurrentPage > 1
+        )
+      ) {
+        this.paginateCurrentPage = Math.ceil(this.offset / this.perPage) + 1
+      }
     },
 
     /**
