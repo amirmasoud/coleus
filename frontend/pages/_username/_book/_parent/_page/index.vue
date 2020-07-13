@@ -103,6 +103,16 @@ export default {
       variables() {
         return { page: this.currentPage }
       },
+      update(data) {
+        if (data.pages.length) {
+          return data.pages
+        } else {
+          this.$nuxt.error({
+            message: 'صفحه مورد نظر یافت نشد',
+            statusCode: 404
+          })
+        }
+      },
       skip() {
         const skip =
           !Number.isInteger(this.currentPage) || this.currentParent <= 0

@@ -158,6 +158,16 @@ export default {
       variables() {
         return { book: this.$route.params.book }
       },
+      update(data) {
+        if (data.books.length) {
+          return data.books
+        } else {
+          this.$nuxt.error({
+            message: 'کتاب مورد نظر یافت نشد',
+            statusCode: 404
+          })
+        }
+      },
       result(res) {
         if (!res.data.books.length) {
           this.$root.$emit('graphql-error')
