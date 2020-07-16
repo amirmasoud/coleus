@@ -44,12 +44,8 @@ export default {
     '@nuxtjs/tailwindcss',
     '@nuxt/components',
     '@nuxtjs/dotenv',
-    [
-      '@nuxtjs/google-analytics',
-      {
-        id: process.env.GOOGLE_ANALYTICS_ID
-      }
-    ]
+    '@nuxtjs/router',
+    ['@nuxtjs/google-analytics', { id: process.env.GOOGLE_ANALYTICS_ID }]
   ],
 
   /*

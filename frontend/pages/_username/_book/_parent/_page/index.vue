@@ -93,6 +93,7 @@ export default {
   },
   computed: {
     currentPage() {
+      console.log(this.$route.params.page)
       return parseInt(this.page || this.$route.params.page)
     }
   },
