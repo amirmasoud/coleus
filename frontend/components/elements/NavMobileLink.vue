@@ -22,6 +22,23 @@ export default {
     coleusSvgUsers,
     coleusSvgBook
   },
-  props: ['to', 'routeName', 'searchOpen', 'svg']
+  props: {
+    to: {
+      type: Object,
+      default: () => {}
+    },
+    routeName: {
+      type: String,
+      default: ''
+    },
+    searchOpen: {
+      type: Boolean,
+      default: false
+    },
+    svg: {
+      type: String,
+      default: ''
+    }
+  }
 }
 </script>

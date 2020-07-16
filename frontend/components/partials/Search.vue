@@ -55,8 +55,8 @@
                 <li
                   v-for="result in eachSection(item)"
                   :key="result.id"
-                  @click="close()"
                   class="border-b border-gray-200 px-2 py-1"
+                  @click="close()"
                 >
                   <p v-if="item === 'books'" class="text-gray-500 font-light">
                     <lazy-coleus-breadcrumb-element
@@ -141,8 +141,8 @@
                 <li
                   v-for="result in eachSection(item)"
                   :key="result.id"
-                  @click="close()"
                   class="border-b border-gray-200 px-2 py-1"
+                  @click="close()"
                 >
                   <p v-if="item === 'books'" class="text-gray-500 font-light">
                     <lazy-coleus-breadcrumb-element

@@ -8,6 +8,11 @@
 
 <script>
 export default {
-  props: ['to']
+  props: {
+    to: {
+      type: Object,
+      default: () => {}
+    }
+  }
 }
 </script>

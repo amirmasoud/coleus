@@ -19,6 +19,7 @@
               {{ pages[0].title }}
             </h1>
             <div class="flex flex-wrap content-wrapper sm:mb-20">
+              <!-- eslint-disable -->
               <div
                 v-for="block in pages[0].blocks"
                 :key="block.id"
@@ -29,6 +30,7 @@
                 }"
                 v-html="block.content"
               ></div>
+              <!-- eslint-enable -->
             </div>
           </coleus-article>
         </div>
@@ -53,6 +55,11 @@ export default {
     page: null,
     parent: null
   }),
+  computed: {
+    currentPage() {
+      return parseInt(this.page || this.$route.params.page)
+    }
+  },
   mounted() {
     this.$root.$on('content-changed', (page, parent) => {
       this.page = page
@@ -89,11 +96,6 @@ export default {
           'data-cfasync': false
         }
       ]
-    }
-  },
-  computed: {
-    currentPage() {
-      return parseInt(this.page || this.$route.params.page)
     }
   },
   apollo: {

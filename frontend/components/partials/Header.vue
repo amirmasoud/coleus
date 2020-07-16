@@ -30,22 +30,22 @@
           >فهرست</coleus-nav-mobile-menu-link
         >
         <coleus-nav-mobile-search-link
-          :searchOpen="searchOpen"
+          :search-open="searchOpen"
           @click.native="toggleSearch()"
           >جستجو</coleus-nav-mobile-search-link
         >
         <coleus-nav-mobile-link
           :to="{ name: 'books' }"
-          routeName="books"
-          :searchOpen="searchOpen"
+          route-name="books"
+          :search-open="searchOpen"
           svg="coleus-svg-book"
           @click.native="closeSearch()"
           >کتاب‌ها</coleus-nav-mobile-link
         >
         <coleus-nav-mobile-link
           :to="{ name: 'index' }"
-          routeName="index"
-          :searchOpen="searchOpen"
+          route-name="index"
+          :search-open="searchOpen"
           svg="coleus-svg-users"
           @click.native="closeSearch()"
           >شاعران</coleus-nav-mobile-link
