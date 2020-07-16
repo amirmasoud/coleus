@@ -13,6 +13,19 @@
 
 <script>
 export default {
-  props: ['userUsername', 'userName', 'bookTitle']
+  props: {
+    userUsername: {
+      type: String,
+      default: ''
+    },
+    userName: {
+      type: String,
+      default: ''
+    },
+    bookTitle: {
+      type: String,
+      default: ''
+    }
+  }
 }
 </script>

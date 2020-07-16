@@ -10,6 +10,11 @@
 
 <script>
 export default {
-  props: ['searchOpen']
+  props: {
+    searchOpen: {
+      type: Boolean,
+      default: false
+    }
+  }
 }
 </script>
