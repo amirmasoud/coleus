@@ -4,9 +4,9 @@
   >
     <div class="lg:mx-0 flex flex-col-reverse lg:flex-row">
       <div
-        class="lg:min-h-screen w-full px-4 lg:static lg:overflow-visible lg:max-h-full lg:w-3/4"
+        class="lg:min-h-screen w-full px-4 lg:static lg:overflow-visible lg:max-h-full"
       >
-        <div v-if="pages && pages.length">
+        <div v-if="!loading && pages && pages.length">
           <coleus-article class="mt-2">
             <p class="py-2 text-gray-500 font-light">
               <coleus-breadcrumb-element
@@ -34,17 +34,13 @@
             </div>
           </coleus-article>
         </div>
-        <template v-else>
-          <div class="container">
-            <coleus-spinner class="w-8 mx-auto my-4" />
-          </div>
-        </template>
+        <coleus-spinner v-else class="w-8 mx-auto my-4" />
       </div>
-      <div class="w-full lg:w-1/4 order-first lg:order-last">
+      <!-- <div class="w-full lg:w-1/4 order-first lg:order-last">
         <div dir="ltr" class="mx-auto max-w-xs">
           <div id="container-d9c0e25cb60646528947b767ad1840ef"></div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -53,7 +49,8 @@
 export default {
   data: () => ({
     page: null,
-    parent: null
+    parent: null,
+    loading: false
   }),
   computed: {
     currentPage() {
@@ -87,15 +84,15 @@ export default {
           name: 'twitter:description',
           content: description
         }
-      ],
-      script: [
-        {
-          src:
-            '//pl15515995.passtechusa.com/d9c0e25cb60646528947b767ad1840ef/invoke.js',
-          async: 'async',
-          'data-cfasync': false
-        }
       ]
+      // script: [
+      //   {
+      //     src:
+      //       '//pl15515995.passtechusa.com/d9c0e25cb60646528947b767ad1840ef/invoke.js',
+      //     async: 'async',
+      //     'data-cfasync': false
+      //   }
+      // ]
     }
   },
   apollo: {
@@ -124,6 +121,9 @@ export default {
         }
 
         return skip
+      },
+      watchLoading(isLoading, countModifier) {
+        this.loading = isLoading
       }
     }
   }

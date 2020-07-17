@@ -1,11 +1,10 @@
 <template>
   <aside
     class="aside-container block absolute right-0 left-0 bg-gray-100 py-4 lg:mx-0
-  lg:inset-0 z-90 lg:mb-0 lg:sticky lg:pt-0 lg:w-1/4 lg:pb-0
-  lg:overflow-y-scroll lg:py-8"
+  lg:inset-0 z-90 lg:mb-0 lg:sticky lg:w-1/4 md:overflow-y-scroll md:py-8"
   >
     <div
-      class="aside-inner-container overflow-y-auto scrolling-touch lg:text-right lg:h-auto lg:block lg:relative lg:sticky lg:top-24 lg:mt-0"
+      class="aside-inner-container overflow-y-auto scrolling-touch lg:text-right lg:h-auto lg:block lg:sticky lg:top-0 lg:mt-0"
     >
       <nav class="lg:overflow-y-auto lg:block lg:pl-0">
         <div v-if="books && books.length">
