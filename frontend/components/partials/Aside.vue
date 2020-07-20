@@ -1,11 +1,11 @@
 <template>
   <aside
     class="aside-container block absolute right-0 left-0 bg-gray-100 lg:mx-0
-  lg:inset-0 z-90 lg:mb-0 lg:sticky lg:w-1/4 overflow-scroll"
+  lg:inset-0 z-90 lg:mb-0 lg:sticky lg:w-1/4"
   >
     <div
       class="aside-inner-container scrolling-touch lg:text-right
-    lg:h-auto lg:block lg:sticky lg:top-0 lg:mt-0 lg:py-4 overflow-scroll"
+    lg:h-auto lg:block lg:sticky lg:top-0 lg:mt-0 lg:py-4"
     >
       <nav class="lg:block lg:pl-0">
         <div v-if="books && books.length">
@@ -387,16 +387,17 @@ export default {
 }
 
 .aside-container {
-  @screen lg {
+  @screen md {
+    overflow-y: scroll;
     height: calc(100vh - 4rem);
     position: sticky;
     top: 4rem;
   }
 }
 
-.aside-inner-container {
-  @screen lg {
-    height: calc(100vh - 4rem);
-  }
-}
+// .aside-inner-container {
+//   @screen md {
+//     height: calc(100vh - 4rem);
+//   }
+// }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <coleus-container>
-    <div class="lg:flex">
+    <div class="lg:flex lg:relative">
       <coleus-aside
         class="h-screen w-screen lg:block"
         :class="[toggleContents ? 'block' : 'hidden']"
