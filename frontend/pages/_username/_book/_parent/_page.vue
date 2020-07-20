@@ -21,6 +21,9 @@ export default {
     showError: false
   }),
   created() {
+    this.$root.$on('close-menu', () => {
+      this.toggleContents = false
+    })
     this.$root.$on('toggle-contents', () => {
       this.toggleContents = !this.toggleContents
     })

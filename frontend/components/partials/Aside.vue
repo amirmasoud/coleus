@@ -90,6 +90,7 @@
                     <nuxt-link
                       :to="pageLink(subpage.id)"
                       class="block px-3 py-1"
+                      @click.native="$root.$emit('close-menu')"
                     >
                       {{ subpage.title }}
                     </nuxt-link>
