@@ -19,14 +19,17 @@
 }
 
 /* Progressive image */
+.home-profile,
 .home-profile img {
   @apply rounded;
 }
 
+.book-cover,
 .book-cover img {
   @apply border border-gray-200 rounded-lg;
 }
 
+.profile-page-image,
 .profile-page-image img {
   @apply rounded-full;
 }
