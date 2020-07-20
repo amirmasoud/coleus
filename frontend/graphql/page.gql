@@ -2,6 +2,9 @@ query Pages($page: bigint) {
   pages(where: { id: { _eq: $page } }) {
     id
     title
+    page {
+      title
+    }
     blocks(order_by: { order: asc }) {
       id
       content
