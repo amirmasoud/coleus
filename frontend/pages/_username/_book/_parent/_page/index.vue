@@ -13,6 +13,7 @@
                 :user-username="pages[0].book.book_users[0].user.username"
                 :user-name="pages[0].book.book_users[0].user.name"
                 :book-title="pages[0].book.title"
+                :page-parent="pages[0].page.title"
               />
             </p>
             <h1 class="text-4xl mb-10 border-indigo-600">
@@ -36,11 +37,6 @@
         </div>
         <coleus-spinner v-else class="w-8 mx-auto my-4" />
       </div>
-      <!-- <div class="w-full lg:w-1/4 order-first lg:order-last">
-        <div dir="ltr" class="mx-auto max-w-xs">
-          <div id="container-d9c0e25cb60646528947b767ad1840ef"></div>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -85,14 +81,6 @@ export default {
           content: description
         }
       ]
-      // script: [
-      //   {
-      //     src:
-      //       '//pl15515995.passtechusa.com/d9c0e25cb60646528947b767ad1840ef/invoke.js',
-      //     async: 'async',
-      //     'data-cfasync': false
-      //   }
-      // ]
     }
   },
   apollo: {

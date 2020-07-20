@@ -8,6 +8,7 @@
     </template>
     <template v-else>{{ userName }}</template>
     <template v-if="bookTitle"> ← {{ bookTitle }} </template>
+    <template v-if="pageParent"> ← {{ pageParent }} </template>
   </span>
 </template>
 
@@ -23,6 +24,10 @@ export default {
       default: ''
     },
     bookTitle: {
+      type: String,
+      default: ''
+    },
+    pageParent: {
       type: String,
       default: ''
     }
