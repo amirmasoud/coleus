@@ -37,9 +37,8 @@ module.exports = {
   },
   plugins: [],
   purge: {
-    enabled: process.env.NODE_ENV === 'production',
+    enabled: true, // process.env.NODE_ENV === 'production'
     content: [
-      'assets/css/support/**/*.css',
       'components/**/*.vue',
       'layouts/**/*.vue',
       'pages/**/*.vue',
