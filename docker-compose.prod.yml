@@ -176,7 +176,7 @@ services:
       - search
       - storage
       - image
-    image: datadog/agent:{DD_VERSION}
+    image: datadog/agent:${DD_VERSION}
     environment:
       - DD_API_KEY=${DD_API_KEY}
     volumes:
