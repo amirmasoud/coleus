@@ -1,9 +1,10 @@
+/* purgecss start ignore */
 @import 'tailwindcss/base';
+@import 'tailwindcss/components';
 
 @import "./support/fonts";
 @import "./support/fixes";
-
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
 @import "./support/custom";
+/* purgecss end ignore */
+
+@import 'tailwindcss/utilities';
