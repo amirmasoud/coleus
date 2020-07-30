@@ -19,6 +19,7 @@
     ],
     "require": {
         "php": "^7.2.5",
+        "chaseconey/laravel-datadog-helper": "^1.2",
         "coleus/scout-sonic-engine": "*",
         "fideloper/proxy": "^4.0",
         "fruitcake/laravel-cors": "^2.0",
