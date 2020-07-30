@@ -165,6 +165,25 @@ services:
     networks:
       - backend-network
 
+  datadog:
+    links:
+      - frontend
+      - backend
+      - database
+      - graphql
+      - proxy
+      - cache
+      - search
+      - storage
+      - image
+    image: datadog/agent:{DD_VERSION}
+    environment:
+      - DD_API_KEY=${DD_API_KEY}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+
 networks:
   backend-network:
     driver: bridge
