@@ -52,6 +52,10 @@ services:
       - ./deploy/prod/database/data:/var/lib/postgresql/data
     networks:
       - backend-network
+    labels:
+      com.datadoghq.ad.check_names: '["postgres"]'
+      com.datadoghq.ad.init_configs: "[{}]"
+      com.datadoghq.ad.instances: '[{"host": "ws_db", "port": 5432, "username": "$DB_USERNAME", "password": "$DB_PASSWORD"}]'
 
   graphql:
     image: hasura/graphql-engine:v1.2.1.cli-migrations-v2
