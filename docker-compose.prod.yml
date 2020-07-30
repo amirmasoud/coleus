@@ -180,6 +180,10 @@ services:
     container_name: coleus-monitor
     environment:
       - DD_API_KEY=${DD_API_KEY}
+      - DD_APM_NON_LOCAL_TRAFFIC=true
+      - DD_APM_ENABLED=true
+      - DD_TRACE_ANALYTICS_ENABLED=true
+      - DD_LARAVEL_ANALYTICS_ENABLED=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /proc/:/host/proc/:ro
