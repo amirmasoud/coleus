@@ -7,7 +7,7 @@ RUN rm -f /etc/apk/repositories &&\
     apk update && apk add libpq && \
     set -ex && \
     apk add --no-cache --virtual .build-deps zlib-dev libjpeg-turbo-dev libpng-dev libxml2-dev bzip2-dev postgresql-libs postgresql-dev gcc musl-dev make autoconf && \
-    apk add --update --no-cache --allow-untrusted jpegoptim pngquant optipng supervisor nano icu-dev freetype-dev libzip-dev datadog-php-tracer.apk && \
+    apk add --update --no-cache jpegoptim pngquant optipng supervisor nano icu-dev freetype-dev libzip-dev && \
     docker-php-ext-configure opcache --enable-opcache && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
