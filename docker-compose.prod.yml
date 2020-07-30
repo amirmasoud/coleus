@@ -105,6 +105,10 @@ services:
       - ./deploy/prod/redis-data:/data
     networks:
       - backend-network
+    labels:
+      com.datadoghq.ad.check_names: '["redisdb"]'
+      com.datadoghq.ad.init_configs: "[{}]"
+      com.datadoghq.ad.instances: '[{"host": "%%host%%", "port": "6379"}]'
 
   search:
     image: valeriansaliou/sonic:${SONIC_VERSION}
