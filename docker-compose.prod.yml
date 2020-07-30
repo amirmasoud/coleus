@@ -177,6 +177,7 @@ services:
       - storage
       - image
     image: datadog/agent:${DD_VERSION}
+    container_name: coleus-monitor
     environment:
       - DD_API_KEY=${DD_API_KEY}
     volumes:
