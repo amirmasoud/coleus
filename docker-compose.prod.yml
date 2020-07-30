@@ -55,7 +55,7 @@ services:
     labels:
       com.datadoghq.ad.check_names: '["postgres"]'
       com.datadoghq.ad.init_configs: "[{}]"
-      com.datadoghq.ad.instances: '[{"host": "ws_db", "port": 5432, "username": "$DB_USERNAME", "password": "$DB_PASSWORD"}]'
+      com.datadoghq.ad.instances: '[{"host": "%%host%%", "port": 5432, "username": "$DB_USERNAME", "password": "$DB_PASSWORD"}]'
 
   graphql:
     image: hasura/graphql-engine:v1.2.1.cli-migrations-v2
@@ -105,6 +105,10 @@ services:
       - ./deploy/prod/redis-data:/data
     networks:
       - backend-network
+    labels:
+      com.datadoghq.ad.check_names: '["redisdb"]'
+      com.datadoghq.ad.init_configs: "[{}]"
+      com.datadoghq.ad.instances: '[{"host": "%%host%%", "port": "6379"}]'
 
   search:
     image: valeriansaliou/sonic:${SONIC_VERSION}
