@@ -40,6 +40,17 @@ services:
     networks:
       - backend-network
 
+  # backend:
+  #   image: amirmasoud32/laravel-nginx-pgsql-alpine:2.0.6
+  #   container_name: coleus-dev-backend-v2
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - ./backend:/var/www/html
+  #   networks:
+  #     - backend-network
+
   database:
     image: postgres:${PGSQL_VERSION}
     container_name: coleus-dev-database
@@ -78,7 +89,8 @@ services:
       - 443:443
     restart: unless-stopped
     volumes:
-      - ./backend:/var/www/backend
+      # - ./backend:/var/www/backend
+      - ./deploy/dev/nginx/www.conf:/usr/local/etc/php-fpm.d/www.conf
       - ./deploy/dev/nginx/conf.d/:/etc/nginx/conf.d/
       - ./deploy/dev/nginx/log/:/var/log/nginx/
     depends_on:

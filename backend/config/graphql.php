@@ -42,7 +42,7 @@ return [
     //     'mutation' => '\Rebing\GraphQL\GraphQLController@mutation'
     // ]
     //
-    'controllers' => \Rebing\GraphQL\GraphQLController::class . '@query',
+    'controllers' => \Rebing\GraphQL\GraphQLController::class.'@query',
 
     // Any middleware for the graphql route group
     'middleware' => [],
@@ -101,17 +101,12 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                'SearchUsers' => App\GraphQL\Queries\SearchUsersQuery::class,
-                'SearchBooks' => App\GraphQL\Queries\SearchBooksQuery::class,
-                'SearchPages' => App\GraphQL\Queries\SearchPagesQuery::class,
-                'SearchBlocks' => App\GraphQL\Queries\SearchBlocksQuery::class,
-                // 'search' => App\GraphQL\Queries\SearchResultQuery::class,
                 // 'example_query' => ExampleQuery::class,
             ],
             'mutation' => [
                 // 'example_mutation'  => ExampleMutation::class,
             ],
-            'middleware' => [],
+            'middleware' => ['pepper'],
             'method' => ['get', 'post'],
         ],
     ],
@@ -126,12 +121,6 @@ return [
     // ]
     //
     'types' => [
-        'user' => App\GraphQL\Types\UserType::class,
-        'book' => App\GraphQL\Types\BookType::class,
-        'page' => App\GraphQL\Types\PageType::class,
-        'block' => App\GraphQL\Types\BlockType::class,
-        // 'search' => App\GraphQL\Types\SearchType::class,
-        // 'SearchResult' => App\GraphQL\Queries\SearchResultQuery::class,
         // 'example'           => ExampleType::class,
         // 'relation_example'  => ExampleRelationType::class,
         // \Rebing\GraphQL\Support\UploadType::class,
@@ -183,13 +172,13 @@ return [
     /*
      * Config for GraphiQL (see (https://github.com/graphql/graphiql).
      */
-    // 'graphiql' => [
-    //     'prefix' => '/graphiql',
-    //     'controller' => \Rebing\GraphQL\GraphQLController::class.'@graphiql',
-    //     'middleware' => [],
-    //     'view' => 'graphql::graphiql',
-    //     'display' => env('ENABLE_GRAPHIQL', true),
-    // ],
+    'graphiql' => [
+        'prefix' => '/graphiql',
+        'controller' => \Rebing\GraphQL\GraphQLController::class.'@graphiql',
+        'middleware' => [],
+        'view' => 'graphql::graphiql',
+        'display' => env('ENABLE_GRAPHIQL', true),
+    ],
 
     /*
      * Overrides the default field resolver
@@ -211,9 +200,7 @@ return [
     /*
      * Any headers that will be added to the response returned by the default controller
      */
-    'headers' => [
-        'Cache-Control' => 'no-cache'
-    ],
+    'headers' => [],
 
     /*
      * Any JSON encoding options when returning a response from the default controller
