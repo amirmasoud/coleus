@@ -1,5 +1,7 @@
-#   Coleus
+# Coleus
 
-<img src="screenshots/logo.png" width="128" style="display: block; margin: 0 auto;" />
+<div style="text-align:center">
+    <img src="screenshots/logo.png" width="128" />
+</div>
 
 Frontend application
