@@ -4,4 +4,3 @@
     <img src="screenshots/logo.png" width="128" />
 </p>
 
-Frontend application
