@@ -1,5 +1,5 @@
-# [WIP] Coleus
+#   Coleus
 
-![Coleus Logo](screenshots/logo.png)
+<img src="screenshots/logo.png" width="128" style="display: block; margin: 0 auto;" />
 
-[wip] Frontend application of the coleus.app
+Frontend application
