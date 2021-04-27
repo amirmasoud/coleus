@@ -1,7 +1,7 @@
 # Coleus
 
-<div style="text-align:center">
+<p align="center">
     <img src="screenshots/logo.png" width="128" />
-</div>
+</p>
 
 Frontend application
